@@ -1,0 +1,39 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+fld-client/dist
+fld-client/tmp
+fld-client/out-tsc
+
+# dependencies
+fld-client/node_modules
+
+# IDEs and editors
+fld-client/.idea
+fld-client/.project
+fld-client/.classpath
+fld-client/.c9/
+fld-client/*.launch
+fld-client/.settings/
+fld-client/*.sublime-workspace
+
+# IDE - VSCode
+fld-client/.vscode/*
+fld-client/!.vscode/settings.json
+fld-client/!.vscode/tasks.json
+fld-client/!.vscode/launch.json
+fld-client/!.vscode/extensions.json
+
+# misc
+fld-client/.sass-cache
+fld-client/connect.lock
+fld-client/coverage
+fld-client/libpeerconnection.log
+fld-client/npm-debug.log
+fld-client/yarn-error.log
+fld-client/testem.log
+fld-client/typings
+
+# System Files
+fld-client/.DS_Store
+fld-client/Thumbs.db
