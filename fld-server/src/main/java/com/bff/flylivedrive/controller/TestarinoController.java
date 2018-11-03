@@ -18,6 +18,18 @@ public class TestarinoController {
 		return test;
 	}
 	
+	@RequestMapping("/jove")
+	public ArrayList<String> jove() {
+		System.out.println("testarino");
+		ArrayList<String> test = new ArrayList<>();
+		test.add("Jove");
+		test.add("debil");
+		test.add("veliki");
+		return test;
+	}
+	
+	
+	
 	@RequestMapping("/")
 	public String ajmo() {
 		System.out.println("ajmo");

@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
 import { HttpClientModule } from '@angular/common/http';
+import { JoveComponent } from './jove/jove.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    TestComponent,
+    JoveComponent
   ],
   imports: [
     BrowserModule,
