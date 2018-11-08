@@ -23,7 +23,7 @@ public class TestarinoController {
 		System.out.println("testarino");
 		ArrayList<String> test = new ArrayList<>();
 		test.add("Jove");
-		test.add("debil");
+		test.add("car");
 		test.add("veliki");
 		return test;
 	}
