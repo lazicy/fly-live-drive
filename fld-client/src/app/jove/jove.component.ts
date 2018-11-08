@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class JoveComponent implements OnInit {
   jove: any;
   broj: number;
+  gate: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +21,10 @@ export class JoveComponent implements OnInit {
 
   getData() {
     return this.http.get("http://localhost:8080/jove").subscribe(data => this.jove = data);
+  }
+
+  onShow() {
+    this.gate = true;
   }
 
 }
