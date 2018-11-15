@@ -1,4 +1,44 @@
-<p *ngFor="let d of data">
-  test works: {{ d }}
-</p>
- 
+<button type="button" class="btn btn-primary" (click)="onToggleUsers()">Show users</button>
+
+<div *ngIf="showUsers">
+
+  <p *ngFor="let u of users">
+    {{ u.username }} ( {{u.firstname}} {{ u.lastname}} ), {{ u.email }}
+  </p>
+  
+</div>
+
+<form (ngSubmit)="onSubmitUser(f)" #f="ngForm">
+  <div class="row">
+    <div class="col-md-3">
+      
+      <div class="form-group">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" ngModel class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="firstname">Firstname: </label>
+        <input type="text" id="firstname" name="firstname" ngModel class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Lastname: </label>
+        <input type="text" id="lastname" name="lastname" ngModel class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email" ngModel class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save to database</button>
+        <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+      </div>
+          
+    
+    </div>
+  </div>
+
+</form>
