@@ -48,6 +48,26 @@ export class TestComponent implements OnInit {
 
 	}
 
+	onSubmitAvio(form: NgForm) {
+		const name = form.value.name;
+		const description = form.value.description;
+
+		let avio = {
+			name: name,
+			description: description
+
+		}
+
+		console.log(avio);
+
+		this.saveAvio(avio);
+		form.reset();
+
+
+	}
+
+
+
 	onReset(form: NgForm) {
 		form.reset();
 	}
@@ -59,6 +79,16 @@ export class TestComponent implements OnInit {
 					 console.log(success);
 					 this.users.push(user);
 
+				},
+				error => console.log(error)
+			);
+	}
+
+	saveAvio(avio) {
+		this.http.post("http://localhost:4200/api/avio", avio)
+			.subscribe(
+				(success) => {
+					 console.log(success);
 				},
 				error => console.log(error)
 			);
