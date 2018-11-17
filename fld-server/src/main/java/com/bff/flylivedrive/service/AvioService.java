@@ -26,5 +26,7 @@ public class AvioService {
 	public Avio save(Avio avio) {
 		return avioRepo.save(avio);
 	}
+	
+	
 }
 	
