@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AvioService } from './avio.service';
+import { AvioService } from '../services/avio.service';
 
 @Component({
   selector: 'app-avio',

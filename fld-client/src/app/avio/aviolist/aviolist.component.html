@@ -1,4 +1,8 @@
-<ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let avio of avioList">{{ avio.name }} | {{ avio.description }}</li>
+<img appLoading *ngIf="!avioList">
+
+<ul class="list-group list-group-flush" *ngIf="avioList">
+    <li class="list-group-item" *ngFor="let avio of avioList"><a [routerLink]="[avio.id]">{{ avio.name }}</a> | {{ avio.description }}</li>
     
   </ul>
+
+<h3 *ngIf="emptyAvioList">There is no airline companies in the system.</h3>

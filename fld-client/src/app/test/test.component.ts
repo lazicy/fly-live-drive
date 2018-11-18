@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { AvioService } from '../services/avio.service';
+import { FlightService } from '../services/flight.service';
 
 @Component({
   selector: 'app-test',
@@ -9,20 +11,27 @@ import { NgForm } from '@angular/forms';
 })
 export class TestComponent implements OnInit {
 	public message: string;
-	data: any;
 	users: any;
+	avioList: any;
 	showUsers: boolean = false;
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private avioService: AvioService, private flightService: FlightService) { }
 
 	ngOnInit() {
-		this.getData();
 		this.getUsers();
-		setTimeout(() => console.log(this.data), 3000);
+		
+		this.avioService.getAvios()
+			.subscribe(
+				(data) => { 
+					this.avioList = data;
+					if (this.avioList.length === 0) {
+						this.avioList = null;
+					}
+				},
+				(error) => console.error(error)
+			);
 	}
 
-	getData() {
-		return this.http.get("http://localhost:4200/api/testarino").subscribe(data => this.data = data);
-	}
+
 
 	getUsers() {
 		return this.http.get("http://localhost:4200/api/users/all").subscribe(data => this.users = data);
@@ -64,6 +73,27 @@ export class TestComponent implements OnInit {
 		form.reset();
 
 
+	}
+
+	onSubmitFlight(form: NgForm) {
+		const avioId = form.value.avioId;
+		const departureDate = form.value.departureDate;
+		const landingDate = form.value.landingDate;
+		const price = form.value.price;
+
+		let flight = {
+			avioDTO: this.avioList[avioId-1],
+			departureDate: departureDate,
+			landingDate: landingDate,
+			price: price
+		}
+
+		console.log(flight);
+
+		this.flightService.saveFlight(flight).subscribe(
+			response => console.log(response),
+			error => console.log(error)
+		);
 	}
 
 

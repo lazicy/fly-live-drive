@@ -1,0 +1,16 @@
+<img appLoading *ngIf="!avio">
+
+<div *ngIf="avio">
+  <h2>{{ avio.name }}</h2>
+  <p>{{ avio.description }}</p>
+  
+</div>
+
+
+<button type="button" class="btn btn-primary" (click)="onShowFlights()">Show flights</button>
+<div *ngIf="showFlights">
+  <img appLoading *ngIf="!avio.flights">
+  <span *ngIf="avio.flights" >
+    <p *ngFor="let f of avio.flights">{{ f.id }}, {{ f.departureDate }}, {{ f.landingDate }}, {{ f.price }}</p>
+  </span>
+</div>

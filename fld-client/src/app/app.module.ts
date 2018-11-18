@@ -9,7 +9,11 @@ import { AvioComponent } from './avio/avio.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { AviolistComponent } from './avio/aviolist/aviolist.component';
-import { AvioService } from './avio/avio.service';
+import { AvioService } from './services/avio.service';
+import { FlightService } from './services/flight.service';
+
+import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,9 @@ import { AvioService } from './avio/avio.service';
     TestComponent,
     AvioComponent,
     HeaderComponent,
-    AviolistComponent
+    AviolistComponent,
+    AvioProfileComponent,
+    LoadingDirective
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,7 @@ import { AvioService } from './avio/avio.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService],
+  providers: [AvioService, FlightService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
