@@ -1,22 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
 import { HttpClientModule } from '@angular/common/http';
-import { JoveComponent } from './jove/jove.component';
+import { AvioComponent } from './avio/avio.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
+import { AviolistComponent } from './avio/aviolist/aviolist.component';
+import { AvioService } from './services/avio.service';
+import { FlightService } from './services/flight.service';
+
+import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    JoveComponent
+    AvioComponent,
+    HeaderComponent,
+    AviolistComponent,
+    AvioProfileComponent,
+    LoadingDirective
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AvioService, FlightService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
