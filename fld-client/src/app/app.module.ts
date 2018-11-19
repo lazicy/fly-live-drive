@@ -14,6 +14,7 @@ import { FlightService } from './services/flight.service';
 
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
+import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoadingDirective } from './directives/loading.directive';
     HeaderComponent,
     AviolistComponent,
     AvioProfileComponent,
-    LoadingDirective
+    LoadingDirective,
+    LazaSmaracComponent
   ],
   imports: [
     BrowserModule,
