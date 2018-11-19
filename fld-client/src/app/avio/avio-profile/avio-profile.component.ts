@@ -59,6 +59,8 @@ export class AvioProfileComponent implements OnInit {
 				this.avio.flights = data;
 				if (this.avio.flights.length === 0) {
 					this.emptyFlightList = true;
+				} else {
+					this.emptyFlightList = false;
 				}
 			},
 			(error) => console.log(error)

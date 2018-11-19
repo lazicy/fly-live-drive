@@ -13,4 +13,5 @@
   <span *ngIf="avio.flights" >
     <p *ngFor="let f of avio.flights">{{ f.id }}, {{ f.departureDate }}, {{ f.landingDate }}, {{ f.price }}</p>
   </span>
+  <h5 *ngIf="emptyFlightList">There is no flights for this airline company.</h5>
 </div>
