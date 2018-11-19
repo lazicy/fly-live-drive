@@ -15,8 +15,8 @@ public class AvioService {
 	@Autowired
 	AvioRepository avioRepo;
 	
-	public Avio findById(Long id) {
-		return avioRepo.getOne(id);
+	public Avio findOneById(Long id) {
+		return avioRepo.findOneById(id);
 	}
 	
 	public List<Avio> findAll() {

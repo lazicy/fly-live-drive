@@ -1,10 +1,16 @@
 package com.bff.flylivedrive.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Avio {
@@ -19,6 +25,9 @@ public class Avio {
 	
 	@Column(name = "description", nullable = true)
 	private String description;
+	
+	@OneToMany(mappedBy = "avio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Flight> flights = new HashSet<Flight>();
 
 	public Long getId() {
 		return id;
@@ -42,6 +51,14 @@ public class Avio {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(Set<Flight> flights) {
+		this.flights = flights;
 	}
 
 	@Override
