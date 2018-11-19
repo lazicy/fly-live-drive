@@ -8,7 +8,7 @@
   
 </div>
 
-<form (ngSubmit)="onSubmitUser(f)" #f="ngForm">
+<form (ngSubmit)="onSubmitUser(f)" #f="ngForm" *ngIf="false">
   <div class="row">
     <div class="col-md-3">
       
@@ -45,29 +45,66 @@
 
 </form>
 
-<form (ngSubmit)="onSubmitAvio(f1)" #f1="ngForm">
+
     <div class="row">
       <div class="col-xs-3">
-        
-        <h2>Insert Avio Company:</h2>
+        <form (ngSubmit)="onSubmitAvio(f1)" #f1="ngForm">
+          <h2>Insert Avio Company:</h2>
 
-        <div class="form-group">
-          <label for="name">Name: </label>
-          <input type="text" id="name" name="name" ngModel class="form-control" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="description">Promo description: </label>
-          <input type="text" id="description" name="description" ngModel class="form-control" required>
-        </div>
-  
-        <div class="form-group">
-          <button type="submit" class="btn btn-success" [disabled]="!f1.valid">Save to database</button>
-          <button type="button" (click)="onReset(f1)" class="btn btn-danger">Reset</button>
-        </div>
-            
+          <div class="form-group">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" ngModel class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Promo description: </label>
+            <input type="text" id="description" name="description" ngModel class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-success" [disabled]="!f1.valid">Save to database</button>
+            <button type="button" (click)="onReset(f1)" class="btn btn-danger">Reset</button>
+          </div>
+        </form>   
       
+      </div>
+
+
+      <div class="col-xs-3">
+        <form (ngSubmit)="onSubmitFlight(f2)" #f2="ngForm" *ngIf="avioList">
+          <h4>Insert Flight:</h4>
+
+          <div class="form-group">
+            <label for="avioId">Airline company:</label>
+            <select class="form-control"  id="avioId"
+                    required
+                   name="avioId" ngModel>
+              <option *ngFor="let a of avioList" [value]="a.id">{{a.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="departureDate">Departure date and time:</label>
+            <input type="datetime-local" id="departureDate" name="departureDate" class="form-control" ngModel required>
+          </div>
+
+          
+          <div class="form-group">
+            <label for="landingDate">Landing date and time:</label>
+            <input type="datetime-local" id="landingDate" name="landingDate" class="form-control" ngModel required>
+          </div>
+
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" class="form-control" ngModel required>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-success" [disabled]="!f2.valid">Save to database</button>
+            <button type="button" (click)="onReset(f2)" class="btn btn-danger">Reset</button>
+          </div>
+        </form>
       </div>
     </div>
   
-  </form>
+  

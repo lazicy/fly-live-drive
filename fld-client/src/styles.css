@@ -1,3 +1,15 @@
 .btn {
     margin-right: 5px;
 }
+
+[appLoading] {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  
+    transform: translate(-50%, -50%);
+}
+
+div[class*="col-"] {
+    margin-right: 30px;
+}
