@@ -15,6 +15,8 @@ import { FlightService } from './services/flight.service';
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
+import { HotelComponent } from './hotel/hotel.component';
+import { HotelService } from './services/hotel.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
     AviolistComponent,
     AvioProfileComponent,
     LoadingDirective,
-    LazaSmaracComponent
+    LazaSmaracComponent,
+    HotelComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService],
+  providers: [AvioService, FlightService, HotelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { AvioComponent } from './avio/avio.component';
 import { TestComponent } from './test/test.component';
 import { AviolistComponent } from './avio/aviolist/aviolist.component';
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
-import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
+import { HotelComponent } from './hotel/hotel.component';
 
 
 const appRoutes: Routes = [
@@ -14,7 +14,7 @@ const appRoutes: Routes = [
 		{ path: '', component: AviolistComponent},
 		{ path: ':id', component: AvioProfileComponent}
 	]},
-	{ path: 'hotels', component: LazaSmaracComponent} //laza komponenta
+	{ path: 'hotel', component: HotelComponent}
 
 ];
 
