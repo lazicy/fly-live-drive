@@ -17,6 +17,8 @@ import { LoadingDirective } from './directives/loading.directive';
 import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
+import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
+import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HotelService } from './services/hotel.service';
     AvioProfileComponent,
     LoadingDirective,
     LazaSmaracComponent,
-    HotelComponent
+    HotelComponent,
+    AddHotelComponent,
+    HotelListComponent
   ],
   imports: [
     BrowserModule,
