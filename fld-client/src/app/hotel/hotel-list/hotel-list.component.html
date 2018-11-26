@@ -1,8 +1,21 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-left" alt="Hotel image">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a class="btn btn-primary">Go somewhere</a>
+<section id="section-tiles" *ngIf="hotelList">
+  <div class="container">
+    <div class="row" *ngFor="let hotel of hotelList">
+        <div class="tile">
+            <div class="card-inside">
+              <div class="left">
+                  <img class="image-card" alt="Hotel image" src="/src/img/nature.jpg" width="300px" height="252px">
+              </div>
+              <div class="right">
+                  <h4 class="hotel-name">{{hotel.name}}</h4>
+                  <h6 class="hotel-address">{{hotel.address}}</h6>
+              <p class="card-text">{{hotel.description}}<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam esse fugit repudiandae nemo tempore, aperiam eius? Esse, deserunt porro laudantium vitae voluptas ratione nobis error! Repellat, quisquam! Recusandae, sunt fugit.</p>
+              <a class="btn btn-primary">Go somewhere</a>
+              </div>      
+            </div>
+          </div>
     </div>
   </div>
+</section>
+
+<h3 *ngIf="emptyHotelList">There are no hotels in the system.</h3>

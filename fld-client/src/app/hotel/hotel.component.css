@@ -1,0 +1,7 @@
+#section-parallax {
+    text-align: center;
+    background: url(/src/img/nature.jpg) bottom repeat fixed;
+    padding: 140px 0;
+    background-size: cover;
+    color: white;
+}
