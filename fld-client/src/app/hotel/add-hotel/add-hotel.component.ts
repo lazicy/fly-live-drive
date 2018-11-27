@@ -19,11 +19,13 @@ export class AddHotelComponent implements OnInit {
     const name = form.value.name;
     const address = form.value.address;
     const description = form.value.description;
+    const imageURL = form.value.imageURL;
 
     let htl = {
       name: name,
       address: address,
-      description: description
+      description: description,
+      imageURL: imageURL
     }
 
     console.log(htl);

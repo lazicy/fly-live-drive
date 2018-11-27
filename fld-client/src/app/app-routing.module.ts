@@ -17,8 +17,8 @@ const appRoutes: Routes = [
 		{ path: ':id', component: AvioProfileComponent}
 	]},
 	{ path: 'hotel', component: HotelComponent, children: [
-		{path: '', component: AddHotelComponent},
-		{path: 'list', component: HotelListComponent}
+		{path: 'list', component: HotelListComponent},
+		{path: 'admin', component: AddHotelComponent}
 	]}
 
 ];

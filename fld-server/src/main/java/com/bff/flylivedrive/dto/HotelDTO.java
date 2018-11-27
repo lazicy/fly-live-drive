@@ -8,21 +8,23 @@ public class HotelDTO {
 	private String name;
 	private String address;
 	private String description;
+	private String imageURL;
 	
 	public HotelDTO() {
 		
 	}
 	
 	public HotelDTO(Hotel h) {
-		this(h.getId(), h.getName(), h.getAddress(), h.getDescription());
+		this(h.getId(), h.getName(), h.getAddress(), h.getDescription(), h.getImageURL());
 	}
 	
-	public HotelDTO(Long id, String name, String address, String description) {
+	public HotelDTO(Long id, String name, String address, String description, String imageURL) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.description = description;
+		this.imageURL = imageURL;
 	}
 
 	public Long getId() {
@@ -55,6 +57,14 @@ public class HotelDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 	
 }
