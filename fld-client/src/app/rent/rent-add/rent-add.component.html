@@ -1,3 +1,23 @@
-<p>
-  rent-add works!
+<form (ngSubmit)="onSubmitRent(f1)" #f1="ngForm">
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" ngModel class="form-control" placeholder="Enter name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="adress">Adress:</label>
+    <input type="text" ngModel class="form-control" placeholder="Adress" name="adress" required>
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" ngModel class="form-control" name="description" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<button type="button" class="btn btn-primary" (click)="onToggleServices()" >Show</button>
+
+<div *ngIf="show">
+<p *ngFor="let s of services">
+  {{ s.name }},  {{s.adress}}, {{ s.description}} 
 </p>
+</div>

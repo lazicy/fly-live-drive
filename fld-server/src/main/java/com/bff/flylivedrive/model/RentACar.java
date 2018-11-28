@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.bff.flylivedrive.dto.RentDTO;
+
 @Entity
 public class RentACar {
 	
@@ -29,7 +31,7 @@ public class RentACar {
 	String description;
 	
 	//jedan servis sadrzi vise filijala, bidirekciona veza 1:n
-	@OneToMany(mappedBy = "rentacar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "servis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
 	
 	public Long getId() {
