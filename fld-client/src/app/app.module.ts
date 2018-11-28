@@ -32,7 +32,7 @@ import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
     LazaSmaracComponent,
     HotelComponent,
     AddHotelComponent,
-    HotelListComponent
+    HotelListComponent,
   ],
   imports: [
     BrowserModule,
