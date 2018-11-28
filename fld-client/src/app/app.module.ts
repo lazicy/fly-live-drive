@@ -14,6 +14,11 @@ import { FlightService } from './services/flight.service';
 
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
+import { LazaSmaracComponent } from './laza-smarac/laza-smarac.component';
+import { HotelComponent } from './hotel/hotel.component';
+import { HotelService } from './services/hotel.service';
+import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
+import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,11 @@ import { LoadingDirective } from './directives/loading.directive';
     HeaderComponent,
     AviolistComponent,
     AvioProfileComponent,
-    LoadingDirective
+    LoadingDirective,
+    LazaSmaracComponent,
+    HotelComponent,
+    AddHotelComponent,
+    HotelListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,7 @@ import { LoadingDirective } from './directives/loading.directive';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService],
+  providers: [AvioService, FlightService, HotelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
