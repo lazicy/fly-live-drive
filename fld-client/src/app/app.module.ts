@@ -14,6 +14,7 @@ import { FlightService } from './services/flight.service';
 
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
+import { RentAddComponent } from './rent/rent-add/rent-add.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoadingDirective } from './directives/loading.directive';
     HeaderComponent,
     AviolistComponent,
     AvioProfileComponent,
-    LoadingDirective
+    LoadingDirective,
+    RentAddComponent
   ],
   imports: [
     BrowserModule,
