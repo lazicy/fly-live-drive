@@ -13,3 +13,30 @@
 #asd a {
     margin-right: 20px;
 }
+
+.unos {
+    padding: 7px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#search {
+    width: 300px;
+}
+
+#check-in, #check-out {
+    width: 170px;
+}
+
+#sobe, #br-gostiju {
+    width: 100px;
+}
+
+#pretrazi {
+    float:right;
+    margin: 25px 140px 0px 0px;
+}
+.center {
+    margin: 40px 0px;
+    text-align: center;
+}
