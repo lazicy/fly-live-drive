@@ -1,10 +1,16 @@
 package com.bff.flylivedrive.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class RentACar {
@@ -21,9 +27,21 @@ public class RentACar {
 	
 	@Column(name = "description", nullable = true)
 	String description;
-
+	
+	//jedan servis sadrzi vise filijala, bidirekciona veza 1:n
+	@OneToMany(mappedBy = "rentacar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Filijala> filijale = new HashSet<Filijala>();
+	
 	public Long getId() {
 		return id;
+	}
+
+	public Set<Filijala> getFilijale() {
+		return filijale;
+	}
+
+	public void setFilijale(Set<Filijala> filijale) {
+		this.filijale = filijale;
 	}
 
 	public void setId(Long id) {

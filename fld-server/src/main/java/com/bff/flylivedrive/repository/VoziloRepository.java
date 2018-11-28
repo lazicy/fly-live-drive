@@ -2,10 +2,11 @@ package com.bff.flylivedrive.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.model.Vozilo;
 
-public interface RentRepository extends JpaRepository<RentACar, Long> {
+public interface VoziloRepository extends JpaRepository<Vozilo, Long> {
 	
-	RentACar findOneById(Long id);
+	Vozilo findOneById(Long id);
+	
 }

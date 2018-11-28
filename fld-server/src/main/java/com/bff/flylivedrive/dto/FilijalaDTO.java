@@ -1,27 +1,27 @@
 package com.bff.flylivedrive.dto;
 
-import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.model.Filijala;
 
-public class RentDTO {
+public class FilijalaDTO {
 	
-	Long id;
-	String name;
-	String adress;
-	String description;
+	private Long id;
+	private String name;
+	private String adress;
+	private String description;
 	
-	public RentDTO() {
+	public FilijalaDTO() {
 		
 	}
-	
-	public RentDTO(Long id, String name, String adress, String description) {
+
+	public FilijalaDTO(Long id, String name, String adress, String description) {
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
 	}
 	
-	public RentDTO(RentACar service) {
-		this(service.getId(), service.getName(), service.getAdress(), service.getDescription());
+	public FilijalaDTO(Filijala filijala) {
+		this(filijala.getId(), filijala.getName(), filijala.getAdress(), filijala.getDescription());
 	}
 
 	public Long getId() {
@@ -55,6 +55,4 @@ public class RentDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 }

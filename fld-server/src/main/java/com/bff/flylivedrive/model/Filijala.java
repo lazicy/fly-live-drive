@@ -10,25 +10,35 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Avio {
+public class Filijala {
 	
-	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@Column(name = "name", nullable = false)
-	private String name;
+	String name;
+	
+
+	@Column(name = "adress", nullable = false)
+	String adress;
 	
 	@Column(name = "description", nullable = true)
-	private String description;
+	String description;
 	
-	@OneToMany(mappedBy = "avio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Flight> flights = new HashSet<Flight>();
-
+	//filijala sadrzi lisu vozila, moze ih biti n
+	@OneToMany(mappedBy = "filijala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Vozilo> vozila = new HashSet<Vozilo>();
+	
+	
+	//jedna filijala vezana je samo za jedan servis
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private RentACar servis;
+	
 	public Long getId() {
 		return id;
 	}
@@ -45,6 +55,14 @@ public class Avio {
 		this.name = name;
 	}
 
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -53,23 +71,13 @@ public class Avio {
 		this.description = description;
 	}
 
-	public Set<Flight> getFlights() {
-		return flights;
+	public RentACar getServis() {
+		return servis;
 	}
 
-	public void setFlights(Set<Flight> flights) {
-		this.flights = flights;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+	public void setServis(RentACar servis) {
+		this.servis = servis;
+	}	 
 	
-
+	
 }
