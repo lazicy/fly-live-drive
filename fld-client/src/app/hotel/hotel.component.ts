@@ -7,10 +7,12 @@ import { HotelService } from '../services/hotel.service';
   styleUrls: ['./hotel.component.css']
 })
 export class HotelComponent implements OnInit {
-
+  today: any;
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
+    this.today = new Date().toISOString().split('T')[0];
+    
   }
 
 }

@@ -8,6 +8,7 @@ import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
+import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 
 
 const appRoutes: Routes = [
@@ -19,7 +20,9 @@ const appRoutes: Routes = [
 	]},
 	{ path: 'rent', component: RentAddComponent},
 	{ path: 'hotel', component: HotelComponent, children: [
-		{path: 'list', component: HotelListComponent},
+		{path: 'list', component: HotelListComponent, children: [
+			{path: ':id', component: HotelPageComponent}
+		]},
 		{path: 'admin', component: AddHotelComponent}
 	]}
 
