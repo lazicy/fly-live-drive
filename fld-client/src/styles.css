@@ -13,3 +13,20 @@
 div[class*="col-"] {
     margin-right: 30px;
 }
+
+
+/* kada zelite da stavite custom image samo u svom delu stavljate 
+.section-parallax {
+    background: url(/src/img/vasaslika.jpg) bottom repeat fixed;
+}
+*/
+.section-parallax {
+    text-align: center;
+    background: url(/src/img/nature.jpg) bottom repeat fixed;
+    padding: 140px 0;
+    background-size: cover;
+    color: white;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
