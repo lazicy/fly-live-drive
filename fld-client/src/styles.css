@@ -6,12 +6,16 @@
     position: fixed;
     top: 50%;
     left: 50%;
-  
+
     transform: translate(-50%, -50%);
 }
 
 div[class*="col-"] {
     margin-right: 30px;
+}
+
+body {
+    background-color: #f3f2f5;
 }
 
 
@@ -22,8 +26,8 @@ div[class*="col-"] {
 */
 .section-parallax {
     text-align: center;
-    background: url(/src/img/nature.jpg) bottom repeat fixed;
-    padding: 140px 0;
+    background: url(/src/img/nature.jpg) center repeat fixed;
+    padding: 120px 0;
     background-size: cover;
     color: white;
     position: absolute;

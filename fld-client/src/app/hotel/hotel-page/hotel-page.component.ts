@@ -12,6 +12,7 @@ export class HotelPageComponent implements OnInit {
   id: number;
 
   constructor(private hotelService: HotelService, private route: ActivatedRoute, private router: Router) {
+    
     this.route.params.subscribe(
         (params: Params) => {
           this.id = +params['id'];

@@ -1,45 +1,46 @@
-<div class="container">
-  <div class="row" id="asd">
-    <a routerLinkActive="active" routerLink="/hotel/list">Hoteli</a>
-    <a routerLinkActive="active" routerLink="/hotel/admin">Admin</a>
-  </div>
-</div>
-
 <section class="section-parallax" data-type="background" data-speed="4">
     <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <!--<label for="search">Find hotel deals</label>-->
-          <input type="text" id="search" placeholder="Enter location or hotel name" class="unos">
-          <!--<label for="check-in">Check-in</label>-->
-          <input type="date" id="check-in" name="check-in" class="unos" [(ngModel)]="today">
-          <!--<label for="check-out">Check-out</label>-->
-          <input type="date" id="check-out" name="check-in" class="unos" [(ngModel)]="today">
-          <!--<label for="br-gostiju">Guests</label>-->
-          <select class="unos" id="br-gostiju" name="gosti">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-          <!--<label for="soba">Rooms</label>-->
-          <select class="unos" id="soba" name="sobe">
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+      <div class="row" class="center">
+        <div class="divs" style="margin-left: 70px;">
+            <label for="search" class="lbl">Find hotel deals</label>
+            <input type="text" id="search" placeholder="Enter location or hotel name" class="unos">
+        </div>
+        <div class="divs">
+            <label for="check-in" class="lbl">Check-in</label>
+            <input type="date" id="check-in" name="check-in" class="unos" [ngModel]="today">
+        </div>
+        <div class="divs">
+            <label for="check-out" class="lbl">Check-out</label>
+            <input type="date" id="check-out" name="check-in" class="unos" [ngModel]="today">
+        </div>
+        <div class="divs">
+            <label for="br-gostiju" class="lbl">Guests</label>
+            <select class="unos" id="br-gostiju" name="gosti">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+        </div>
+        <div class="divs">
+            <label for="soba" class="lbl">Rooms</label>
+            <select class="unos" id="soba" name="soba">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
         </div>
       </div>
       <div class="row" id="pretrazi">
-        <button class="btn btn-primary">Search hotels</button>
+        <button class="btn btn-primary" [routerLink]="['/hotel/list']">Search hotels</button>
       </div>
     </div>
   </section>
@@ -50,9 +51,3 @@
       <h6>View our hand-picked hotel destinations</h6>
     </div>
   </div>
-
-<div class="container">
-  <div class="row">
-      <router-outlet></router-outlet>
-  </div>
-</div>

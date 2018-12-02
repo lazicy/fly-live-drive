@@ -20,11 +20,11 @@ const appRoutes: Routes = [
 	]},
 	{ path: 'rent', component: RentAddComponent},
 	{ path: 'hotel', component: HotelComponent, children: [
-		{path: 'list', component: HotelListComponent, children: [
-			{path: ':id', component: HotelPageComponent}
-		]},
-		{path: 'admin', component: AddHotelComponent}
-	]}
+		{ path: 'list', component: HotelListComponent, children: [
+			{ path: ':id', component: HotelPageComponent}
+		]}
+	]},
+	{path: 'add', component: AddHotelComponent}
 
 ];
 

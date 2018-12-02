@@ -25,4 +25,8 @@ public class HotelService {
 	public Hotel save (Hotel hotel) {
 		return hotelRepo.save(hotel);
 	}
+	
+	public void remove(Long id) {
+		hotelRepo.deleteById(id);
+	}
 }
