@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from '../services/hotel.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hotel',
@@ -7,15 +8,10 @@ import { HotelService } from '../services/hotel.service';
   styleUrls: ['./hotel.component.css']
 })
 export class HotelComponent implements OnInit {
-  today: any;
-  constructor(private hotelService: HotelService) { }
+  
+  constructor() { }
 
   ngOnInit() {
-    this.today = new Date().toISOString().split('T')[0];
-    
-  }
-
-  onSearchHotels() {
     
   }
 

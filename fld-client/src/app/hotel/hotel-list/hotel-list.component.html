@@ -2,17 +2,17 @@
     <div class="row" *ngFor="let hotel of hotelList">
         <div class="tile">
             <div class="card-inside">
-                <div class="left">
+                <div class="left-part-card">
                     <img class="image-card" alt="Hotel image" src="{{hotel.imageURL}}" width="300px" height="252px">
                 </div>
-                <div class="right">
+                <div class="right-part-card">
                   <div>
                       <h4 class="hotel-name">{{hotel.name}}</h4>
                       <h6 class="hotel-address">{{hotel.address}}</h6>
                   <p class="card-text">{{hotel.description}}</p>
                   </div>
-                  <div class="details-btn">
-                      <a class="btn btn-primary" [routerLink]="[hotel.id]" id="details">See details</a>
+                  <div class="details-btn-card">
+                      <a class="btn btn-primary" [routerLink]="['/hotel', hotel.id]" id="details">See details</a>
                     </div> 
               </div>
             </div>
