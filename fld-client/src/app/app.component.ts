@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class AppComponent {
   title = 'fld-client';
   isLogin: boolean = false;
-  s: string;
+  isSignUp: boolean = false;
 
   constructor(private route: Router){
     //prati promenu url-a
@@ -19,6 +19,12 @@ export class AppComponent {
           this.isLogin = true;
         }else{
           this.isLogin = false;
+        }
+
+        if(route.url.includes("signup")){
+          this.isSignUp = true;
+        }else{
+          this.isSignUp = false;
         }
       }
     );
