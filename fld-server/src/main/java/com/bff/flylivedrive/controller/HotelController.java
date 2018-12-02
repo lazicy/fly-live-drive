@@ -57,6 +57,7 @@ public class HotelController {
 		hotel.setAddress(hotelDTO.getAddress());
 		hotel.setDescription(hotelDTO.getDescription());
 		hotel.setImageURL(hotelDTO.getImageURL());
+		hotel.setStars(hotelDTO.getStars());
 		
 		hotel = hotelService.save(hotel);
 		
@@ -90,6 +91,7 @@ public class HotelController {
 		hotel.setAddress(hotelDTO.getAddress());
 		hotel.setDescription(hotelDTO.getDescription());
 		hotel.setImageURL(hotelDTO.getImageURL());
+		hotel.setStars(hotelDTO.getStars());
 		
 		hotel = hotelService.save(hotel);
 		

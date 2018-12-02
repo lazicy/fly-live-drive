@@ -9,10 +9,12 @@ import { HotelService } from 'src/app/services/hotel.service';
   styleUrls: ['./add-hotel.component.css']
 })
 export class AddHotelComponent implements OnInit {
-
+  noStars: any;
+  
   constructor(private http: HttpClient, private hotelService: HotelService) { }
 
   ngOnInit() {
+    this.noStars = 1;
   }
 
   onSubmitHotel(form: NgForm) {
@@ -20,14 +22,16 @@ export class AddHotelComponent implements OnInit {
     const address = form.value.address;
     const description = form.value.description;
     const imageURL = form.value.imageURL;
+    const stars = this.noStars;
 
     let htl = {
       name: name,
       address: address,
       description: description,
-      imageURL: imageURL
+      imageURL: imageURL,
+      stars: stars,
     }
-
+    console.log(stars);
     console.log(htl);
 
     this.saveHotel(htl);
@@ -38,9 +42,8 @@ export class AddHotelComponent implements OnInit {
     this.http.post("http://localhost:4200/api/hotel", htl)
     .subscribe(
       (success) => {
-          console.log(success);
-        }, error => { alert("An error has occured");
-          console.log(error); }
+          alert("Hotel added!");
+        }, error => { alert("An error has occured");}
     );
   }
 

@@ -19,6 +19,17 @@
           </div>
 
           <div class="form-group">
+            <label for="stars">Stars: </label>
+            <select name="stars" id="stars" class="form-control" [(ngModel)]="noStars">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="form-group">
               <label for="description">Promo description: </label>
               <textarea type="text" id="description" name="description" placeholder="Hotel description" ngModel class="form-control" rows="4"></textarea>
             </div>

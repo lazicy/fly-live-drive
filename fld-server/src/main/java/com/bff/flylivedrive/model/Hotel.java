@@ -25,6 +25,9 @@ public class Hotel {
 	@Column(name="imageURL", nullable = true)
 	private String imageURL;
 	
+	@Column(name="stars", nullable = false)
+	private int stars;
+	
 	public Long getId() {
 		return id;
 	}
@@ -63,5 +66,13 @@ public class Hotel {
 
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	public int getStars() {
+		return stars;
+	}
+
+	public void setStars(int stars) {
+		this.stars = stars;
 	}
 }

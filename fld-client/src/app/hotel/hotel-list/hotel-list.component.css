@@ -1,0 +1,9 @@
+.fa-star {
+    color: rgb(255, 230, 7);
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.fa-star:first-child {
+    margin-left: 5px;
+}

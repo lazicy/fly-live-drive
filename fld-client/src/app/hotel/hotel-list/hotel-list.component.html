@@ -7,8 +7,13 @@
                 </div>
                 <div class="right-part-card">
                   <div>
-                      <h4 class="hotel-name">{{hotel.name}}</h4>
-                      <h6 class="hotel-address">{{hotel.address}}</h6>
+                      <h4 class="hotel-name">{{hotel.name}}
+                          <span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></h4> 
+                          <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}</h6>
                   <p class="card-text">{{hotel.description}}</p>
                   </div>
                   <div class="details-btn-card">
