@@ -2,3 +2,11 @@ nav {
     padding-left: 30px;
     padding-right: 30px;
 }
+
+.btn-link{
+    color: white;
+}
+
+.btn-link:hover{
+    color: burlywood;
+}

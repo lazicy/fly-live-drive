@@ -1,8 +1,17 @@
 <!-- navbar -->
-<app-header></app-header>
-
-<div class="container">
- 
- <router-outlet></router-outlet>
- 
+<div *ngIf="isLogin" class="full">
+    <app-login></app-login>
 </div>
+
+
+<div *ngIf="!isLogin">
+    <app-header></app-header>
+    <div class="container">
+ 
+    <router-outlet></router-outlet>
+            
+    </div>
+</div>
+ 
+
+
