@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { shallowEqualArrays } from '@angular/router/src/utils/collection';
+import swal from 'sweetalert'
 
 @Component({
   selector: 'app-sign-up',
@@ -8,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -24,7 +27,7 @@ export class SignUpComponent implements OnInit {
     const email = form.value.email;
 
     let user = {
-      name: name,
+      firstname: name,
       lastname: lastname,
       username: username,
       password: password,
@@ -32,10 +35,21 @@ export class SignUpComponent implements OnInit {
       city: city
     }
 
-    //this.saveUser(user);
-
+    this.saveUser(user);
     form.reset();
 
+  }
+
+  saveUser(user){
+    this.http.post("http://localhost:4200/api/users", user)
+    .subscribe(
+      (success) => {
+        //dodati: nakon uspesne registracije prebaciti korisnika na glavnu stranicu 
+         console.log(success);
+         swal("Success!","Welcome "+ user.username, "success");
+      },
+      error => console.log(error)
+    );
   }
 
 }

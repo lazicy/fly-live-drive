@@ -6,28 +6,31 @@ import com.bff.flylivedrive.model.User;
 public class UserDTO {
 	
 	private String username;
+	private String password;
 	private String firstname;
 	private String lastname;
 	private String email;
+	private String city;
 	
 	public UserDTO() {
 		
 	}
 	
-	public UserDTO(String username, String firstname, String lastname, String email) {
+	public UserDTO(String username, String firstname, String password , String lastname, String email, String city) {
 		super();
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
+		this.setPassword(password);
+		this.setCity(city);
 	}
 
 
 	// konverzija iz modela u DTO
 	public UserDTO(User user) {
-		this(user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail());
+		this(user.getUsername(),user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity());
 	}
-	
 	
 	public String getUsername() {
 		return username;
@@ -53,8 +56,21 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 }

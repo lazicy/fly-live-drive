@@ -21,7 +21,7 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
-	
+	/*
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> getAllUsers(){
 		
@@ -39,8 +39,9 @@ public class UserController {
 		return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 		
 		
-	}
+	}*/
 	
+	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
 		
@@ -49,11 +50,12 @@ public class UserController {
 		user.setFirstname(userDTO.getFirstname());
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
+		user.setPassword(userDTO.getPassword());
+		user.setCity(userDTO.getCity());
 		
 		user = userService.save(user);
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
-		
 	}
 	
 }
