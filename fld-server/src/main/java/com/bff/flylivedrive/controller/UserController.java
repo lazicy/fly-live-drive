@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.UserDTO;
 import com.bff.flylivedrive.model.RentAdmin;
+import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.service.UserService;
 @RestController
 @RequestMapping(value = "/users")
@@ -26,11 +27,11 @@ public class UserController {
 		
 		System.out.println("getAllUsers");
 		
-		List<RentAdmin> users = userService.findAll();
+		List<User> users = userService.findAll();
 		List<UserDTO> usersDTO = new ArrayList<>();
 		
 		// konverzija u DTO
-		for (RentAdmin u: users) {
+		for (User u: users) {
 			UserDTO uDTO = new UserDTO(u);
 			usersDTO.add(uDTO);
 		}
@@ -43,7 +44,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
 		
-		RentAdmin user = new RentAdmin();
+		User user = new User();
 		user.setUsername(userDTO.getUsername());
 		user.setFirstname(userDTO.getFirstname());
 		user.setLastname(userDTO.getLastname());
