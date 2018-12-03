@@ -1,10 +1,17 @@
 package com.bff.flylivedrive.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+
+import static javax.persistence.DiscriminatorType.STRING;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 @Entity
+@Inheritance(strategy=SINGLE_TABLE) //ovom anotacijom se naglasava tip mapiranja "jedna tabela po hijerarhiji"
+@DiscriminatorColumn(name="type", discriminatorType=STRING) //ovom anotacijom se navodi diskriminatorska kolona
 public class User {
 	
 	@Id
