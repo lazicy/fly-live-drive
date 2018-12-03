@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class AvioAdmin {
 	
 	@Id
 	private String username;
@@ -72,5 +72,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 }

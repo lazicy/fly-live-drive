@@ -1,6 +1,6 @@
 package com.bff.flylivedrive.dto;
 
-import com.bff.flylivedrive.model.User;
+import com.bff.flylivedrive.model.RentAdmin;
 
 public class UserDTO {
 	
@@ -23,7 +23,7 @@ public class UserDTO {
 
 
 	// konverzija iz modela u DTO
-	public UserDTO(User user) {
+	public UserDTO(RentAdmin user) {
 		this(user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail());
 	}
 	

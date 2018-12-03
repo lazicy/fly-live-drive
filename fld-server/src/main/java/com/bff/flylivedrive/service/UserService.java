@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.repository.UserRepository;
 
