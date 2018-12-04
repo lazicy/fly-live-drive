@@ -23,9 +23,9 @@ const appRoutes: Routes = [
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
+		{ path: 'add', component: AddHotelComponent},
 		{ path: ':id', component: HotelPageComponent}
-	]},
-	{path: 'add', component: AddHotelComponent}
+	]}
 
 ];
 

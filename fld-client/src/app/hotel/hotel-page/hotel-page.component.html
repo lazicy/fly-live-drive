@@ -1,10 +1,21 @@
 <div class="container">
-  <div class="row" style="background-image: url({{hotel.imageURL}});">
+  <div class="row" id="slika">
 
   </div>
+  <div class="info">
+    <div class="nameaddress">
+      <h4>{{hotel.name}}</h4>
+      <p style="margin-top: -10px;"><span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+        <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+        <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+        <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+        <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
+      <p><i class="fa fa-map-marker"></i> {{hotel.address}}</p>
+    </div>
+  </div>
   <div class="row">
-      <h1>{{hotel.name}}</h1>
-      <h2>{{hotel.address}}</h2>
-      <p>{{hotel.description}}</p>
+    <h6>Description:</h6>
+    <p>{{hotel.description}}</p>
+    <p>{{hotel.imageURL}}</p>
   </div>
 </div>
