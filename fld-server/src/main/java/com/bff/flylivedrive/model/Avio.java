@@ -10,7 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Avio {
@@ -28,7 +32,14 @@ public class Avio {
 	
 	@OneToMany(mappedBy = "avio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Flight> flights = new HashSet<Flight>();
-
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "destination",
+               joinColumns = @JoinColumn(name="avio_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="city_id", referencedColumnName="id"))
+	private Set<City> destinations = new HashSet<City>();
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,6 +70,14 @@ public class Avio {
 
 	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
+	}
+	
+	public Set<City> getDestinations() {
+		return destinations;
+	}
+
+	public void setDestinations(Set<City> destinations) {
+		this.destinations = destinations;
 	}
 
 	@Override

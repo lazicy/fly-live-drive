@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -33,6 +34,9 @@ public class City {
 	
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Interception> interceptions = new HashSet<Interception>();
+	
+	@ManyToMany(mappedBy = "destinations")
+	private Set<Avio> avios = new HashSet<Avio>();
 
 	public Long getId() {
 		return id;

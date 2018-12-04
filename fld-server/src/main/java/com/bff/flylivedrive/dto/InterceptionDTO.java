@@ -11,25 +11,22 @@ public class InterceptionDTO {
 	private Date landing;
 	private int duration;
 	private CityDTO city;
-	private FlightDTO flight;
-	
 	
 	public InterceptionDTO() {
 		
 	}
 	
-	public InterceptionDTO(Interception i) {
-		this(i.getId(), i.getTakeOff(), i.getLanding(), i.getDuration(), new CityDTO(i.getCity()), new FlightDTO(i.getFlight()));
+	public InterceptionDTO(Interception interception) {
+		this(interception.getId(), interception.getTakeOff(), interception.getLanding(), interception.getDuration(), new CityDTO(interception.getCity()));
 	}
 	
-	public InterceptionDTO(long id, Date takeOff, Date landing, int duration, CityDTO city, FlightDTO flight) {
+	public InterceptionDTO(long id, Date takeOff, Date landing, int duration, CityDTO city) {
 		super();
 		this.id = id;
 		this.takeOff = takeOff;
 		this.landing = landing;
 		this.duration = duration;
 		this.city = city;
-		this.flight = flight;
 	}
 	
 	
@@ -63,13 +60,6 @@ public class InterceptionDTO {
 	public void setCity(CityDTO city) {
 		this.city = city;
 	}
-	public FlightDTO getFlight() {
-		return flight;
-	}
-	public void setFlight(FlightDTO flight) {
-		this.flight = flight;
-	}
-	
 	
 	
 

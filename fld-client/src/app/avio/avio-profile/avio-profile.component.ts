@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AvioService } from '../../services/avio.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
 	selector: 'app-avio-profile',
@@ -13,7 +14,11 @@ export class AvioProfileComponent implements OnInit {
 	avio: any;
 	id: number;
 	emptyFlightList: boolean = false;
+	emptyDestinationList: boolean = false;
+	
 	showFlights: boolean = false;
+	showDestinations: boolean = false;
+
 	br_zvezdica: number;
 	zvezdice: number[] = [];
 	constructor(private avioService: AvioService, private route: ActivatedRoute, private router: Router) {
@@ -53,7 +58,11 @@ export class AvioProfileComponent implements OnInit {
 
 	onShowFlights() {
 		this.showFlights = !this.showFlights;
-		if (!this.avio.flights) {
+		// if (!this.avio.flights) {
+		// 	this.fetchFlights();
+		// }
+
+		if (this.showFlights) {
 			this.fetchFlights();
 		}
 		
@@ -72,5 +81,51 @@ export class AvioProfileComponent implements OnInit {
 			(error) => console.log(error)
 		);
 	}
+
+	onShowDestinations() {
+		this.showDestinations = !this.showDestinations;
+		// if (!this.avio.destinations) {
+		// 	this.fetchDestinations();
+		// }
+
+		if (this.showDestinations) {
+			this.fetchDestinations();
+		}
+	}
+
+	fetchDestinations() {
+		this.avioService.getAviosDestinations(this.id).subscribe(
+			(data) => {
+				this.avio.destinations = data;
+				if(this.avio.destinations === 0) {
+					this.emptyDestinationList = true;
+				} else {
+					this.emptyDestinationList = false;
+				}
+			},
+			(error) => console.log(error)
+		
+			
+		);
+	}
+
+	onSubmitDestination(form: NgForm) {
+		const name = form.value.name;
+		const country = form.value.country;
+		
+		let destination = {
+			name: name,
+			country: country
+		}
+
+
+		this.avioService.saveAviosDestination(this.avio.id, destination).subscribe(
+			(response) => console.log(response),
+			(error) => console.log(error)
+		);
+		
+	}
+
+	
 
 }

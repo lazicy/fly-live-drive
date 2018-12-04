@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.AvioDTO;
+import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.FlightDTO;
 import com.bff.flylivedrive.model.Avio;
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.service.AvioService;
 
@@ -78,12 +80,7 @@ public class AvioController {
 		List<FlightDTO> flightsDTO = new ArrayList<>();
 		
 		for (Flight f : flights) {
-			FlightDTO fDTO = new FlightDTO();
-			fDTO.setId(f.getId());
-			fDTO.setDepartureDate(f.getDepartureDate());
-			fDTO.setLandingDate(f.getLandingDate());
-			fDTO.setPrice(f.getPrice());
-			fDTO.setAvioDTO(new AvioDTO(f.getAvio()));
+			FlightDTO fDTO = new FlightDTO(f);
 			
 			flightsDTO.add(fDTO);
 		}
@@ -91,5 +88,48 @@ public class AvioController {
 		return new ResponseEntity<>(flightsDTO, HttpStatus.OK); 
 		
 	}
+	
+	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.GET)
+	public ResponseEntity<List<CityDTO>> getAviosDestinations(@PathVariable Long avioId) {
+
+		Avio avio = avioService.findOneById(avioId);
+		Set<City> destinations = avio.getDestinations();
+		List<CityDTO> destinationsDTO = new ArrayList<>();
+		
+		for (City d : destinations) {
+			CityDTO dDTO = new CityDTO(d);
+			
+			destinationsDTO.add(dDTO);
+		}
+		
+		return new ResponseEntity<>(destinationsDTO, HttpStatus.OK); 
+		
+	}
+	
+	
+	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<CityDTO> saveDestination(@RequestBody CityDTO destinationDTO, @PathVariable Long avioId) {
+		
+		
+		
+		Avio a = avioService.findOneById(avioId);
+		System.out.println(a);
+		if (a == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		City destination = new City();
+		destination.setName(destinationDTO.getName());
+		destination.setCountry(destinationDTO.getCountry());
+
+		a.getDestinations().add(destination);
+		
+		avioService.save(a);
+		
+		return new ResponseEntity<>(new CityDTO(destination), HttpStatus.CREATED);
+		
+	}
+	
+	
 
 }

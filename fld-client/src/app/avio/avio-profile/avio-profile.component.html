@@ -16,5 +16,46 @@
   <h5 *ngIf="emptyFlightList">There is no flights for this airline company.</h5>
 </div>
 
+<button type="button" class="btn btn-primary" (click)="onShowDestinations()">Show destinations</button>
+<div *ngIf="showDestinations">
+  <img appLoading *ngIf="!avio.destinations">
+  <span *ngIf="avio.destinations" >
+    <p *ngFor="let d of avio.destinations">{{ d.id }}, {{ d.name }}, {{ d.country }}</p>
+  </span>
+  <h5 *ngIf="emptyDestinationList">There is no destinations for this airline company.</h5>
+</div>
 
-<span *ngFor="let z of zvezdice">z</span>
+
+
+
+<br>
+
+<div>
+  <form (ngSubmit)="onSubmitDestination(f)" #f="ngForm">
+    <div class="row">
+      <div class="col-md-3">
+        
+        <h2>Insert destination:</h2>
+  
+        <div class="form-group">
+          <label for="name">City: </label>
+          <input type="text" id="name" name="name" ngModel class="form-control" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="country">Country: </label>
+          <input type="text" id="country" name="country" ngModel class="form-control" required>
+        </div>
+  
+        <div class="form-group">
+          <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save to database</button>
+          <!-- <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button> -->
+        </div>
+            
+      
+      </div>
+    </div>
+  
+  </form>
+
+</div>

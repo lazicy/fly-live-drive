@@ -36,6 +36,14 @@ export class AvioService {
 		return this.http.get("/api/avio/" + id + "/flights");
 	}
 
+	getAviosDestinations(id) {
+		return this.http.get("/api/avio/" + id + "/destinations");
+	}
+
+	saveAviosDestination(id, destination) {
+		return this.http.post("/api/avio/" + id + "/destinations", destination);
+	}
+
 	
 
 
