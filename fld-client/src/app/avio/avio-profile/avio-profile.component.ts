@@ -14,6 +14,8 @@ export class AvioProfileComponent implements OnInit {
 	id: number;
 	emptyFlightList: boolean = false;
 	showFlights: boolean = false;
+	br_zvezdica: number;
+	zvezdice: number[] = [];
 	constructor(private avioService: AvioService, private route: ActivatedRoute, private router: Router) {
 		
 		// getting route params, params is observable that unsubscribes automatically
@@ -41,6 +43,10 @@ export class AvioProfileComponent implements OnInit {
 	 }
 
 	ngOnInit() {
+		this.br_zvezdica = 4;
+		let i = 0;
+
+		while (i < this.br_zvezdica) { this.zvezdice.push(1); i++; }
 		
 			
 	}
