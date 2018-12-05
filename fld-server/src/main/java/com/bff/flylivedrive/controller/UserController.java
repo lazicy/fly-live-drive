@@ -44,7 +44,6 @@ public class UserController {
 	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
-		
 		User user = new User();
 		user.setUsername(userDTO.getUsername());
 		user.setFirstname(userDTO.getFirstname());
@@ -57,6 +56,5 @@ public class UserController {
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
 	}
-	
 }
 
