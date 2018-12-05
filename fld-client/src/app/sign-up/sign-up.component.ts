@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 import swal from 'sweetalert'
+import { User } from '../model/user'
 
 @Component({
   selector: 'app-sign-up',
@@ -11,6 +12,8 @@ import swal from 'sweetalert'
 })
 export class SignUpComponent implements OnInit {
 
+  public model = new User('','','','','',''); //pravim prazan model koji se veze na formu
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -18,26 +21,16 @@ export class SignUpComponent implements OnInit {
 
 
   onSubmitSignUp(form: NgForm){
-    
-    const name = form.value.name;
-    const lastname = form.value.lastname;
-    const password = form.value.password;
-    const username = form.value.username;
-    const city = form.value.city;
-    const email = form.value.email;
-
     let user = {
-      firstname: name,
-      lastname: lastname,
-      username: username,
-      password: password,
-      email: email,
-      city: city
+      firstname: this.model.name,
+      lastname: this.model.lastNname,
+      username: this.model.username,
+      password: this.model.password,
+      email: this.model.email,
+      city: this.model.city
     }
-
     this.saveUser(user);
     form.reset();
-
   }
 
   saveUser(user){

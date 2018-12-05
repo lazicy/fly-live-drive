@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { AvioService } from '../services/avio.service';
 import { FlightService } from '../services/flight.service';
 
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -15,10 +16,12 @@ export class TestComponent implements OnInit {
 	avioList: any;
 	showUsers: boolean = false;
 	constructor(private http: HttpClient, private avioService: AvioService, private flightService: FlightService) { }
+	
 
 	ngOnInit() {
 		this.getUsers();
 		
+
 		this.avioService.getAvios()
 			.subscribe(
 				(data) => { 
@@ -30,8 +33,6 @@ export class TestComponent implements OnInit {
 				(error) => console.error(error)
 			);
 	}
-
-
 
 	getUsers() {
 		return this.http.get("http://localhost:4200/api/users/all").subscribe(data => this.users = data);
