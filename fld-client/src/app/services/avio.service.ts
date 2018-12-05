@@ -28,6 +28,10 @@ export class AvioService {
 		return this.http.get("/api/avio/all");
 	}
 
+	saveAvio(avio) {
+		return this.http.post("http://localhost:4200/api/avio", avio);
+	}
+
 	getAvio(id) {
 		return this.http.get("/api/avio/" + id);
 	}
@@ -43,6 +47,8 @@ export class AvioService {
 	saveAviosDestination(id, destination) {
 		return this.http.post("/api/avio/" + id + "/destinations", destination);
 	}
+
+
 
 	
 

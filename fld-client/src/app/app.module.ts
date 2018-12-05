@@ -20,6 +20,8 @@ import { HotelService } from './services/hotel.service';
 import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
+import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
+import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
     HotelComponent,
     AddHotelComponent,
     HotelListComponent,
-    HotelPageComponent
+    HotelPageComponent,
+    AvioAdminComponent,
+    AvioFormComponent
   ],
   imports: [
     BrowserModule,

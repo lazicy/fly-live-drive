@@ -1,0 +1,21 @@
+
+<form (ngSubmit)="onSubmitAvio(f1)" #f1="ngForm" *ngIf="!showSuccessMessage">
+  <h2>Insert Avio Company:</h2>
+
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" ngModel class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Promo description: </label>
+    <input type="text" id="description" name="description" ngModel class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" [disabled]="!f1.valid">Save to database</button>
+    <button type="button" (click)="onReset(f1)" class="btn btn-danger">Reset</button>
+  </div>
+</form>   
+  
+<div *ngIf="showSuccessMessage">Dodato brale.</div>
