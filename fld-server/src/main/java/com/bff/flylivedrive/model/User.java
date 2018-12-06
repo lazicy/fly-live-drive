@@ -32,6 +32,9 @@ public class User {
 	@Column(name = "city", nullable = false)
 	private String city;
 	
+	@Column(name = "active", nullable = false)
+	private boolean active = false; //inicijalno je uvek false prilikom registracije, menja se nakon potvrde mejlom
+	
 	public String getUsername() {
 		return username;
 	}
@@ -78,6 +81,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 }

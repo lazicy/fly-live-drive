@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit {
       (success) => {
         //dodati: nakon uspesne registracije prebaciti korisnika na glavnu stranicu 
          console.log(success);
-         swal("Success!","Welcome "+ user.username, "success");
+         swal("Success!","Your registration was successfull. Check your e-mail to confirm your account.", "success");
       },
       error => console.log(error)
     );

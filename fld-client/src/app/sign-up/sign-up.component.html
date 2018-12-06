@@ -33,7 +33,8 @@
                     
                     <div class="form-group">
                         <label>E-mail:</label>
-                        <input [(ngModel)]="model.email" type="email" class="form-control" name="email" required placeholder="Email is required." >
+                        <input [(ngModel)]="model.email" type="email" class="form-control" name="email" required placeholder="Email is required." 
+                        pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
                     </div>
                     
                     <div class="form-group">
