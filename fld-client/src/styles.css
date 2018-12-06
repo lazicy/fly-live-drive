@@ -21,11 +21,7 @@ body {
 }
 
 
-/* kada zelite da stavite custom image samo u svom delu stavljate 
-.section-parallax {
-    background: url(/src/img/vasaslika.jpg) bottom repeat fixed;
-}
-*/
+/* kada zelite da stavite custom image samo u svom delu stavljate
 .section-parallax {
     text-align: center;
     background: url(/src/img/nature.jpg) center repeat fixed;
@@ -36,6 +32,7 @@ body {
     width: 100%;
     left: 0;
 }
+    stavljajte celu klasu u .css da ne bi morali sliku da skaliramo...*/
 
 /* KOD ZA KATRICE */
 .tile {
@@ -71,4 +68,55 @@ body {
 }
 .card-text {
     margin-top: 25px;
+}
+
+/* KOD SA SEARCH BAR */
+
+.unos {
+    padding: 10px;
+    border: 1px solid lightgray;
+    display: block;
+}
+.lbl {
+    display: block;
+}
+.divs {
+    float: left;
+}
+#search { /* id za textfield */
+    width: 400px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+#check-in, #check-out { /* id za datepicker */
+    width: 170px;
+    padding: 9px;
+}
+#soba, #br-gostiju {  /* id za select tag */
+    width: 100px;
+    padding-bottom: 11px;
+}
+#soba {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+#pretrazi { /* id za dugme pretrage */
+    float:right;
+    margin: 35px 90px 0px 0px;
+}
+.center { /* klasa celog reda tj. kontejnera u kojem se nalaze elementi */
+    text-align: center;
+}
+input:not(:last-child), select:not(:last-child) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+input:not(:first-child), select:not(:first-child) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-right-color: transparent;
+}
+select {
+    border-left: 0px transparent;
+    border-right: 0px transparent;
 }
