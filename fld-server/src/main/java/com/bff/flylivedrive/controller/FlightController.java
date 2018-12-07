@@ -32,6 +32,8 @@ public class FlightController {
 		
 		System.out.println("getAllFlight");
 		
+		
+		
 		List<Flight> flights = flightService.findAll();
 		List<FlightDTO> flightsDTO = new ArrayList<>();
 		

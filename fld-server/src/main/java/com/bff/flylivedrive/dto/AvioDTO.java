@@ -1,15 +1,20 @@
 package com.bff.flylivedrive.dto;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.bff.flylivedrive.model.Avio;
-import com.bff.flylivedrive.model.Flight;
+import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.Interception;
 
 public class AvioDTO {
 	
 	private Long id;
 	private String name;
 	private String description;
+	
+	
 	public AvioDTO() {
 		
 	}

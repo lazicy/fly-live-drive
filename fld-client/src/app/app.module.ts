@@ -22,6 +22,8 @@ import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
+import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HotelPageComponent,
     LoginComponent,
     SignUpComponent,
+    AvioAdminComponent,
+    AvioFormComponent
   ],
   imports: [
     BrowserModule,

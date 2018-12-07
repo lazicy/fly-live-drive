@@ -11,6 +11,8 @@ import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
+import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 
 
 const appRoutes: Routes = [
@@ -18,6 +20,9 @@ const appRoutes: Routes = [
 	{ path: 'test', component: TestComponent },
 	{ path: 'avio', component: AvioComponent, children: [
 		{ path: '', component: AviolistComponent},
+		{ path: 'admin', component: AvioAdminComponent, children: [
+			{ path: 'new', component: AvioFormComponent}
+		]},
 		{ path: ':id', component: AvioProfileComponent}
 	]},
 	{ path: 'rent', component: RentAddComponent},
