@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.bff.flylivedrive.dto.UserDTO;
 import com.bff.flylivedrive.model.RentAdmin;
@@ -65,10 +66,9 @@ public class UserController {
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
 	}
-	
+	/*
 	@RequestMapping(value= "/verifymail/{username}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<UserDTO> verifyEmail(@PathVariable("username") String username, HttpServletRequest request) throws URISyntaxException{
-		
 		User user = new User();
 		user = userService.findOneByUsername(username);
 		user.setActive(true);
@@ -81,6 +81,13 @@ public class UserController {
 		
 		//OK code status za odgovor na uspesan put request i redirekcija na pocetnu
 		return new ResponseEntity<>(new UserDTO(user), header, HttpStatus.OK);
+	}*/
+	
+	@RequestMapping(value="/verify", method = RequestMethod.GET)
+	public RedirectView verify() {
+		RedirectView rv = new RedirectView();
+		rv.setUrl("http://localhost:4200/login");
+		return rv;
 	}
 	
 }
