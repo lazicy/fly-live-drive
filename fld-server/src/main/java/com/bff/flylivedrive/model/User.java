@@ -35,6 +35,10 @@ public class User {
 	@Column(name = "active", nullable = false)
 	private boolean active = false; //inicijalno je uvek false prilikom registracije, menja se nakon potvrde mejlom
 	
+	public User() {
+		super();
+	}
+	
 	public String getUsername() {
 		return username;
 	}
