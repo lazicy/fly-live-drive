@@ -1,9 +1,13 @@
 package com.bff.flylivedrive.service;
 
+import java.net.URI;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,14 +43,20 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
-	public void sendNotificationSync(User user) throws MailException, InterruptedException {
+	public void sendNotificationSync(User user, HttpServletRequest request) throws MailException, InterruptedException {
 		Thread.sleep(10000);
 		//System.out.println("Slanje emaila...");
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
 		mail.setFrom(env.getProperty("spring.mail.username"));
 		mail.setSubject("Accaount verification");
-		mail.setText("Hello " + user.getFirstname() + ",\n\n please click on the following link to verify your account: http://localhost:4200/api/users/verifymail/" + user.getUsername());
+		
+		//izvlacim root iz url-a i na njega konkateniram servis koji korisnik treba da gadja za potvrdu email-a
+		String url = request.getRequestURL().toString();
+		String uri = request.getRequestURI();
+		String path = url.replace(uri, "") + "/api/users/verifymail/" + user.getUsername();
+		
+		mail.setText("Hello " + user.getFirstname() + ",\n\n please click on the following link to verify your account: "+ path);
 		
 		javaMailSender.send(mail);
 	}
