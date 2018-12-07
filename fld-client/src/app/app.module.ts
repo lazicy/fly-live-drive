@@ -18,10 +18,11 @@ import { LoadingDirective } from './directives/loading.directive';
 import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
-import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
+import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
+import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +35,11 @@ import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.co
     LoadingDirective,
     RentAddComponent,
     HotelComponent,
-    AddHotelComponent,
-    HotelListComponent,
-    HotelComponent,
-    AddHotelComponent,
     HotelListComponent,
     HotelPageComponent,
-    HotelHomepageComponent
+    HotelHomepageComponent,
+    HotelFormComponent,
+    HotelAdminComponent
   ],
   imports: [
     BrowserModule,

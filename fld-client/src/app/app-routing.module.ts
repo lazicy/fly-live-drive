@@ -6,10 +6,11 @@ import { AviolistComponent } from './avio/aviolist/aviolist.component';
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
-import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
+import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
+import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 
 
 const appRoutes: Routes = [
@@ -23,7 +24,9 @@ const appRoutes: Routes = [
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
-		{ path: 'administrateHotels', component: AddHotelComponent},
+		{ path: 'administrateHotels', component: HotelAdminComponent, children: [
+			{ path: 'add', component: HotelFormComponent}
+		]},
 		{ path: ':id', component: HotelPageComponent}
 	]}
 
