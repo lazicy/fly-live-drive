@@ -20,31 +20,41 @@ export class AvioService {
 	// 		error => console.log(error));
 	// }
 
-	getAvioList() {
-		return this.avios.slice();
-	}
+	// getAvioList() {
+	// 	return this.avios.slice();
+	// }
 
+	// GET all
 	getAvios() {
 		return this.http.get("/api/avio/all");
 	}
 
-	saveAvio(avio) {
-		return this.http.post("http://localhost:4200/api/avio", avio);
-	}
-
-	getAvio(id) {
+	// GET one
+	getAvio(id: number) {
 		return this.http.get("/api/avio/" + id);
 	}
 
-	getAviosFlights(id) {
+	// POST one
+	saveAvio(avio) {
+		return this.http.post("/api/avio", avio);
+	}
+
+	deleteAvio(id: number) {
+		return this.http.delete("/api/avio/" + id);
+	}
+
+	// GET all flights for specified avio
+	getAviosFlights(id: number) {
 		return this.http.get("/api/avio/" + id + "/flights");
 	}
 
-	getAviosDestinations(id) {
+	// GET all destinations for specified avio
+	getAviosDestinations(id: number) {
 		return this.http.get("/api/avio/" + id + "/destinations");
 	}
 
-	saveAviosDestination(id, destination) {
+	// POST destination for specified avio
+	saveAviosDestination(id: number, destination) {
 		return this.http.post("/api/avio/" + id + "/destinations", destination);
 	}
 

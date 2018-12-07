@@ -57,6 +57,19 @@ public class AvioController {
 		return new ResponseEntity<>(new AvioDTO(avio), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteAvio(@PathVariable Long id){
+		
+		Avio avio = avioService.findOneById(id);
+		
+		if (avio != null){
+			avioService.remove(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {		
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AvioDTO> saveAvio(@RequestBody AvioDTO avioDTO) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AvioService } from 'src/app/services/avio.service';
 import { Router } from '@angular/router';
@@ -8,8 +8,13 @@ import { Router } from '@angular/router';
   templateUrl: './avio-form.component.html',
   styleUrls: ['./avio-form.component.css']
 })
-export class AvioFormComponent implements OnInit {
-	showSuccessMessage: boolean = false;
+
+/* ova forma ce koristiti i za insert avio kompanije i za edit, nekako cu vec smisliti implementaciju, da li na osnovu url-a ili na osnovu @Input() [pogledajte dokumentaciju]
+*/
+export class AvioFormComponent implements OnInit, OnDestroy {
+	
+	@Output() avioSubmit = new EventEmitter();
+
 	constructor(private avioService: AvioService, private router: Router) { }
 
 	ngOnInit() {
@@ -28,8 +33,10 @@ export class AvioFormComponent implements OnInit {
 
 		this.avioService.saveAvio(avio).subscribe(
 			(response) => {
-				console.log(response);
-				this.showSuccessMessage = true;
+				// emituje se event koji se slusa u selektoru ove komponente (child) u okviru html-a parent komponente (ovde se salje
+				// response a tamo se prima $event). 
+				this.avioSubmit.emit(response);
+				this.ngOnDestroy();
 			},
 			(error) => console.log(error)
 		);
@@ -41,5 +48,11 @@ export class AvioFormComponent implements OnInit {
 	onReset(form: NgForm) {
 		form.reset();
 	}
+
+	ngOnDestroy() {
+		this.avioSubmit.unsubscribe();
+	}
+
+
 
 }

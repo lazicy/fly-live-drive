@@ -27,6 +27,10 @@ public class AvioService {
 		return avioRepo.save(avio);
 	}
 	
+	public void remove(Long id) {
+		avioRepo.deleteById(id);
+	}
+	
 	
 }
 	
