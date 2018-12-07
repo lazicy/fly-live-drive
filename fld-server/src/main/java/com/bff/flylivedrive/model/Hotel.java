@@ -18,6 +18,12 @@ public class Hotel {
 	
 	@Column(name="address", nullable = false)
 	private String address;
+	
+	@Column(name="city", nullable = false)
+	private String city;
+	
+	@Column(name="country", nullable = false)
+	private String country;
 
 	@Column(name="description", nullable = true)
 	private String description;
@@ -74,5 +80,21 @@ public class Hotel {
 
 	public void setStars(int stars) {
 		this.stars = stars;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }
