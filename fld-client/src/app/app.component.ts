@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,8 @@ export class AppComponent {
   title = 'fld-client';
   isLogin: boolean = false;
   isSignUp: boolean = false;
+  isVerifed: boolean = false;
+
 
   constructor(private route: Router){
     //prati promenu url-a
@@ -26,6 +29,13 @@ export class AppComponent {
         }else{
           this.isSignUp = false;
         }
+
+        if(route.url.includes("verifymail")){
+          this.isVerifed = true;
+        }else{
+          this.isVerifed = false;
+        }
+
       }
     );
     

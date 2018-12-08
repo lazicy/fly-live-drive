@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
+import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 
 
 const appRoutes: Routes = [
@@ -32,8 +33,9 @@ const appRoutes: Routes = [
 		]},
 		{path: 'admin', component: AddHotelComponent}
 	]},
-	{path: 'login', component: LoginComponent },
+	{path: 'login', component: LoginComponent},
 	{path:'signup', component: SignUpComponent},
+	{path: 'verifymail', component: VerifyMailComponent}
 ];
 
 

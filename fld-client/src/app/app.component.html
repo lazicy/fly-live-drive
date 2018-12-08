@@ -7,7 +7,12 @@
     <app-sign-up></app-sign-up>
 </div>
 
-<div *ngIf="!isLogin && !isSignUp">
+
+<div *ngIf="isVerifed">
+    <app-verify-mail></app-verify-mail>
+</div>
+
+<div *ngIf="!isLogin && !isSignUp && !isVerifed">
     <app-header></app-header>
     <div class="container">
  

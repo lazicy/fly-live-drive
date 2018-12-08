@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url('/src/img/plane.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 938px;
+font-family: 'Numans', sans-serif;
+}
+
+h1,h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+}
+
+.card{
+    background-color: black;
+    opacity: 0.8;
+    padding: 2em;
+}
+
+body{
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}

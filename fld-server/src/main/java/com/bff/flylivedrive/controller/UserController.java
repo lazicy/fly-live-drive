@@ -70,32 +70,43 @@ public class UserController {
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/verify", method = RequestMethod.GET)
-	public RedirectView verifyMail() {
+	@RequestMapping(value = "/verify/{username}", method = RequestMethod.GET)
+	public RedirectView verifyMail(@PathVariable String username,HttpServletRequest request) {
 		RedirectView rv = new RedirectView();
-		rv.setUrl("localhost:4200/login");
-		return rv;
-	}
-	
-	@RequestMapping(value= "/setActive", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<UserDTO> setActive(@RequestBody UserDTO userDTO) throws URISyntaxException{
-		/*userDTO.setActive(true);
-		
-		
-		user = userService.save(user);
-		
 		String url = request.getRequestURL().toString();
 		String uri = request.getRequestURI();
-		String path = url.replace(uri, "") + "/api/test";
-		HttpHeaders header = new HttpHeaders();
-		URI location = new URI(path);
-		header.setLocation(location);
+		String path = url.replace(uri, "") + "/verifymail";
+		
+		User user = new User();
+		user = userService.findOneByUsername(username);
+		user.setActive(true);
+		user = userService.save(user);
+		
+		rv.setUrl(path);
+		return rv;
+	}
+	/*
+	@RequestMapping(value= "/setActive", method = RequestMethod.PUT, consumes = "application/json")
+	public RedirectView setActive(HttpServletRequest request) throws URISyntaxException{
+		/*userDTO.setActive(true);
+		user = userService.save(user);
 		//OK code status za odgovor na uspesan put request i redirekcija na pocetnu
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
-		*/
-		return null;
+		RedirectView rv = new RedirectView();
+		String url = request.getRequestURL().toString();
+		String uri = request.getRequestURI();
+		String path = url.replace(uri, "") + "/verifymail";
+		
+		User user = (User) request.getAttribute("user");
+		
+		user.setActive(true);
+		user = userService.save(user);
+		
+		request.removeAttribute("user");
+		rv.setUrl(path);
+		return rv;
 	}
-	
+*/	
 	
 }
 

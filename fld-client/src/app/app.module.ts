@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -24,6 +24,8 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
+import { VerifyMailComponent } from './verify-mail/verify-mail.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -45,15 +47,17 @@ import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.compone
     LoginComponent,
     SignUpComponent,
     AvioAdminComponent,
-    AvioFormComponent
+    AvioFormComponent,
+    VerifyMailComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService],
+  providers: [AvioService, FlightService, HotelService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
