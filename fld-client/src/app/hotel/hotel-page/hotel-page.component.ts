@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-hotel-page',
@@ -12,7 +13,6 @@ export class HotelPageComponent implements OnInit {
   id: number;
 
   constructor(private hotelService: HotelService, private route: ActivatedRoute, private router: Router) {
-    
     this.route.params.subscribe(
         (params: Params) => {
           this.id = +params['id'];
@@ -36,5 +36,4 @@ export class HotelPageComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

@@ -9,7 +9,6 @@ import { HotelService } from 'src/app/services/hotel.service';
 })
 export class HotelAdminComponent implements OnInit {
   showFormDialog: boolean = false;
-	showAvioList: boolean = false;
   hotelList: any;
   emptyHotelList: any;
 
@@ -30,6 +29,10 @@ export class HotelAdminComponent implements OnInit {
 
   onAddHotel() {
 		this.showFormDialog = true;
+  }
+
+  onEditHotel(id) {
+    this.showFormDialog = true;
   }
   
   onCloseForm() {

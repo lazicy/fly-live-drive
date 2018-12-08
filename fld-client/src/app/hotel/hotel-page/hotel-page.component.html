@@ -1,6 +1,5 @@
 <div class="container">
-  <div class="row" id="slika">
-
+  <div class="row">
   </div>
   <div class="info">
     <div class="nameaddress">
@@ -10,12 +9,9 @@
         <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
-      <p><i class="fa fa-map-marker"></i> {{hotel.address}}</p>
+      <p><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</p>
     </div>
   </div>
-  <div class="row">
     <h6>Description:</h6>
     <p>{{hotel.description}}</p>
-    <p>{{hotel.imageURL}}</p>
-  </div>
 </div>
