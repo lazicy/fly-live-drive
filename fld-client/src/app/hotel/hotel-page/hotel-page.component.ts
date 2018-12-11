@@ -9,8 +9,10 @@ import { SafeStyle } from '@angular/platform-browser';
   styleUrls: ['./hotel-page.component.css']
 })
 export class HotelPageComponent implements OnInit {
-  hotel: any;
+  hotel: any = new Object();
   id: number;
+  latitude = 51.678418;
+  longitude = 7.809007;
 
   constructor(private hotelService: HotelService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(

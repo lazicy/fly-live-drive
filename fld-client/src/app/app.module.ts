@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -46,7 +47,10 @@ import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
     HttpClientModule,
     FormsModule,
     AngularFontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [AvioService, FlightService, HotelService],
   bootstrap: [AppComponent]

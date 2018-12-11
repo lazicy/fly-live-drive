@@ -23,3 +23,7 @@
 .fa-star:not(:first-child) {
     margin-left: 4px;
 }
+agm-map {
+    height: 230px;
+    width: 400px;
+}

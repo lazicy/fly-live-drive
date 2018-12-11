@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" id="slika" [attr.fotka]="hotel.imageURL">
   </div>
   <div class="info">
     <div class="nameaddress">
@@ -9,9 +9,15 @@
         <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
-      <p><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</p>
+      <p><i class="fa fa-map-marker"></i> <a href="https://www.google.com/maps/place/Hotel+Moscow/@44.813028,20.460431,15z/data=!4m5!3m4!1s0x0:0x52504f6400d4b777!8m2!3d44.8130277!4d20.4604305?hl=en-US"> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</a></p>
     </div>
   </div>
     <h6>Description:</h6>
     <p>{{hotel.description}}</p>
+    <div id="mapa">
+      <!--<agm-map [latitude]="latitude" [longitude]="longitude">
+
+      </agm-map>-->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.4188282049304!2d20.458241815265584!3d44.813031484676664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7ab209cff051%3A0x52504f6400d4b777!2z0KXQvtGC0LXQuyDQnNC-0YHQutCy0LA!5e0!3m2!1ssr!2srs!4v1544568514417" width="400" height="240" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
 </div>
