@@ -26,6 +26,7 @@ import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { UserService } from './services/user.service';
+import { RentService } from './services/rentacar.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { UserService } from './services/user.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService],
+  providers: [AvioService, FlightService, HotelService, UserService, RentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
