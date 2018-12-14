@@ -58,7 +58,8 @@ public class HotelController {
 		hotel.setCity(hotelDTO.getCity());
 		hotel.setCountry(hotelDTO.getCountry());
 		hotel.setDescription(hotelDTO.getDescription());
-		hotel.setImageURL(hotelDTO.getImageURL());
+		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
+		hotel.setMap(hotelDTO.getMap());
 		hotel.setStars(hotelDTO.getStars());
 		
 		hotel = hotelService.save(hotel);
@@ -94,7 +95,8 @@ public class HotelController {
 		hotel.setCity(hotelDTO.getCity());
 		hotel.setCountry(hotelDTO.getCountry());
 		hotel.setDescription(hotelDTO.getDescription());
-		hotel.setImageURL(hotelDTO.getImageURL());
+		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
+		hotel.setMap(hotelDTO.getMap());
 		hotel.setStars(hotelDTO.getStars());
 		
 		hotel = hotelService.save(hotel);

@@ -25,7 +25,8 @@ export class HotelFormComponent implements OnInit {
     const city = form.value.city;
     const country = form.value.country;
     const description = form.value.description;
-    const imageURL = form.value.imageURL;
+    const himageURL = form.value.himageURL;
+    const map = form.value.map;
     const stars = this.noStars;
 
     let htl = {
@@ -34,7 +35,8 @@ export class HotelFormComponent implements OnInit {
       city: city,
       country: country,
       description: description,
-      imageURL: imageURL,
+      hotelImageURL: himageURL,
+      map: map,
       stars: stars,
     }
 

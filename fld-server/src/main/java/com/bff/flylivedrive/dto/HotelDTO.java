@@ -10,7 +10,8 @@ public class HotelDTO {
 	private String city;
 	private String country;
 	private String description;
-	private String imageURL;
+	private String hotelImageURL;
+	private String map;
 	private int stars;
 	
 	public HotelDTO() {
@@ -18,10 +19,10 @@ public class HotelDTO {
 	}
 	
 	public HotelDTO(Hotel h) {
-		this(h.getId(), h.getName(), h.getAddress(), h.getCity(), h.getCountry(), h.getDescription(), h.getImageURL(), h.getStars());
+		this(h.getId(), h.getName(), h.getAddress(), h.getCity(), h.getCountry(), h.getDescription(), h.getHotelImageURL(), h.getMap(), h.getStars());
 	}
 	
-	public HotelDTO(Long id, String name, String address, String city, String country, String description, String imageURL, int stars) {
+	public HotelDTO(Long id, String name, String address, String city, String country, String description, String imageURL, String map, int stars) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,7 +30,8 @@ public class HotelDTO {
 		this.city = city;
 		this.country = country;
 		this.description = description;
-		this.imageURL = imageURL;
+		this.hotelImageURL = imageURL;
+		this.map = map;
 		this.stars = stars;
 	}
 
@@ -81,12 +83,12 @@ public class HotelDTO {
 		this.description = description;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public String getHotelImageURL() {
+		return hotelImageURL;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setHotelImageURL(String imageURL) {
+		this.hotelImageURL = imageURL;
 	}
 
 	public int getStars() {
@@ -95,6 +97,14 @@ public class HotelDTO {
 
 	public void setStars(int stars) {
 		this.stars = stars;
+	}
+
+	public String getMap() {
+		return map;
+	}
+
+	public void setMap(String map) {
+		this.map = map;
 	}
 	
 }
