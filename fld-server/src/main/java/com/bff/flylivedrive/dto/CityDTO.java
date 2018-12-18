@@ -6,7 +6,6 @@ public class CityDTO {
 	
 	private Long id;
 	private String name;
-	private String country;
 	
 	
 	public CityDTO() {
@@ -14,15 +13,15 @@ public class CityDTO {
 	}
 	
 	public CityDTO(City c) {
-		this(c.getId(), c.getName(), c.getCountry());
+		this(c.getId(), c.getName());
 	}
 	
-	public CityDTO(Long id, String name, String country) {
+	public CityDTO(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.country = country;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -35,12 +34,8 @@ public class CityDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
+
+	
 	
 	
 	

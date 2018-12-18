@@ -28,8 +28,9 @@ public class AvioController {
 	@Autowired
 	AvioService avioService;
 	
+	// Get ALL avio
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<AvioDTO>> getAllAvio(){
+	public ResponseEntity<List<AvioDTO>> getAllAvios(){
 		
 		System.out.println("getAllAvio");
 		
@@ -45,6 +46,7 @@ public class AvioController {
 		return new ResponseEntity<>(aviosDTO, HttpStatus.OK);
 	}
 	
+	// Get ONE avio
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<AvioDTO> getAvio(@PathVariable Long id) {
 		
@@ -57,6 +59,7 @@ public class AvioController {
 		return new ResponseEntity<>(new AvioDTO(avio), HttpStatus.OK);
 	}
 	
+	// Delete ONE avio
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteAvio(@PathVariable Long id){
 		
@@ -71,11 +74,13 @@ public class AvioController {
 	}
 	
 
+	// Post ONE avio
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AvioDTO> saveAvio(@RequestBody AvioDTO avioDTO) {
 		
 		Avio avio = new Avio();
 
+		// todo address and other fields
 		avio.setName(avioDTO.getName());
 		avio.setDescription(avioDTO.getDescription());
 		
@@ -85,6 +90,7 @@ public class AvioController {
 		
 	}
 	
+	// Get ALL flights for ONE avio
 	@RequestMapping(value = "/{avioId}/flights", method = RequestMethod.GET)
 	public ResponseEntity<List<FlightDTO>> getAviosFlights(@PathVariable Long avioId) {
 
@@ -102,6 +108,7 @@ public class AvioController {
 		
 	}
 	
+	// Get ALL destinations from ONE avio
 	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.GET)
 	public ResponseEntity<List<CityDTO>> getAviosDestinations(@PathVariable Long avioId) {
 
@@ -120,7 +127,7 @@ public class AvioController {
 	}
 	
 	
-	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
+	/*@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<CityDTO> saveDestination(@RequestBody CityDTO destinationDTO, @PathVariable Long avioId) {
 		
 		
@@ -131,17 +138,30 @@ public class AvioController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		
+		Set<City> destinations = a.getDestinations();
+		
+		for (City c: destinations) {
+			// provera da li postoji grad iz iste drzave vec upisan
+			if (c.getName().equals(destinationDTO.getName())) {
+				if (c.getCountry().equals(destinationDTO.getCountry())) {
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
+				} 
+			}
+		}
+		
 		City destination = new City();
 		destination.setName(destinationDTO.getName());
 		destination.setCountry(destinationDTO.getCountry());
 
-		a.getDestinations().add(destination);
+		destinations.add(destination);
 		
 		avioService.save(a);
 		
 		return new ResponseEntity<>(new CityDTO(destination), HttpStatus.CREATED);
 		
-	}
+	}*/
+	
 	
 	
 
