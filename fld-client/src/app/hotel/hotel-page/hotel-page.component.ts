@@ -12,7 +12,10 @@ export class HotelPageComponent implements OnInit {
   hotel: any = new Object();
   id: number;
   map: boolean = false;
-  slika: any;
+  slika: any = null;
+  currentStyles = {     
+    
+  };
 
   constructor(private hotelService: HotelService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
     this.route.params.subscribe(
@@ -26,6 +29,10 @@ export class HotelPageComponent implements OnInit {
           (data) => {
             this.hotel = data;
             this.slika = this.hotel.hotelImageURL;
+            this.currentStyles = {
+              'background-image':  "url('" + this.slika + "')"
+            }
+            console.log(this.slika);
             if(this.hotel.map === "") {
                 this.map = true;
             }

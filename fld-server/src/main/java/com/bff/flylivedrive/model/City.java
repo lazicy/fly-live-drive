@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,11 +21,11 @@ public class City {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "country", nullable = false)
-	private String country;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Country country;
 	
 	@OneToMany(mappedBy = "departureCity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Flight> departureFlights = new HashSet<Flight>();
@@ -54,14 +55,7 @@ public class City {
 		this.name = name;
 	}
 
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
+	
 	public Set<Flight> getDepartureFlights() {
 		return departureFlights;
 	}
@@ -85,6 +79,24 @@ public class City {
 	public void setInterceptions(Set<Interception> interceptions) {
 		this.interceptions = interceptions;
 	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Set<Avio> getAvios() {
+		return avios;
+	}
+
+	public void setAvios(Set<Avio> avios) {
+		this.avios = avios;
+	}
+	
+	
 	
 	
 	

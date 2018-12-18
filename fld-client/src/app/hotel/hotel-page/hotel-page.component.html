@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row" id="slika" [ngStyle]="{'background': 'url(' + hotel.hotelImageURL + ')'}">
-  </div>
+  <div *ngIf="slika" class="slika" id="slika" [ngStyle]="currentStyles"></div>
+  
   <div class="info">
     <div class="nameaddress">
       <h4>{{hotel.name}}</h4>
@@ -17,4 +17,5 @@
     <div id="mapa" *ngIf="!map">
       <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="400" height="240" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
+  
 </div>
