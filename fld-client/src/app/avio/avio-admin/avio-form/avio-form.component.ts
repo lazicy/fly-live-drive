@@ -14,11 +14,14 @@ import { Router } from '@angular/router';
 export class AvioFormComponent implements OnInit, OnDestroy {
 	
 	@Output() avioSubmit = new EventEmitter();
+	destinations: any = [];
 
 	constructor(private avioService: AvioService, private router: Router) { }
 
 	ngOnInit() {
 	}
+
+	
 
 
 	onSubmitAvio(form: NgForm) {

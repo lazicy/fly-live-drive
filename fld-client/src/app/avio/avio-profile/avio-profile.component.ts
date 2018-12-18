@@ -121,7 +121,12 @@ export class AvioProfileComponent implements OnInit {
 
 		this.avioService.saveAviosDestination(this.avio.id, destination).subscribe(
 			(response) => console.log(response),
-			(error) => console.log(error)
+			(error) => {	
+				// console.log(error.status); 
+				if (error.status === 409) {
+					console.log("Already exists city " + destination.name + " in " + destination.country);
+				}
+			}
 		);
 		
 	}

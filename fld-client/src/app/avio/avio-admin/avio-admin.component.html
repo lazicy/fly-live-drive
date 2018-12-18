@@ -1,18 +1,25 @@
 <h2>Avio Administrator</h2>
 
-<button class="btn btn-primary" (click)="onInsertAirline()">Insert airline</button> 
 <button class="btn btn-primary" (click)="onShowAirlines()">Show airlines</button>
+<button type="button" class="btn btn-primary" (click)="onInsertAirline()">
+  Insert airline
+</button>
 
-<div class="modal"  *ngIf="showFormDialog">
 
-    <!-- Modal content -->
+
+  <div class="form-modal" *ngIf="showFormDialog">
+
     <div class="modal-content">
-      <span class="close" (click)="onCloseForm()">&times;</span>
-      <app-avio-form (avioSubmit)="avioSubmitted($event)"></app-avio-form>
+      
+      <div class="modal-body">
+          <button type="button" class="close" (click)="onCloseForm()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        <app-avio-form (avioSubmit)="avioSubmitted($event)"></app-avio-form>
+      </div>
     </div>
-  
   </div>
-
+    
 <div *ngIf="showAvioList">
   <img appLoading *ngIf="!avioList">
   
