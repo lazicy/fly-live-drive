@@ -41,9 +41,6 @@ public class Flight {
 	@Column(name="price", nullable=false)
 	private double price;
 	
-	@Column(name="numberOfInterceptions", nullable = false)
-	private int numberOfInterceptions;
-	
 	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Interception> interceptions = new HashSet<Interception>();
 	
@@ -75,14 +72,6 @@ public class Flight {
 
 	public void setLandingCity(City landingCity) {
 		this.landingCity = landingCity;
-	}
-
-	public int getNumberOfInterceptions() {
-		return numberOfInterceptions;
-	}
-
-	public void setNumberOfInterceptions(int numberOfInterceptions) {
-		this.numberOfInterceptions = numberOfInterceptions;
 	}
 
 	public Set<Interception> getInterceptions() {

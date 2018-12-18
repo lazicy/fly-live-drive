@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.FlightDTO;
 import com.bff.flylivedrive.dto.InterceptionDTO;
+import com.bff.flylivedrive.dto.mappers.FlightMapper;
+import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
 import com.bff.flylivedrive.model.Avio;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Flight;
@@ -75,59 +77,69 @@ public class FlightController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		// find avio in database
 		Avio a = avioService.findOneById(flightDTO.getAvioDTO().getId());
-		System.out.println(a);
+		
+		// if there is no any bad request
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		Flight flight = new Flight();
-		flight.setId(flightDTO.getId());
-		flight.setDepartureDate(flightDTO.getDepartureDate());
-		flight.setLandingDate(flightDTO.getLandingDate());
-		flight.setPrice(flightDTO.getPrice());
-		flight.setAvio(a);
-		
+		// find cities in database
 		City departureCity = cityService.findOneById(flightDTO.getDepartureCity().getId());
 		City landingCity = cityService.findOneById(flightDTO.getLandingCity().getId());
 		
+		// if one of them is null - bad request
 		if (departureCity == null || landingCity == null) {
 			return new ResponseEntity<>(HttpStatus.valueOf("Departure city or landing city not found"));
 		}
 		
-		System.out.println(landingCity.getName());
-		flight.setDepartureCity(departureCity);
-		flight.setLandingCity(landingCity);
+		// map flight [interceptions will be set latter because they need flight reference]
+		FlightMapper mapper = new FlightMapper();
+		Flight flight = mapper.map(flightDTO, a, departureCity, landingCity);
 		
-		// set all interceptions [BRACE YOURSELVES very crazy shit is comming]
+		// form and map all interceptions 
+		Set<Interception> interceptions = formInterceptionsSet(flightDTO.getInterceptionsDTO(), flight);
+		
+		if (interceptions == null) {
+			return new ResponseEntity<>(HttpStatus.valueOf("One of interception cities not found."));
+		}
+		
+		flight.setInterceptions(interceptions);
+		
+		// save to database
+		flight = flightService.save(flight);
+		
+		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.CREATED);
+		
+	}
+	
+	
+	// forming set of interceptions
+	private Set<Interception> formInterceptionsSet(List<InterceptionDTO> interceptionsDTO, Flight f) {
 		Set<Interception> interceptions = new HashSet<>();
-		for (InterceptionDTO iDTO: flightDTO.getInterceptionsDTO()) {
+		for (InterceptionDTO iDTO: interceptionsDTO) {
 			
-			Interception i = new Interception();
 			
-			// set city
-			City interceptionCity = cityService.findOneById(iDTO.getCity().getId());
+			// find interception city
+			City c = cityService.findOneById(iDTO.getCityDTO().getId());
 			
-			if (interceptionCity == null) {
-				return new ResponseEntity<>(HttpStatus.valueOf("Interception city not found."));
+			// return null if there isn't any 
+			if (c == null) {
+				return null;
 			}
 			
-			// set interception
-			i.setCity(interceptionCity);
-			i.setDuration(iDTO.getDuration());
-			i.setTakeOff(iDTO.getTakeOff());
-			i.setLanding(iDTO.getLanding());
-			i.setFlight(flight);
+			InterceptionMapper mapper = new InterceptionMapper();
+			Interception i = new Interception();
+			i = mapper.map(iDTO, c, f);
 			
 			// finaly put it in set
 			interceptions.add(i);
 			
 		}
-		flight.setInterceptions(interceptions);
 		
-		flight = flightService.save(flight);
+		return interceptions;
 		
-		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.CREATED);
 		
 	}
 	
