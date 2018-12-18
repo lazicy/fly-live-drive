@@ -8,16 +8,20 @@ export class HotelService {
     
     constructor(private http:HttpClient) {}
 
-    getHotelList() {
-        return this.hotels.slice();
-    }
-
     getHotels() {
         return this.http.get("/api/hotel/all");
     }
 
-    getHotel(id) {
+    getHotel(id: number) {
         return this.http.get("/api/hotel/" + id);
     }
+
+    saveHotel(hotel) {
+		return this.http.post("/api/hotel", hotel);
+    }
+    
+    deleteHotel(id: number) {
+		return this.http.delete("/api/hotel/" + id);
+	}
 
 }

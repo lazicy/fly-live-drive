@@ -1,18 +1,9 @@
-.tile {
-    border: 1px solid rgb(194, 197, 194);
-    border-radius: 10px;
-    margin: 20px 0px;
-}
-.image-card {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-.left {
-    float:left;
-    margin-right: 20px;
+.fa-star {
+    color: rgb(255, 230, 7);
+    font-size: 15px;
+    margin-left: 5px;
 }
 
-.right {
-    padding-top:20px;
-    padding-right: 10px;
+.fa-star:first-child {
+    margin-left: 5px;
 }

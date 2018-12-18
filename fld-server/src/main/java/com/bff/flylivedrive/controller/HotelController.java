@@ -39,6 +39,7 @@ public class HotelController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<HotelDTO> getHotel(@PathVariable Long id) {
+		
 		Hotel hotel = hotelService.findOneById(id);
 		
 		if(hotel == null) {
@@ -54,13 +55,52 @@ public class HotelController {
 		
 		hotel.setName(hotelDTO.getName());
 		hotel.setAddress(hotelDTO.getAddress());
+		hotel.setCity(hotelDTO.getCity());
+		hotel.setCountry(hotelDTO.getCountry());
 		hotel.setDescription(hotelDTO.getDescription());
-		hotel.setImageURL(hotelDTO.getImageURL());
+		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
+		hotel.setMap(hotelDTO.getMap());
+		hotel.setStars(hotelDTO.getStars());
 		
 		hotel = hotelService.save(hotel);
 		
 		return new ResponseEntity<HotelDTO>(new HotelDTO(hotel),HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteHotel(@PathVariable Long id){
+		
+		Hotel hotel = hotelService.findOneById(id);
+		
+		if(hotel != null) {
+			hotelService.remove(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
+	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO){
+		
+		//checking if hotel exists
+		Hotel hotel = hotelService.findOneById(hotelDTO.getId());
+		
+		if (hotel == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		hotel.setName(hotelDTO.getName());
+		hotel.setAddress(hotelDTO.getAddress());
+		hotel.setCity(hotelDTO.getCity());
+		hotel.setCountry(hotelDTO.getCountry());
+		hotel.setDescription(hotelDTO.getDescription());
+		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
+		hotel.setMap(hotelDTO.getMap());
+		hotel.setStars(hotelDTO.getStars());
+		
+		hotel = hotelService.save(hotel);
+		
+		return new ResponseEntity<>(new HotelDTO(hotel), HttpStatus.OK);
+	}
 }

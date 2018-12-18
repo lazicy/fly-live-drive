@@ -1,21 +1,30 @@
-<section id="section-tiles" *ngIf="hotelList">
-  <div class="container">
+<div class="container" *ngIf="hotelList">
     <div class="row" *ngFor="let hotel of hotelList">
         <div class="tile">
             <div class="card-inside">
-              <div class="left">
-                  <img class="image-card" alt="Hotel image" src="{{hotel.imageURL}}" width="300px" height="252px">
+                <div class="left-part-card">
+                    <img class="image-card" alt="Hotel image" src="{{hotel.hotelImageURL}}" width="300px" height="253px">
+                </div>
+                <div class="right-part-card">
+                  <div>
+                      <h4 class="hotel-name">{{hotel.name}}
+                          <span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                          <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></h4> 
+                          <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</h6>
+                  <p class="card-text">{{hotel.description}}</p>
+                  </div>
+                  <div class="details-btn-card">
+                      <a class="btn btn-primary" [routerLink]="['/hotel', hotel.id]" id="details">See details</a>
+                    </div> 
               </div>
-              <div class="right">
-                  <h4 class="hotel-name">{{hotel.name}}</h4>
-                  <h6 class="hotel-address">{{hotel.address}}</h6>
-              <p class="card-text">{{hotel.description}}<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam esse fugit repudiandae nemo tempore, aperiam eius? Esse, deserunt porro laudantium vitae voluptas ratione nobis error! Repellat, quisquam! Recusandae, sunt fugit.</p>
-              <a class="btn btn-primary" [routerLink]="[hotel.id]">See details</a>
-              </div>      
             </div>
           </div>
     </div>
-  </div>
-</section>
+</div>
 
 <h3 *ngIf="emptyHotelList">There are no hotels in the system.</h3>
+
+

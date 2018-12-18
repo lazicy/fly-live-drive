@@ -1,0 +1,29 @@
+.info {
+	border: 1px;
+    border-radius: .375rem;
+    box-shadow: 0 1px 3px 0 rgba(37,32,31,.3);
+    position: fixed;
+    width: 28%;
+    min-width: 15.75rem;
+    max-width: 20rem;
+    top: 400;
+    margin-top: 200px;
+    right: 14%;
+    overflow: hidden;
+    background-color: white;
+    padding: 10px 15px 10px 15px;
+}
+
+.fa-star {
+    color: rgb(255, 230, 7);
+    font-size: 15px;
+    margin-top: -15px;
+}
+
+.fa-star:not(:first-child) {
+    margin-left: 4px;
+}
+agm-map {
+    height: 230px;
+    width: 400px;
+}

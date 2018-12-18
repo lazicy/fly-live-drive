@@ -1,0 +1,23 @@
+#main-part {
+    padding-top: 40%;
+}
+
+.section-parallax {
+    text-align: center;
+    background: url(/src/img/nature.jpg) center repeat fixed;
+    padding: 120px 0;
+    background-size: cover;
+    color: white;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+
+#pretrazi { /* id za dugme pretrage */
+    float:right;
+    margin: 35px 90px 0px 0px;
+}
+.center { /* klasa celog reda tj. kontejnera u kojem se nalaze elementi */
+    text-align: center;
+}

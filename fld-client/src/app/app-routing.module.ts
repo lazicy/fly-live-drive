@@ -6,11 +6,13 @@ import { AviolistComponent } from './avio/aviolist/aviolist.component';
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
-import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
+import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
+import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
+import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 
 
 const appRoutes: Routes = [
@@ -25,10 +27,12 @@ const appRoutes: Routes = [
 	]},
 	{ path: 'rent', component: RentAddComponent},
 	{ path: 'hotel', component: HotelComponent, children: [
-		{path: 'list', component: HotelListComponent, children: [
-			{path: ':id', component: HotelPageComponent}
+		{ path: '', component: HotelHomepageComponent},
+		{ path: 'list', component: HotelListComponent},
+		{ path: 'administrateHotels', component: HotelAdminComponent, children: [
+			{ path: 'add', component: HotelFormComponent}
 		]},
-		{path: 'admin', component: AddHotelComponent}
+		{ path: ':id', component: HotelPageComponent}
 	]}
 
 ];

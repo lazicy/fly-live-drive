@@ -18,12 +18,24 @@ public class Hotel {
 	
 	@Column(name="address", nullable = false)
 	private String address;
+	
+	@Column(name="city", nullable = false)
+	private String city;
+	
+	@Column(name="country", nullable = false)
+	private String country;
 
 	@Column(name="description", nullable = true)
 	private String description;
 	
-	@Column(name="imageURL", nullable = true)
-	private String imageURL;
+	@Column(name="hotelImageURL", nullable = true)
+	private String hotelImageURL;
+	
+	@Column(name="map", columnDefinition="TEXT", nullable = true)
+	private String map;
+	
+	@Column(name="stars", nullable = false)
+	private int stars;
 	
 	public Long getId() {
 		return id;
@@ -57,11 +69,43 @@ public class Hotel {
 		this.description = description;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public String getHotelImageURL() {
+		return hotelImageURL;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setHotelImageURL(String imageURL) {
+		this.hotelImageURL = imageURL;
+	}
+
+	public int getStars() {
+		return stars;
+	}
+
+	public void setStars(int stars) {
+		this.stars = stars;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getMap() {
+		return map;
+	}
+
+	public void setMap(String map) {
+		this.map = map;
 	}
 }

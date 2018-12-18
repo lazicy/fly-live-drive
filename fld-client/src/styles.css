@@ -1,3 +1,5 @@
+@import "~font-awesome/css/font-awesome.css";
+
 .btn {
     margin-right: 5px;
 }
@@ -6,7 +8,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-  
+
     transform: translate(-50%, -50%);
 }
 
@@ -14,19 +16,107 @@ div[class*="col-"] {
     margin-right: 30px;
 }
 
-
-/* kada zelite da stavite custom image samo u svom delu stavljate 
-.section-parallax {
-    background: url(/src/img/vasaslika.jpg) bottom repeat fixed;
+body {
+    background-color: #f3f2f5;
 }
-*/
+
+
+/* kada zelite da stavite custom image samo u svom delu stavljate
 .section-parallax {
     text-align: center;
-    background: url(/src/img/nature.jpg) bottom repeat fixed;
-    padding: 140px 0;
+    background: url(/src/img/nature.jpg) center repeat fixed;
+    padding: 120px 0;
     background-size: cover;
     color: white;
     position: absolute;
     width: 100%;
     left: 0;
+}
+    stavljajte celu klasu u .css da ne bi morali sliku da skaliramo...*/
+
+/* KOD ZA KATRICE */
+.tile {
+    border: 1px solid rgb(202, 204, 202);
+    border-radius: 11px;
+    margin: 5px 0px;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 1px 3px 0 rgba(37,32,31,.3);
+    border-radius: .375rem;
+    transition: 0.2s;
+}
+
+.tile:hover {
+    transition: 0.2s;
+    box-shadow: 1px 3px 6px 1px rgba(37,32,31,.3);
+}
+
+.image-card {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+.left-part-card {
+    float:left;
+    margin-right: 20px;
+    min-width: 300px;
+    min-height: 252px;
+}
+
+.right-part-card {
+    padding-top:20px;
+    padding-right: 10px;
+    width: 100%;
+}
+.details-btn-card {
+    text-align: right;
+    position: relative;
+    top: 60px;
+}
+#details {
+    margin-right:20px;
+    width: 130px;
+}
+.card-text {
+    margin-top: 25px;
+}
+
+/* KOD ZA SEARCHBAR */
+.srcbar > input:not(:last-child), select:not(:last-child) {
+    border-left-color: transparent;
+}
+.srcbar > input:not(:first-child), select:not(:first-child) {
+    border-right-color: transparent;
+}
+select {
+    border-left: 0px transparent;
+    border-right: 0px transparent;
+}
+.unos {
+    padding: 10px;
+    border: 1px solid lightgray;
+    display: block;
+}
+.lbl {
+    display: block;
+    text-shadow: 0px 3.2px 6px rgba(0,0,0,0.2);
+}
+.srcbar {
+    float: left;
+}
+.srcbar > .search { /* id za textfield */
+    width: 400px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.check-in, .check-out { /* class za datepicker */
+    width: 170px;
+    padding: 9px;
+}
+.soba, .br-gostiju {  /* class za select tag */
+    width: 100px;
+    padding-bottom: 11px;
+}
+.soba {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -17,11 +19,13 @@ import { LoadingDirective } from './directives/loading.directive';
 import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
-import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
+import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
+import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
+import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 
 @NgModule({
   declarations: [
@@ -34,20 +38,25 @@ import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.compone
     LoadingDirective,
     RentAddComponent,
     HotelComponent,
-    AddHotelComponent,
     HotelListComponent,
     HotelComponent,
-    AddHotelComponent,
     HotelListComponent,
     HotelPageComponent,
     AvioAdminComponent,
-    AvioFormComponent
+    AvioFormComponent,
+    HotelHomepageComponent,
+    HotelFormComponent,
+    HotelAdminComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AngularFontAwesomeModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [AvioService, FlightService, HotelService],
   bootstrap: [AppComponent]
