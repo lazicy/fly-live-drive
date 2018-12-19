@@ -37,7 +37,6 @@ const appRoutes: Routes = [
 		]},
 		{ path: ':id', component: HotelPageComponent}
 	]},
-		{path: 'admin', component: AddHotelComponent},
 		{path: 'login', component: LoginComponent},
 		{path:'signup', component: SignUpComponent},
 		{path: 'verifymail', component: VerifyMailComponent}

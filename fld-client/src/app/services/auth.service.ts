@@ -14,7 +14,7 @@ export class AuthService {
         .pipe(
             map(user => {
 
-                if(user && user.accessToken){
+                if(user){
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
 
