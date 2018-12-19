@@ -2,6 +2,7 @@ package com.bff.flylivedrive.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
+import org.springframework.mobile.device.Device;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +30,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.bff.flylivedrive.dto.UserDTO;
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.User;
+import com.bff.flylivedrive.model.UserTokenState;
+import com.bff.flylivedrive.security.TokenUtils;
+import com.bff.flylivedrive.security.auth.JwtAuthenticationRequest;
+import com.bff.flylivedrive.service.CustomUserDetailsService;
 import com.bff.flylivedrive.service.UserService;
 
 @RestController
@@ -32,6 +42,16 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private TokenUtils tokenUtils;
+	
+	@Autowired
+	private AuthenticationManager manager;
+	
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
+	
 	/*
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> getAllUsers(){
@@ -51,6 +71,11 @@ public class UserController {
 		
 		
 	}*/
+	
+	@RequestMapping(value = "/getUser",method = RequestMethod.GET, consumes = "application/json")
+	public User user(Principal user) {
+		return this.userService.findOneByUsername(user.getName());
+	}
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -85,28 +110,6 @@ public class UserController {
 		rv.setUrl(path);
 		return rv;
 	}
-	/*
-	@RequestMapping(value= "/setActive", method = RequestMethod.PUT, consumes = "application/json")
-	public RedirectView setActive(HttpServletRequest request) throws URISyntaxException{
-		/*userDTO.setActive(true);
-		user = userService.save(user);
-		//OK code status za odgovor na uspesan put request i redirekcija na pocetnu
-		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
-		RedirectView rv = new RedirectView();
-		String url = request.getRequestURL().toString();
-		String uri = request.getRequestURI();
-		String path = url.replace(uri, "") + "/verifymail";
-		
-		User user = (User) request.getAttribute("user");
-		
-		user.setActive(true);
-		user = userService.save(user);
-		
-		request.removeAttribute("user");
-		rv.setUrl(path);
-		return rv;
-	}
-*/	
 	
 }
 

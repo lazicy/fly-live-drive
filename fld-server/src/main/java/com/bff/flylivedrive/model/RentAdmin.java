@@ -10,7 +10,7 @@ import static javax.persistence.DiscriminatorType.STRING;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 @Entity
-@DiscriminatorValue("RENT")
+@DiscriminatorValue("RENT_ADMIN")
 public class RentAdmin extends User {
 	
 /*

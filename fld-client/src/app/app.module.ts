@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AvioComponent } from './avio/avio.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +14,6 @@ import { FlightService } from './services/flight.service';
 
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
-import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
 import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
@@ -27,6 +26,10 @@ import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.compone
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { UserService } from './services/user.service';
 import { RentService } from './services/rentacar.service';
+import { RentAddComponent } from './rent/rent-admin/rent-add/rent-add.component';
+import { AuthService } from './services/auth.service';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { RentService } from './services/rentacar.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService],
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService,
+              {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+             //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
