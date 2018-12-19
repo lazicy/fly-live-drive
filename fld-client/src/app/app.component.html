@@ -1,8 +1,26 @@
 <!-- navbar -->
-<app-header></app-header>
-
-<div class="container">
- 
- <router-outlet></router-outlet>
- 
+<div *ngIf="isLogin">
+    <app-login></app-login>
 </div>
+
+<div *ngIf="isSignUp">
+    <app-sign-up></app-sign-up>
+</div>
+
+
+<div *ngIf="isVerifed">
+    <app-verify-mail></app-verify-mail>
+</div>
+
+<div *ngIf="!isLogin && !isSignUp && !isVerifed">
+    <app-header></app-header>
+    <div class="container">
+ 
+    <router-outlet></router-outlet>
+            
+    </div>
+</div>
+
+ 
+
+
