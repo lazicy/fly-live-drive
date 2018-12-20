@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url('/src/img/plane.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 938px;
+font-family: 'Numans', sans-serif;
+}
+
+label{
+    color: white;
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 800x;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header h3{
+color: white;
+}
+
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+input.ng-touched.ng-invalid {
+    border: 3px solid red; 
+  }

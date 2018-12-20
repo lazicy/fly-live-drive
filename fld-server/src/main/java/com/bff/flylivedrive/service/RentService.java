@@ -25,5 +25,7 @@ public class RentService {
 	public RentACar save(RentACar service) {
 		return rentRepo.save(service);
 	}
-
+	public void deleteById(Long id) {
+		rentRepo.deleteById(id);
+	}
 }

@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AgmCoreModule } from '@agm/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AvioComponent } from './avio/avio.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -16,16 +16,24 @@ import { FlightService } from './services/flight.service';
 
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { LoadingDirective } from './directives/loading.directive';
-import { RentAddComponent } from './rent/rent-add/rent-add.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
 import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
 import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
+import { VerifyMailComponent } from './verify-mail/verify-mail.component';
+import { UserService } from './services/user.service';
+import { RentService } from './services/rentacar.service';
+import { RentAddComponent } from './rent/rent-admin/rent-add/rent-add.component';
+import { AuthService } from './services/auth.service';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,11 +50,14 @@ import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
     HotelComponent,
     HotelListComponent,
     HotelPageComponent,
+    LoginComponent,
+    SignUpComponent,
     AvioAdminComponent,
     AvioFormComponent,
     HotelHomepageComponent,
     HotelFormComponent,
-    HotelAdminComponent
+    HotelAdminComponent,
+    VerifyMailComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +67,14 @@ import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: ''
-    })
+    }),
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService],
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService,
+              {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+             //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
