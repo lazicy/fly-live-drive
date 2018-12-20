@@ -104,12 +104,12 @@ select {
     float: left;
 }
 .srcbar > .search { /* id za textfield */
-    width: 400px;
+    width: 430px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
 .check-in, .check-out { /* class za datepicker */
-    width: 170px;
+    width: 180px;
     padding: 9px;
 }
 .soba, .br-gostiju {  /* class za select tag */
