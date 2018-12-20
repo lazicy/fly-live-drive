@@ -120,7 +120,7 @@ select {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
-
+    /* MODAL WINDOW */
 .form-modal {
     
     position: fixed; /* Stay in place */
