@@ -10,7 +10,7 @@
     color: white;
     position: absolute;
     width: 100%;
-    height: 55%;
+    height: 52%;
     left: 0;
 }
 
@@ -21,4 +21,5 @@
 }
 .center { /* klasa celog reda tj. kontejnera u kojem se nalaze elementi */
     text-align: center;
+    margin-top: 0.8%;
 }
