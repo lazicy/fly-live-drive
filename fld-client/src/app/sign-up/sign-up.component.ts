@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { shallowEqualArrays } from '@angular/router/src/utils/collection';
-import swal from 'sweetalert'
-import { User } from '../model/user'
+import swal from 'sweetalert';
+import { User } from '../model/user';
 import { UserService } from '../services/user.service';
 
 @Component({

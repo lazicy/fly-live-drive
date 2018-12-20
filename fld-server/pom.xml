@@ -84,8 +84,8 @@
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-mobile</artifactId>
-    <version>1.5.18.RELEASE</version>
-</dependency>
+    	<version>1.5.18.RELEASE</version>
+	</dependency>
 	
 
 
