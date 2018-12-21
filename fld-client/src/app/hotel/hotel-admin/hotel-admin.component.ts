@@ -46,9 +46,9 @@ export class HotelAdminComponent implements OnInit {
   }
   
   onDeleteHotel(id) {
-		// nakon upucenog delete requesta, nema potrebe da se ponovo dobavlja lista sa servera, vec se samo taj objekat izbaci iz liste sa klijenta
-		this.hotelService.deleteHotel(id).subscribe(
-			(result) => {
+    // nakon upucenog delete requesta, nema potrebe da se ponovo dobavlja lista sa servera, vec se samo taj objekat izbaci iz liste sa klijenta
+		/*this.hotelService.deleteHotel(id).subscribe(
+		(result) => {
 				// fensi for petlja
 				let i = this.hotelList.findIndex(avio => avio.id === id);
 				// obrisi jednog clana na poziciji i
@@ -56,9 +56,30 @@ export class HotelAdminComponent implements OnInit {
         if(this.hotelList.length === 0) {
           this.emptyHotelList = true;
         }
+		}, (error) =>  {swal ( "Error occured" ,  "The hotel was not deleted." ,  "error" );}
+    );*/
 
-			}, (error) => alert("Error occured")
-		);
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.hotelService.deleteHotel(id).subscribe(
+          (result) => {
+              // fensi for petlja
+              let i = this.hotelList.findIndex(avio => avio.id === id);
+              // obrisi jednog clana na poziciji i
+              this.hotelList.splice(i, 1);
+              swal({title: "Success!", text: "Hotel deleted.", icon: "success", timer: 1500});
+              if(this.hotelList.length === 0) {
+                this.emptyHotelList = true;
+              }
+          }, (error) =>  {swal ( "Error occured" ,  "The hotel was not deleted." ,  "error" );}
+          );
+      }
+    });
 	}
-
 }

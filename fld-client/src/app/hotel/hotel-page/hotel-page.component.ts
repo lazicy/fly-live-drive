@@ -32,7 +32,6 @@ export class HotelPageComponent implements OnInit {
             this.currentStyles = {
               'background-image':  "url('" + this.slika + "')"
             }
-            console.log(this.slika);
             if(this.hotel.map === "") {
                 this.map = true;
             }

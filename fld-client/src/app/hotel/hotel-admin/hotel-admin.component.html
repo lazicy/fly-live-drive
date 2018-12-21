@@ -2,12 +2,14 @@
   <h2>Hotel administration</h2>
   <button class="btn btn-primary" id="addhotel" (click)="onAddHotel()">Add hotel</button>
   
-  <div class="modal"  *ngIf="showFormDialog">
+  <div class="form-modal" *ngIf="showFormDialog">
     <div class="modal-content">
-      <div>
-        <button class="close" (click)="onCloseForm()">&times;</button>
+      <div class="modal-body">
+          <button type="button" class="close" (click)="onCloseForm()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          <app-hotel-form (hotelSubmit)="hotelSubmitted($event)"></app-hotel-form>
       </div>
-      <app-hotel-form (hotelSubmit)="hotelSubmitted($event)"></app-hotel-form>
     </div>
   </div>
   

@@ -44,10 +44,12 @@ export class HotelFormComponent implements OnInit {
 			(response) => {
 				// emituje se event koji se slusa u selektoru ove komponente (child) u okviru html-a parent komponente (ovde se salje
 				// response a tamo se prima $event). 
-				this.hotelSubmit.emit(response);
+        this.hotelSubmit.emit(response);
+        swal("Success!","Hotel added.", "success");
+        swal({title: "Success!", text: "Hotel added", icon: "success", timer: 1500});
 				this.ngOnDestroy();
 			},
-			(error) => alert("An error has occured")
+			(error) => {swal ( "Error occured" ,  "The hotel was not added." ,  "error" );}
     );
     
     form.reset();

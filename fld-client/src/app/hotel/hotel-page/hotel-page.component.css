@@ -23,12 +23,15 @@
 .fa-star:not(:first-child) {
     margin-left: 4px;
 }
-agm-map {
-    height: 230px;
-    width: 400px;
-}
 
 .slika {
-    height: 300px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    height: 400px;
     width: 100%;
+}
+
+.content {
+    background-color: white;
 }
