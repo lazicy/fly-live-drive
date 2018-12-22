@@ -27,6 +27,12 @@ public class RentACar {
 	@Column(name = "adress", nullable = false)
 	String adress;
 	
+	@Column(name = "city", nullable = false)
+	String city;
+	
+	@Column(name = "country", nullable = false)
+	String country;
+		
 	@Column(name = "description", nullable = true)
 	String description;
 	
@@ -34,6 +40,21 @@ public class RentACar {
 	@OneToMany(mappedBy = "servis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
 	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	public Long getId() {
 		return id;
 	}

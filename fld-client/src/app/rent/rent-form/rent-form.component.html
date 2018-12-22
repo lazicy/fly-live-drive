@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+      <form (ngSubmit)="onSubmitRent(f)" name="addRentForm" #f="ngForm">
+          <h2>Insert a new Rent-a-car service</h2>
+          <hr>
+        <div class="row">
+          <div class="col form-group">
+            <label>Name: </label>
+            <input type="text" class="form-control" name="name" id=name ngModel required>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col form-group">
+              <label>Adress: </label>
+              <input type="text" class="form-control" name="adress" id=adress ngModel required>
+            </div>
+
+            <div class="col form-group">
+              <label>City: </label>
+              <input type="text" class="form-control" name="city" id=city ngModel required>
+            </div>
+
+            <div class="col form-group">
+              <label>Country: </label>
+              <input type="text" class="form-control" name="country" id=country required ngModel>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col form-group">
+            <label>Adress on map: </label>
+            <input type="text" class="form-control" name="map" id=map placeholder="from google maps" ngModel>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-group">
+              <label for="description">Promo description: </label>
+              <textarea type="text" id="description" name="description" placeholder="Rent-a-car description" ngModel class="form-control" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col form-group">
+              <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
+              <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+            </div>
+          </div>
+        </form>
+  </div>
+</div>

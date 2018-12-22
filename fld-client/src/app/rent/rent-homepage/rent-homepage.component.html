@@ -1,0 +1,47 @@
+<section class="section-parallax" data-type="background" data-speed="4">
+  <div class="container">
+    <div class="row" class="center">
+      <div class="srcbar" style="margin-left: 70px;">
+          <label for="search" class="lbl">Find deals</label>
+          <input type="text" id="search" placeholder="Enter location or rent-a-car name" class="unos search">
+      </div>
+      <div class="srcbar">
+          <label for="check-in" class="lbl">Pick up</label>
+          <input type="date" id="check-in" name="check-in" class="unos check-in" [ngModel]="today">
+      </div>
+      <div class="srcbar">
+          <label for="check-out" class="lbl">Return</label>
+          <input type="date" id="check-out" name="check-in" class="unos check-out" [ngModel]="tomorrow">
+      </div>
+      <div class="srcbar">
+          <label for="br-gostiju" class="lbl">Passangers</label>
+          <select class="unos br-gostiju" id="br-gostiju" name="gosti">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+      </div>
+      <div class="srcbar">
+          <label for="soba" class="lbl">Type</label>
+          <select class="unos soba" id="soba" name="soba">
+            <option value="1" selected>Car</option>
+            <option value="3">SUV</option>
+            <option value="3">Truck</option>
+            <option value="4">Jeep</option>
+            <option value="5">Motorcycle</option>
+          </select>
+      </div>
+    </div>
+    <div class="row" id="pretrazi">
+      <button class="btn btn-primary" [routerLink]="['/rent/administrateRents']" style="background-color: green; border-color: green; text-align: center;">Administration</button>
+      <button class="btn btn-primary" [routerLink]="">Search hotels</button>
+    </div>
+  </div>
+</section>

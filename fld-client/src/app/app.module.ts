@@ -30,10 +30,13 @@ import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { UserService } from './services/user.service';
 import { RentService } from './services/rentacar.service';
-import { RentAddComponent } from './rent/rent-admin/rent-add/rent-add.component';
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { RentComponent } from './rent/rent.component';
+import { RentHomepageComponent } from './rent/rent-homepage/rent-homepage.component';
+import { RentAdminComponent } from './rent/rent-admin/rent-admin.component';
+import { RentFormComponent } from './rent/rent-form/rent-form.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,6 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     AviolistComponent,
     AvioProfileComponent,
     LoadingDirective,
-    RentAddComponent,
     HotelComponent,
     HotelListComponent,
     HotelComponent,
@@ -58,6 +60,10 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HotelFormComponent,
     HotelAdminComponent,
     VerifyMailComponent,
+    RentComponent,
+    RentHomepageComponent,
+    RentAdminComponent,
+    RentFormComponent,
   ],
   imports: [
     BrowserModule,

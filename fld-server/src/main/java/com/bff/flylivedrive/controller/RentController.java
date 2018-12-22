@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.RentDTO;
+import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
 import com.bff.flylivedrive.service.RentService;
 
@@ -36,7 +37,6 @@ public class RentController {
 			return new ResponseEntity<>(temp, HttpStatus.OK);
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
@@ -44,6 +44,8 @@ public class RentController {
 		
 		rentAcar.setName(rent.getName());
 		rentAcar.setAdress(rent.getAdress());
+		rentAcar.setCity(rent.getCity());
+		rentAcar.setCountry(rent.getCountry());
 		rentAcar.setDescription(rent.getDescription());
 		
 		//kreiraj novi objekat i sacuvaj ga u bazu
@@ -55,9 +57,22 @@ public class RentController {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@PreAuthorize("hasRole('RENT_ADMIN')")
-	public ResponseEntity<Object> deleteRent(@PathVariable("id") Long id){
+	public  ResponseEntity<Object> deleteRent(@PathVariable("id") Long id){
 		rentService.deleteById(id);
-		return new ResponseEntity<>(null,HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<RentDTO> editRent(@PathVariable("id") Long id){
+		return null;
+	}
+	
+	@RequestMapping(value = "/addBranch", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<?> addBranch(@RequestBody Filijala filijala){
+		return null;
+	}
+	
 	
 }
