@@ -2,12 +2,14 @@
     <h2>Rent-a-car service administration</h2>
     <button class="btn btn-primary btn-rent"  (click)="onAddRent()">Add service</button>
   
-    <div class="modal"  *ngIf="showFormDialog">
+    <div class="form-modal" *ngIf="showFormDialog">
       <div class="modal-content">
-        <div>
-          <button class="close" (click)="onCloseForm()">&times;</button>
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
         </div>
-        <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
       </div>
     </div>
   

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { RentService } from 'src/app/services/rentacar.service';
-import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-sys-car-admin',
   templateUrl: './sys-car-admin.component.html',
   styleUrls: ['./sys-car-admin.component.css']
 })
 export class SysCarAdminComponent implements OnInit {
+  
   showFormDialog: boolean = false;
   rentList: any;
   emptyRentList: boolean;
 
-  constructor(private service: RentService) { }
+  constructor(private http: HttpClient, private service: RentService) { }
 
   ngOnInit() {
 
