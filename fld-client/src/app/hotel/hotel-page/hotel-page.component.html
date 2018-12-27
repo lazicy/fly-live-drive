@@ -12,10 +12,13 @@
       <p><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</p>
     </div>
   </div>
+  <div class="content">
     <h6>Description:</h6>
     <p>{{hotel.description}}</p>
     <div id="mapa" *ngIf="!map">
       <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="400" height="240" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
+  </div>
+    
   
 </div>

@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { HotelService } from 'src/app/services/hotel.service';
 
 @Component({
-  selector: 'app-hotel-admin',
-  templateUrl: './hotel-admin.component.html',
-  styleUrls: ['./hotel-admin.component.css']
+  selector: 'app-sys-hotel-admin',
+  templateUrl: './sys-hotel-admin.component.html',
+  styleUrls: ['./sys-hotel-admin.component.css']
 })
-export class HotelAdminComponent implements OnInit {
+export class SysHotelAdminComponent implements OnInit {
+
   showFormDialog: boolean = false;
   hotelList: any;
   emptyHotelList: any;
@@ -46,18 +47,6 @@ export class HotelAdminComponent implements OnInit {
   }
   
   onDeleteHotel(id) {
-    // nakon upucenog delete requesta, nema potrebe da se ponovo dobavlja lista sa servera, vec se samo taj objekat izbaci iz liste sa klijenta
-		/*this.hotelService.deleteHotel(id).subscribe(
-		(result) => {
-				// fensi for petlja
-				let i = this.hotelList.findIndex(avio => avio.id === id);
-				// obrisi jednog clana na poziciji i
-        this.hotelList.splice(i, 1);
-        if(this.hotelList.length === 0) {
-          this.emptyHotelList = true;
-        }
-		}, (error) =>  {swal ( "Error occured" ,  "The hotel was not deleted." ,  "error" );}
-    );*/
 
     swal({
       title: "Are you sure?",

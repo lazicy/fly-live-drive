@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { HotelService } from 'src/app/services/hotel.service';
 
 @Component({
-  selector: 'app-hotel-form',
-  templateUrl: './hotel-form.component.html',
-  styleUrls: ['./hotel-form.component.css']
+  selector: 'app-sys-hotel-form',
+  templateUrl: './sys-hotel-form.component.html',
+  styleUrls: ['./sys-hotel-form.component.css']
 })
-export class HotelFormComponent implements OnInit {
+export class SysHotelFormComponent implements OnInit, OnDestroy {
 
   @Output() hotelSubmit = new EventEmitter();
   noStars: any;

@@ -37,6 +37,13 @@ import { RentComponent } from './rent/rent.component';
 import { RentHomepageComponent } from './rent/rent-homepage/rent-homepage.component';
 import { RentAdminComponent } from './rent/rent-admin/rent-admin.component';
 import { RentFormComponent } from './rent/rent-form/rent-form.component';
+import { SystemAdminComponent } from './system-admin/system-admin.component';
+import { SysHotelAdminComponent } from './system-admin/sys-hotel-admin/sys-hotel-admin.component';
+import { SysAvioAdminComponent } from './system-admin/sys-avio-admin/sys-avio-admin.component';
+import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
+import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
+import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
+import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +71,13 @@ import { RentFormComponent } from './rent/rent-form/rent-form.component';
     RentHomepageComponent,
     RentAdminComponent,
     RentFormComponent,
+    SystemAdminComponent,
+    SysHotelAdminComponent,
+    SysAvioAdminComponent,
+    SysCarAdminComponent,
+    SysCarFormComponent,
+    SysAvioFormComponent,
+    SysHotelFormComponent
   ],
   imports: [
     BrowserModule,

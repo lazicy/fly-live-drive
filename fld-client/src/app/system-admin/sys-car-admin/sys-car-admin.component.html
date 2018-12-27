@@ -1,0 +1,45 @@
+<div class="container" >
+    <h2>Rent-a-car service administration</h2>
+    <button class="btn btn-primary btn-rent"  (click)="onAddRent()">Add service</button>
+  
+    <div class="form-modal" *ngIf="showFormDialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="rentList">
+      <div class="table-responsive">
+      <table class="table table-hover" id="lista">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Rent-a-car name</th>
+            <th scope="col">Rent-a-car address</th>
+            <th scope="col">Rent-a-car description</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rent of rentList">
+                <th scope="row">{{ rent.id }}</th>
+                <td><a [routerLink]="">{{ rent.name }}</a></td>
+                <td>{{ rent.address }}</td>
+                <td>{{ rent.description }}</td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onEditRent(rent.id)"><i class="fa fa-pencil"></i> Edit</button></td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-trash"></i> Delete</button></td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-plus-circle"></i> Add branch office</button></td>
+              </tr>
+            </tbody>
+      </table>
+      </div>
+    </div>
+      <h3 *ngIf="emptyRentList">There are no rent-a-car services in the system.</h3>
+  </div>

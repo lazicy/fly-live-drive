@@ -3,7 +3,8 @@
         <div class="tile">
             <div class="card-inside">
                 <div class="left-part-card">
-                    <img class="image-card" alt="Hotel image" src="{{hotel.hotelImageURL}}" width="300px" height="253px">
+                    <img class="image-card" alt="Hotel image" src="{{hotel.hotelImageURL}}" width="300px" height="253px" *ngIf="hotel.hotelImageURL != ''">
+                    <img class="image-card" alt="Hotel image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="hotel.hotelImageURL == ''">
                 </div>
                 <div class="right-part-card">
                   <div>

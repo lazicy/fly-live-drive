@@ -1,0 +1,43 @@
+<div class="container" >
+    <h2>Hotel administration</h2>
+    <button class="btn btn-primary" id="addhotel" (click)="onAddHotel()">Add hotel</button>
+    
+    <div class="form-modal" *ngIf="showFormDialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <app-hotel-form (hotelSubmit)="hotelSubmitted($event)"></app-hotel-form>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="hotelList">
+      <div class="table-responsive">
+      <table class="table table-hover" id="lista">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Hotel name</th>
+            <th scope="col">Hotel address</th>
+            <th scope="col">Hotel description</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hotel of hotelList">
+                <th scope="row">{{ hotel.id }}</th>
+                <td><a [routerLink]="['/hotel', hotel.id]">{{ hotel.name }}</a></td>
+                <td>{{ hotel.address }}, {{ hotel.city }}, {{hotel.country}}</td>
+                <td>{{ hotel.description }}</td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onEditHotel(hotel.id)"><i class="fa fa-pencil"></i> Edit</button></td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onDeleteHotel(hotel.id)"><i class="fa fa-trash"></i> Delete</button></td>
+              </tr>
+            </tbody>
+      </table>
+      </div>
+    </div>
+      <h3 *ngIf="emptyHotelList">There are no hotels in the system.</h3>
+    </div>

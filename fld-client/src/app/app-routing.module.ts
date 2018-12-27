@@ -18,6 +18,13 @@ import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { RentHomepageComponent } from './rent/rent-homepage/rent-homepage.component';
 import { RentAdminComponent } from './rent/rent-admin/rent-admin.component';
 import { RentComponent } from './rent/rent.component';
+import { SysAvioAdminComponent } from './system-admin/sys-avio-admin/sys-avio-admin.component';
+import { SystemAdminComponent } from './system-admin/system-admin.component';
+import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
+import { SysHotelAdminComponent } from './system-admin/sys-hotel-admin/sys-hotel-admin.component';
+import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
+import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
+import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 
 
 const appRoutes: Routes = [
@@ -42,9 +49,23 @@ const appRoutes: Routes = [
 		]},
 		{ path: ':id', component: HotelPageComponent}
 	]},
-		{path: 'login', component: LoginComponent},
-		{path:'signup', component: SignUpComponent},
-		{path: 'verifymail', component: VerifyMailComponent}
+	{path: 'login', component: LoginComponent},
+	{path:'signup', component: SignUpComponent},
+	{path: 'verifymail', component: VerifyMailComponent},
+	{path: 'systemadmin', component: SystemAdminComponent, children: [
+		{ path: '', component: AvioAdminComponent, children: [
+			{ path: 'add', component: AvioFormComponent}
+		]},
+		{ path: 'avio', component: SysAvioAdminComponent, children: [
+			{ path: 'add', component: SysAvioFormComponent}
+		]},
+		{ path: 'hotels', component: SysHotelAdminComponent, children: [
+			{ path: 'add', component: SysHotelFormComponent}
+		]},
+		{ path: 'rent', component: SysCarAdminComponent, children: [
+			{ path: 'add', component: SysCarFormComponent}
+		]}
+	]}
 	]
 
 
