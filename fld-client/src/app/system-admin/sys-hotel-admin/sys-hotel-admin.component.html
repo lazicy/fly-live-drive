@@ -23,7 +23,6 @@
             <th scope="col">Hotel address</th>
             <th scope="col">Hotel description</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +31,6 @@
                 <td><a [routerLink]="['/hotel', hotel.id]">{{ hotel.name }}</a></td>
                 <td>{{ hotel.address }}, {{ hotel.city }}, {{hotel.country}}</td>
                 <td>{{ hotel.description }}</td>
-                <td style="width:10px"><button class="btn btn-link" (click)="onEditHotel(hotel.id)"><i class="fa fa-pencil"></i> Edit</button></td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteHotel(hotel.id)"><i class="fa fa-trash"></i> Delete</button></td>
               </tr>
             </tbody>

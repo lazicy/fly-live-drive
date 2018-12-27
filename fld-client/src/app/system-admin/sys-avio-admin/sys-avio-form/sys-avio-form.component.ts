@@ -16,10 +16,6 @@ export class SysAvioFormComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 	}
-
-	
-
-
 	onSubmitAvio(form: NgForm) {
 
 		const name = form.value.name;
@@ -35,9 +31,10 @@ export class SysAvioFormComponent implements OnInit, OnDestroy {
 				// emituje se event koji se slusa u selektoru ove komponente (child) u okviru html-a parent komponente (ovde se salje
 				// response a tamo se prima $event). 
 				this.avioSubmit.emit(response);
+				swal({title: "Success!", text: "Avio company added", icon: "success", timer: 1500});
 				this.ngOnDestroy();
 			},
-			(error) => console.log(error)
+			(error) => {swal ( "Error occured" ,  "The company was not added." ,  "error" );}
 		);
 
 		form.reset();

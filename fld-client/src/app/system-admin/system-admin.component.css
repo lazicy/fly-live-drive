@@ -5,7 +5,7 @@
     z-index: 1;
     top: 10;
     left: 0;
-    background-color: #111;
+    background-color: #343a40;
     overflow-x: hidden;
     padding-top: 70px;
   }
@@ -14,7 +14,7 @@
     padding: 10px 8px 6px 20px;
     text-decoration: none;
     font-size: 18px;
-    color: #818181;
+    color: white;
     display: block;
     border: none;
     background: none;
@@ -24,6 +24,15 @@
     outline: none;
   }
 
+  .sidenav a:hover {
+    background-color: #007bff;
+  }
+
   .main {
-      border: 1px solid red;
+     border: 1px solid transparent;
+  }
+
+ .selected {
+   color:#007bff;
+   font-size: 25px;
   }
