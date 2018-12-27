@@ -34,6 +34,13 @@ import { RentAddComponent } from './rent/rent-admin/rent-add/rent-add.component'
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { SystemAdminComponent } from './system-admin/system-admin.component';
+import { SysHotelAdminComponent } from './system-admin/sys-hotel-admin/sys-hotel-admin.component';
+import { SysAvioAdminComponent } from './system-admin/sys-avio-admin/sys-avio-admin.component';
+import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
+import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
+import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
+import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +65,13 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HotelFormComponent,
     HotelAdminComponent,
     VerifyMailComponent,
+    SystemAdminComponent,
+    SysHotelAdminComponent,
+    SysAvioAdminComponent,
+    SysCarAdminComponent,
+    SysCarFormComponent,
+    SysAvioFormComponent,
+    SysHotelFormComponent
   ],
   imports: [
     BrowserModule,

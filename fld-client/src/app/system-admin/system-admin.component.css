@@ -1,0 +1,29 @@
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 10;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 70px;
+  }
+
+  .sidenav a {
+    padding: 10px 8px 6px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .main {
+      border: 1px solid red;
+  }
