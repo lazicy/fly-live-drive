@@ -16,13 +16,13 @@ public class UserDTO {
 		
 	}
 	
-	public UserDTO(String username, String firstname, String password , String lastname, String email, String city) {
+	public UserDTO(String username, String password, String firstname, String lastname, String email, String city) {
 		super();
 		this.username = username;
+		this.setPassword(password);
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
-		this.setPassword(password);
 		this.setCity(city);
 	}
 

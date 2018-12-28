@@ -52,11 +52,9 @@ public class UserController {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	
-	/*
+	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> getAllUsers(){
-		
-		System.out.println("getAllUsers");
 		
 		List<User> users = userService.findAll();
 		List<UserDTO> usersDTO = new ArrayList<>();
@@ -69,8 +67,7 @@ public class UserController {
 		
 		return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 		
-		
-	}*/
+	}
 	
 	@RequestMapping(value = "/getUser",method = RequestMethod.GET, consumes = "application/json")
 	public User user(Principal user) {
@@ -82,10 +79,10 @@ public class UserController {
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO, HttpServletRequest request) throws MailException, InterruptedException {
 		User user = new User();
 		user.setUsername(userDTO.getUsername());
+		user.setPassword(userDTO.getPassword());
 		user.setFirstname(userDTO.getFirstname());
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
 		user.setCity(userDTO.getCity());
 		
 		user = userService.save(user);
