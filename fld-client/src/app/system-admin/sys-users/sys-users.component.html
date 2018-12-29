@@ -27,7 +27,7 @@
           <tr *ngFor="let user of userList">
               <th scope="row">{{ user.username }}</th>
               <td>{{ user.firstname }} {{ user.lastname }}</td>
-              <td>{{ user.description }}</td>
+              <td>{{ user.user_authority }}</td>
               <td style="width:13px"><button class="btn btn-link" (click)="onChangeAuth(user.id)"><i class="fa fa-pencil"></i> Edit authority</button></td>
             </tr>
           </tbody>
