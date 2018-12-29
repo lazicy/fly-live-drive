@@ -19,7 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +39,9 @@ import com.bff.flylivedrive.service.UserService;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	UserService userService;
@@ -85,7 +88,8 @@ public class UserController {
 		user.setFirstname(userDTO.getFirstname());
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
+		//password se provlaci kroz hash funkciju (BCryptEncoder)
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		user.setCity(userDTO.getCity());
 		
 		user = userService.save(user);

@@ -5,6 +5,7 @@ import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 import swal from 'sweetalert';
 import { User } from '../model/user';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,7 +23,7 @@ export class SignUpComponent implements OnInit {
   email: FormControl;
   city: FormControl;
 
-  constructor(private http: HttpClient, private service: UserService) { }
+  constructor(private http: HttpClient, private service: UserService,private router: Router) { }
 
   ngOnInit() {
     this.createFormControls();
@@ -61,8 +62,8 @@ export class SignUpComponent implements OnInit {
     this.service.saveUser(user).subscribe(
       (success) => {
         //dodati: nakon uspesne registracije prebaciti korisnika na glavnu stranicu 
-         console.log(success);
          swal("Success!","Your registration was successfull. Check your e-mail to confirm your account.", "success");
+         this.router.navigate(['/test']);
       },
       error => console.log(error)
     );

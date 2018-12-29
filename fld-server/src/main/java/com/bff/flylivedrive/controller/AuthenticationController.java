@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
@@ -49,6 +50,11 @@ public class AuthenticationController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		User user = (User) authentication.getPrincipal();
+		
+		if(!user.isActive()) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		String jwt = tokenUtils.generateToken(user.getUsername(), device);
 		
 		int expiresIn = tokenUtils.getExpiredIn(device);
