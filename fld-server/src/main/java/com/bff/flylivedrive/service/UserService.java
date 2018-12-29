@@ -49,12 +49,12 @@ public class UserService {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
 		mail.setFrom(env.getProperty("spring.mail.username"));
-		mail.setSubject("Accaount verification");
+		mail.setSubject("Account verification");
 		
 		//izvlacim root iz url-a i na njega konkateniram servis koji korisnik treba da gadja za potvrdu email-a
 		String url = request.getRequestURL().toString();
 		String uri = request.getRequestURI();
-		String path = url.replace(uri, "") + "/api/users/verifymail/" + user.getUsername();
+		String path = url.replace(uri, "") + "/api/users/verify/" + user.getUsername();
 		
 		mail.setText("Hello " + user.getFirstname() + ",\n\n please click on the following link to verify your account: "+ path);
 		

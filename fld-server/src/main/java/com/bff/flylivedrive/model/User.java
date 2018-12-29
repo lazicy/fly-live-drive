@@ -87,8 +87,8 @@ public class User implements UserDetails{
 	}
 
 	public void setPassword(String password) {
-		Timestamp now = new Timestamp(DateUtil.now().getTime());
-        this.setLastPasswordResetDate( now );
+		//Timestamp now = new Timestamp(DateUtil.now().getTime());
+        //this.setLastPasswordResetDate( now );
         this.password = password;
 	}
 
