@@ -7,7 +7,7 @@
           <button type="button" class="close" (click)="onCloseForm()">
               <span aria-hidden="true">&times;</span>
             </button>
-          <app-hotel-form (userSubmit)="userSubmitted($event)"></app-hotel-form>
+          <app-sys-users-form (userSubmit)="userSubmitted($event)"></app-sys-users-form>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
           <tr *ngFor="let user of userList">
               <th scope="row">{{ user.username }}</th>
               <td>{{ user.firstname }} {{ user.lastname }}</td>
-              <td>{{ user.user_authority }}</td>
+              <td></td>
               <td style="width:13px"><button class="btn btn-link" (click)="onChangeAuth(user.id)"><i class="fa fa-pencil"></i> Edit authority</button></td>
             </tr>
           </tbody>

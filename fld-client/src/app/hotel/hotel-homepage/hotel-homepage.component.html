@@ -1,48 +1,50 @@
 <section class="section-parallax" data-type="background" data-speed="4">
   <div class="container">
-    <div class="row" class="center">
-      <div class="srcbar" style="margin-left: 70px;">
-          <label for="search" class="lbl">Find hotel deals</label>
-          <input type="text" id="search" placeholder="Enter location or hotel name" class="unos search">
+    <form (ngSubmit)="onSearchHotel(f)" name="searchHotels" #f="ngForm">
+      <div class="row" class="center">
+        <div class="srcbar" style="margin-left: 70px;">
+            <label for="search" class="lbl">Find hotel deals</label>
+            <input type="text" id="search" name="search" placeholder="Enter location or hotel name" class="unos search" required>
+        </div>
+        <div class="srcbar">
+            <label for="check-in" class="lbl">Check-in</label>
+            <input type="date" id="check-in" name="check-in" class="unos check-in" [ngModel]="today">
+        </div>
+        <div class="srcbar">
+            <label for="check-out" class="lbl">Check-out</label>
+            <input type="date" id="check-out" name="check-in" class="unos check-out" [ngModel]="tomorrow">
+        </div>
+        <div class="srcbar">
+            <label for="br-gostiju" class="lbl">Guests</label>
+            <select class="unos br-gostiju" id="br-gostiju" name="gosti">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+        </div>
+        <div class="srcbar">
+            <label for="soba" class="lbl">Rooms</label>
+            <select class="unos soba" id="soba" name="soba">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+        </div>
       </div>
-      <div class="srcbar">
-          <label for="check-in" class="lbl">Check-in</label>
-          <input type="date" id="check-in" name="check-in" class="unos check-in" [ngModel]="today">
-      </div>
-      <div class="srcbar">
-          <label for="check-out" class="lbl">Check-out</label>
-          <input type="date" id="check-out" name="check-in" class="unos check-out" [ngModel]="tomorrow">
-      </div>
-      <div class="srcbar">
-          <label for="br-gostiju" class="lbl">Guests</label>
-          <select class="unos br-gostiju" id="br-gostiju" name="gosti">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-      </div>
-      <div class="srcbar">
-          <label for="soba" class="lbl">Rooms</label>
-          <select class="unos soba" id="soba" name="soba">
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-      </div>
-    </div>
     <div class="row" id="pretrazi">
       <button class="btn btn-primary" [routerLink]="['/hotel/administrateHotels']" style="background-color: green; border-color: green; text-align: center;">Administration</button>
-      <button class="btn btn-primary" [routerLink]="['/hotel/list']">Search hotels</button>
+      <button class="btn btn-primary">Search hotels</button>
     </div>
+  </form>
   </div>
 </section>
 

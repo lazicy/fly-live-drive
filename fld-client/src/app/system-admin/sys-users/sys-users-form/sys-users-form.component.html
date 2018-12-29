@@ -1,3 +1,14 @@
-<p>
-  sys-users-form works!
-</p>
+<form (ngSubmit)="onSubmitUser(f1)" #f1="ngForm">
+  <h2>Change user authority:</h2>
+  <hr>
+  <div class="form-group">
+    <label for="name">Change to: </label>
+    <select name="role" id="role" class="form-control" style="width: 50%; margin-left: 25%; border-right: 1px solid #ccc" [(ngModel)]="currentRole">
+      <option value="1">User</option>
+      <option value="2">Avio admin</option>
+      <option value="3">Hotel admin</option>
+      <option value="4">Rent-A-Car admin</option>
+  </select>
+  </div>
+</form>   
+  
