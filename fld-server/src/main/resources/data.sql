@@ -4,3 +4,6 @@ insert into authority (id,name) values (1,'ROLE_RENT_ADMIN');
 
 insert into user_authority (user_id, authority_id) values ('dovla96',1);
 
+insert into rentacar (id,name,address,city,country,description) values (556,'Drive a lot','Bulevar Evrope','Novi Sad','Srbija','Najbolji servis ikada');
+
+insert into filijala (id,name,address,city,country,description,servis_id) values (123,'Drive a lot','Bulevar Kralja Petra','Novi Sad','Srbija','Najbolji servis ikada',556);

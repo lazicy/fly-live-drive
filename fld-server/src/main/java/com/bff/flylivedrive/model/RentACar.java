@@ -24,8 +24,8 @@ public class RentACar {
 	@Column(name = "name", nullable = false)
 	String name;
 	
-	@Column(name = "adress", nullable = false)
-	String adress;
+	@Column(name = "address", nullable = false)
+	String address;
 	
 	@Column(name = "city", nullable = false)
 	String city;
@@ -36,9 +36,33 @@ public class RentACar {
 	@Column(name = "description", nullable = true)
 	String description;
 	
+	@Column(name = "rentImageUrl", nullable = true)
+	String rentImageUrl;
+	
 	//jedan servis sadrzi vise filijala, bidirekciona veza 1:n
 	@OneToMany(mappedBy = "servis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
+	
+	
+	public RentACar() {
+		
+	}
+	
+	public RentACar(Long id, String name, String address, String city, String country, String description,
+			String rentImageUrl) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.description = description;
+		this.rentImageUrl = rentImageUrl;
+	}
+
+	public RentACar(RentDTO rent) {
+		this(rent.getId(),rent.getName(),rent.getAddress(),rent.getCity(),rent.getCountry(),rent.getDescription(),rent.getRentImageUrl());
+	}
 	
 	public String getCity() {
 		return city;
@@ -79,12 +103,12 @@ public class RentACar {
 		this.name = name;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 	public String getDescription() {
@@ -93,6 +117,14 @@ public class RentACar {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getRentImageUrl() {
+		return rentImageUrl;
+	}
+
+	public void setRentImageUrl(String rentImageUrl) {
+		this.rentImageUrl = rentImageUrl;
 	}
 	
 }

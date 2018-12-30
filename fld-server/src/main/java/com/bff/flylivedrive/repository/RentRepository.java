@@ -9,4 +9,5 @@ public interface RentRepository extends JpaRepository<RentACar, Long> {
 	
 	RentACar findOneById(Long id);
 	void deleteById(Long id);
+	//String Q_GET_ALL_BRANCHES = "select branch from filijale left join rentacar on servs_id = id";
 }

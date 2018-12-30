@@ -25,6 +25,8 @@ import { SysHotelAdminComponent } from './system-admin/sys-hotel-admin/sys-hotel
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
+import { RentListComponent } from './rent/rent-list/rent-list.component';
+import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 
 
 const appRoutes: Routes = [
@@ -39,7 +41,9 @@ const appRoutes: Routes = [
 	]},
 	{ path: 'rent', component: RentComponent, children: [
 		{path: '', component: RentHomepageComponent},
-		{path: 'administrateRents', component: RentAdminComponent}
+		{path: 'list', component: RentListComponent},
+		{path: 'administrateRents', component: RentAdminComponent},
+		{path: ':id', component: BranchesComponent }
 	]},
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},

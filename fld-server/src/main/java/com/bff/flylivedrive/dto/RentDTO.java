@@ -6,27 +6,29 @@ public class RentDTO {
 	
 	Long id;
 	String name;
-	String adress;
+	String address;
 	String city;
 	String country;
 	String description;
+	String rentImageUrl;
 	
 	public RentDTO() {
 		
 	}
 	
-	public RentDTO(Long id, String name, String adress, String city, String country, String description) {
+	public RentDTO(Long id, String name, String adress, String city, String country, String description,String rentImageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.adress = adress;
+		this.address = adress;
 		this.city = city;
 		this.country = country;
 		this.description = description;
+		this.rentImageUrl = rentImageUrl;
 	}
 
 	public RentDTO(RentACar service) {
-		this(service.getId(), service.getName(), service.getAdress(), service.getCity(), service.getCountry(), service.getDescription());
+		this(service.getId(), service.getName(), service.getAddress(), service.getCity(), service.getCountry(), service.getDescription(),service.getRentImageUrl());
 	}
 
 	public Long getId() {
@@ -45,12 +47,12 @@ public class RentDTO {
 		this.name = name;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 	public String getDescription() {
@@ -75,6 +77,14 @@ public class RentDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getRentImageUrl() {
+		return rentImageUrl;
+	}
+
+	public void setRentImageUrl(String rentImageUrl) {
+		this.rentImageUrl = rentImageUrl;
 	}
 	
 	

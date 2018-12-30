@@ -44,6 +44,10 @@ import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
+import { RentListComponent } from './rent/rent-list/rent-list.component';
+import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
+import { BranchFormComponent } from './rent/rent-admin/branch-form/branch-form.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,10 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
     SysCarAdminComponent,
     SysCarFormComponent,
     SysAvioFormComponent,
-    SysHotelFormComponent
+    SysHotelFormComponent,
+    RentListComponent,
+    BranchesComponent,
+    BranchFormComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +98,7 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

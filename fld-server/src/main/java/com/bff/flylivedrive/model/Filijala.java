@@ -24,8 +24,14 @@ public class Filijala {
 	String name;
 	
 
-	@Column(name = "adress", nullable = false)
-	String adress;
+	@Column(name = "address", nullable = false)
+	String address;
+	
+	@Column(name = "city", nullable = false)
+	String city;
+	
+	@Column(name = "country", nullable = false)
+	String country;
 	
 	@Column(name = "description", nullable = true)
 	String description;
@@ -55,12 +61,12 @@ public class Filijala {
 		this.name = name;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 	public String getDescription() {
@@ -77,6 +83,30 @@ public class Filijala {
 
 	public void setServis(RentACar servis) {
 		this.servis = servis;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Set<Vozilo> getVozila() {
+		return vozila;
+	}
+
+	public void setVozila(Set<Vozilo> vozila) {
+		this.vozila = vozila;
 	}	 
 	
 	

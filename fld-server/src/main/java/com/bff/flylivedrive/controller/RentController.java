@@ -2,6 +2,7 @@ package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
@@ -29,6 +31,7 @@ public class RentController {
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
 			List<RentACar> services = rentService.findAll();
+			
 			ArrayList<RentDTO> temp = new ArrayList<RentDTO>();
 			for(RentACar s: services) {
 				RentDTO r = new RentDTO(s);
@@ -38,16 +41,8 @@ public class RentController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
-		RentACar rentAcar = new RentACar();
-		
-		rentAcar.setName(rent.getName());
-		rentAcar.setAdress(rent.getAdress());
-		rentAcar.setCity(rent.getCity());
-		rentAcar.setCountry(rent.getCountry());
-		rentAcar.setDescription(rent.getDescription());
-		
+		RentACar rentAcar = new RentACar(rent);
 		//kreiraj novi objekat i sacuvaj ga u bazu
 		rentAcar = rentService.save(rentAcar);
 		
@@ -62,15 +57,28 @@ public class RentController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
-	@PreAuthorize("hasRole('RENT_ADMIN')")
-	public ResponseEntity<RentDTO> editRent(@PathVariable("id") Long id){
-		return null;
+	
+	@RequestMapping(value = "/getAllBranches/{id}",method = RequestMethod.GET)
+	public ResponseEntity<List<FilijalaDTO>> getAllBranches(@PathVariable("id") Long id){
+		RentACar rent = rentService.findOneById(id);
+		
+		if(rent == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Filijala> all = rent.getFilijale();
+		
+		List<FilijalaDTO> filijale = new ArrayList<FilijalaDTO>();
+		for(Filijala f: all) {
+			filijale.add(new FilijalaDTO(f));
+		}
+		
+		return new ResponseEntity<>(filijale, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/addBranch", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('RENT_ADMIN')")
-	public ResponseEntity<?> addBranch(@RequestBody Filijala filijala){
+	public ResponseEntity<?> addBranch(@RequestBody String filijala){
 		return null;
 	}
 	
