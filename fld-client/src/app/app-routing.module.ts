@@ -55,9 +55,7 @@ const appRoutes: Routes = [
 	{path:'signup', component: SignUpComponent},
 	{path: 'verifymail', component: VerifyMailComponent},
 	{path: 'systemadmin', component: SystemAdminComponent, children: [
-		{ path: '', component: SysAvioAdminComponent, children: [
-			{ path: 'add', component: SysAvioFormComponent}
-		]},
+		{ path: '', redirectTo: 'avio', pathMatch: 'full'},
 		{ path: 'avio', component: SysAvioAdminComponent, children: [
 			{ path: 'add', component: SysAvioFormComponent}
 		]},

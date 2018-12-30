@@ -22,7 +22,6 @@ export class HotelHomepageComponent implements OnInit {
     this.tom.setDate(this.tod.getDate() + 1);
     this.today = this.tod.toISOString().split('T')[0];
     this.tomorrow = this.tom.toISOString().split('T')[0];
-    
   }
 
   onSearchHotels(form: NgForm) {

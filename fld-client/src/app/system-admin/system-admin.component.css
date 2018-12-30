@@ -32,6 +32,6 @@
      border: 1px solid transparent;
   }
 
- .selected {
-   color:#007bff;
+  a.active {
+    background-color:#007bff !important;
   }
