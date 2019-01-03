@@ -162,5 +162,8 @@ public class User implements UserDetails{
 		return this.authorities;
 	}
 
-	
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
 }

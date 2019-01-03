@@ -7,7 +7,7 @@
           <button type="button" class="close" (click)="onCloseForm()">
               <span aria-hidden="true">&times;</span>
             </button>
-          <app-sys-users-form (userSubmit)="userSubmitted($event)" [currentRole]="crole" [userId]="username"></app-sys-users-form>
+          <app-sys-users-form (userSubmit)="userSubmitted($event)" [currRole]="crole" [user]="usr"></app-sys-users-form>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
               <th scope="row">{{ user.username }}</th>
               <td>{{ user.firstname }} {{ user.lastname }}</td>
               <td>{{ user.authorities[0].name }}</td>
-              <td style="width:13px" *ngIf="user.authorities[0].name != 'SYSTEM_ADMIN'"><button class="btn btn-link" (click)="onChangeAuth(user.authorities[0].name, user.username)"><i class="fa fa-pencil"></i> Edit authority</button></td>
+              <td style="width:13px" *ngIf="user.authorities[0].name !== 'SYSTEM_ADMIN'"><button class="btn btn-link" (click)="onChangeAuth(user.authorities[0].name, user)"><i class="fa fa-pencil"></i> Edit authority</button></td>
             </tr>
           </tbody>
     </table>

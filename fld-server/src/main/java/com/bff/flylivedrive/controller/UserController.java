@@ -4,7 +4,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +31,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.dto.UserDTO;
+import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.model.UserTokenState;
@@ -84,6 +90,12 @@ public class UserController {
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
 		user.setCity(userDTO.getCity());
+		Authority a = new Authority();
+		a.setId((long) 5);
+		a.setName("USER");
+		List<Authority> al = new ArrayList<Authority>();
+		al.add(a);
+		user.setAuthorities(al);
 		
 		user = userService.save(user);
 		
@@ -106,6 +118,20 @@ public class UserController {
 		
 		rv.setUrl(path);
 		return rv;
+	}
+	
+	@RequestMapping(value= "/changeRole", method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity <UserDTO> changeRole(@RequestBody UserDTO userDTO){
+		
+		User user = userService.findOneByUsername(userDTO.getUsername());
+		if(user == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		user.setAuthorities(userDTO.getAuthorities());
+		
+		user = userService.save(user);
+		
+		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 	}
 	
 }

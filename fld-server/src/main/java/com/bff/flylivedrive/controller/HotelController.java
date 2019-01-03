@@ -81,7 +81,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO){
+	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		//checking if hotel exists
 		Hotel hotel = hotelService.findOneById(hotelDTO.getId());

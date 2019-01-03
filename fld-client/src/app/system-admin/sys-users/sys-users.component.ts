@@ -13,7 +13,7 @@ export class SysUsersComponent implements OnInit {
   userList: any;
   emptyUserList: any;
   crole: any;
-  username: any;
+  usr: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -30,10 +30,17 @@ export class SysUsersComponent implements OnInit {
     );
   }
 
-  onChangeAuth(role, username) {
+  onChangeAuth(role, user) {
     this.showFormDialog = true;
     this.crole = role;
-    this.username = username;
+    this.usr = user;
+  }
+
+  userSubmitted(response) {
+    let i = this.userList.findIndex(user => user.username === response.username);
+    this.userList.splice(i, 1);
+    this.userList.push(response);
+    this.showFormDialog = false;
   }
 
   onCloseForm() {

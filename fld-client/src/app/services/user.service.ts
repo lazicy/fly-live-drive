@@ -18,5 +18,9 @@ export class UserService {
         return this.http.get('/api/users/all');
     }
 
+    changeRole(user) {
+        return this.http.put("/api/users/changeRole", user);
+    }
+
 	}
 
