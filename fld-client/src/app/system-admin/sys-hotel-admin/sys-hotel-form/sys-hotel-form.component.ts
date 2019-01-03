@@ -16,7 +16,7 @@ export class SysHotelFormComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private hotelService: HotelService) { }
 
   ngOnInit() {
-    this.noStars = 4;
+    this.noStars = 1;
   }
 
   onSubmitHotel(form: NgForm) {
