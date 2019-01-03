@@ -12,6 +12,8 @@ export class SysUsersComponent implements OnInit {
   showFormDialog: boolean = false;
   userList: any;
   emptyUserList: any;
+  crole: any;
+  username: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -28,8 +30,10 @@ export class SysUsersComponent implements OnInit {
     );
   }
 
-  onChangeAuth(username) {
+  onChangeAuth(role, username) {
     this.showFormDialog = true;
+    this.crole = role;
+    this.username = username;
   }
 
   onCloseForm() {

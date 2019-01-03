@@ -11,13 +11,22 @@ import { NgForm } from '@angular/forms';
 export class SysUsersFormComponent implements OnInit, OnDestroy {
 
   @Output() userSubmit = new EventEmitter();
-  currentRole: any;
-  userId: any;
+  @Input() currentRole: any;
+  @Input() userId: any;
+  role: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-    
+    if(this.currentRole === "USER") {
+      this.role = 1;
+    } else if (this.currentRole === "AVIO_ADMIN") {
+      this.role = 2;
+    } else if (this.currentRole === "HOTEL_ADMIN") {
+      this.role = 3;
+    } else {
+      this.role = 4;
+    }
   }
 
   onSubmitUser(form: NgForm) {
