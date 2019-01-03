@@ -1,6 +1,8 @@
 package com.bff.flylivedrive.dto;
 
-import com.bff.flylivedrive.model.RentAdmin;
+import java.util.List;
+
+import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.User;
 
 public class UserDTO {
@@ -11,12 +13,14 @@ public class UserDTO {
 	private String lastname;
 	private String email;
 	private String city;
+	private boolean active;
+	private List<Authority> authorities;
 	
 	public UserDTO() {
 		
 	}
 	
-	public UserDTO(String username, String password, String firstname, String lastname, String email, String city) {
+	public UserDTO(String username, String password, String firstname, String lastname, String email, String city, boolean active, List<Authority> auth) {
 		super();
 		this.username = username;
 		this.setPassword(password);
@@ -24,12 +28,14 @@ public class UserDTO {
 		this.lastname = lastname;
 		this.email = email;
 		this.setCity(city);
+		this.active = active;
+		this.authorities = auth;
 	}
 
 
 	// konverzija iz modela u DTO
 	public UserDTO(User user) {
-		this(user.getUsername(),user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity());
+		this(user.getUsername(),user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.isActive(), (List<Authority>) user.getAuthorities());
 	}
 	
 	public String getUsername() {
@@ -71,6 +77,22 @@ public class UserDTO {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 }

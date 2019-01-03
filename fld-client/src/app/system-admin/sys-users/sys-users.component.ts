@@ -28,7 +28,7 @@ export class SysUsersComponent implements OnInit {
     );
   }
 
-  onChangeAuth(id) {
+  onChangeAuth(username) {
     this.showFormDialog = true;
   }
 

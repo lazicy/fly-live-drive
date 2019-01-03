@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { NgForm } from '@angular/forms';
@@ -12,11 +12,12 @@ export class SysUsersFormComponent implements OnInit, OnDestroy {
 
   @Output() userSubmit = new EventEmitter();
   currentRole: any;
+  userId: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-
+    
   }
 
   onSubmitUser(form: NgForm) {

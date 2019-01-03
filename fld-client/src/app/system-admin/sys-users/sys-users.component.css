@@ -5,3 +5,12 @@ h2 {
 .modal-content {
     width: 35%;
 }
+
+td {
+    text-align: left; 
+    vertical-align: middle;
+}
+
+th[scope="row"] {
+    vertical-align: middle;
+}
