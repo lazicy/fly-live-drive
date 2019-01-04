@@ -12,6 +12,8 @@ export class BranchesComponent implements OnInit {
   id: number;
   branchList: any;
   emptyBranchList: boolean = false;
+  showFormDialog: boolean = false;
+
 
   constructor(private service: RentService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(
@@ -41,6 +43,26 @@ export class BranchesComponent implements OnInit {
     
   }
 
+  onAddBranch(){
+    this.showFormDialog = true;
+  }
 
+  onEditBranch(){
+
+  }
+
+  onDeleteBranch(id){
+
+  }
+
+  onCloseForm(){
+    this.showFormDialog = false;
+  }
+
+  branchSubmitted(response){
+    this.branchList.push(response);
+    this.showFormDialog = false;
+    this.emptyBranchList = false;
+  }
 
 }

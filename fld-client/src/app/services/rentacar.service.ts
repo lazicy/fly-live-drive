@@ -6,6 +6,10 @@ export class RentService{
 
     constructor(private http: HttpClient) {}
 
+    getRent(id){
+        return this.http.get("http://localhost:4200/api/rent/getRent/" + id);
+    }
+
     saveRent(rent){
         return this.http.post("http://localhost:4200/api/rent", rent);
     }
@@ -22,8 +26,8 @@ export class RentService{
         return this.http.put("http://localhost:4200/api/rent/edit/",rent)
     }
 
-    addBranchOffice(branch){
-        return this.http.post("http://localhost:4200/api/rent/addBanch/",branch);
+    addBranchOffice(branch,id){
+        return this.http.post("http://localhost:4200/api/rent/addBranch/" + id,branch);
     }
 
     getAllBranches(id){

@@ -19,6 +19,8 @@
           <th scope="col">#</th>
           <th scope="col">Rent-a-car name</th>
           <th scope="col">Rent-a-car address</th>
+          <th scope="col">Rent-a-car city</th>
+          <th scope="col">Rent-a-car country</th>
           <th scope="col">Rent-a-car description</th>
           <th></th>
           <th></th>
@@ -31,6 +33,8 @@
               <th scope="row">{{ rent.id }}</th>
               <td><a [routerLink]="">{{ rent.name }}</a></td>
               <td>{{ rent.address }}</td>
+              <td>{{ rent.city }}</td>
+              <td>{{ rent.country }}</td>
               <td>{{ rent.description }}</td>
               <td style="width:10px"><button class="btn btn-link" (click)="onEditRent(rent.id)"><i class="fa fa-pencil"></i> Edit</button></td>
               <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-trash"></i> Delete</button></td>

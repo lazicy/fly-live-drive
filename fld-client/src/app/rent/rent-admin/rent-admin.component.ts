@@ -17,8 +17,6 @@ export class RentAdminComponent implements OnInit {
   constructor(private service: RentService, private dataService: DataService) { }
 
   ngOnInit() {
-
-
     this.dataService.edit.subscribe(data => this.ID = data);
 
     this.service.getServices().subscribe(
@@ -81,6 +79,8 @@ export class RentAdminComponent implements OnInit {
       let i = this.rentList.findIndex(rent => rent.id === response.id)
       this.rentList.splice(i,1);
       this.rentList.push(response);
+      this.showFormDialog = false;
+      this.emptyRentList = false;
     }else{
       this.rentList.push(response);
       this.showFormDialog = false;

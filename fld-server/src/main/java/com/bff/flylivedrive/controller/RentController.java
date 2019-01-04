@@ -18,6 +18,7 @@ import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.RentService;
 
 @RestController
@@ -27,6 +28,8 @@ public class RentController {
 	@Autowired
 	RentService rentService; //injektujem potreban servis
 	
+	@Autowired
+	FilijalaService fService;
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -40,6 +43,17 @@ public class RentController {
 			return new ResponseEntity<>(temp, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getRent/{id}", method = RequestMethod.GET)
+	public ResponseEntity<RentDTO> getRent(@PathVariable("id") Long id){
+		RentACar rent = rentService.findOneById(id);
+		
+		if(rent == null) {
+			return  new ResponseEntity<>(new RentDTO(rent), HttpStatus.NOT_FOUND);
+		}
+		
+		return  new ResponseEntity<>(new RentDTO(rent), HttpStatus.OK);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
 		RentACar rentAcar = new RentACar(rent);
@@ -50,8 +64,34 @@ public class RentController {
 		return new ResponseEntity<>(new RentDTO(rentAcar), HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<RentDTO> editRent(@RequestBody RentDTO rentDTO){
+		RentACar rentAcar = rentService.findOneById(rentDTO.getId());
+	
+		//promeni u svim filijalama
+		//uzmi iz baze filijalu, promeni i sacuvaj
+		for(Filijala f : rentAcar.getFilijale()) {
+			f = fService.findOneById(f.getId());
+			f.setName(rentDTO.getName());
+			f.setDescription(rentDTO.getDescription());
+			f = fService.save(f);
+		}
+		
+		rentAcar.setName(rentDTO.getName());
+		rentAcar.setAddress(rentDTO.getAddress());
+		rentAcar.setCity(rentDTO.getCity());
+		rentAcar.setCountry(rentDTO.getCountry());
+		rentAcar.setDescription(rentDTO.getDescription());
+		rentAcar.setRentImageUrl(rentDTO.getRentImageUrl());
+		
+		rentAcar = rentService.save(rentAcar);
+		
+		return new ResponseEntity<>(new RentDTO(rentAcar),HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	@PreAuthorize("hasRole('RENT_ADMIN')")
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
 	public  ResponseEntity<Object> deleteRent(@PathVariable("id") Long id){
 		rentService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -61,7 +101,7 @@ public class RentController {
 	@RequestMapping(value = "/getAllBranches/{id}",method = RequestMethod.GET)
 	public ResponseEntity<List<FilijalaDTO>> getAllBranches(@PathVariable("id") Long id){
 		RentACar rent = rentService.findOneById(id);
-		
+		 
 		if(rent == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -76,11 +116,20 @@ public class RentController {
 		return new ResponseEntity<>(filijale, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/addBranch", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('RENT_ADMIN')")
-	public ResponseEntity<?> addBranch(@RequestBody String filijala){
-		return null;
-	}
 	
+	
+	@RequestMapping(value = "/addBranch/{id}", method = RequestMethod.POST)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<FilijalaDTO> addBranch(@RequestBody FilijalaDTO filijalaDTO, @PathVariable("id") Long id){
+		Filijala f = new Filijala(filijalaDTO);
+		
+		RentACar rent = rentService.findOneById(id); //nadji za koji servis je vezana filijala
+		f.setServis(rent);
+		f.setName(rent.getName());
+		f.setDescription(rent.getDescription());
+		
+		f = fService.save(f);
+		return new ResponseEntity<>(new FilijalaDTO(f),HttpStatus.CREATED);
+	}
 	
 }

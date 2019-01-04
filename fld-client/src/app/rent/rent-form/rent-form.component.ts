@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RentService } from 'src/app/services/rentacar.service';
 import { DataService } from 'src/app/services/data.service';
+import { RentACar } from 'src/app/model/rentacar';
+import { NumberValueAccessor } from '@angular/forms/src/directives';
 
 @Component({
   selector: 'app-rent-form',
@@ -12,7 +14,6 @@ export class RentFormComponent implements OnInit {
 
   @Output() rentSubmit = new EventEmitter(); //???
   ID : string;
-
   constructor(private service: RentService, private dataService: DataService) { }
 
   ngOnInit() {
@@ -20,7 +21,7 @@ export class RentFormComponent implements OnInit {
   }
 
   onSubmitRent(form: NgForm){
-    let rent = {
+    var rent = {
       name: form.value.name,
       address: form.value.adress,
       city: form.value.city,
@@ -31,10 +32,27 @@ export class RentFormComponent implements OnInit {
     //ako ima id znaci da se radi edit pa se mora proslediti i id rentacar-a
     //kako bi na serveru uradio promenu a ne dodavanje novog rentacar-a
     if(this.ID !== undefined){
-      rent.id = +this.ID;
-    }
+        var rentTemp = {
+          id: +this.ID,
+          name: form.value.name,
+          address: form.value.adress,
+          city: form.value.city,
+          country: form.value.country,
+          description: form.value.description
+      }
 
-    this.service.saveRent(rent).subscribe(
+      this.service.editRent(rentTemp).subscribe(
+        (response) => {
+          //swal();
+          this.rentSubmit.emit(response);
+          this.ngOnDestroy();
+        },
+        (error) => {alert(error); return;} 
+      )
+
+    }else{
+      
+      this.service.saveRent(rent).subscribe(
         (response) => {
           // emituje se event koji se slusa u selektoru ove komponente (child) u okviru html-a parent komponente (ovde se salje
           // response a tamo se prima $event). 
@@ -45,6 +63,8 @@ export class RentFormComponent implements OnInit {
           swal("Error", "error");
         }
       )
+    }
+    
     form.reset();
   }
 

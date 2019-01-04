@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.dto;
 
 import com.bff.flylivedrive.model.Filijala;
+import com.bff.flylivedrive.model.RentACar;
 
 public class FilijalaDTO {
 	

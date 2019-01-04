@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.bff.flylivedrive.dto.FilijalaDTO;
+
 @Entity
 public class Filijala {
 	
@@ -45,6 +47,25 @@ public class Filijala {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private RentACar servis;
 	
+	public Filijala() {
+		
+	}
+	
+	
+	public Filijala(Long id, String name, String address, String city, String country, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.description = description;
+	}
+	
+	public Filijala(FilijalaDTO fDTO) {
+		this(fDTO.getId(),fDTO.getName(),fDTO.getAddress(), fDTO.getCity(), fDTO.getCountry(), fDTO.getDescription());
+	}
+
 	public Long getId() {
 		return id;
 	}
