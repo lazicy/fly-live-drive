@@ -34,6 +34,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.dto.UserDTO;
 import com.bff.flylivedrive.model.Authority;
+import com.bff.flylivedrive.model.AvioAdmin;
+import com.bff.flylivedrive.model.HotelAdmin;
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.model.UserTokenState;
@@ -120,15 +122,41 @@ public class UserController {
 		return rv;
 	}
 	
-	@RequestMapping(value= "/changeRole", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity <UserDTO> changeRole(@RequestBody UserDTO userDTO){
+	@RequestMapping(value= "/changeRole/{role}", method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity <UserDTO> changeRole(@RequestBody UserDTO userDTO, @PathVariable String role){
 		
 		User user = userService.findOneByUsername(userDTO.getUsername());
+		
 		if(user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		user.setAuthorities(userDTO.getAuthorities());
+		Authority a = new Authority();
 		
+		AvioAdmin aa = new AvioAdmin();
+		HotelAdmin ha = new HotelAdmin();
+		RentAdmin ra = new RentAdmin();
+		
+		if(role.equals("RENT_ADMIN")) {
+			a.setId((long) 1);
+			a.setName(role);
+		} else if (role.equals("HOTEL_ADMIN")) {
+			a.setId((long) 2);
+			a.setName(role);
+			user = new HotelAdmin(user);
+		} else if (role.equals("AVIO_ADMIN")) {
+			a.setId((long) 3);
+			a.setName(role);
+		} else {
+			a.setId((long) 5);
+			a.setName(role);
+		}
+		
+		List<Authority> al = new ArrayList<Authority>();
+		al.add(a);
+		user.getAuthorities().clear();
+		user.setAuthorities(al);
+		
+		userService.remove(user.getUsername());
 		user = userService.save(user);
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);

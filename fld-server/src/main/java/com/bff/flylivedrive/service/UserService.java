@@ -43,8 +43,11 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
+	public void remove(String username) {
+		userRepo.deleteById(username);
+	}
+	
 	public void sendNotificationSync(User user, HttpServletRequest request) throws MailException, InterruptedException {
-		Thread.sleep(10000);
 		//System.out.println("Slanje emaila...");
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());

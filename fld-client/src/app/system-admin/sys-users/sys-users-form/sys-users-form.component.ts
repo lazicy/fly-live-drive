@@ -14,43 +14,25 @@ export class SysUsersFormComponent implements OnInit, OnDestroy {
   @Input() user: any;
   @Input() currRole: any;
   role: any;
-  newId: any;
-  newR: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
     if(this.currRole === "USER") {
-      this.role = 1;
+      this.role = "USER";
     } else if (this.currRole === "AVIO_ADMIN") {
-      this.role = 2;
+      this.role = "AVIO_ADMIN";
     } else if (this.currRole === "HOTEL_ADMIN") {
-      this.role = 3;
+      this.role = "HOTEL_ADMIN";
     } else {
-      this.role = 4;
+      this.role = "RENT_ADMIN";
     }
   }
 
   onSubmitUser(form: NgForm) {
-    const role = form.value.role;
-    
-    if(role === "1") {
-      this.newR = "USER";
-      this.newId = 5;
-    } else if (role === "2") {
-      this.newR = "AVIO_ADMIN";
-      this.newId = 3;
-    } else if (role === "3") {
-      this.newR = "HOTEL_ADMIN";
-      this.newId = 2;
-    } else {
-      this.newR = "RENT_ADMIN";
-      this.newId = 1;
-    }
-    this.user.authorities[0].name = this.newR;
-    this.user.authorities[0].id = this.role;
+    const newR = form.value.role;
 
-    this.userService.changeRole(this.user).subscribe(
+    this.userService.changeRole(this.user, newR).subscribe(
       (response) => {
         this.userSubmit.emit(response);
         swal({title: "Success!", text: "User role changed", icon: "success", timer: 1500});
