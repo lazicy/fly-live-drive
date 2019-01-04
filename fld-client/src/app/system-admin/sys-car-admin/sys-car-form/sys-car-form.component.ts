@@ -30,11 +30,10 @@ export class SysCarFormComponent implements OnInit, OnDestroy {
     this.service.saveRent(rent).subscribe(
       (response) => {
         this.rentSubmit.emit(response);
+        swal({title: "Success!", text: "Rent-A-Car company added", icon: "success", timer: 1500});
         this.ngOnDestroy();
       },
-      (error) => {
-        swal("Error", "error");
-      }
+      (error) => {swal ( "Error occured" ,  "The company was not added." ,  "error" );}
     )
 
     form.reset();

@@ -29,4 +29,8 @@ public class HotelService {
 	public void remove(Long id) {
 		hotelRepo.deleteById(id);
 	}
+	
+	public List<Hotel> search(String name) {
+		return hotelRepo.searchHotels(name);
+	}
 }

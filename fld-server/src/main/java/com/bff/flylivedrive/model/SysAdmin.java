@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("SYS")
+@DiscriminatorValue("SYSTEM_ADMIN")
 public class SysAdmin extends User {
 	
 }

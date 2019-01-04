@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("AVIO")
+@DiscriminatorValue("AVIO_ADMIN")
 public class AvioAdmin extends User {
 	
 }

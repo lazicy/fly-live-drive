@@ -81,7 +81,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO){
+	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		//checking if hotel exists
 		Hotel hotel = hotelService.findOneById(hotelDTO.getId());
@@ -102,5 +102,19 @@ public class HotelController {
 		hotel = hotelService.save(hotel);
 		
 		return new ResponseEntity<>(new HotelDTO(hotel), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ResponseEntity<List<HotelDTO>> getSearchedHotels(@PathVariable String name) {
+		
+		List<Hotel> hotels = hotelService.search(name);
+		List<HotelDTO> hotelsDTO = new ArrayList<>();
+		
+		for (Hotel h : hotels) {
+			HotelDTO hDTO = new HotelDTO(h);
+			hotelsDTO.add(hDTO);
+		}
+		
+		return new ResponseEntity<>(hotelsDTO, HttpStatus.OK);
 	}
 }

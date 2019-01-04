@@ -59,7 +59,7 @@ export class SysHotelAdminComponent implements OnInit {
         this.hotelService.deleteHotel(id).subscribe(
           (result) => {
               // fensi for petlja
-              let i = this.hotelList.findIndex(avio => avio.id === id);
+              let i = this.hotelList.findIndex(hotel => hotel.id === id);
               // obrisi jednog clana na poziciji i
               this.hotelList.splice(i, 1);
               swal({title: "Success!", text: "Hotel deleted.", icon: "success", timer: 1500});

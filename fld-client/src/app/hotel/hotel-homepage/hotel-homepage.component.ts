@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-hotel-homepage',
@@ -11,6 +12,8 @@ export class HotelHomepageComponent implements OnInit {
   tom: Date;
   today: any;
   tomorrow: any;
+  hotelSearch: any;
+  notFound: any;
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
@@ -19,10 +22,20 @@ export class HotelHomepageComponent implements OnInit {
     this.tom.setDate(this.tod.getDate() + 1);
     this.today = this.tod.toISOString().split('T')[0];
     this.tomorrow = this.tom.toISOString().split('T')[0];
-    
   }
 
-  onSearchHotels() {
-    
+  onSearchHotels(form: NgForm) {
+    const name = form.value.search;
+
+    //uraditi search
+    /*this.hotelService.searchHotel(name).subscribe(
+      (data) => {
+        this.hotelSearch = data;
+        if(this.hotelSearch.length === 0) {
+          this.notFound = true;
+        }
+      },
+      (error) => alert("Error: " + error)
+    );*/
   }
 }

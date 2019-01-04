@@ -25,6 +25,8 @@ import { SysHotelAdminComponent } from './system-admin/sys-hotel-admin/sys-hotel
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
+import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
+import { SysUsersFormComponent } from './system-admin/sys-users/sys-users-form/sys-users-form.component';
 
 
 const appRoutes: Routes = [
@@ -53,9 +55,7 @@ const appRoutes: Routes = [
 	{path:'signup', component: SignUpComponent},
 	{path: 'verifymail', component: VerifyMailComponent},
 	{path: 'systemadmin', component: SystemAdminComponent, children: [
-		{ path: '', component: AvioAdminComponent, children: [
-			{ path: 'add', component: AvioFormComponent}
-		]},
+		{ path: '', redirectTo: 'avio', pathMatch: 'full'},
 		{ path: 'avio', component: SysAvioAdminComponent, children: [
 			{ path: 'add', component: SysAvioFormComponent}
 		]},
@@ -64,6 +64,9 @@ const appRoutes: Routes = [
 		]},
 		{ path: 'rent', component: SysCarAdminComponent, children: [
 			{ path: 'add', component: SysCarFormComponent}
+		]},
+		{ path: 'users', component: SysUsersComponent, children: [
+			{ path: 'edit', component: SysUsersFormComponent}
 		]}
 	]}
 	]

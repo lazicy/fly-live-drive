@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 import org.assertj.core.util.DateUtil;
@@ -64,6 +65,24 @@ public class User implements UserDetails{
 	
 	public User() {
 		super();
+	}
+	
+	public User(String username, String password, String firstname, String lastname, String email, String city,
+			boolean active, Timestamp lastPasswordResetDate, List<Authority> authorities) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.city = city;
+		this.active = active;
+		this.lastPasswordResetDate = lastPasswordResetDate;
+		this.authorities = authorities;
+	}
+	
+	public User(User user) {
+		this(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.isActive(), user.getLastPasswordResetDate(), (List<Authority>) user.getAuthorities());
 	}
 	
 	public Timestamp getLastPasswordResetDate() {
@@ -162,5 +181,8 @@ public class User implements UserDetails{
 		return this.authorities;
 	}
 
-	
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
 }

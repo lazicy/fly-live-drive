@@ -15,27 +15,6 @@ export class SysAvioAdminComponent implements OnInit {
 	constructor(private router: Router, private avioService: AvioService) { }
 
 	ngOnInit() {
-		
-		console.log("onInitAvioAdmin");
-	}
-
-	onInsertAirline() {
-		console.log("ping");
-		this.showFormDialog = true;
-	}
-
-	onCloseForm() {
-		this.showFormDialog = false;
-	}
-
-	// event koji se slao sa ,emit(response), uhvacen u html-u, ovde se obradjuje
-	avioSubmitted(response) {
-		this.avioList.push(response);
-		this.showFormDialog = false;
-	}
-
-	onShowAirlines() {
-		this.showAvioList = !this.showAvioList;
 
 		// ili prazna ili null
 		if (this.avioList.length === 0 || !this.avioList) {
@@ -52,20 +31,47 @@ export class SysAvioAdminComponent implements OnInit {
 				(error) => console.error(error)
 			);
 		}
+	}
 
+	onInsertAirline() {
+		this.showFormDialog = true;
+	}
+
+	onCloseForm() {
+		this.showFormDialog = false;
+	}
+
+	// event koji se slao sa ,emit(response), uhvacen u html-u, ovde se obradjuje
+	avioSubmitted(response) {
+		this.avioList.push(response);
+		this.showFormDialog = false;
+		this.emptyAvioList = false;
 	}
 
 	onDeleteAvio(id) {
-		// nakon upucenog delete requesta, nema potrebe da se ponovo dobavlja lista sa servera, vec se samo taj objekat izbaci iz liste sa klijenta
-		this.avioService.deleteAvio(id).subscribe(
-			(result) => {
-				// fensi for petlja
-				let i = this.avioList.findIndex(avio => avio.id === id);
-				// obrisi jednog clana na poziciji i
-				this.avioList.splice(i, 1);
 
-			}, (error) => console.log(error)
-		);
+		swal({
+			title: "Are you sure?",
+			icon: "warning",
+			buttons: ["Cancel", "Delete"],
+			dangerMode: true,
+		  })
+		  .then((willDelete) => {
+			if (willDelete) {
+				this.avioService.deleteAvio(id).subscribe(
+					(result) => {
+						// fensi for petlja
+						let i = this.avioList.findIndex(avio => avio.id === id);
+						// obrisi jednog clana na poziciji i
+						this.avioList.splice(i, 1);
+						swal({title: "Success!", text: "Avio company deleted.", icon: "success", timer: 1500});
+						if(this.avioList.length === 0) {
+							this.emptyAvioList = true;
+						  }
+					}, (error) => {swal ( "Error occured" ,  "The company was not deleted." ,  "error" );}
+				);
+			}
+		  });
 	}
 
  

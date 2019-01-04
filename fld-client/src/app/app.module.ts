@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { AgmCoreModule } from '@agm/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -44,6 +43,8 @@ import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
+import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
+import { SysUsersFormComponent } from './system-admin/sys-users/sys-users-form/sys-users-form.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,9 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
     SysCarAdminComponent,
     SysCarFormComponent,
     SysAvioFormComponent,
-    SysHotelFormComponent
+    SysHotelFormComponent,
+    SysUsersComponent,
+    SysUsersFormComponent
   ],
   imports: [
     BrowserModule,
@@ -85,9 +88,6 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
     FormsModule,
     AngularFontAwesomeModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: ''
-    }),
     ReactiveFormsModule,
     AppRoutingModule
   ],

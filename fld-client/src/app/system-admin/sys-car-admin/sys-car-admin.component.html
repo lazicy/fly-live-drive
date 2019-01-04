@@ -8,7 +8,7 @@
             <button type="button" class="close" (click)="onCloseForm()">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
+              <app-sys-car-form (rentSubmit)="rentSubmitted($event)"></app-sys-car-form>
         </div>
       </div>
     </div>
@@ -33,7 +33,6 @@
                 <td><a [routerLink]="">{{ rent.name }}</a></td>
                 <td>{{ rent.address }}</td>
                 <td>{{ rent.description }}</td>
-                <td style="width:10px"><button class="btn btn-link" (click)="onEditRent(rent.id)"><i class="fa fa-pencil"></i> Edit</button></td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-trash"></i> Delete</button></td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-plus-circle"></i> Add branch office</button></td>
               </tr>

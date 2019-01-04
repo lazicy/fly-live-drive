@@ -1,13 +1,10 @@
 package com.bff.flylivedrive.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bff.flylivedrive.dto.UserDTO;
+import com.bff.flylivedrive.dto.HotelDTO;
+import com.bff.flylivedrive.model.Authority;
+import com.bff.flylivedrive.model.AvioAdmin;
+import com.bff.flylivedrive.model.HotelAdmin;
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.model.UserTokenState;
@@ -55,11 +56,9 @@ public class UserController {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	
-	/*
+	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> getAllUsers(){
-		
-		System.out.println("getAllUsers");
 		
 		List<User> users = userService.findAll();
 		List<UserDTO> usersDTO = new ArrayList<>();
@@ -72,8 +71,7 @@ public class UserController {
 		
 		return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 		
-		
-	}*/
+	}
 	
 	@RequestMapping(value = "/getUser",method = RequestMethod.GET, consumes = "application/json")
 	public User user(Principal user) {
@@ -85,12 +83,18 @@ public class UserController {
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO, HttpServletRequest request) throws MailException, InterruptedException {
 		User user = new User();
 		user.setUsername(userDTO.getUsername());
+		//password se provlaci kroz hash funkciju (BCryptEncoder)
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		user.setFirstname(userDTO.getFirstname());
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
-		//password se provlaci kroz hash funkciju (BCryptEncoder)
-		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		user.setCity(userDTO.getCity());
+		Authority a = new Authority();
+		a.setId((long) 5);
+		a.setName("USER");
+		List<Authority> al = new ArrayList<Authority>();
+		al.add(a);
+		user.setAuthorities(al);
 		
 		user = userService.save(user);
 		
@@ -113,6 +117,42 @@ public class UserController {
 		
 		rv.setUrl(path);
 		return rv;
+	}
+	
+	@RequestMapping(value= "/changeRole/{role}", method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity <UserDTO> changeRole(@RequestBody UserDTO userDTO, @PathVariable String role){
+		
+		User user = userService.findOneByUsername(userDTO.getUsername());
+		
+		if(user == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		Authority a = new Authority();
+		
+		if(role.equals("RENT_ADMIN")) {
+			a.setId((long) 1);
+			a.setName(role);
+		} else if (role.equals("HOTEL_ADMIN")) {
+			a.setId((long) 2);
+			a.setName(role);
+			user = new HotelAdmin(user);
+		} else if (role.equals("AVIO_ADMIN")) {
+			a.setId((long) 3);
+			a.setName(role);
+		} else {
+			a.setId((long) 5);
+			a.setName(role);
+		}
+		
+		List<Authority> al = new ArrayList<Authority>();
+		al.add(a);
+		user.getAuthorities().clear();
+		user.setAuthorities(al);
+		
+		userService.remove(user.getUsername());
+		user = userService.save(user);
+		
+		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 	}
 	
 }

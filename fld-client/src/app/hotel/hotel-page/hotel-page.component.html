@@ -1,24 +1,34 @@
 <div class="container">
   <div *ngIf="slika" class="slika" id="slika" [ngStyle]="currentStyles"></div>
-  
-  <div class="info">
-    <div class="nameaddress">
-      <h4>{{hotel.name}}</h4>
-      <p style="margin-top: -10px;"><span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+    <div class="basic_info">
+      <div class="content">
+        <h2>{{hotel.name}} </h2><p style="text-align:center"><span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
         <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
-      <p><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</p>
+        <h6><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</h6>
+        
+        <h5>Description</h5>
+        <p>{{hotel.description}}</p><hr>
+
+        <div class="rooms">
+          <h5>Room options</h5>
+        </div>
+
+        <div class="facilities">
+          <h5>Facilities</h5>
+        </div>
+
+        <div class="rating">
+            <h5>Rating</h5>
+            <span class="rate_circle"></span>
+        </div>
+
+        <div class="map" id="mapa" *ngIf="!map">
+          <h5>Location</h5>
+          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="500" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="content">
-    <h6>Description:</h6>
-    <p>{{hotel.description}}</p>
-    <div id="mapa" *ngIf="!map">
-      <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="400" height="240" frameborder="0" style="border:0" allowfullscreen></iframe>
-    </div>
-  </div>
-    
-  
 </div>

@@ -1,22 +1,21 @@
-.info {
-	border: 1px;
-    border-radius: .375rem;
-    box-shadow: 0 1px 3px 0 rgba(37,32,31,.3);
-    position: fixed;
-    width: 28%;
-    min-width: 15.75rem;
-    max-width: 20rem;
-    top: 400;
-    margin-top: 200px;
-    right: 14%;
-    overflow: hidden;
-    background-color: white;
-    padding: 10px 15px 10px 15px;
+h2 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+h6 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h5 {
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .fa-star {
     color: rgb(255, 230, 7);
-    font-size: 15px;
+    font-size: 20px;
     margin-top: -15px;
 }
 
@@ -32,6 +31,34 @@
     width: 100%;
 }
 
-.content {
+.basic_info {
     background-color: white;
+}
+
+.content {
+    padding: 15px;
+}
+.facilities {
+    margin-bottom: 30px;
+    display: inline-block;
+    width: 60%;
+}
+.rooms {
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+.rating {
+    display: inline-block;
+    width: 40%;
+}
+
+.rate_circle {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 1.5rem;
+    padding: 17px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: white;
+    background-color: green;
 }
