@@ -26,7 +26,6 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
 import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
-import { SysUsersFormComponent } from './system-admin/sys-users/sys-users-form/sys-users-form.component';
 
 
 const appRoutes: Routes = [
@@ -65,9 +64,7 @@ const appRoutes: Routes = [
 		{ path: 'rent', component: SysCarAdminComponent, children: [
 			{ path: 'add', component: SysCarFormComponent}
 		]},
-		{ path: 'users', component: SysUsersComponent, children: [
-			{ path: 'edit', component: SysUsersFormComponent}
-		]}
+		{ path: 'users', component: SysUsersComponent}
 	]}
 	]
 

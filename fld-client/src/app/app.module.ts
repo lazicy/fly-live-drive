@@ -44,7 +44,6 @@ import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/s
 import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
-import { SysUsersFormComponent } from './system-admin/sys-users/sys-users-form/sys-users-form.component';
 
 @NgModule({
   declarations: [
@@ -79,8 +78,7 @@ import { SysUsersFormComponent } from './system-admin/sys-users/sys-users-form/s
     SysCarFormComponent,
     SysAvioFormComponent,
     SysHotelFormComponent,
-    SysUsersComponent,
-    SysUsersFormComponent
+    SysUsersComponent
   ],
   imports: [
     BrowserModule,

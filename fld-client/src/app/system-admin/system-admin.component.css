@@ -3,11 +3,11 @@
     width: 180px;
     position: fixed;
     z-index: 1;
-    top: 10;
+    top: 0;
     left: 0;
     background-color: #343a40;
     overflow-x: hidden;
-    padding-top: 70px;
+    padding-top: 10px;
   }
 
   .sidenav a {
@@ -24,8 +24,21 @@
     outline: none;
   }
 
-  .sidenav a:hover {
+  .navContent a:hover {
     background-color: #007bff;
+  }
+
+  .home {
+    margin-bottom: 4rem;
+    font-size: 20px;
+  }
+
+  .home:hover {
+    background-color: transparent;
+  }
+
+  .navbar-brand {
+    background-color: transparent;
   }
 
   .main {

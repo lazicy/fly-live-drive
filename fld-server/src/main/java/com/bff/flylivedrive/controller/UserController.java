@@ -30,6 +30,7 @@ import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.AvioAdmin;
 import com.bff.flylivedrive.model.HotelAdmin;
 import com.bff.flylivedrive.model.RentAdmin;
+import com.bff.flylivedrive.model.SysAdmin;
 import com.bff.flylivedrive.model.User;
 import com.bff.flylivedrive.model.UserTokenState;
 import com.bff.flylivedrive.security.TokenUtils;
@@ -119,40 +120,46 @@ public class UserController {
 		return rv;
 	}
 	
-	@RequestMapping(value= "/changeRole/{role}", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity <UserDTO> changeRole(@RequestBody UserDTO userDTO, @PathVariable String role){
-		
-		User user = userService.findOneByUsername(userDTO.getUsername());
-		
-		if(user == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+	@RequestMapping(value= "/regAdmin/{role}", method=RequestMethod.POST, consumes="application/json")
+	public ResponseEntity <UserDTO> regAdmin(@RequestBody UserDTO userDTO, @PathVariable String role, HttpServletRequest request) throws MailException, InterruptedException {
+		User user;
 		Authority a = new Authority();
 		
 		if(role.equals("RENT_ADMIN")) {
 			a.setId((long) 1);
 			a.setName(role);
+			user = new RentAdmin();
 		} else if (role.equals("HOTEL_ADMIN")) {
 			a.setId((long) 2);
 			a.setName(role);
-			user = new HotelAdmin(user);
+			user = new HotelAdmin();
 		} else if (role.equals("AVIO_ADMIN")) {
 			a.setId((long) 3);
 			a.setName(role);
+			user = new AvioAdmin();
 		} else {
-			a.setId((long) 5);
+			a.setId((long) 4);
 			a.setName(role);
+			user = new SysAdmin();
 		}
+		
+		user.setUsername(userDTO.getUsername());
+		//password se provlaci kroz hash funkciju (BCryptEncoder)
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		user.setFirstname(userDTO.getFirstname());
+		user.setLastname(userDTO.getLastname());
+		user.setEmail(userDTO.getEmail());
+		user.setCity(userDTO.getCity());
 		
 		List<Authority> al = new ArrayList<Authority>();
 		al.add(a);
-		user.getAuthorities().clear();
 		user.setAuthorities(al);
 		
-		userService.remove(user.getUsername());
 		user = userService.save(user);
 		
-		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+		userService.sendNotificationSync(user, request);
+		
+		return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
 	}
 	
 }

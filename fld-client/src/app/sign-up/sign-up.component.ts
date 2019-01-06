@@ -53,7 +53,7 @@ export class SignUpComponent implements OnInit {
   onSubmitSignUp(form: NgForm){
     let user = {
       firstname: this.model.name,
-      lastname: this.model.lastNname,
+      lastname: this.model.lastname,
       username: this.model.username,
       password: this.model.password,
       email: this.model.email,

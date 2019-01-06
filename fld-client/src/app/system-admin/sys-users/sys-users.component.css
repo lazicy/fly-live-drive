@@ -2,6 +2,11 @@ h2 {
     margin-top: 20px;
 }
 
+h4 {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .modal-content {
     width: 35%;
 }
@@ -13,4 +18,14 @@ td {
 
 th[scope="row"] {
     vertical-align: middle;
+}
+
+.klasa {
+ width: 50%;
+ height: 200px;
+ display: inline-block;
+}
+
+.form-control {
+    width: 95%;
 }

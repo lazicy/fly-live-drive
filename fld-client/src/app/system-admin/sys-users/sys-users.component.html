@@ -1,38 +1,54 @@
 <div class="container" >
-  <h2>User administration</h2>
-  
-  <div class="form-modal" *ngIf="showFormDialog">
-    <div class="modal-content">
-      <div class="modal-body">
-          <button type="button" class="close" (click)="onCloseForm()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          <app-sys-users-form (userSubmit)="userSubmitted($event)" [currRole]="crole" [user]="usr"></app-sys-users-form>
+  <h2>Admin and bonuses administration</h2>
+  <hr>
+
+  <div class="klasa">
+    <h4>Register admin</h4>
+    <form (ngSubmit)="onSubmitAdmin(f)" #f="ngForm">
+      <div class="form-group">
+          <label>First name: </label>
+          <input ngModel required type="text" class="form-control" name="name" id="name">
       </div>
-    </div>
+      <div class="form-group">
+          <label>Last name: </label>
+          <input type="text" class="form-control" ngModel required name="lastname" id="lastname" >
+          </div>
+      <div class="form-group">
+          <label>Username: </label>
+          <input type="text" class="form-control" ngModel required name="username" id="username">
+      </div>
+      
+      <div class="form-group">
+          <label>E-mail:</label>
+          <input type="email" class="form-control" ngModel required name="email" id="email">
+      </div>
+      
+      <div class="form-group">
+          <label>Password:</label>
+          <input type="password" class="form-control" ngModel required name="password" id="password">
+      </div>
+      
+      <div class="form-group">
+          <label>City:</label>
+          <input type="text" class="form-control" ngModel required name="city" id="city">
+      </div>
+      <div class="form-group">
+        <label>Authority:</label>
+        <select name="role" id="role" class="form-control" [(ngModel)]="role">
+          <option value="AVIO_ADMIN">Avio admin</option>
+          <option value="HOTEL_ADMIN">Hotel admin</option>
+          <option value="RENT_ADMIN">Rent admin</option>
+          <option value="SYSTEM_ADMIN">System admin</option>
+        </select>
+      </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" [disabled]="!f.valid">Add</button>
+    <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
   </div>
-  
-  <div *ngIf="userList">
-    <div class="table-responsive">
-    <table class="table table-hover" id="lista">
-      <thead>
-        <tr>
-          <th scope="col">Username</th>
-          <th scope="col">Full name</th>
-          <th scope="col">Authority</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let user of userList">
-              <th scope="row">{{ user.username }}</th>
-              <td>{{ user.firstname }} {{ user.lastname }}</td>
-              <td>{{ user.authorities[0].name }}</td>
-              <td style="width:13px" *ngIf="user.authorities[0].name !== 'SYSTEM_ADMIN'"><button class="btn btn-link" (click)="onChangeAuth(user.authorities[0].name, user)"><i class="fa fa-pencil"></i> Edit authority</button></td>
-            </tr>
-          </tbody>
-    </table>
-    </div>
+</form>
   </div>
-    <h3 *ngIf="emptyUserList">There are no users in the system.</h3>
+  <div class="klasa">
+    <h4>Bonuses</h4>
+    
+  </div>
   </div>

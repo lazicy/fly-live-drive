@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-sys-users',
@@ -8,43 +9,43 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./sys-users.component.css']
 })
 export class SysUsersComponent implements OnInit {
-
-  showFormDialog: boolean = false;
-  userList: any;
-  emptyUserList: any;
-  crole: any;
-  usr: any;
+  role: any;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getUsers()
-    .subscribe(
-      (data) => {
-        this.userList = data;
-        if(this.userList.length === 0) {
-          this.emptyUserList = true;
-        }
+    this.role = "AVIO_ADMIN";
+  }
+
+  onSubmitAdmin(form: NgForm) {
+    const name = form.value.name;
+    const lastname = form.value.lastname;
+    const username = form.value.username;
+    const email = form.value.email;
+    const password = form.value.password;
+    const city = form.value.city;
+
+    let user = {
+      firstname: name,
+      lastname: lastname,
+      username: username,
+      password: password,
+      email: email,
+      city: city
+    }
+
+    this.userService.regAdmin(user, this.role).subscribe(
+      (response) => {
+        swal({title: "Admin added!", text: "Check the e-mail to confirm your account.", icon: "success"});
+        form.reset();
       },
-      (error) => alert("Error: " + error)
+      (error) => {swal ( "Error occured" ,  "Admin was not added." ,  "error" );}
     );
   }
 
-  onChangeAuth(role, user) {
-    this.showFormDialog = true;
-    this.crole = role;
-    this.usr = user;
+  onReset(form: NgForm) {
+    form.reset();
   }
 
-  userSubmitted(response) {
-    let i = this.userList.findIndex(user => user.username === response.username);
-    this.userList.splice(i, 1);
-    this.userList.push(response);
-    this.showFormDialog = false;
-  }
-
-  onCloseForm() {
-		this.showFormDialog = false;
-  }
 
 }
