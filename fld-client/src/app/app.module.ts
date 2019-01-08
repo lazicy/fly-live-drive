@@ -44,6 +44,7 @@ import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/s
 import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-form/sys-avio-form.component';
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
+import { CountryService } from './services/country.service';
 
 @NgModule({
   declarations: [
@@ -89,8 +90,8 @@ import { SysUsersComponent } from './system-admin/sys-users/sys-users.component'
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService,
-              {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, CountryService,
+              {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

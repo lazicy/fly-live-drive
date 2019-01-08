@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvioService } from 'src/app/services/avio.service';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-sys-avio-admin',
@@ -11,27 +12,29 @@ export class SysAvioAdminComponent implements OnInit {
   showFormDialog: boolean = false;
 	showAvioList: boolean = false;
 	avioList: any = [];
+	cityList: any = [];
 	emptyAvioList: boolean = true;
 	constructor(private router: Router, private avioService: AvioService) { }
 
 	ngOnInit() {
 
-		// ili prazna ili null
-		if (this.avioList.length === 0 || !this.avioList) {
-			this.avioService.getAvios()
-			.subscribe(
-				(data) => { 
-					this.avioList = data;
-					if (this.avioList.length === 0) {
-						this.emptyAvioList = true;
-					} else {
-						this.emptyAvioList = false;
-					}
-				},
-				(error) => console.error(error)
-			);
-		}
+		this.avioService.getAvios().subscribe(
+			(data) => { 
+				this.avioList = data;
+				if (this.avioList.length === 0) {
+					this.emptyAvioList = true;
+				} else {
+					this.emptyAvioList = false;
+				}
+			},
+			(error) => console.error(error)
+		);
+
+
+		
 	}
+	
+	
 
 	onInsertAirline() {
 		this.showFormDialog = true;
