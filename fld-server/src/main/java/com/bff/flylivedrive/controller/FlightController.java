@@ -20,6 +20,7 @@ import com.bff.flylivedrive.dto.mappers.FlightMapper;
 import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
 import com.bff.flylivedrive.model.Avio;
 import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.model.Interception;
 import com.bff.flylivedrive.service.AvioService;
@@ -85,12 +86,24 @@ public class FlightController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		// find cities in database
-		City departureCity = cityService.findOneById(flightDTO.getDepartureCity().getId());
-		City landingCity = cityService.findOneById(flightDTO.getLandingCity().getId());
 		
-		// if one of them is null - bad request
-		if (departureCity == null || landingCity == null) {
+		Set<Destination> destinations = a.getDestinations();
+		City departureCity = null;
+		City landingCity = null;
+		
+		for (Destination d: destinations) {
+			
+			if (d.getCity().getId() == flightDTO.getDepartureCity().getId()) {
+				departureCity = d.getCity();
+			}
+			
+			if (d.getCity().getId() == flightDTO.getLandingCity().getId()) {
+				landingCity = d.getCity();
+			}
+		}
+		
+		// if one of them is still null or both are equal  - bad request
+		if (landingCity == null || departureCity == null || landingCity.getId() == departureCity.getId()) {
 			return new ResponseEntity<>(HttpStatus.valueOf("Departure city or landing city not found"));
 		}
 		

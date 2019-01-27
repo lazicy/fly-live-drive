@@ -106,6 +106,32 @@ public class CountryController {
 		
 	}
 	
+	// Get one COUNTRY'S cities
+	@RequestMapping(value = "/{countryId}/cities", method = RequestMethod.GET)
+	public ResponseEntity<List<CityDTO>> getCountryCities(@PathVariable Long countryId) {
+		
+		System.out.println("here");
+		
+		Country country = countryService.findOneById(countryId);
+		
+		if (country == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		Set<City> cities = country.getCites();
+		List<CityDTO> citiesDTO = new ArrayList<>();
+		
+		
+		for (City city : cities) {
+			citiesDTO.add(new CityDTO(city));
+		}
+		
+		return new ResponseEntity<>(citiesDTO, HttpStatus.OK);
+		
+	}
+	
+	
 	
 	
 	

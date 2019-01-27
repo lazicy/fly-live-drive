@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -27,17 +28,27 @@ public class Avio {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
+	@Column(name="address", nullable = false)
+	private String address;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private City city;
+	
+	@Column(name="map", columnDefinition="TEXT", nullable = true)
+	private String map;
+	
 	@Column(name = "description", nullable = true)
 	private String description;
+	
 	
 	@OneToMany(mappedBy = "avio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Flight> flights = new HashSet<Flight>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "destination",
-               joinColumns = @JoinColumn(name="avio_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="city_id", referencedColumnName="id"))
-	private Set<City> destinations = new HashSet<City>();
+	
+	@OneToMany(mappedBy = "avio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Destination> destinations = new HashSet<Destination>();
+	
+
 	
 	
 	public Long getId() {
@@ -59,6 +70,16 @@ public class Avio {
 	public String getDescription() {
 		return description;
 	}
+	
+	
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
 
 	public void setDescription(String description) {
 		this.description = description;
@@ -72,11 +93,30 @@ public class Avio {
 		this.flights = flights;
 	}
 	
-	public Set<City> getDestinations() {
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getMap() {
+		return map;
+	}
+
+	public void setMap(String map) {
+		this.map = map;
+	}
+	
+
+	public Set<Destination> getDestinations() {
 		return destinations;
 	}
 
-	public void setDestinations(Set<City> destinations) {
+	public void setDestinations(Set<Destination> destinations) {
 		this.destinations = destinations;
 	}
 

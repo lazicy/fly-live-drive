@@ -10,34 +10,21 @@ public class CountryDTO {
 	
 	private Long id;
 	private String name;
-	private List<CityDTO> citiesDTO;
-	
-	
 	
 	public CountryDTO() {
 		
 	}
 
 	public CountryDTO(Country c) {
-		this(c.getId(), c.getName(), null);
+		this(c.getId(), c.getName());
 		
-		// forming dto
-		List<CityDTO> citiesDTO = new ArrayList<>();
-		
-		for (City city : c.getCites()) {
-			citiesDTO.add(new CityDTO(city));
-		}
-		
-		//setting dto
-		this.citiesDTO = citiesDTO;
 	}
 	
-	public CountryDTO(Long id, String name, List<CityDTO> citiesDTO) {
+	public CountryDTO(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.citiesDTO = citiesDTO;
-	}
+		}
 	
 	public Long getId() {
 		return id;
@@ -55,13 +42,6 @@ public class CountryDTO {
 		this.name = name;
 	}
 
-	public List<CityDTO> getCitiesDTO() {
-		return citiesDTO;
-	}
-
-	public void setCitiesDTO(List<CityDTO> citiesDTO) {
-		this.citiesDTO = citiesDTO;
-	}
 
 	
 

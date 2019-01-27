@@ -36,8 +36,11 @@ public class City {
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Interception> interceptions = new HashSet<Interception>();
 	
-	@ManyToMany(mappedBy = "destinations")
-	private Set<Avio> avios = new HashSet<Avio>();
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Avio> aviosLocation = new HashSet<Avio>();
+	
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Destination> destinations = new HashSet<Destination>();
 
 	public Long getId() {
 		return id;
@@ -55,7 +58,14 @@ public class City {
 		this.name = name;
 	}
 
-	
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
 	public Set<Flight> getDepartureFlights() {
 		return departureFlights;
 	}
@@ -80,21 +90,26 @@ public class City {
 		this.interceptions = interceptions;
 	}
 
-	public Country getCountry() {
-		return country;
+	public Set<Avio> getAviosLocation() {
+		return aviosLocation;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setAviosLocation(Set<Avio> aviosLocation) {
+		this.aviosLocation = aviosLocation;
 	}
 
-	public Set<Avio> getAvios() {
-		return avios;
+	public Set<Destination> getDestinations() {
+		return destinations;
 	}
 
-	public void setAvios(Set<Avio> avios) {
-		this.avios = avios;
+	public void setDestinations(Set<Destination> destinations) {
+		this.destinations = destinations;
 	}
+	
+	
+
+	
+	 
 	
 	
 	

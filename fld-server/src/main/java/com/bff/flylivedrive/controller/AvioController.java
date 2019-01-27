@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.AvioDTO;
 import com.bff.flylivedrive.dto.CityDTO;
+import com.bff.flylivedrive.dto.DestinationDTO;
 import com.bff.flylivedrive.dto.FlightDTO;
+import com.bff.flylivedrive.dto.mappers.AvioMapper;
 import com.bff.flylivedrive.model.Avio;
 import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.service.AvioService;
+import com.bff.flylivedrive.service.CityService;
 
 @RestController
 @RequestMapping(value = "/avio")
@@ -27,6 +31,9 @@ public class AvioController {
 	
 	@Autowired
 	AvioService avioService;
+	
+	@Autowired
+	CityService cityService;
 	
 	// Get ALL avio
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -78,11 +85,16 @@ public class AvioController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AvioDTO> saveAvio(@RequestBody AvioDTO avioDTO) {
 		
-		Avio avio = new Avio();
-
-		// todo address and other fields
-		avio.setName(avioDTO.getName());
-		avio.setDescription(avioDTO.getDescription());
+		City c = cityService.findOneById(avioDTO.getCityDTO().getId());
+		
+		if (c == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		AvioMapper mapper = new AvioMapper();
+		Avio avio = mapper.map(avioDTO, c);
+		
+		
 		
 		avio = avioService.save(avio);
 		
@@ -113,22 +125,22 @@ public class AvioController {
 	public ResponseEntity<List<CityDTO>> getAviosDestinations(@PathVariable Long avioId) {
 
 		Avio avio = avioService.findOneById(avioId);
-		Set<City> destinations = avio.getDestinations();
-		List<CityDTO> destinationsDTO = new ArrayList<>();
+		Set<Destination> destinations = avio.getDestinations();
+		List<CityDTO> destinationCitiesDTO = new ArrayList<>();
 		
-		for (City d : destinations) {
-			CityDTO dDTO = new CityDTO(d);
+		for (Destination d : destinations) {
 			
-			destinationsDTO.add(dDTO);
+			CityDTO dDTO = new CityDTO(d.getCity());
+			destinationCitiesDTO.add(dDTO);
 		}
 		
-		return new ResponseEntity<>(destinationsDTO, HttpStatus.OK); 
+		return new ResponseEntity<>(destinationCitiesDTO, HttpStatus.OK); 
 		
 	}
 	
 	
-	/*@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<CityDTO> saveDestination(@RequestBody CityDTO destinationDTO, @PathVariable Long avioId) {
+	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<CityDTO> saveDestination(@RequestBody DestinationDTO destinationDTO, @PathVariable Long avioId) {
 		
 		
 		
@@ -139,28 +151,32 @@ public class AvioController {
 		}
 		
 		
-		Set<City> destinations = a.getDestinations();
-		
-		for (City c: destinations) {
-			// provera da li postoji grad iz iste drzave vec upisan
-			if (c.getName().equals(destinationDTO.getName())) {
-				if (c.getCountry().equals(destinationDTO.getCountry())) {
-					return new ResponseEntity<>(HttpStatus.CONFLICT);
-				} 
+		Set<Destination> destinations = a.getDestinations();
+				
+		for (Destination d: destinations) {
+			City c = d.getCity();
+			
+			if (c.getId() == destinationDTO.getCityId()) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		
-		City destination = new City();
-		destination.setName(destinationDTO.getName());
-		destination.setCountry(destinationDTO.getCountry());
+		City c = cityService.findOneById(destinationDTO.getCityId());
+		if (c == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
+		Destination destination = new Destination();
+		destination.setAvio(a);
+		destination.setCity(c);
+		
 		destinations.add(destination);
 		
 		avioService.save(a);
 		
-		return new ResponseEntity<>(new CityDTO(destination), HttpStatus.CREATED);
+		return new ResponseEntity<>(new CityDTO(destination.getCity()), HttpStatus.CREATED);
 		
-	}*/
+	}
 	
 	
 	
