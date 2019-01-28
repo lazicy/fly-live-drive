@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { HotelService } from 'src/app/services/hotel.service';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-sys-hotel-form',
@@ -12,32 +13,51 @@ export class SysHotelFormComponent implements OnInit, OnDestroy {
 
   @Output() hotelSubmit = new EventEmitter();
   noStars: any;
+  countryList: any = [];
+	cityList: any = [];
 
-  constructor(private http: HttpClient, private hotelService: HotelService) { }
+  constructor(private http: HttpClient, private hotelService: HotelService, private countryService: CountryService) { }
 
   ngOnInit() {
     this.noStars = 1;
+    this.countryService.getCountries().subscribe(
+			(data) => {
+				this.countryList = data;
+			},
+			(error) => console.log(error)
+		);
   }
 
+  // metoda se poziva svaki put kad se promeni selekcija u html selektru za Country
+	onChangeCountry(event) {
+		const selectedCountryId = event.target.value;
+		this.getCities(selectedCountryId);
+  }
+  
+  // uzima i dodeljuje vrednost listi gradova koja se trenutno prikazuje u formi
+	getCities(id) {
+		this.countryService.getCountysCities(id).subscribe(
+			(data) => {
+				this.cityList = data;
+			},
+			(error) => console.log(error)
+		);
+	}
+
   onSubmitHotel(form: NgForm) {
-    const name = form.value.name;
-    const address = form.value.address;
-    const city = form.value.city;
-    const country = form.value.country;
-    const description = form.value.description;
-    const himageURL = form.value.himageURL;
-    const map = form.value.map;
-    const stars = this.noStars;
+
+    // uzmi index iz liste na osnovu selektovanog id-a u html selectu
+		let cityIndex = this.cityList.findIndex(city => city.id == form.value.cityId);
+    const cityDTO = this.cityList[cityIndex];
 
     let htl = {
-      name: name,
-      address: address,
-      city: city,
-      country: country,
-      description: description,
-      hotelImageURL: himageURL,
-      map: map,
-      stars: stars,
+      name: form.value.name,
+      address: form.value.address,
+      cityDTO: cityDTO,
+      description: form.value.description,
+      hotelImageURL: form.value.himageURL,
+      map: form.value.map,
+      stars: this.noStars
     }
 
     this.hotelService.saveHotel(htl).subscribe(

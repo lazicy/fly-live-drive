@@ -32,7 +32,13 @@ public class City {
 	
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Destination> destinations = new HashSet<Destination>();
-
+	
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Hotel> hotels = new HashSet<Hotel>();
+	
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<RentACar> rents = new HashSet<RentACar>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -57,7 +63,6 @@ public class City {
 		this.country = country;
 	}
 
-
 	public Set<Avio> getAviosLocation() {
 		return aviosLocation;
 	}
@@ -73,16 +78,21 @@ public class City {
 	public void setDestinations(Set<Destination> destinations) {
 		this.destinations = destinations;
 	}
-	
-	
 
-	
-	 
-	
-	
-	
-	
-	
-	
+	public Set<Hotel> getHotels() {
+		return hotels;
+	}
 
+	public void setHotels(Set<Hotel> hotels) {
+		this.hotels = hotels;
+	}
+
+	public Set<RentACar> getRents() {
+		return rents;
+	}
+
+	public void setRents(Set<RentACar> rents) {
+		this.rents = rents;
+	}
+	
 }

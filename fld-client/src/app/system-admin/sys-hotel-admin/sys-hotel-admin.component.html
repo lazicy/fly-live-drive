@@ -29,7 +29,7 @@
             <tr *ngFor="let hotel of hotelList">
                 <th scope="row">{{ hotel.id }}</th>
                 <td><a [routerLink]="['/hotel', hotel.id]">{{ hotel.name }}</a></td>
-                <td>{{ hotel.address }}, {{ hotel.city }}, {{hotel.country}}</td>
+                <td>{{ hotel.address }}, {{ hotel.cityDTO.name }}, {{hotel.cityDTO.countryDTO.name}}</td>
                 <td>{{ hotel.description }}</td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteHotel(hotel.id)"><i class="fa fa-trash"></i> Delete</button></td>
               </tr>

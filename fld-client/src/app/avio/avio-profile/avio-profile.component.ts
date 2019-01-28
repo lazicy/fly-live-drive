@@ -110,24 +110,24 @@ export class AvioProfileComponent implements OnInit {
 	}
 
 	onSubmitDestination(form: NgForm) {
-		const name = form.value.name;
-		const country = form.value.country;
+		// const name = form.value.name;
+		// const country = form.value.country;
 		
-		let destination = {
-			name: name,
-			country: country
-		}
+		// let destination = {
+		// 	name: name,
+		// 	country: country
+		// }
 
 
-		this.avioService.saveAviosDestination(this.avio.id, destination).subscribe(
-			(response) => console.log(response),
-			(error) => {	
-				// console.log(error.status); 
-				if (error.status === 409) {
-					console.log("Already exists city " + destination.name + " in " + destination.country);
-				}
-			}
-		);
+		// this.avioService.saveAviosDestination(this.avio.id, destination).subscribe(
+		// 	(response) => console.log(response),
+		// 	(error) => {	
+		// 		// console.log(error.status); 
+		// 		if (error.status === 409) {
+		// 			console.log("Already exists city " + destination.name + " in " + destination.country);
+		// 		}
+		// 	}
+		// );
 		
 	}
 

@@ -7,8 +7,7 @@ public class HotelDTO {
 	private Long id;
 	private String name;
 	private String address;
-	private String city;
-	private String country;
+	private CityDTO cityDTO;
 	private String description;
 	private String hotelImageURL;
 	private String map;
@@ -19,16 +18,15 @@ public class HotelDTO {
 	}
 	
 	public HotelDTO(Hotel h) {
-		this(h.getId(), h.getName(), h.getAddress(), h.getCity(), h.getCountry(), h.getDescription(), h.getHotelImageURL(), h.getMap(), h.getStars());
+		this(h.getId(), h.getName(), h.getAddress(), new CityDTO(h.getCity()), h.getDescription(), h.getHotelImageURL(), h.getMap(), h.getStars());
 	}
 	
-	public HotelDTO(Long id, String name, String address, String city, String country, String description, String imageURL, String map, int stars) {
+	public HotelDTO(Long id, String name, String address, CityDTO cityDTO, String description, String imageURL, String map, int stars) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
-		this.city = city;
-		this.country = country;
+		this.cityDTO = cityDTO;
 		this.description = description;
 		this.hotelImageURL = imageURL;
 		this.map = map;
@@ -59,20 +57,12 @@ public class HotelDTO {
 		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
+	public CityDTO getCityDTO() {
+		return cityDTO;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCityDTO(CityDTO cityDTO) {
+		this.cityDTO = cityDTO;
 	}
 
 	public String getDescription() {

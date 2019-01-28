@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.RentDTO;
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.RentService;
 
 @RestController
@@ -25,6 +27,8 @@ public class RentController {
 	@Autowired
 	RentService rentService; //injektujem potreban servis
 	
+	@Autowired
+	CityService cityService;
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -40,12 +44,13 @@ public class RentController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
+		City c = cityService.findOneById(rent.getCityDTO().getId());
+		
 		RentACar rentAcar = new RentACar();
 		
 		rentAcar.setName(rent.getName());
 		rentAcar.setAdress(rent.getAdress());
-		rentAcar.setCity(rent.getCity());
-		rentAcar.setCountry(rent.getCountry());
+		rentAcar.setCity(c);
 		rentAcar.setDescription(rent.getDescription());
 		
 		//kreiraj novi objekat i sacuvaj ga u bazu

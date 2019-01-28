@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.HotelDTO;
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Hotel;
+import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.HotelService;
 
 @RestController
@@ -22,6 +24,9 @@ public class HotelController {
 	
 	@Autowired
 	HotelService hotelService;
+	
+	@Autowired
+	CityService cityService;
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<HotelDTO>> getAllHotel() {
@@ -51,12 +56,13 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<HotelDTO> saveHotel(@RequestBody HotelDTO hotelDTO) {
 		
+		City c = cityService.findOneById(hotelDTO.getCityDTO().getId());
+		
 		Hotel hotel = new Hotel();
 		
 		hotel.setName(hotelDTO.getName());
 		hotel.setAddress(hotelDTO.getAddress());
-		hotel.setCity(hotelDTO.getCity());
-		hotel.setCountry(hotelDTO.getCountry());
+		hotel.setCity(c);
 		hotel.setDescription(hotelDTO.getDescription());
 		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
 		hotel.setMap(hotelDTO.getMap());
@@ -90,10 +96,11 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		City c = cityService.findOneById(hotelDTO.getCityDTO().getId());
+		
 		hotel.setName(hotelDTO.getName());
 		hotel.setAddress(hotelDTO.getAddress());
-		hotel.setCity(hotelDTO.getCity());
-		hotel.setCountry(hotelDTO.getCountry());
+		hotel.setCity(c);
 		hotel.setDescription(hotelDTO.getDescription());
 		hotel.setHotelImageURL(hotelDTO.getHotelImageURL());
 		hotel.setMap(hotelDTO.getMap());
