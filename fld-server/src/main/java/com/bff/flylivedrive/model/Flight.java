@@ -33,10 +33,10 @@ public class Flight {
 	private int totalDuration;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private City departureCity;
+	private Destination departureDestination;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private City landingCity;
+	private Destination landingDestination;
 	
 	@Column(name="price", nullable=false)
 	private double price;
@@ -58,20 +58,22 @@ public class Flight {
 		this.totalDuration = totalDuration;
 	}
 
-	public City getDepartureCity() {
-		return departureCity;
+
+
+	public Destination getDepartureDestination() {
+		return departureDestination;
 	}
 
-	public void setDepartureCity(City departureCity) {
-		this.departureCity = departureCity;
+	public void setDepartureDestination(Destination departureDestination) {
+		this.departureDestination = departureDestination;
 	}
 
-	public City getLandingCity() {
-		return landingCity;
+	public Destination getLandingDestination() {
+		return landingDestination;
 	}
 
-	public void setLandingCity(City landingCity) {
-		this.landingCity = landingCity;
+	public void setLandingDestination(Destination landingDestination) {
+		this.landingDestination = landingDestination;
 	}
 
 	public Set<Interception> getInterceptions() {

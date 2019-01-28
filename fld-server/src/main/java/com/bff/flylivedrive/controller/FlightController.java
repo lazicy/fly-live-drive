@@ -88,34 +88,34 @@ public class FlightController {
 		
 		
 		Set<Destination> destinations = a.getDestinations();
-		City departureCity = null;
-		City landingCity = null;
+		Destination departureDest = null;
+		Destination landingDest = null;
 		
 		for (Destination d: destinations) {
 			
-			if (d.getCity().getId() == flightDTO.getDepartureCity().getId()) {
-				departureCity = d.getCity();
+			if (d.getCity().getId() == flightDTO.getDepartureDestination().getCityDTO().getId()) {
+				departureDest = d;
 			}
 			
-			if (d.getCity().getId() == flightDTO.getLandingCity().getId()) {
-				landingCity = d.getCity();
+			if (d.getCity().getId() == flightDTO.getLandingDestination().getCityDTO().getId()) {
+				landingDest = d;
 			}
 		}
 		
 		// if one of them is still null or both are equal  - bad request
-		if (landingCity == null || departureCity == null || landingCity.getId() == departureCity.getId()) {
-			return new ResponseEntity<>(HttpStatus.valueOf("Departure city or landing city not found"));
+		if (landingDest == null || departureDest == null || departureDest.getCity().getId() == landingDest.getCity().getId()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		// map flight [interceptions will be set latter because they need flight reference]
 		FlightMapper mapper = new FlightMapper();
-		Flight flight = mapper.map(flightDTO, a, departureCity, landingCity);
+		Flight flight = mapper.map(flightDTO, a, departureDest, landingDest);
 		
 		// form and map all interceptions 
-		Set<Interception> interceptions = formInterceptionsSet(flightDTO.getInterceptionsDTO(), flight);
+		Set<Interception> interceptions = formInterceptionsSet(flightDTO.getInterceptionsDTO(), flight, destinations);
 		
 		if (interceptions == null) {
-			return new ResponseEntity<>(HttpStatus.valueOf("One of interception cities not found."));
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		flight.setInterceptions(interceptions);
@@ -129,22 +129,28 @@ public class FlightController {
 	
 	
 	// forming set of interceptions
-	private Set<Interception> formInterceptionsSet(List<InterceptionDTO> interceptionsDTO, Flight f) {
+	private Set<Interception> formInterceptionsSet(List<InterceptionDTO> interceptionsDTO, Flight f, Set<Destination> destinations) {
 		Set<Interception> interceptions = new HashSet<>();
 		for (InterceptionDTO iDTO: interceptionsDTO) {
 			
+			Destination destination = null;
 			
-			// find interception city
-			City c = cityService.findOneById(iDTO.getCityDTO().getId());
+			for (Destination d: destinations) {
+				
+				if (iDTO.getDestinationDTO().getCityDTO().getId() == d.getCity().getId()) {
+					destination = d;
+					break;
+				}
+			}
 			
 			// return null if there isn't any 
-			if (c == null) {
+			if (destination == null) {
 				return null;
 			}
 			
 			InterceptionMapper mapper = new InterceptionMapper();
 			Interception i = new Interception();
-			i = mapper.map(iDTO, c, f);
+			i = mapper.map(iDTO, destination, f);
 			
 			// finaly put it in set
 			interceptions.add(i);

@@ -97,7 +97,7 @@ export class AvioProfileComponent implements OnInit {
 		this.avioService.getAviosDestinations(this.id).subscribe(
 			(data) => {
 				this.avio.destinations = data;
-				if(this.avio.destinations === 0) {
+				if(this.avio.destinations.length === 0) {
 					this.emptyDestinationList = true;
 				} else {
 					this.emptyDestinationList = false;

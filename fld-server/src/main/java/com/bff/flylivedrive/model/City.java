@@ -27,15 +27,6 @@ public class City {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Country country;
 	
-	@OneToMany(mappedBy = "departureCity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Flight> departureFlights = new HashSet<Flight>();
-	
-	@OneToMany(mappedBy = "landingCity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Flight> landingFlights = new HashSet<Flight>();
-	
-	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Interception> interceptions = new HashSet<Interception>();
-	
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Avio> aviosLocation = new HashSet<Avio>();
 	
@@ -66,29 +57,6 @@ public class City {
 		this.country = country;
 	}
 
-	public Set<Flight> getDepartureFlights() {
-		return departureFlights;
-	}
-
-	public void setDepartureFlights(Set<Flight> departureFlights) {
-		this.departureFlights = departureFlights;
-	}
-
-	public Set<Flight> getLandingFlights() {
-		return landingFlights;
-	}
-
-	public void setLandingFlights(Set<Flight> landingFlights) {
-		this.landingFlights = landingFlights;
-	}
-
-	public Set<Interception> getInterceptions() {
-		return interceptions;
-	}
-
-	public void setInterceptions(Set<Interception> interceptions) {
-		this.interceptions = interceptions;
-	}
 
 	public Set<Avio> getAviosLocation() {
 		return aviosLocation;

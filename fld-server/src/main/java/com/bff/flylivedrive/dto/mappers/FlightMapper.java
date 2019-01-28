@@ -1,10 +1,8 @@
 package com.bff.flylivedrive.dto.mappers;
 
-import java.util.Set;
-
 import com.bff.flylivedrive.dto.FlightDTO;
 import com.bff.flylivedrive.model.Avio;
-import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 
 public class FlightMapper {
@@ -14,7 +12,7 @@ public class FlightMapper {
 	}
 	
 	// mapping without interceptions
-	public Flight map (FlightDTO flightDTO, Avio a, City departureCity, City landingCity) {
+	public Flight map (FlightDTO flightDTO, Avio a, Destination departureDest, Destination landingDest) {
 		
 		Flight flight = new Flight();
 		
@@ -23,8 +21,8 @@ public class FlightMapper {
 		flight.setLandingDate(flightDTO.getLandingDate());
 		flight.setPrice(flightDTO.getPrice());
 		flight.setAvio(a);
-		flight.setDepartureCity(departureCity);
-		flight.setLandingCity(landingCity);
+		flight.setDepartureDestination(departureDest);
+		flight.setLandingDestination(landingDest);
 		
 		return flight;
 		

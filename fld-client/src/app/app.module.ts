@@ -22,7 +22,6 @@ import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
-import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
 import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
@@ -45,7 +44,9 @@ import { SysAvioFormComponent } from './system-admin/sys-avio-admin/sys-avio-for
 import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-form/sys-hotel-form.component';
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
 import { CountryService } from './services/country.service';
-
+import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolist-admin.component';
+import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
+import { AddDestinationComponent } from './avio/avio-admin/avio-edit/add-destination/add-destination.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,6 @@ import { CountryService } from './services/country.service';
     LoginComponent,
     SignUpComponent,
     AvioAdminComponent,
-    AvioFormComponent,
     HotelHomepageComponent,
     HotelFormComponent,
     HotelAdminComponent,
@@ -79,7 +79,10 @@ import { CountryService } from './services/country.service';
     SysCarFormComponent,
     SysAvioFormComponent,
     SysHotelFormComponent,
-    SysUsersComponent
+    SysUsersComponent,
+    AviolistAdminComponent,
+    AvioEditComponent,
+    AddDestinationComponent
   ],
   imports: [
     BrowserModule,

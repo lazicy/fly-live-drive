@@ -10,7 +10,6 @@ import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
-import { AvioFormComponent } from './avio/avio-admin/avio-form/avio-form.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
@@ -26,6 +25,8 @@ import { SysHotelFormComponent } from './system-admin/sys-hotel-admin/sys-hotel-
 import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin.component';
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
+import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
+import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolist-admin.component';
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,9 @@ const appRoutes: Routes = [
 	{ path: 'avio', component: AvioComponent, children: [
 		{ path: '', component: AviolistComponent},
 		{ path: 'admin', component: AvioAdminComponent, children: [
-			{ path: 'new', component: AvioFormComponent}
+			{ path: '', component: AviolistAdminComponent },
+			{ path: ':id', component: AvioEditComponent}
+			
 		]},
 		{ path: ':id', component: AvioProfileComponent}
 	]},

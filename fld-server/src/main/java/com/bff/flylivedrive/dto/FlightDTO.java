@@ -15,8 +15,8 @@ public class FlightDTO {
 	private Date departureDate;
 	private Date landingDate;
 	private int totalDuration;
-	private CityDTO departureCity;
-	private CityDTO landingCity;
+	private DestinationDTO departureDestination;
+	private DestinationDTO landingDestination;
 	private double price;
 	private AvioDTO avioDTO;
 	private List<InterceptionDTO> interceptionsDTO;
@@ -27,7 +27,8 @@ public class FlightDTO {
 	
 	public FlightDTO(Flight f) {
 		this(f.getId(), f.getDepartureDate(), f.getLandingDate(), f.getTotalDuration(),
-				new CityDTO(f.getDepartureCity()), new CityDTO(f.getLandingCity()), f.getPrice(), new AvioDTO(f.getAvio()));
+				new DestinationDTO(f.getDepartureDestination()), new DestinationDTO(f.getLandingDestination()),
+				f.getPrice(), new AvioDTO(f.getAvio()));
 		
 		// mapping to interceptionsDTO list
 		interceptionsDTO = new ArrayList<>();
@@ -46,14 +47,14 @@ public class FlightDTO {
 	
 	
 	public FlightDTO(Long id, Date departureDate, Date landingDate, int totalDuration,
-			CityDTO departureCity, CityDTO landingCity, double price, AvioDTO avioDTO) {
+			DestinationDTO departureDest, DestinationDTO landingDest, double price, AvioDTO avioDTO) {
 		super();
 		this.id = id;
 		this.departureDate = departureDate;
 		this.landingDate = landingDate;
 		this.totalDuration = totalDuration;
-		this.departureCity = departureCity;
-		this.landingCity = landingCity;
+		this.departureDestination = departureDest;
+		this.landingDestination = landingDest;
 		this.price = price;
 		this.avioDTO = avioDTO;
 	}
@@ -98,22 +99,6 @@ public class FlightDTO {
 	}
 
 
-	public CityDTO getDepartureCity() {
-		return departureCity;
-	}
-
-	public void setDepartureCity(CityDTO departureCity) {
-		this.departureCity = departureCity;
-	}
-
-	public CityDTO getLandingCity() {
-		return landingCity;
-	}
-
-	public void setLandingCity(CityDTO landingCity) {
-		this.landingCity = landingCity;
-	}
-
 	public List<InterceptionDTO> getInterceptionsDTO() {
 		return interceptionsDTO;
 	}
@@ -121,6 +106,24 @@ public class FlightDTO {
 	public void setInterceptionsDTO(List<InterceptionDTO> interceptionsDTO) {
 		this.interceptionsDTO = interceptionsDTO;
 	}
+
+	public DestinationDTO getDepartureDestination() {
+		return departureDestination;
+	}
+
+	public void setDepartureDestination(DestinationDTO departureDestination) {
+		this.departureDestination = departureDestination;
+	}
+
+	public DestinationDTO getLandingDestination() {
+		return landingDestination;
+	}
+
+	public void setLandingDestination(DestinationDTO landingDestination) {
+		this.landingDestination = landingDestination;
+	}
+	
+	
 
 	
 	

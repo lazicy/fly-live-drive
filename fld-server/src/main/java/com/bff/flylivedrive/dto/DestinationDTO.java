@@ -1,14 +1,33 @@
 package com.bff.flylivedrive.dto;
 
+import com.bff.flylivedrive.model.Destination;
+
 public class DestinationDTO {
 	
 	private Long id;
 	private Long avioId;
-	private Long cityId;
+	private CityDTO cityDTO;
 	
 	
+	public DestinationDTO() {
+		
+	}
 	
+	public DestinationDTO(Long avioId, CityDTO cityDTO) {
+		this.avioId = avioId;
+		this.cityDTO = cityDTO;
+	}
 	
+	public DestinationDTO(Destination d) {
+		this(d.getId(), d.getAvio().getId(), new CityDTO(d.getCity()));
+	}
+	
+	public DestinationDTO(Long id, Long avioId, CityDTO cityDTO) {
+		super();
+		this.id = id;
+		this.avioId = avioId;
+		this.cityDTO = cityDTO;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -21,12 +40,15 @@ public class DestinationDTO {
 	public void setAvioId(Long avioId) {
 		this.avioId = avioId;
 	}
-	public Long getCityId() {
-		return cityId;
+
+	public CityDTO getCityDTO() {
+		return cityDTO;
 	}
-	public void setCityId(Long cityId) {
-		this.cityId = cityId;
+
+	public void setCityDTO(CityDTO cityDTO) {
+		this.cityDTO = cityDTO;
 	}
+	
 	
 	
 

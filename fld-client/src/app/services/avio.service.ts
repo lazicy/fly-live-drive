@@ -54,8 +54,8 @@ export class AvioService {
 	}
 
 	// POST destination for specified avio
-	saveAviosDestination(id: number, destination) {
-		return this.http.post("/api/avio/" + id + "/destinations", destination);
+	saveAviosDestination( destination) {
+		return this.http.post("/api/avio/destinations", destination);
 	}
 
 

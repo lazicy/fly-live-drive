@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <form style="width:100%" (ngSubmit)="onSubmitDestination(f)"  #f="ngForm">
+            <h2>Insert New Destination</h2>
+            <hr>
+         
+            <div class="row">
+              <div class="col-5 form-group">
+            
+                <label for="countryId">Country:</label>
+                <select class="form-control"  id="countryId"
+                        required
+                        name="countryId" ngModel
+                        (change)="onChangeCountry($event)">
+                  <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
+                </select>
+                  
+             </div>
+  
+              <div class="col-5 form-group">
+            
+                <label for="cityId">City:</label>
+                <select class="form-control"  id="cityId"
+                        required
+                        name="cityId" ngModel >
+                  <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+                </select>
+                
+              </div>
+          </div>
+  
+            <div class="row">
+              <div class="col form-group">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
+              </div>
+            </div>
+          </form>
+    </div>
+  </div>

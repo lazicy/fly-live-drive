@@ -28,7 +28,7 @@ public class Interception {
 	private int duration;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private City city;
+	private Destination destination;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Flight flight;
@@ -65,12 +65,12 @@ public class Interception {
 		this.duration = duration;
 	}
 
-	public City getCity() {
-		return city;
+	public Destination getDestination() {
+		return destination;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setDestination(Destination destination) {
+		this.destination = destination;
 	}
 
 	public Flight getFlight() {

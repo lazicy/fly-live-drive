@@ -1,0 +1,90 @@
+.fa {
+    font-size: 23px;
+    font-weight: 200;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: rgb(1, 163, 192);
+
+}
+
+.based {
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 2px;
+    background-color: orangered;
+    color: white;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    line-height: 1;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.fa-plus-circle {
+    line-height: 1;
+    font-size: 18px;
+    color:white;
+}
+
+.fa-plus-circle:hover {
+    color:rgb(194, 255, 175);
+    cursor: pointer;
+}
+
+.fa-trash {
+    font-size: 20px;
+}
+
+.actions {
+    text-align: center;
+    width: 10%;
+}
+
+.align-center {
+    margin: 0px auto;
+}
+
+.new-button {
+    background: rgb(1, 148, 206);
+    font-size: 15px;
+    float: right;
+    margin-right: 33px;
+    margin-bottom: 10px;
+    line-height: 1;
+} 
+
+.new-button:hover {
+    background: rgb(0, 0, 0);
+}
+
+.country-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.destinations-container {
+    padding: 10px 34px 0 34px
+}
+
+.destinations-container-single {
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
+    border-radius: 10px;
+    padding: 20px 20px 0px 20px;
+    margin: 20px 0;
+    transition: all .5s;
+}
+
+.destinations-container-single:hover {
+    background: rgb(253, 253, 253);
+    transition: all .5s;
+}
+
+.table td {
+    padding: 5px 0 0 15px;
+    vertical-align: middle;
+}

@@ -139,12 +139,12 @@ public class AvioController {
 	}
 	
 	
-	@RequestMapping(value = "/{avioId}/destinations", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<CityDTO> saveDestination(@RequestBody DestinationDTO destinationDTO, @PathVariable Long avioId) {
+	@RequestMapping(value = "/destinations", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<CityDTO> saveDestination(@RequestBody DestinationDTO destinationDTO) {
 		
 		
 		
-		Avio a = avioService.findOneById(avioId);
+		Avio a = avioService.findOneById(destinationDTO.getAvioId());
 		System.out.println(a);
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -156,12 +156,12 @@ public class AvioController {
 		for (Destination d: destinations) {
 			City c = d.getCity();
 			
-			if (c.getId() == destinationDTO.getCityId()) {
+			if (c.getId() == destinationDTO.getCityDTO().getId()) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		
-		City c = cityService.findOneById(destinationDTO.getCityId());
+		City c = cityService.findOneById(destinationDTO.getCityDTO().getId());
 		if (c == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
