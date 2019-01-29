@@ -23,6 +23,7 @@ export class AvioEditComponent implements OnInit {
   showEditAvioInfo: boolean = false;
   showDestinations: boolean = false;
   showNewDestinationDialog: boolean = false;
+  showFlights: boolean = false;
 
   avioInfoForm: FormGroup;
 
@@ -90,16 +91,25 @@ export class AvioEditComponent implements OnInit {
   onToggleDestinations() {
     this.showDestinations = !this.showDestinations;
 
+    // needs to be fixed!
     if (!this.avio.destinations) {
-      this.avioService.getAviosDestinations(this.avio.id).subscribe(
-        data => {
-          this.avio.destinations = data;
-          this.formatCCStructure();
-        },  
-        error => console.log(error)
-          
-      );
+      this.fetchDestinations();
     }
+  }
+
+  onToggleFlights() {
+    this.showFlights = !this.showFlights;
+  }
+
+  fetchDestinations() {
+    this.avioService.getAviosDestinations(this.avio.id).subscribe(
+      data => {
+        this.avio.destinations = data;
+        this.destCountries = this.countryService.formatCCStructure(this.avio.destinations);
+      },  
+      error => console.log(error)
+        
+    );
   }
 
   // metoda se poziva svaki put kad se promeni selekcija u html selektru za Country
@@ -125,6 +135,40 @@ export class AvioEditComponent implements OnInit {
   
   onSubmitEditAvioInfo() {
     console.log(this.avioInfoForm);
+
+    let cityIndex = this.countryService.findCityIndex(this.avioInfoForm.value.cityId, this.cityList); 
+		const cityDTO = this.cityList[cityIndex];
+		
+		let avio = {
+      id: this.avio.id,
+			name: this.avioInfoForm.value.name,
+			address: this.avioInfoForm.value.address,
+			cityDTO: cityDTO,
+			map: this.avioInfoForm.value.map,
+			description: this.avioInfoForm.value.description
+    }
+    
+    this.avioService.updateAvio(avio).subscribe(
+      (response) => {
+        swal({title: "Success!", text: "Avio company " + this.avio.name + " updated.", icon: "success", timer: 1000});
+        this.avio = response;
+        this.fetchDestinations();
+      }, (error) => {
+        {swal ( "Error occured" ,  "The company was not updated." ,  "error" );}
+      }
+    );
+
+  }
+
+  onRestoreAvioInfo() {
+    this.avioInfoForm = new FormGroup({
+      'name': new FormControl(this.avio.name),
+      'address': new FormControl(this.avio.address),
+      'map': new FormControl(this.avio.map),
+      'description': new FormControl(this.avio.description),
+      'countryId': new FormControl(this.avio.cityDTO.countryDTO.id),
+      'cityId': new FormControl(this.avio.cityDTO.id)
+    });
   }
 
   onNewDestination() {
@@ -137,40 +181,16 @@ export class AvioEditComponent implements OnInit {
 
   destinationSubmitted(dest) {
     this.avio.destinations.push(dest);
-    this.formatCCStructure();
+    this.destCountries = this.countryService.formatCCStructure(this.avio.destinations);
     this.showNewDestinationDialog = false;
 
   }
 
-  formatCCStructure() {
-
-    this.destCountries = [];
-
-    for(let city of this.avio.destinations) {
-      
-      let match = false;
-      for (let country of this.destCountries) {
-        if (country.id === city.countryDTO.id) {
-        
-            country.cities.push(city);
-            match = true;
-            break;
-        }
-      }
-
-      if (!match) {
-        city.countryDTO.cities = [];
-        city.countryDTO.cities.push(city);
-        this.destCountries.push(city.countryDTO);
-      }
-
-
-    }
-
-    console.log(this.destCountries);
-
-
+  onNewFlight() {
+    // to be implemented
   }
+
+  
 
 
 }

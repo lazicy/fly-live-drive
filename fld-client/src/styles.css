@@ -46,6 +46,14 @@ body {
     transition: 0.2s;
 }
 
+.align-center {
+    text-align: center;
+}
+
+.center-button {
+    margin: 10px auto;
+}
+
 .tile:hover {
     transition: 0.2s;
     box-shadow: 1px 3px 6px 1px rgba(37,32,31,.3);
@@ -138,6 +146,13 @@ select {
 .modal-content {
     width: 35%;
     margin: 0 auto;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.do-animation {
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;

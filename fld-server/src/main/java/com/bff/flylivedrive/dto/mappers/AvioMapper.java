@@ -1,13 +1,25 @@
 package com.bff.flylivedrive.dto.mappers;
 
+import java.util.Iterator;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bff.flylivedrive.dto.AvioDTO;
 import com.bff.flylivedrive.model.Avio;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Destination;
+import com.bff.flylivedrive.service.AvioService;
+import com.bff.flylivedrive.service.DestinationService;
 
 public class AvioMapper {
 	
-	public Avio map(AvioDTO aDTO, City c) {
+	@Autowired 
+	AvioService avioService;
+	
+	@Autowired
+	DestinationService destService;
+	
+	public Avio mapNew(AvioDTO aDTO, City c) {
 		
 		Avio a = new Avio();
 		
@@ -26,6 +38,20 @@ public class AvioMapper {
 		
 		return a;
 		
+	}
+	
+	public Avio mapUpdate(AvioDTO aDTO, Avio a, City c) {
+		
+		
+		
+		a.setName(aDTO.getName());
+		a.setAddress(aDTO.getAddress());
+		a.setMap(aDTO.getMap());
+		a.setDescription(aDTO.getDescription());
+		a.setCity(c);
+		
+		
+		return a;
 	}
 
 }

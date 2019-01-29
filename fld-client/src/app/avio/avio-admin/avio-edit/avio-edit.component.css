@@ -52,7 +52,6 @@
     background: rgb(1, 148, 206);
     font-size: 15px;
     float: right;
-    margin-right: 33px;
     margin-bottom: 10px;
     line-height: 1;
 } 
@@ -68,14 +67,14 @@
 }
 
 .destinations-container {
-    padding: 10px 34px 0 34px
+    padding: 10px 0px 10px 0px
 }
 
 .destinations-container-single {
     box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
     border-radius: 10px;
-    padding: 20px 20px 0px 20px;
-    margin: 20px 0;
+    padding: 10px 20px 0px 20px;
+    margin: 20px 0 0 0;
     transition: all .5s;
 }
 
@@ -85,6 +84,11 @@
 }
 
 .table td {
-    padding: 5px 0 0 15px;
+    padding: 2px 0 2px 15px;
     vertical-align: middle;
+    height: 50px;
+}
+
+.table-responsive {
+    overflow: unset;
 }

@@ -56,12 +56,13 @@ export class AddDestinationComponent implements OnInit, OnDestroy {
       (response) => {
         this.destinationSubmit.emit(response);
         swal({title: "Success!", text: "Destination added", icon: "success", timer: 1500});
+        form.reset();
         this.ngOnDestroy();
       },
       (error) => {swal ( "Error occured" ,  "The company was not added." ,  "error" );}
     );
 
-    form.reset();
+   
 
   }
   

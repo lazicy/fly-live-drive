@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.service.AvioService;
 import com.bff.flylivedrive.service.CityService;
+import com.bff.flylivedrive.service.DestinationService;
 
 @RestController
 @RequestMapping(value = "/avio")
@@ -34,6 +36,9 @@ public class AvioController {
 	
 	@Autowired
 	CityService cityService;
+	
+	@Autowired
+	DestinationService destService;
 	
 	// Get ALL avio
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -85,20 +90,86 @@ public class AvioController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AvioDTO> saveAvio(@RequestBody AvioDTO avioDTO) {
 		
-		City c = cityService.findOneById(avioDTO.getCityDTO().getId());
 		
-		if (c == null) {
+		City c;
+		
+		try {
+			c = cityService.findOneById(avioDTO.getCityDTO().getId());
+		} catch (NullPointerException e) {
+			System.out.println("[AvioController: saveAvio()] City NULL");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		
 		AvioMapper mapper = new AvioMapper();
-		Avio avio = mapper.map(avioDTO, c);
+		Avio avio = mapper.mapNew(avioDTO, c);
 		
 		
 		
 		avio = avioService.save(avio);
 		
 		return new ResponseEntity<>(new AvioDTO(avio), HttpStatus.CREATED);
+		
+	}
+	
+	// Update ONE avio
+	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+	public ResponseEntity<AvioDTO> updateAvio(@RequestBody AvioDTO avioDTO) {
+		
+		City c;
+		
+		try {
+			c = cityService.findOneById(avioDTO.getCityDTO().getId());
+		} catch (NullPointerException e) {
+			System.out.println("[AvioController: updateAvio()] City NULL");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Avio avio = avioService.findOneById(avioDTO.getId());
+		
+		if (avio.getCity().getId() != c.getId()) {
+
+			Iterator it = avio.getDestinations().iterator();
+			
+			boolean shouldAdd = true;
+			
+			while(it.hasNext()) {
+				Destination d =  (Destination) it.next();
+				
+				if (d.getCity().getId() == c.getId()) {
+					shouldAdd = false;
+				}
+				
+			}
+			
+			
+			if (shouldAdd) {
+				Destination d = new Destination();
+				d.setAvio(avio);
+				d.setCity(c);
+				
+				avio.getDestinations().add(d);
+			}
+			
+		}
+		
+		
+		AvioMapper mapper = new AvioMapper();
+		
+		
+		avio = mapper.mapUpdate(avioDTO, avio, c);
+		
+
+		
+		
+		for (Destination d : avio.getDestinations()) {
+			System.out.println("Destination A1" + d.getCity().getName());
+		}
+		
+		avio = avioService.save(avio);
+
+		
+		return new ResponseEntity<>(new AvioDTO(avio), HttpStatus.OK);
 		
 	}
 	

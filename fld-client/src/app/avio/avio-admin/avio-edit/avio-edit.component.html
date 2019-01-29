@@ -17,7 +17,7 @@
     </h3>
 
     <!-- AVIO INFO TOGGLE-->
-    <form (ngSubmit)="onSubmitEditAvioInfo()" [formGroup]="avioInfoForm" *ngIf="showEditAvioInfo">
+    <form (ngSubmit)="onSubmitEditAvioInfo()" [formGroup]="avioInfoForm" *ngIf="showEditAvioInfo" class="do-animation">
         
         <div class="row">
           <div class="form-group col-12">
@@ -71,8 +71,8 @@
 
         <div class="row">
           <div class="form-group col-12">
-            <button type="submit" class="btn btn-success" >Save</button>
-            <button type="button"  class="btn btn-danger">Reset</button>
+            <button type="submit" class="btn btn-success" >Update</button>
+            <button type="button" (click)="onRestoreAvioInfo()" class="btn btn-danger">Restore</button>
           </div>
         </div>
     </form>
@@ -88,11 +88,11 @@
         ></i>
         Destinations
     </h3>
-    <button (click)="onNewDestination()" *ngIf="showDestinations" class="btn btn-primary new-button"><i class="fa fa-plus-circle" *ngIf="showDestinations"></i> New Destination</button>
+    <button (click)="onNewDestination()" *ngIf="showDestinations" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Destination</button>
     
 
     <!-- AVIO'S DESTINATIONS TOGGLE -->
-    <div class="destinations-container" *ngIf="showDestinations">
+    <div class="destinations-container do-animation" *ngIf="showDestinations">
       <img appLoading *ngIf="!destCountries">
       <div *ngIf="destCountries">
 
@@ -133,5 +133,22 @@
         </div>
       </div>
     </div>
-  
+
+  <hr>
+
+  <!-- AVIO'S FLIGHTS -->
+  <h3 class="link inline-block" (click)="onToggleFlights()" >
+      <i
+        class="fa fa-arrow-right" aria-hidden="true" 
+        [ngClass] = "{'fa-arrow-right':showFlights === false,  'fa-arrow-down':showFlights  === true }" 
+      ></i>
+      Flights
+  </h3>
+  <button (click)="onNewFlight()" *ngIf="showFlights" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Flight</button>
+
+  <!-- AVIO'S FLIGHTS TOGGLE -->
+  <div class="do-animation" *ngIf="showFlights">
+    <app-flightlist-admin avioId="{{avio.id}}"></app-flightlist-admin>
+
+  </div>
 </div>

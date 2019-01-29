@@ -39,6 +39,11 @@ export class AvioService {
 		return this.http.post("/api/avio", avio);
 	}
 
+	// UPDATE one
+	updateAvio(avio) {
+		return this.http.put("/api/avio", avio);
+	}
+
 	deleteAvio(id: number) {
 		return this.http.delete("/api/avio/" + id);
 	}

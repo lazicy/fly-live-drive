@@ -1,0 +1,33 @@
+<div class="table-responsive">
+    <table class="table" >
+     
+      <thead>
+        <th>ID</th>
+        <th>Departure Destination</th>
+        <th>Landing Destination</th>
+        <th>Duration</th>
+        <th>Departure Date</th>
+        <th>Landing Date</th>
+        <th>Price</th>
+        <th>No of Interceptions</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of flights" >
+          
+          <td>{{ f.id }}</td>
+          <td>{{ f.departureDestination.cityDTO.name }}, {{ f.departureDestination.cityDTO.countryDTO.name }}</td>
+          <td>{{ f.landingDestination.cityDTO.name }}, {{ f.landingDestination.cityDTO.countryDTO.name }}</td>
+         <td>{{ f.totalDuration }}</td>
+          <td>{{ f.departureDate }}</td>
+          <td>{{ f.landingDate }}</td>
+          <td>{{ f.price }}</td>
+          <td>{{ f.interceptionsDTO.length }}</td>
+          
+          
+          <td class="actions ">
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>

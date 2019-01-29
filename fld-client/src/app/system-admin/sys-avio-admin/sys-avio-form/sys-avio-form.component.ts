@@ -44,8 +44,8 @@ export class SysAvioFormComponent implements OnInit, OnDestroy {
 
 	onSubmitAvio(form: NgForm) {
 
-		// uzmi index iz liste na osnovu selektovanog id-a u html selectu
-		let cityIndex = this.cityList.findIndex(city => city.id == form.value.cityId);
+		
+		let cityIndex = this.countryService.findCityIndex(form.value.cityId, this.cityList); 
 		const cityDTO = this.cityList[cityIndex];
 		
 		let avio = {
@@ -62,12 +62,13 @@ export class SysAvioFormComponent implements OnInit, OnDestroy {
 				// response a tamo se prima $event). 
 				this.avioSubmit.emit(response);
 				swal({title: "Success!", text: "Avio company added", icon: "success", timer: 1500});
+				form.reset();
 				this.ngOnDestroy();
 			},
 			(error) => {swal ( "Error occured" ,  "The company was not added." ,  "error" );}
 		);
 
-		form.reset();
+		
 
 	}
 

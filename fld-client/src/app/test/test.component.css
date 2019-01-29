@@ -1,0 +1,10 @@
+a {
+    font-size: 23px;
+    color: rgb(51, 153, 248);
+    font-weight: 600;
+}
+
+.temp-ctrl {
+    text-align: center;
+    padding-top: 15px;
+}

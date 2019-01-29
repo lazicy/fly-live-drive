@@ -132,5 +132,5 @@ INSERT INTO city (id, name, country_id) values
 (84, 'Hanoi', 29),
 (85, 'Harare', 30);
 
-
-
+INSERT INTO `avio` (`id`, `address`, `description`, `map`, `name`, `city_id`) VALUES (1,'Beogradski aeroport 2','3tersdfasdasd','asdasd','Air Serbia',52);
+INSERT INTO `destination` (`id`, `avio_id`, `city_id`) VALUES (2,1,52);
