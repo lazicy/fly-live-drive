@@ -48,6 +48,7 @@ import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolis
 import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
 import { AddDestinationComponent } from './avio/avio-admin/avio-edit/add-destination/add-destination.component';
 import { FlightlistAdminComponent } from './avio/avio-admin/avio-edit/flightlist-admin/flightlist-admin.component';
+import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +85,8 @@ import { FlightlistAdminComponent } from './avio/avio-admin/avio-edit/flightlist
     AviolistAdminComponent,
     AvioEditComponent,
     AddDestinationComponent,
-    FlightlistAdminComponent
+    FlightlistAdminComponent,
+    FlightFormComponent
   ],
   imports: [
     BrowserModule,

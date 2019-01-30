@@ -27,6 +27,7 @@ import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/s
 import { SysUsersComponent } from './system-admin/sys-users/sys-users.component';
 import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
 import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolist-admin.component';
+import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.component';
 
 
 const appRoutes: Routes = [
@@ -36,6 +37,11 @@ const appRoutes: Routes = [
 		{ path: '', component: AviolistComponent},
 		{ path: 'admin', component: AvioAdminComponent, children: [
 			{ path: '', component: AviolistAdminComponent },
+			//{ path: ':aId/flight/', component: FlightFormComponent },
+			{ path: ':aId/flight',  redirectTo: '/avio/admin', pathMatch: 'full' },
+			
+			{ path: ':aId/flight/:fId', component: FlightFormComponent },
+			
 			{ path: ':id', component: AvioEditComponent}
 			
 		]},

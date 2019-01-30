@@ -54,6 +54,14 @@ body {
     margin: 10px auto;
 }
 
+.center-div {
+    margin: 0 auto;
+}
+
+div[class*="col-"] {
+    margin-right: 5px;
+}
+
 .tile:hover {
     transition: 0.2s;
     box-shadow: 1px 3px 6px 1px rgba(37,32,31,.3);

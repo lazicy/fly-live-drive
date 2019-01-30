@@ -6,11 +6,30 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CountryService {
 
+	countryList: any = [];
+	
+
 	constructor(private http: HttpClient) { }
 
 	// GET all countries
 	getCountries() {
 		return this.http.get("/api/country/all");
+	}
+
+	getCountryList() {
+		if (this.countryList.length === 0) {
+			this.getCountries().subscribe(
+				(data) => {
+					this.countryList = data;
+					return this.countryList;
+				}, (error) => {
+					console.log("Error getting countries.")
+				}
+			);
+		} else {
+			return this.countryList;
+		}
+
 	}
 
 	// GET by ID
@@ -27,6 +46,11 @@ export class CountryService {
 	findCityIndex(id: number, cities: any):number {
 		// uzmi index iz liste na osnovu selektovanog id-a u html selectu
 		return cities.findIndex(city => city.id ==id);
+	}
+
+	findCountryIndex(id: number, countries: any):number {
+		// uzmi index iz liste na osnovu selektovanog id-a u html selectu
+		return countries.findIndex(country => country.id ==id);
 	}
 
 	// helper method - make Country -> Cities structure 

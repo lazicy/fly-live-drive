@@ -17,6 +17,7 @@ export class AvioEditComponent implements OnInit {
 	countryList: any = [];
   cityList: any = [];
   
+  destinations: any = [];
   destCountries: any = [];
   
   // show-hides
@@ -55,6 +56,8 @@ export class AvioEditComponent implements OnInit {
 			this.avioService.getAvio(this.id).subscribe(
 				(data) => {
           this.avio = data;
+          
+          this.fetchDestinations();
           this.initAvioInfoForm();
 				},
 				(error) => {
@@ -105,6 +108,8 @@ export class AvioEditComponent implements OnInit {
     this.avioService.getAviosDestinations(this.avio.id).subscribe(
       data => {
         this.avio.destinations = data;
+        // just a reference for a better comparison
+        this.destinations = this.avio.destinations;
         this.destCountries = this.countryService.formatCCStructure(this.avio.destinations);
       },  
       error => console.log(error)
@@ -187,7 +192,13 @@ export class AvioEditComponent implements OnInit {
   }
 
   onNewFlight() {
-    // to be implemented
+
+    if (this.destinations.length < 2) {
+      {swal ( "Not enough destinations" ,  "The avio company has less than 2 destinations." ,  "error" );}
+    } else {
+
+      this.router.navigate(['avio/admin/' + this.avio.id + "/flight/new"]);
+    }
   }
 
   
