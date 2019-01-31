@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AvioService } from '../../services/avio.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-avio-profile',
@@ -15,13 +15,14 @@ export class AvioProfileComponent implements OnInit {
 	id: number;
 	emptyFlightList: boolean = false;
 	emptyDestinationList: boolean = false;
+	map: boolean = false;
 	
-	showFlights: boolean = false;
+	//showFlights: boolean = false;
 	showDestinations: boolean = false;
+	destCountries: any = [];
+	arrows: any = [];
 
-	br_zvezdica: number;
-	zvezdice: number[] = [];
-	constructor(private avioService: AvioService, private route: ActivatedRoute, private router: Router) {
+	constructor(private avioService: AvioService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
 		
 		// getting route params, params is observable that unsubscribes automatically
 		this.route.params.subscribe(
@@ -34,6 +35,9 @@ export class AvioProfileComponent implements OnInit {
 			this.avioService.getAvio(this.id).subscribe(
 				(data) => {
 					this.avio = data;
+					if(this.avio.map === "") {
+						this.map = true;
+					}
 				},
 				(error) => {
 					console.log(error);
@@ -45,17 +49,29 @@ export class AvioProfileComponent implements OnInit {
 				}
 			);
 		}
+
 	 }
 
 	ngOnInit() {
-		this.br_zvezdica = 4;
-		let i = 0;
-
-		while (i < this.br_zvezdica) { this.zvezdice.push(1); i++; }
+		this.avioService.getAviosDestinations(this.id).subscribe(
+			(data) => {
+				this.avio.destinations = data;
+				this.formatCCStructure();
+				for(let i=0; i<this.destCountries.length; i++) {
+					this.arrows.push(false);
+				}
+				if(this.avio.destinations.length === 0) {
+					this.emptyDestinationList = true;
+				} else {
+					this.emptyDestinationList = false;
+				}
+			},
+			(error) => console.log(error)
+		);
 		
-			
+		
 	}
-
+	/*
 	onShowFlights() {
 		this.showFlights = !this.showFlights;
 		// if (!this.avio.flights) {
@@ -80,57 +96,33 @@ export class AvioProfileComponent implements OnInit {
 			},
 			(error) => console.log(error)
 		);
-	}
+	}*/
 
-	onShowDestinations() {
-		this.showDestinations = !this.showDestinations;
-		// if (!this.avio.destinations) {
-		// 	this.fetchDestinations();
-		// }
+	formatCCStructure() {
 
-		if (this.showDestinations) {
-			this.fetchDestinations();
+		this.destCountries = [];
+	
+		for(let city of this.avio.destinations) {
+		  
+		  let match = false;
+		  for (let country of this.destCountries) {
+			if (country.id === city.countryDTO.id) {
+			
+				country.cities.push(city);
+				match = true;
+				break;
+			}
+		  }
+	
+		  if (!match) {
+			city.countryDTO.cities = [];
+			city.countryDTO.cities.push(city);
+			this.destCountries.push(city.countryDTO);
+		  }
 		}
 	}
 
-	fetchDestinations() {
-		this.avioService.getAviosDestinations(this.id).subscribe(
-			(data) => {
-				this.avio.destinations = data;
-				if(this.avio.destinations.length === 0) {
-					this.emptyDestinationList = true;
-				} else {
-					this.emptyDestinationList = false;
-				}
-			},
-			(error) => console.log(error)
-		
-			
-		);
+	onToggleCountry(i) {
+		this.arrows[i] = !this.arrows[i];
 	}
-
-	onSubmitDestination(form: NgForm) {
-		// const name = form.value.name;
-		// const country = form.value.country;
-		
-		// let destination = {
-		// 	name: name,
-		// 	country: country
-		// }
-
-
-		// this.avioService.saveAviosDestination(this.avio.id, destination).subscribe(
-		// 	(response) => console.log(response),
-		// 	(error) => {	
-		// 		// console.log(error.status); 
-		// 		if (error.status === 409) {
-		// 			console.log("Already exists city " + destination.name + " in " + destination.country);
-		// 		}
-		// 	}
-		// );
-		
-	}
-
-	
-
 }
