@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -7,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class CountryService {
 
 	countryList: any = [];
+	countriesLoaded = new Subject<any>();
 	
 
 	constructor(private http: HttpClient) { }
@@ -21,7 +23,7 @@ export class CountryService {
 			this.getCountries().subscribe(
 				(data) => {
 					this.countryList = data;
-					return this.countryList;
+					this.countriesLoaded.next(this.countryList);
 				}, (error) => {
 					console.log("Error getting countries.")
 				}

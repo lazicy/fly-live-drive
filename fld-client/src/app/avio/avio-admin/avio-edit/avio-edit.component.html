@@ -23,6 +23,14 @@
           <div class="form-group col-12">
             <label>Name: </label>
             <input type="text" class="form-control" formControlName="name" id=name  required>
+            <!-- Validation msg -->
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger">
+
+              <div *ngIf="name.errors.required">
+                Name is required.
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -37,7 +45,7 @@
             <select class="form-control"  id="countryId"
                     required
                     formControlName="countryId" 
-                    (change)="onChangeCountry($event)">
+                    (change)="onChangeCountry()">
               <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
             </select>
               
@@ -47,10 +55,18 @@
         
             <label for="cityId">City:</label>
             <select class="form-control"  id="cityId"
-                    required
-                    formControlName="cityId"  >
+                    formControlName="cityId" required >
               <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+
             </select>
+             <!-- Validation city msg -->
+             <div *ngIf="!cityValid"
+             class="alert alert-danger">
+           
+                 City is required.
+               
+             </div>
+          
             
           </div>
       </div>
@@ -71,7 +87,7 @@
 
         <div class="row">
           <div class="form-group col-12">
-            <button type="submit" class="btn btn-success" >Update</button>
+            <button type="submit" [disabled]="!avioInfoForm.valid" class="btn btn-success" >Update</button>
             <button type="button" (click)="onRestoreAvioInfo()" class="btn btn-danger">Restore</button>
           </div>
         </div>

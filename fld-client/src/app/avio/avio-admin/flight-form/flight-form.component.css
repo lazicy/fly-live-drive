@@ -1,4 +1,60 @@
-h3, h5 {
+h3 {
     font-weight: 600;
+}
+
+h5 {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.red-text {
+    color: orangered;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.fa-plane-rotate {
+    transform: rotateZ(80deg);
+}
+
+.fa-plus-circle {
+    line-height: 1;
+    font-size: 18px;
+    color:white;
+}
+
+.fa-plus-circle:hover {
+    color:rgb(194, 255, 175);
+    cursor: pointer;
+}
+
+.new-button {
+    font-size: 14px;
+    float: right;
+}
+
+.fa-circle {
+    font-size: 15px;
+}
+
+
+.one-interception {
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.10);
+    border-radius: 10px;
+    padding: 10px 20px 0px 20px;
+    margin: 20px 0 0 0;
+    transition: all .5s;
+    background: rgba(236, 236, 236, 0.774);
+}
+
+.one-interception:hover {
+    background: rgb(253, 253, 253);
+    transition: all .5s;
+}
+
+.fa-minus {
+    margin-top: 36px;
+    margin-left: 10px;
+
 }
 

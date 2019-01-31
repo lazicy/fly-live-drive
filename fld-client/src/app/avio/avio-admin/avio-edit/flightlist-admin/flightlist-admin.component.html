@@ -18,7 +18,11 @@
           <td>{{ f.id }}</td>
           <td>{{ f.departureDestination.cityDTO.name }}, {{ f.departureDestination.cityDTO.countryDTO.name }}</td>
           <td>{{ f.landingDestination.cityDTO.name }}, {{ f.landingDestination.cityDTO.countryDTO.name }}</td>
-         <td>{{ f.totalDuration }}</td>
+         <td>
+           <span *ngIf="f.totalDurationDays > 0">{{f.totalDurationDays}}d</span> 
+           <span *ngIf="f.totalDurationHours > 0"> {{f.totalDurationHours}}h</span> 
+           <span *ngIf="f.totalDurationMins > 0"> {{f.totalDurationMins}}m</span> 
+          </td>
           <td>{{ f.departureDate }}</td>
           <td>{{ f.landingDate }}</td>
           <td>{{ f.price }}</td>

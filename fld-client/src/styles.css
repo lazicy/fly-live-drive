@@ -167,6 +167,31 @@ select {
     animation-duration: 0.4s
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.new-button {
+    background: rgb(1, 148, 206);
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1;
+} 
+
+.new-button:hover {
+    background: rgb(0, 0, 0);
+}
+
+.fa-minus {
+    font-size: 25px !important;
+    color: orangered;
+}
+
+.fa-minus:hover {
+    color: darkred;
+    cursor: pointer;
+}
+
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0} 
     to {top:0; opacity:1}

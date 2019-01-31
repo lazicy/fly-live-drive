@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AvioService } from 'src/app/services/avio.service';
 import { FlightService } from 'src/app/services/flight.service';
 import { CountryService } from 'src/app/services/country.service';
-import { NgForm, FormGroup, FormControl } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-avio-edit',
   templateUrl: './avio-edit.component.html',
   styleUrls: ['./avio-edit.component.css']
 })
-export class AvioEditComponent implements OnInit {
+export class AvioEditComponent implements OnInit, OnDestroy {
   
   // properties
   avio: any = null;
@@ -25,8 +26,13 @@ export class AvioEditComponent implements OnInit {
   showDestinations: boolean = false;
   showNewDestinationDialog: boolean = false;
   showFlights: boolean = false;
+  cityValid: boolean = true;
 
+  // form
   avioInfoForm: FormGroup;
+
+  // subscription for countriesList (beeing destroyed)
+  subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private avioService: AvioService, private flightService: FlightService, private countryService: CountryService) { 
    
@@ -38,16 +44,14 @@ export class AvioEditComponent implements OnInit {
 			}
     );
     
-    // get countries for editing
-    this.countryService.getCountries().subscribe(
-      (data) => {
-        this.countryList = data;
-      },
-      (error) => console.log(error)
+    // avoiding sending multiple requests to the server, instead if it's initialized get's the value, if not whaits for countries loaded event to pop up and subscribes to it => getting countryList anyway
+    this.countryList = this.countryService.getCountryList();
+    this.subscription = this.countryService.countriesLoaded.subscribe(
+      (countryList) => {
+        this.countryList = countryList;
+        
+      }
     );
-
-    
-    
   }
 
   ngOnInit() {
@@ -78,12 +82,12 @@ export class AvioEditComponent implements OnInit {
     this.getCities(this.avio.cityDTO.countryDTO.id);
 
     this.avioInfoForm = new FormGroup({
-      'name': new FormControl(this.avio.name),
+      'name': new FormControl(this.avio.name, Validators.required),
       'address': new FormControl(this.avio.address),
       'map': new FormControl(this.avio.map),
       'description': new FormControl(this.avio.description),
       'countryId': new FormControl(this.avio.cityDTO.countryDTO.id),
-      'cityId': new FormControl(this.avio.cityDTO.id)
+      'cityId': new FormControl(this.avio.cityDTO.id, Validators.required)
     });
   }
 
@@ -118,9 +122,9 @@ export class AvioEditComponent implements OnInit {
   }
 
   // metoda se poziva svaki put kad se promeni selekcija u html selektru za Country
-	onChangeCountry(event) {
-		const selectedCountryId = event.target.value;
-		this.getCities(selectedCountryId);
+	onChangeCountry() {
+    this.avioInfoForm.value.cityId = undefined;
+		this.getCities(this.avioInfoForm.value.countryId);
 
   }
   
@@ -139,29 +143,37 @@ export class AvioEditComponent implements OnInit {
   
   
   onSubmitEditAvioInfo() {
-    console.log(this.avioInfoForm);
+    this.cityValid = true;
+     console.log(this.avioInfoForm);
 
-    let cityIndex = this.countryService.findCityIndex(this.avioInfoForm.value.cityId, this.cityList); 
-		const cityDTO = this.cityList[cityIndex];
-		
-		let avio = {
-      id: this.avio.id,
-			name: this.avioInfoForm.value.name,
-			address: this.avioInfoForm.value.address,
-			cityDTO: cityDTO,
-			map: this.avioInfoForm.value.map,
-			description: this.avioInfoForm.value.description
-    }
-    
-    this.avioService.updateAvio(avio).subscribe(
-      (response) => {
-        swal({title: "Success!", text: "Avio company " + this.avio.name + " updated.", icon: "success", timer: 1000});
-        this.avio = response;
-        this.fetchDestinations();
-      }, (error) => {
-        {swal ( "Error occured" ,  "The company was not updated." ,  "error" );}
-      }
-    );
+     if (this.avioInfoForm.value.cityId === undefined) {
+       this.cityValid = false;
+     } else {
+       
+       let cityIndex = this.countryService.findCityIndex(this.avioInfoForm.value.cityId, this.cityList); 
+       const cityDTO = this.cityList[cityIndex];
+       
+       let avio = {
+         id: this.avio.id,
+       	name: this.avioInfoForm.value.name,
+       	address: this.avioInfoForm.value.address,
+       	cityDTO: cityDTO,
+       	map: this.avioInfoForm.value.map,
+       	description: this.avioInfoForm.value.description
+       }
+       
+       this.avioService.updateAvio(avio).subscribe(
+         (response) => {
+           swal({title: "Success!", text: "Avio company " + this.avio.name + " updated.", icon: "success", timer: 1000});
+           this.avio = response;
+           this.fetchDestinations();
+         }, (error) => {
+           {swal ( "Error occured" ,  "The company was not updated." ,  "error" );}
+         }
+       );
+
+     }
+
 
   }
 
@@ -200,6 +212,13 @@ export class AvioEditComponent implements OnInit {
       this.router.navigate(['avio/admin/' + this.avio.id + "/flight/new"]);
     }
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  // getters for the form validation
+  get name() { return this.avioInfoForm.get('name'); }
 
   
 
