@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { AvioService } from '../services/avio.service';
 import { FlightService } from '../services/flight.service';
+import { DataService } from '../services/data.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -15,12 +17,11 @@ export class TestComponent implements OnInit {
 	users: any;
 	avioList: any;
 	showUsers: boolean = false;
-	constructor(private http: HttpClient, private avioService: AvioService, private flightService: FlightService) { }
+	constructor(private authService: AuthService,private http: HttpClient, private avioService: AvioService, private flightService: FlightService, private dataService: DataService) { }
 	
 
 	ngOnInit() {
 		this.getUsers();
-		
 
 		this.avioService.getAvios()
 			.subscribe(

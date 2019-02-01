@@ -2,12 +2,14 @@
   <h2>Rent-a-car service administration</h2>
   <button class="btn btn-primary btn-rent"  (click)="onAddRent()">Add service</button>
 
-  <div class="modal"  *ngIf="showFormDialog">
+  <div class="form-modal" *ngIf="showFormDialog">
     <div class="modal-content">
-      <div>
-        <button class="close" (click)="onCloseForm()">&times;</button>
+      <div class="modal-body">
+          <button type="button" class="close" (click)="onCloseForm()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
       </div>
-      <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
     </div>
   </div>
 
@@ -19,7 +21,10 @@
           <th scope="col">#</th>
           <th scope="col">Rent-a-car name</th>
           <th scope="col">Rent-a-car address</th>
+          <th scope="col">Rent-a-car city</th>
+          <th scope="col">Rent-a-car country</th>
           <th scope="col">Rent-a-car description</th>
+          <th></th>
           <th></th>
           <th></th>
           <th></th>
@@ -30,10 +35,12 @@
               <th scope="row">{{ rent.id }}</th>
               <td><a [routerLink]="">{{ rent.name }}</a></td>
               <td>{{ rent.address }}</td>
+              <td>{{ rent.city }}</td>
+              <td>{{ rent.country }}</td>
               <td>{{ rent.description }}</td>
               <td style="width:10px"><button class="btn btn-link" (click)="onEditRent(rent.id)"><i class="fa fa-pencil"></i> Edit</button></td>
               <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-trash"></i> Delete</button></td>
-              <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-plus-circle"></i> Add branch office</button></td>
+              <td style="width:10px"><button  class="btn btn-link" [routerLink]="['/rent/', rent.id]"><i class="fa fa-bars"></i> Branch office</button></td>
             </tr>
           </tbody>
     </table>

@@ -23,6 +23,7 @@ import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class User implements UserDetails{
 	public User() {
 		super();
 	}
+<<<<<<< HEAD
 	
 	public User(String username, String password, String firstname, String lastname, String email, String city,
 			boolean active, Timestamp lastPasswordResetDate, List<Authority> authorities) {
@@ -85,6 +87,9 @@ public class User implements UserDetails{
 		this(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.isActive(), user.getLastPasswordResetDate(), (List<Authority>) user.getAuthorities());
 	}
 	
+=======
+
+>>>>>>> cars
 	public Timestamp getLastPasswordResetDate() {
 		return lastPasswordResetDate;
 	}

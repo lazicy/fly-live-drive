@@ -59,7 +59,6 @@ public class AuthenticationController {
 		
 		int expiresIn = tokenUtils.getExpiredIn(device);
 		
-		
 		return ResponseEntity.ok(new UserTokenState(jwt,expiresIn));
 	}
 }

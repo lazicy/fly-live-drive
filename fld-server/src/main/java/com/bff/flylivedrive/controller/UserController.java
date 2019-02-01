@@ -15,6 +15,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bff.flylivedrive.dto.UserDTO;
+<<<<<<< HEAD
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.AvioAdmin;
 import com.bff.flylivedrive.model.HotelAdmin;
+=======
+import com.bff.flylivedrive.model.Authority;
+>>>>>>> cars
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.SysAdmin;
 import com.bff.flylivedrive.model.User;
@@ -74,9 +79,13 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value = "/getUser",method = RequestMethod.GET, consumes = "application/json")
-	public User user(Principal user) {
-		return this.userService.findOneByUsername(user.getName());
+	@RequestMapping(value = "/getUser",method = RequestMethod.GET)
+	public String getUser(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		System.out.println("token: "+token);
+		String username = tokenUtils.getUsernameFromToken(token);
+		System.out.println("Name: "+username);
+		return username;
 	}
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User

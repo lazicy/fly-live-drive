@@ -28,6 +28,9 @@ import { SysUsersComponent } from './system-admin/sys-users/sys-users.component'
 import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
 import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolist-admin.component';
 import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.component';
+import { RentListComponent } from './rent/rent-list/rent-list.component';
+import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
+import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 
 
 const appRoutes: Routes = [
@@ -49,7 +52,10 @@ const appRoutes: Routes = [
 	]},
 	{ path: 'rent', component: RentComponent, children: [
 		{path: '', component: RentHomepageComponent},
-		{path: 'administrateRents', component: RentAdminComponent}
+		{path: 'list', component: RentListComponent},
+		{path: 'administrateRents', component: RentAdminComponent},
+		{path: ':idR', component: BranchesComponent},
+		{path: ':idR/:idF', component: VehiclesComponent}
 	]},
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},

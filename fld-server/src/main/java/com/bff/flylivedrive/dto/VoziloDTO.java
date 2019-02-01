@@ -7,19 +7,30 @@ public class VoziloDTO {
 	private Long id;
 	private String model;
 	private String brand;
+	private String productionYear;
+	private int numberOfSeats;
+	private String type;
 	
 	public VoziloDTO() {
 		
 	}
 
-	public VoziloDTO(Long id, String model, String brand) {
+	
+	
+	public VoziloDTO(Long id, String model, String brand, String productionYear, int numberOfSeats, String type) {
+		super();
 		this.id = id;
 		this.model = model;
 		this.brand = brand;
+		this.productionYear = productionYear;
+		this.numberOfSeats = numberOfSeats;
+		this.type = type;
 	}
 
+
+
 	public VoziloDTO(Vozilo vozilo) {
-		this(vozilo.getId(), vozilo.getModel(), vozilo.getBrand());
+		this(vozilo.getId(), vozilo.getModel(), vozilo.getBrand(),vozilo.getProductionYear(),vozilo.getNumberOfSeats(),vozilo.getType());
 	}
 
 	public Long getId() {
@@ -44,6 +55,29 @@ public class VoziloDTO {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public String getProductionYear() {
+		return productionYear;
+	}
+
+	public void setProductionYear(String productionYear) {
+		this.productionYear = productionYear;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

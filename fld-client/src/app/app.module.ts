@@ -49,6 +49,13 @@ import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.compone
 import { AddDestinationComponent } from './avio/avio-admin/avio-edit/add-destination/add-destination.component';
 import { FlightlistAdminComponent } from './avio/avio-admin/avio-edit/flightlist-admin/flightlist-admin.component';
 import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.component';
+import { RentListComponent } from './rent/rent-list/rent-list.component';
+import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
+import { BranchFormComponent } from './rent/rent-admin/branch-form/branch-form.component';
+import { DataService } from './services/data.service';
+import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
+import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +93,12 @@ import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.c
     AvioEditComponent,
     AddDestinationComponent,
     FlightlistAdminComponent,
-    FlightFormComponent
+    FlightFormComponent,
+    RentListComponent,
+    BranchesComponent,
+    BranchFormComponent,
+    VehiclesComponent,
+    VehicleFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +109,7 @@ import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.c
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, CountryService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

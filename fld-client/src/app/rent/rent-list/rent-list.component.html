@@ -1,0 +1,25 @@
+<div class="container" *ngIf="rentList">
+  <div class="row" *ngFor="let rent of rentList">
+      <div class="tile">
+          <div class="card-inside">
+            <div class="left-part-card">
+              <img class="image-card" alt="Rent image" src="{{rent.rentImageURL}}" width="300px" height="253px" *ngIf="rent.rentImageURL != ''">
+              <img class="image-card" alt="Rent image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="rent.rentImageURL == ''">
+            </div>  
+            <div class="right-part-card">
+                <div>
+                <h4 class="hotel-name">{{rent.name}}</h4>
+                <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{rent.address}}, {{rent.city}}, {{rent.country}}</h6>
+                <p class="card-text">{{rent.description}}</p>
+                </div>
+                <div class="details-btn-card">
+                    <a class="btn btn-primary" [routerLink]="" id="details">See details</a>
+                  </div> 
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+<h3 *ngIf="emptyRentList">There are no rent-a-car services in the system.</h3>
+
+
