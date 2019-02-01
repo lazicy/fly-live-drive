@@ -14,7 +14,6 @@
     left: 0;
 }
 
-
 #pretrazi { /* id za dugme pretrage */
     float:right;
     margin: 35px 90px 0px 0px;
@@ -22,4 +21,9 @@
 .center { /* klasa celog reda tj. kontejnera u kojem se nalaze elementi */
     text-align: center;
     margin-top: 0.8%;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
 }

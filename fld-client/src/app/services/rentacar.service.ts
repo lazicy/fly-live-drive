@@ -17,4 +17,8 @@ export class RentService{
     deleteRent(id){
         return this.http.delete("http://localhost:4200/api/rent/delete/" + id);
     }
+
+    getRent(id: number) {
+        return this.http.get("/api/rent/" + id);
+    }
 }

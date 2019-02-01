@@ -47,6 +47,7 @@ import { CountryService } from './services/country.service';
 import { AviolistAdminComponent } from './avio/avio-admin/aviolist-admin/aviolist-admin.component';
 import { AvioEditComponent } from './avio/avio-admin/avio-edit/avio-edit.component';
 import { AddDestinationComponent } from './avio/avio-admin/avio-edit/add-destination/add-destination.component';
+import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,8 @@ import { AddDestinationComponent } from './avio/avio-admin/avio-edit/add-destina
     SysUsersComponent,
     AviolistAdminComponent,
     AvioEditComponent,
-    AddDestinationComponent
+    AddDestinationComponent,
+    RentProfileComponent
   ],
   imports: [
     BrowserModule,
