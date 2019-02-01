@@ -86,6 +86,10 @@ public class User implements UserDetails{
 		this(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.isActive(), user.getLastPasswordResetDate(), (List<Authority>) user.getAuthorities());
 	}
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0579b7817715695770f9512be04959b9f0eacd0e
 	public Timestamp getLastPasswordResetDate() {
 		return lastPasswordResetDate;
 	}
