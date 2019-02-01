@@ -44,7 +44,7 @@ public class Filijala {
 	
 	
 	//jedna filijala vezana je samo za jedan servis
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private RentACar servis;
 	
 	public Filijala() {

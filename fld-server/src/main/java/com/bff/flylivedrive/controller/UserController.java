@@ -77,9 +77,13 @@ public class UserController {
 		
 	}*/
 	
-	@RequestMapping(value = "/getUser",method = RequestMethod.GET, consumes = "application/json")
-	public User user(Principal user) {
-		return this.userService.findOneByUsername(user.getName());
+	@RequestMapping(value = "/getUser",method = RequestMethod.GET)
+	public String getUser(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		System.out.println("token: "+token);
+		String username = tokenUtils.getUsernameFromToken(token);
+		System.out.println("Name: "+username);
+		return username;
 	}
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User

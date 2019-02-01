@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.bff.flylivedrive.dto.VoziloDTO;
+
 @Entity
 public class Vozilo {
 	
@@ -22,9 +24,39 @@ public class Vozilo {
 	@Column(name = "brand", nullable = false)
 	String brand;
 	
+	@Column(name = "production_year", nullable = false)
+	String productionYear;
+	
+	@Column(name = "number_of_seats", nullable = false)
+	int numberOfSeats;
+	
+	@Column(name = "type", nullable = false)
+	String type;
+	
+	//price per day?
+	
 	//jedno vozilo vezano je samo za jednu filjalu
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Filijala filijala;
+
+	public Vozilo() {
+		
+	}
+
+	public Vozilo(Long id, String model, String brand, String productionYear, int numberOfSeats, String type) {
+		super();
+		this.id = id;
+		this.model = model;
+		this.brand = brand;
+		this.productionYear = productionYear;
+		this.numberOfSeats = numberOfSeats;
+		this.type = type;
+	}
+
+
+	public Vozilo(VoziloDTO voziloDTO) {
+		this(voziloDTO.getId(),voziloDTO.getModel(), voziloDTO.getBrand(),voziloDTO.getProductionYear(),voziloDTO.getNumberOfSeats(),voziloDTO.getType());
+	}
 
 	public Long getId() {
 		return id;
@@ -56,6 +88,30 @@ public class Vozilo {
 
 	public void setFilijala(Filijala filijala) {
 		this.filijala = filijala;
+	}
+
+	public String getProductionYear() {
+		return productionYear;
+	}
+
+	public void setProductionYear(String productionYear) {
+		this.productionYear = productionYear;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

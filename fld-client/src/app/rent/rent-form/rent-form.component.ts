@@ -31,7 +31,7 @@ export class RentFormComponent implements OnInit {
 
     //ako ima id znaci da se radi edit pa se mora proslediti i id rentacar-a
     //kako bi na serveru uradio promenu a ne dodavanje novog rentacar-a
-    if(this.ID !== undefined){
+    if(this.ID !== undefined && this.ID !== ""){
         var rentTemp = {
           id: +this.ID,
           name: form.value.name,

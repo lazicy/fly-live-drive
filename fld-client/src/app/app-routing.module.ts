@@ -27,6 +27,7 @@ import { SysCarAdminComponent } from './system-admin/sys-car-admin/sys-car-admin
 import { SysCarFormComponent } from './system-admin/sys-car-admin/sys-car-form/sys-car-form.component';
 import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
+import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 
 
 const appRoutes: Routes = [
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
 		{path: '', component: RentHomepageComponent},
 		{path: 'list', component: RentListComponent},
 		{path: 'administrateRents', component: RentAdminComponent},
-		{path: ':id', component: BranchesComponent }
+		{path: ':idR', component: BranchesComponent},
+		{path: ':idR/:idF', component: VehiclesComponent}
 	]},
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},

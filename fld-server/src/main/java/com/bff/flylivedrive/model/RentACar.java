@@ -39,7 +39,7 @@ public class RentACar {
 	@Column(name = "rentImageUrl", nullable = true)
 	String rentImageUrl;
 	
-	//jedan servis sadrzi vise filijala, bidirekciona veza 1:n
+	//jedan servis sadrzi vise filijala
 	@OneToMany(mappedBy = "servis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
 	

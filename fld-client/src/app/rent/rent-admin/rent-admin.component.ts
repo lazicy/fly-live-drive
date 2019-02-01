@@ -75,7 +75,8 @@ export class RentAdminComponent implements OnInit {
   }
 
   rentSubmitted(response){
-    if(this.ID !== undefined){
+    if(this.ID !== undefined && this.ID !== ""){
+      this.dataService.changeID(undefined);
       let i = this.rentList.findIndex(rent => rent.id === response.id)
       this.rentList.splice(i,1);
       this.rentList.push(response);

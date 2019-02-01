@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Vehicles administration</h2>
+  <button class="btn btn-primary btn-rent" (click)="onAddVehicle()">Add vehicle</button>
+  <!--Modal-->
+  <div class="form-modal" *ngIf="showFormDialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <button type="button" class="close" (click)="onCloseForm()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        <app-vehicle-form (vehicleSubmit)="vehicleSubmitted($event)"></app-vehicle-form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="vehicleList">
+    <div class="table-responsive">
+    <table class="table table-hover" id="lista">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Vehicle model</th>
+          <th scope="col">Vehicle brand</th>
+          <th scope="col">Vehicle produciton year</th>
+          <th scope="col">Vehicle number of seats</th>
+          <th scope="col">Vehicle type</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let vehicle of vehicleList">
+              <th scope="row">{{ vehicle.id }}</th>
+              <td>{{ vehicle.model }}</td>
+              <td>{{ vehicle.brand }}</td>
+              <td>{{ vehicle.productionYear }}</td>
+              <td>{{ vehicle.numberOfSeats }}</td>
+              <td>{{ vehicle.type }}</td>
+              <td style="width:10px"><button class="btn btn-link" (click)="onEditVehicle(vehicle.id)"><i class="fa fa-pencil"></i>Edit</button></td>
+              <td style="width:10px"><button class="btn btn-link" (click)="onDeleteVehicle(vehicle.id)"><i class="fa fa-trash"></i>Delete</button></td>
+            </tr>
+          </tbody>
+    </table>
+    </div>
+  </div>
+    <h3 *ngIf="emptyVehicleList">There are no vehicles rent-a-car service in the system.</h3>
+</div>

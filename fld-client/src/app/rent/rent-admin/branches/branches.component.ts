@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentService } from 'src/app/services/rentacar.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import swal from 'sweetalert';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-branches',
@@ -13,13 +14,13 @@ export class BranchesComponent implements OnInit {
   branchList: any;
   emptyBranchList: boolean = false;
   showFormDialog: boolean = false;
+  ID: string;
 
-
-  constructor(private service: RentService, private route: ActivatedRoute, private router: Router) {
+  constructor(private service: RentService, private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.route.params.subscribe(
       (params: Params) => {
         //uzmi id rent-a-car servisa iz putanje
-        this.id = +params['id'];
+        this.id = +params['idR'];
       }
     );
       if(this.id !== NaN && this.id !== undefined){
@@ -40,19 +41,39 @@ export class BranchesComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    this.dataService.edit.subscribe(data => this.ID = data);
   }
 
   onAddBranch(){
     this.showFormDialog = true;
   }
-
-  onEditBranch(){
-
+  onEditBranch(id){
+    this.showFormDialog = true;
+    this.dataService.changeID(id.toString());
   }
 
-  onDeleteBranch(id){
-
+  onDeleteBranch(idF){
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) =>{
+      if(willDelete){
+        this.service.deleteBranchOffice(idF).subscribe(
+          (result) => {
+            // fensi for petlja
+            let i = this.branchList.findIndex(branch => branch.id === idF);
+            // obrisi jednog clana na poziciji i
+            this.branchList.splice(i, 1);
+            if(this.branchList.length === 0) {
+              this.emptyBranchList = true;
+            }
+          }, (error) => swal("Error", error, "error")
+        );
+      }
+    })
   }
 
   onCloseForm(){
@@ -60,9 +81,16 @@ export class BranchesComponent implements OnInit {
   }
 
   branchSubmitted(response){
-    this.branchList.push(response);
-    this.showFormDialog = false;
-    this.emptyBranchList = false;
+    if(this.ID !== undefined && this.ID !== ""){
+      this.dataService.changeID(undefined);
+      let i = this.branchList.findIndex(branch => branch.id === response.id)
+      this.branchList.splice(i,1);
+      this.branchList.push(response);
+      this.showFormDialog = false;
+      this.emptyBranchList = false;
+    }else{
+      this.branchList.push(response);
+      this.showFormDialog = false;
+      this.emptyBranchList = false;}
   }
-
 }

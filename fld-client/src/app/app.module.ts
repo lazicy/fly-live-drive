@@ -48,6 +48,8 @@ import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 import { BranchFormComponent } from './rent/rent-admin/branch-form/branch-form.component';
 import { DataService } from './services/data.service';
+import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
+import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import { DataService } from './services/data.service';
     SysHotelFormComponent,
     RentListComponent,
     BranchesComponent,
-    BranchFormComponent
+    BranchFormComponent,
+    VehiclesComponent,
+    VehicleFormComponent,
   ],
   imports: [
     BrowserModule,

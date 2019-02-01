@@ -25,4 +25,7 @@ public class VoziloService {
 	public Vozilo save(Vozilo v) {
 		return voziloRepo.save(v);
 	}
+	public void deleteById(Long id) {
+		voziloRepo.deleteById(id);
+	}
 }

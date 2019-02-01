@@ -25,4 +25,7 @@ public class FilijalaService {
 	public Filijala save(Filijala f) {
 		return fRepo.save(f);
 	}
+	public void deleteById(Long id) {
+		fRepo.deleteById(id);
+	}
 }

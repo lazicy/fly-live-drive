@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
+import com.bff.flylivedrive.dto.VoziloDTO;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.model.Vozilo;
 import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.RentService;
+import com.bff.flylivedrive.service.VoziloService;
 
 @RestController
 @RequestMapping(value = "/rent") //kako gadjamo ovaj kontroler sa front-a
@@ -31,6 +35,9 @@ public class RentController {
 	@Autowired
 	FilijalaService fService;
 	
+	@Autowired
+	VoziloService vService;
+	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
 			List<RentACar> services = rentService.findAll();
@@ -41,6 +48,22 @@ public class RentController {
 				temp.add(r);
 			}
 			return new ResponseEntity<>(temp, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getServicesFilter/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<RentDTO>> getServicesFilter(@PathVariable("name") String name){
+		List<RentACar> services = rentService.findAll();
+		RentDTO rentDTO = new RentDTO();
+		name = name.replace("-", " ");
+		for(RentACar r: services) {
+			if(r.getName().contains(name)) {
+				rentDTO = new RentDTO(r);
+				break;
+			}
+		}
+		List<RentDTO> rents = new ArrayList<RentDTO>();
+		rents.add(rentDTO);
+		return new ResponseEntity<>(rents, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/getRent/{id}", method = RequestMethod.GET)
@@ -130,6 +153,82 @@ public class RentController {
 		
 		f = fService.save(f);
 		return new ResponseEntity<>(new FilijalaDTO(f),HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/deleteBranch/{idF}", method = RequestMethod.DELETE)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public  ResponseEntity<Object> deleteBranch(@PathVariable("idF") Long idF){
+		fService.deleteById(idF);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/editBranchOffice/{idR}", method = RequestMethod.PUT)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<FilijalaDTO> editBranchOffice(@PathVariable("idR") Long idR,@RequestBody FilijalaDTO filijalaDTO){
+		Filijala filijala = fService.findOneById(filijalaDTO.getId());
+		RentACar rent = rentService.findOneById(idR);
+		filijala = new Filijala(filijalaDTO);
+		filijala.setName(rent.getName());
+		filijala.setDescription(rent.getDescription());
+		filijala.setServis(rent);
+		
+		filijala = fService.save(filijala);
+		
+		return new ResponseEntity<>(new FilijalaDTO(filijala),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/getAllVehicles/{idR}/{idF}",method = RequestMethod.GET)
+	public ResponseEntity<List<VoziloDTO>> getAllVehicles(@PathVariable("idR") Long idR, @PathVariable("idF") Long idF){
+		RentACar rent = rentService.findOneById(idR);
+		 
+		if(rent == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Filijala> all = rent.getFilijale();
+		List<VoziloDTO> temp = new ArrayList<VoziloDTO>();
+		
+		for(Filijala f: all) {
+			if(f.getId() == idF) {
+				for(Vozilo v: f.getVozila()) {
+					temp.add(new VoziloDTO(v));
+				}
+				break;
+			}
+		}
+		return new ResponseEntity<>(temp, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/addVehicle/{id}", method = RequestMethod.POST)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public ResponseEntity<VoziloDTO> addVehicle(@RequestBody VoziloDTO voziloDTO, @PathVariable("id") Long id){
+		Filijala filijala = fService.findOneById(id);
+		Vozilo vozilo = new Vozilo(voziloDTO);
+		vozilo.setFilijala(filijala);
+		vozilo = vService.save(vozilo);
+		
+		filijala.getVozila().add(vozilo);
+		filijala = fService.save(filijala);
+		return new ResponseEntity<>(new VoziloDTO(vozilo),HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/deleteVehicle/{id}", method = RequestMethod.DELETE)
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	public  ResponseEntity<Object> deleteVehicle(@PathVariable("id") Long id){
+		vService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/editVehicle/{idF}", method = RequestMethod.PUT)
+	public ResponseEntity<VoziloDTO> editVehicle(@RequestBody VoziloDTO voziloDTO, @PathVariable("idF") Long idF){
+		Vozilo vozilo = vService.findOneById(voziloDTO.getId());
+		Filijala filijala = fService.findOneById(idF);
+		vozilo = new Vozilo(voziloDTO);
+		vozilo.setFilijala(filijala);
+		vozilo = vService.save(vozilo);
+		return new ResponseEntity<>(new VoziloDTO(vozilo), HttpStatus.OK);
 	}
 	
 }

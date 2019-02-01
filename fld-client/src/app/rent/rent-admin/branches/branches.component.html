@@ -2,12 +2,14 @@
     <h2>Branch office administration</h2>
     <button class="btn btn-primary btn-rent" (click)="onAddBranch()">Add branch</button>
     <!--Modal-->
-    <div class="modal" *ngIf="showFormDialog">
+    <div class="form-modal" *ngIf="showFormDialog">
       <div class="modal-content">
-        <div>
-          <button class="close" (click)="onCloseForm()">&times;</button>
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <app-branch-form (branchSubmit)="branchSubmitted($event)"></app-branch-form>
         </div>
-        <app-branch-form (branchSubmit)="branchSubmitted($event)"></app-branch-form>
       </div>
     </div>
 
@@ -37,9 +39,9 @@
                 <td>{{ branch.city }}</td>
                 <td>{{ branch.country }}</td>
                 <td>{{ branch.description }}</td>
-                <td style="width:10px"><button class="btn btn-link"><i class="fa fa-pencil"></i>Edit</button></td>
-                <td style="width:10px"><button class="btn btn-link"><i class="fa fa-trash"></i>Delete</button></td>
-                <td style="width:10px"> <button  class="btn btn-link"><i class="fa fa-bars"></i>Vehicles</button></td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onEditBranch(branch.id)"><i class="fa fa-pencil"></i>Edit</button></td>
+                <td style="width:10px"><button class="btn btn-link" (click)="onDeleteBranch(branch.id)"><i class="fa fa-trash"></i>Delete</button></td>
+                <td style="width:10px"> <button  class="btn btn-link" [routerLink]="['/rent/', id, branch.id]"><i class="fa fa-bars"></i> Vehicles </button>  </td>
               </tr>
             </tbody>
       </table>
