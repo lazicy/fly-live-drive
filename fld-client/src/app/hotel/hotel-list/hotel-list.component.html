@@ -14,7 +14,7 @@
                           <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
                           <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
                           <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></h4> 
-                          <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.city}}, {{hotel.country}}</h6>
+                          <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{ hotel.cityDTO.name }}, {{hotel.cityDTO.countryDTO.name}}</h6>
                   <p class="card-text">{{hotel.description}}</p>
                   </div>
                   <div class="details-btn-card">

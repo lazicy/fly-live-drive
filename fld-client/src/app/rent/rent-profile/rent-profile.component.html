@@ -7,36 +7,62 @@
             <h6><i class="fa fa-map-marker"></i> {{rent.address}}, {{rent.cityDTO.name}}, {{rent.cityDTO.countryDTO.name}}</h6>
         </div>
         
+        <div class="description">
+          <h5>Description</h5>
+        <p>{{rent.description}}</p>
+        </div>
+
         <div class="rating">
           <h5>Rating</h5>
           <span class="rate_circle"></span>
         </div><hr>
 
-        <h5>Description</h5>
-        <p>{{rent.description}}</p>
-
         <div class="branches">
-          <h5 (click)="onToggleBranch()"><i
-            class="fa fa-arrow-right" aria-hidden="true" 
-            [ngClass] = "{'fa-arrow-right':arrows[i] === false,  'fa-arrow-down':arrows[i]  === true }" 
-          ></i> Branches</h5>
-          <!-- <div *ngFor>
-            <div class="table-responsive" *ngIf="arrows[i]">
-              <table class="table" >
+          <h5 class="grane" (click)="onToggleBranches()">
+            <i class="fa fa-arrow-right" aria-hidden="true" 
+            [ngClass] = "{'fa-arrow-right':showBranches === false,  'fa-arrow-down':showBranches  === true }"></i> 
+            Branches</h5>
+            <div class="table-responsive" *ngIf="showBranches">
+              <table class="table" *ngIf="!emptyBranchesList">
                 <tbody>
-                  <tr *ngFor="let city of country.cities" >
-                    <td>{{ city.name }}</td>
+                  <tr *ngFor="let br of branches">
+                    <td>{{ br.name }}</td>
+                    <td>{{ br.address }}</td>
+                    <td>{{ br.description }}</td>
                   </tr>
                 </tbody>
               </table>
+              <p *ngIf="emptyBranchesList">This Rent A Car service has no branches.</p>
             </div>
-          </div> -->
         </div>
 
-        <div class="map" id="mapa" *ngIf="!map">
+        <div class="vehicles">
+            <h5 class="grane" (click)="onToggleVehicles()">
+              Vehicles <i class="fa fa-arrow-right" aria-hidden="true" 
+              [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i></h5>
+              <div class="table-responsive" *ngIf="showVehicles">
+                <table class="table" *ngIf="!emptyVehicleList">
+                  <tbody>
+                    <tr *ngFor="let vh of vehicles">
+                      <td>{{ vh.brand }} {{ vh.model }}</td>
+                      <td>{{ vh.type }}</td>
+                      <td>{{ vh.numberOfSeats }} seats</td>
+                      <td>{{ vh.productionYear }} model</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p *ngIf="emptyVehicleList">There are no vehicles in this Rent A Car company.</p>
+              </div>
+          </div>
+
+        <div class="map" id="mapa" >
           <h5>Location</h5>
-          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(rent.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
+          <div *ngIf="map">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(rent.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+          <div *ngIf="!map">
+            Google map location was not provided
+          </div>
       </div>
     </div>
   </div>

@@ -194,25 +194,17 @@ public class RentController {
 	}
 	
 	
-	@RequestMapping(value = "/getAllVehicles/{idR}/{idF}",method = RequestMethod.GET)
-	public ResponseEntity<List<VoziloDTO>> getAllVehicles(@PathVariable("idR") Long idR, @PathVariable("idF") Long idF){
-		RentACar rent = rentService.findOneById(idR);
-		 
-		if(rent == null) {
+	@RequestMapping(value = "/getAllVehicles/{idF}",method = RequestMethod.GET)
+	public ResponseEntity<List<VoziloDTO>> getAllVehicles(@PathVariable("idF") Long idF){
+		Filijala f = fService.findOneById(idF);
+		if(f == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
-		Set<Filijala> all = rent.getFilijale();
 		List<VoziloDTO> temp = new ArrayList<VoziloDTO>();
-		
-		for(Filijala f: all) {
-			if(f.getId() == idF) {
-				for(Vozilo v: f.getVozila()) {
-					temp.add(new VoziloDTO(v));
-				}
-				break;
-			}
+		for(Vozilo v: f.getVozila()) {
+			temp.add(new VoziloDTO(v));
 		}
+		
 		return new ResponseEntity<>(temp, HttpStatus.OK);
 	}
 	
@@ -244,6 +236,25 @@ public class RentController {
 		vozilo.setFilijala(filijala);
 		vozilo = vService.save(vozilo);
 		return new ResponseEntity<>(new VoziloDTO(vozilo), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getRENTVehicles/{id}",method = RequestMethod.GET)
+	public ResponseEntity<List<VoziloDTO>> getRENTVehicles(@PathVariable("id") Long id){
+		
+		RentACar rent = rentService.findOneById(id);
+		if(rent == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		List<VoziloDTO> temp = new ArrayList<VoziloDTO>();
+		
+		for(Filijala f : rent.getFilijale()) {
+			for(Vozilo v : f.getVozila()) {
+				temp.add(new VoziloDTO(v));
+			}
+		}
+		
+		return new ResponseEntity<>(temp, HttpStatus.OK);
 	}
 	
 }

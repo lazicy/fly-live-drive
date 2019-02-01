@@ -25,7 +25,7 @@ export class VehiclesComponent implements OnInit {
       }
     )
       if(this.idF !== NaN && this.idF !== undefined){
-        this.service.getAllVehicles(this.idR,this.idF).subscribe(
+        this.service.getAllVehicles(this.idF).subscribe(
           (data) => {
             this.vehicleList = data;
             if(this.vehicleList.length === 0){

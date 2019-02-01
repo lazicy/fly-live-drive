@@ -9,25 +9,32 @@
         <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
         <h6><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.cityDTO.name}}, {{hotel.cityDTO.countryDTO.name}}</h6>
         
-        <h5>Description</h5>
-        <p>{{hotel.description}}</p><hr>
-
-        <div class="rooms">
-          <h5>Room options</h5>
+        <div class="description">
+          <h5>Description</h5>
+        <p>{{hotel.description}}</p>
         </div>
+
+        <div class="rating">
+          <h5>Rating</h5>
+          <span class="rate_circle"></span>
+        </div><hr>
 
         <div class="facilities">
           <h5>Facilities</h5>
         </div>
 
-        <div class="rating">
-            <h5>Rating</h5>
-            <span class="rate_circle"></span>
+        <div class="rooms">
+          <h5>Room options</h5>
         </div>
 
-        <div class="map" id="mapa" *ngIf="!map">
+        <div class="map" id="mapa" >
           <h5>Location</h5>
-          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+          <div *ngIf="!map">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+          <div *ngIf="map">
+            Google map location was not provided
+          </div>
         </div>
       </div>
     </div>

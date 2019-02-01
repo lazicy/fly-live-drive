@@ -1,0 +1,62 @@
+h2 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+h6 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h5 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.basic_info {
+    background-color: white;
+}
+
+.content {
+    padding: 15px;
+}
+
+.destinations {
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+
+.rating {
+    display: inline-block;
+    width: 30%;
+}
+
+.rate_circle {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 1.5rem;
+    padding: 17px;
+    margin-top: 5px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: white;
+    background-color: green;
+}
+
+.country-name {
+    padding-left: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    cursor: pointer;
+}
+
+.description {
+    display: inline-block;
+    width: 70%;
+}
+
+.grane {
+    cursor: pointer;
+}

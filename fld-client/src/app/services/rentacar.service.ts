@@ -46,8 +46,8 @@ export class RentService{
         return this.http.get("http://localhost:4200/api/rent/getAllBranches/" + id)
     }
 
-    getAllVehicles(idR,idF){
-        return this.http.get('/api/rent/getAllVehicles/'+ idR + '/' + idF);
+    getAllVehicles(idF){
+        return this.http.get('/api/rent/getAllVehicles/'+ idF);
     }
 
     addVehicle(vehicle,idF){
@@ -60,5 +60,9 @@ export class RentService{
 
     editVehicle(vehicle,idF){
         return this.http.put('api/rent/editVehicle/'+idF,vehicle);
+    }
+
+    getRENTVehicles(id){
+        return this.http.get('/api/rent/getRENTVehicles/'+ id);
     }
 }

@@ -31,6 +31,7 @@ import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.c
 import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
+import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
 		{path: '', component: RentHomepageComponent},
 		{path: 'list', component: RentListComponent},
 		{path: 'administrateRents', component: RentAdminComponent},
+		{path: ':id', component: RentProfileComponent},
 		{path: ':idR', component: BranchesComponent},
 		{path: ':idR/:idF', component: VehiclesComponent}
 	]},

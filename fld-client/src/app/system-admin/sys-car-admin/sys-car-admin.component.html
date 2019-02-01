@@ -31,7 +31,7 @@
             <tr *ngFor="let rent of rentList">
                 <th scope="row">{{ rent.id }}</th>
                 <td><a [routerLink]="">{{ rent.name }}</a></td>
-                <td>{{ rent.address }}</td>
+                <td>{{ rent.address }}, {{ rent.cityDTO.name }}, {{rent.cityDTO.countryDTO.name}}</td>
                 <td>{{ rent.description }}</td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-trash"></i> Delete</button></td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteRent(rent.id)"><i class="fa fa-plus-circle"></i> Add branch office</button></td>
