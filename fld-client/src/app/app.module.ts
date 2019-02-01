@@ -55,6 +55,7 @@ import { BranchFormComponent } from './rent/rent-admin/branch-form/branch-form.c
 import { DataService } from './services/data.service';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
+import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/ve
     BranchFormComponent,
     VehiclesComponent,
     VehicleFormComponent,
+    RentProfileComponent
   ],
   imports: [
     BrowserModule,

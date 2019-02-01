@@ -8,17 +8,16 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./hotel-homepage.component.css']
 })
 export class HotelHomepageComponent implements OnInit {
-  tod: Date;
-  tom: Date;
+  tod: Date = new Date();
+  tom: Date = new Date();
   today: any;
   tomorrow: any;
   hotelSearch: any;
   notFound: any;
-  constructor(private hotelService: HotelService) { }
+  constructor(private hotelService: HotelService) {
+  }
 
   ngOnInit() {
-    this.tod = new Date();
-    this.tom = new Date();
     this.tom.setDate(this.tod.getDate() + 1);
     this.today = this.tod.toISOString().split('T')[0];
     this.tomorrow = this.tom.toISOString().split('T')[0];

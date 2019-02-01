@@ -14,16 +14,23 @@
                 <label>Adress: </label>
                 <input type="text" class="form-control" name="adress" id=adress ngModel required>
               </div>
-  
               <div class="col form-group">
-                <label>City: </label>
-                <input type="text" class="form-control" name="city" id=city ngModel required>
-              </div>
-  
-              <div class="col form-group">
-                <label>Country: </label>
-                <input type="text" class="form-control" name="country" id=country required ngModel>
-              </div>
+                <label for="countryId">Country:</label>
+                <select class="form-control"  id="countryId"
+                        required
+                        name="countryId" ngModel
+                        (change)="onChangeCountry($event)">
+                  <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
+                </select>
+             </div>
+             <div class="col form-group">
+              <label for="cityId">City:</label>
+              <select class="form-control"  id="cityId"
+                      required
+                      name="cityId" ngModel >
+                <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
           </div>
   
           <div class="row">

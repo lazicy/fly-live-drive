@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.bff.flylivedrive.dto.RentDTO;
@@ -27,11 +28,8 @@ public class RentACar {
 	@Column(name = "address", nullable = false)
 	String address;
 	
-	@Column(name = "city", nullable = false)
-	String city;
-	
-	@Column(name = "country", nullable = false)
-	String country;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	City city;
 		
 	@Column(name = "description", nullable = true)
 	String description;
@@ -48,37 +46,29 @@ public class RentACar {
 		
 	}
 	
-	public RentACar(Long id, String name, String address, String city, String country, String description,
+	public RentACar(Long id, String name, String address, City city, String description,
 			String rentImageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
-		this.country = country;
 		this.description = description;
 		this.rentImageUrl = rentImageUrl;
 	}
 
-	public RentACar(RentDTO rent) {
-		this(rent.getId(),rent.getName(),rent.getAddress(),rent.getCity(),rent.getCountry(),rent.getDescription(),rent.getRentImageUrl());
+	public RentACar(RentDTO rent, City c) {
+		this(rent.getId(),rent.getName(),rent.getAddress(),c,rent.getDescription(),rent.getRentImageUrl());
 	}
 	
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
+	
 	public Long getId() {
 		return id;
 	}

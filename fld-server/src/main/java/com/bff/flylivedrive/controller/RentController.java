@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
 import com.bff.flylivedrive.dto.VoziloDTO;
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
 import com.bff.flylivedrive.model.Vozilo;
 import com.bff.flylivedrive.service.FilijalaService;
+import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.RentService;
 import com.bff.flylivedrive.service.VoziloService;
 
@@ -37,6 +39,9 @@ public class RentController {
 	
 	@Autowired
 	VoziloService vService;
+	
+	@Autowired
+	CityService cityService;
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -79,7 +84,9 @@ public class RentController {
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
-		RentACar rentAcar = new RentACar(rent);
+		City c = cityService.findOneById(rent.getCityDTO().getId());
+		
+		RentACar rentAcar = new RentACar(rent, c);
 		//kreiraj novi objekat i sacuvaj ga u bazu
 		rentAcar = rentService.save(rentAcar);
 		
@@ -92,6 +99,15 @@ public class RentController {
 	public ResponseEntity<RentDTO> editRent(@RequestBody RentDTO rentDTO){
 		RentACar rentAcar = rentService.findOneById(rentDTO.getId());
 	
+		City c;
+		
+		try {
+			c = cityService.findOneById(rentDTO.getCityDTO().getId());
+		} catch (NullPointerException e) {
+			System.out.println("[RentController: editRent()] City NULL");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		//promeni u svim filijalama
 		//uzmi iz baze filijalu, promeni i sacuvaj
 		for(Filijala f : rentAcar.getFilijale()) {
@@ -103,8 +119,7 @@ public class RentController {
 		
 		rentAcar.setName(rentDTO.getName());
 		rentAcar.setAddress(rentDTO.getAddress());
-		rentAcar.setCity(rentDTO.getCity());
-		rentAcar.setCountry(rentDTO.getCountry());
+		rentAcar.setCity(c);
 		rentAcar.setDescription(rentDTO.getDescription());
 		rentAcar.setRentImageUrl(rentDTO.getRentImageUrl());
 		

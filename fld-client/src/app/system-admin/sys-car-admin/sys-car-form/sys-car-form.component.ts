@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RentService } from 'src/app/services/rentacar.service';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-sys-car-form',
@@ -11,19 +12,45 @@ import { RentService } from 'src/app/services/rentacar.service';
 export class SysCarFormComponent implements OnInit, OnDestroy {
 
   @Output() rentSubmit = new EventEmitter();
-
-  constructor(private http: HttpClient, private service: RentService) { }
+  countryList: any = [];
+  cityList: any = [];
+  
+  constructor(private http: HttpClient, private service: RentService, private countryService: CountryService) { }
 
   ngOnInit() {
+    this.countryService.getCountries().subscribe(
+			(data) => {
+				this.countryList = data;
+			},
+			(error) => console.log(error)
+		);
   }
 
+  // metoda se poziva svaki put kad se promeni selekcija u html selektru za Country
+	onChangeCountry(event) {
+		const selectedCountryId = event.target.value;
+		this.getCities(selectedCountryId);
+  }
+
+  // uzima i dodeljuje vrednost listi gradova koja se trenutno prikazuje u formi
+	getCities(id) {
+		this.countryService.getCountysCities(id).subscribe(
+			(data) => {
+				this.cityList = data;
+			},
+			(error) => console.log(error)
+		);
+	}
+
   onSubmitRent(form: NgForm){
+    // uzmi index iz liste na osnovu selektovanog id-a u html selectu
+		let cityIndex = this.cityList.findIndex(city => city.id == form.value.cityId);
+    const cityDTO = this.cityList[cityIndex];
 
     let rent = {
       name: form.value.name,
       adress: form.value.adress,
-      city: form.value.city,
-      country: form.value.country,
+      cityDTO: cityDTO,
       description: form.value.description
     }
 

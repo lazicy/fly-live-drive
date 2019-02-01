@@ -1,10 +1,13 @@
 package com.bff.flylivedrive.model;
 
-import javax.persistence.Entity;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Hotel {
@@ -19,11 +22,8 @@ public class Hotel {
 	@Column(name="address", nullable = false)
 	private String address;
 	
-	@Column(name="city", nullable = false)
-	private String city;
-	
-	@Column(name="country", nullable = false)
-	private String country;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private City city;
 
 	@Column(name="description", nullable = true)
 	private String description;
@@ -60,6 +60,14 @@ public class Hotel {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
 
 	public String getDescription() {
 		return description;
@@ -83,22 +91,6 @@ public class Hotel {
 
 	public void setStars(int stars) {
 		this.stars = stars;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public String getMap() {

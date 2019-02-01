@@ -26,14 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bff.flylivedrive.dto.UserDTO;
-<<<<<<< HEAD
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.AvioAdmin;
 import com.bff.flylivedrive.model.HotelAdmin;
-=======
 import com.bff.flylivedrive.model.Authority;
->>>>>>> cars
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.SysAdmin;
 import com.bff.flylivedrive.model.User;

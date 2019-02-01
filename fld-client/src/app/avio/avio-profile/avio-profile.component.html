@@ -1,61 +1,45 @@
-<img appLoading *ngIf="!avio">
-
-<div *ngIf="avio">
-  <h2>{{ avio.name }}</h2>
-  <p>{{ avio.description }}</p>
-  
-</div>
-
-
-<button type="button" class="btn btn-primary" (click)="onShowFlights()">Show flights</button>
-<div *ngIf="showFlights">
-  <img appLoading *ngIf="!avio.flights">
-  <span *ngIf="avio.flights" >
-    <p *ngFor="let f of avio.flights">{{ f.id }}, {{ f.departureDate }}, {{ f.landingDate }}, {{ f.price }}</p>
-  </span>
-  <h5 *ngIf="emptyFlightList">There is no flights for this airline company.</h5>
-</div>
-
-<button type="button" class="btn btn-primary" (click)="onShowDestinations()">Show destinations</button>
-<div *ngIf="showDestinations">
-  <img appLoading *ngIf="!avio.destinations">
-  <span *ngIf="avio.destinations" >
-    <p *ngFor="let d of avio.destinations">{{ d.id }}, {{ d.name }}, {{ d.country }}</p>
-  </span>
-  <h5 *ngIf="emptyDestinationList">There is no destinations for this airline company.</h5>
-</div>
-
-
-
-
-<br>
-
-<div>
-  <form (ngSubmit)="onSubmitDestination(f)" #f="ngForm">
-    <div class="row">
-      <div class="col-md-3">
+<div class="container">
+  <img appLoading *ngIf="!avio">
+  <div *ngIf="avio">
+    <div class="basic_info">
+      <div class="content">
+        <div class="naslov">
+            <h2>{{avio.name}} </h2>
+            <h6><i class="fa fa-map-marker"></i> {{avio.address}}, {{avio.cityDTO.name}}, {{avio.cityDTO.countryDTO.name}}</h6>
+        </div>
         
-        <h2>Insert destination:</h2>
-  
-        <div class="form-group">
-          <label for="name">City: </label>
-          <input type="text" id="name" name="name" ngModel class="form-control" required>
+        <div class="rating">
+          <h5>Rating</h5>
+          <span class="rate_circle"></span>
+        </div><hr>
+
+        <h5>Description</h5>
+        <p>{{avio.description}}</p>
+
+        <div class="destinations">
+          <h5>Destinations</h5>
+          <div *ngFor="let country of destCountries, let i = index">
+            <p class="country-name" (click)="onToggleCountry(i)"><i
+              class="fa fa-arrow-right" aria-hidden="true" 
+              [ngClass] = "{'fa-arrow-right':arrows[i] === false,  'fa-arrow-down':arrows[i]  === true }" 
+            ></i> {{country.name}}</p>
+            <div class="table-responsive" *ngIf="arrows[i]">
+                <table class="table" >
+                  <tbody>
+                    <tr *ngFor="let city of country.cities" >
+                      <td>{{ city.name }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
         </div>
-  
-        <div class="form-group">
-          <label for="country">Country: </label>
-          <input type="text" id="country" name="country" ngModel class="form-control" required>
+
+        <div class="map" id="mapa" *ngIf="!map">
+          <h5>Location</h5>
+          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(avio.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
-  
-        <div class="form-group">
-          <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save to database</button>
-          <!-- <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button> -->
-        </div>
-            
-      
       </div>
     </div>
-  
-  </form>
-
+  </div>
 </div>
