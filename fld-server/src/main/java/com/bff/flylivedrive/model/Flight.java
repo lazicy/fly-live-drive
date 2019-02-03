@@ -1,7 +1,10 @@
 package com.bff.flylivedrive.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -47,10 +50,14 @@ public class Flight {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Avio avio;
 	
+	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Seat> seats = new ArrayList<>();
+	
 	
 
 
 	public int getTotalDuration() {
+		
 		return totalDuration;
 	}
 
@@ -123,6 +130,15 @@ public class Flight {
 	public void setAvio(Avio avio) {
 		this.avio = avio;
 	}
+
+	public List<Seat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(List<Seat> seats) {
+		this.seats = seats;
+	}
+
 	
 	
 	

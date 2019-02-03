@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +20,10 @@ import com.bff.flylivedrive.dto.InterceptionDTO;
 import com.bff.flylivedrive.dto.mappers.FlightMapper;
 import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
 import com.bff.flylivedrive.model.Avio;
-import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.model.Interception;
+import com.bff.flylivedrive.model.Seat;
 import com.bff.flylivedrive.service.AvioService;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.FlightService;
@@ -120,6 +121,11 @@ public class FlightController {
 		
 		flight.setInterceptions(interceptions);
 		
+		// form seats (and set them to false)
+		List<Seat> seats = formSeatList(flightDTO.getNumberOfSeats());
+		
+		flight.setSeats(seats);
+		
 		// save to database
 		flight = flightService.save(flight);
 		
@@ -160,6 +166,44 @@ public class FlightController {
 		return interceptions;
 		
 		
+	}
+	
+	private List<Seat> formSeatList(int numberOfSeats) {
+		
+		List<Seat> seats = new ArrayList<>();
+		int row = 0;
+		
+		for (int i = 0; i < numberOfSeats; i++) {
+			Seat s = new Seat();
+			s.setReserved(false);
+			seats.add(s);
+			
+			int ostatak = i % 6;
+			
+			if (ostatak == 0) {
+				row++;
+				s.setRow(row);
+				s.setPlace("A");
+			} else if (ostatak == 1) {
+				s.setRow(row);
+				s.setPlace("B");
+			} else if (ostatak == 2) {
+				s.setRow(row);
+				s.setPlace("C");
+			}  else if (ostatak == 3) {
+				s.setRow(row);
+				s.setPlace("D");
+			}  else if (ostatak == 4) {
+				s.setRow(row);
+				s.setPlace("E");
+			}  else if (ostatak == 5) {
+				s.setRow(row);
+				s.setPlace("F");
+			}  
+			
+		}
+		
+		return seats;
 	}
 	
 	

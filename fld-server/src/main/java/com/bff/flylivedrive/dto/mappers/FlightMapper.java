@@ -23,6 +23,7 @@ public class FlightMapper {
 		flight.setAvio(a);
 		flight.setDepartureDestination(departureDest);
 		flight.setLandingDestination(landingDest);
+		flight.setTotalDuration(flightDTO.getTotalDuration());
 		
 		return flight;
 		

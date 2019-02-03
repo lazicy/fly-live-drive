@@ -19,8 +19,6 @@ public class InterceptionMapper {
 		// set interception
 		i.setDestination(d);
 		i.setDuration(iDTO.getDuration());
-		i.setTakeOff(iDTO.getTakeOff());
-		i.setLanding(iDTO.getLanding());
 		i.setFlight(f);
 		
 		return i;

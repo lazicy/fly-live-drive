@@ -2,6 +2,7 @@ package com.bff.flylivedrive.dto;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class FlightDTO {
 	private double price;
 	private AvioDTO avioDTO;
 	private List<InterceptionDTO> interceptionsDTO;
+	private List<SeatDTO> seatsDTO;
+	private int numberOfSeats;
 	
 	public FlightDTO() {
 		
@@ -39,6 +42,15 @@ public class FlightDTO {
 			Interception i = (Interception)it.next();
 			interceptionsDTO.add(new InterceptionDTO(i));
 		}
+		
+		// mapping to seatsDTO hashMap
+		seatsDTO = new ArrayList<>();
+		
+		for (int i = 0; i < f.getSeats().size(); i++) {
+			seatsDTO.add(new SeatDTO(f.getSeats().get(i)));
+		}
+		
+		numberOfSeats = f.getSeats().size();
 		
 		
 		
@@ -122,6 +134,25 @@ public class FlightDTO {
 	public void setLandingDestination(DestinationDTO landingDestination) {
 		this.landingDestination = landingDestination;
 	}
+
+
+
+	public List<SeatDTO> getSeatsDTO() {
+		return seatsDTO;
+	}
+
+	public void setSeatsDTO(List<SeatDTO> seatsDTO) {
+		this.seatsDTO = seatsDTO;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+	
 	
 	
 

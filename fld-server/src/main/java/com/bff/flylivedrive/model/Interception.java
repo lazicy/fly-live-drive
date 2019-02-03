@@ -17,12 +17,7 @@ public class Interception {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="takeOff", nullable=false)
-	private Date takeOff;
-	
-	@Column(name="landing", nullable=false)
-	private Date landing;
+
 	
 	@Column(name="duration", nullable=false)
 	private int duration;
@@ -41,21 +36,6 @@ public class Interception {
 		this.id = id;
 	}
 
-	public Date getTakeOff() {
-		return takeOff;
-	}
-
-	public void setTakeOff(Date takeOff) {
-		this.takeOff = takeOff;
-	}
-
-	public Date getLanding() {
-		return landing;
-	}
-
-	public void setLanding(Date landing) {
-		this.landing = landing;
-	}
 
 	public int getDuration() {
 		return duration;
