@@ -2,7 +2,7 @@
   <h2>Hotel administration</h2>
   <button class="btn btn-primary" id="addhotel" (click)="onAddHotel()">Add hotel</button>
   
-  <div class="form-modal" *ngIf="showFormDialog">
+  <!-- <div class="form-modal" *ngIf="showFormDialog">
     <div class="modal-content">
       <div class="modal-body">
           <button type="button" class="close" (click)="onCloseForm()">
@@ -11,7 +11,7 @@
           <app-hotel-form (hotelSubmit)="hotelSubmitted($event)"></app-hotel-form>
       </div>
     </div>
-  </div>
+  </div> -->
   
   <div *ngIf="hotelList">
     <div class="table-responsive">

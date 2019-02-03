@@ -12,7 +12,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
-import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { RentHomepageComponent } from './rent/rent-homepage/rent-homepage.component';
 import { RentAdminComponent } from './rent/rent-admin/rent-admin.component';
@@ -62,9 +61,7 @@ const appRoutes: Routes = [
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
-		{ path: 'administrateHotels', component: HotelAdminComponent, children: [
-			{ path: 'add', component: HotelFormComponent}
-		]},
+		{ path: 'admin', component: HotelAdminComponent },
 		{ path: ':id', component: HotelPageComponent}
 	]},
 	{path: 'login', component: LoginComponent},

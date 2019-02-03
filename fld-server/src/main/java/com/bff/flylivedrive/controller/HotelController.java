@@ -28,6 +28,13 @@ public class HotelController {
 	@Autowired
 	CityService cityService;
 	
+//	@Autowired
+//	private RoomService roomService;
+//	
+//	@Autowired
+//	private ServiceService serviceService;
+	
+	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<HotelDTO>> getAllHotel() {
 		

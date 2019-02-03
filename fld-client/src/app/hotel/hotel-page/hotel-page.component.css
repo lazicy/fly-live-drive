@@ -38,7 +38,7 @@ h5 {
 .content {
     padding: 15px;
 }
-.facilities {
+.services {
     margin-bottom: 30px;
 }
 .rooms {
@@ -60,10 +60,11 @@ h5 {
     border-radius: 50%;
     font-weight: 700;
     color: white;
-    background-color: green;
+    background-color: rgb(36, 163, 36);
 }
 
 .description {
     display: inline-block;
     width: 70%;
+    padding-right: 15px;
 }

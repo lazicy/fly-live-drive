@@ -23,7 +23,6 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
-import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { UserService } from './services/user.service';
@@ -75,7 +74,6 @@ import { RentProfileComponent } from './rent/rent-profile/rent-profile.component
     SignUpComponent,
     AvioAdminComponent,
     HotelHomepageComponent,
-    HotelFormComponent,
     HotelAdminComponent,
     VerifyMailComponent,
     RentComponent,

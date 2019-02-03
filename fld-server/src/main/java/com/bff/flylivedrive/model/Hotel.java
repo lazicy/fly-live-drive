@@ -1,5 +1,8 @@
 package com.bff.flylivedrive.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Hotel {
@@ -25,7 +31,7 @@ public class Hotel {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private City city;
 
-	@Column(name="description", nullable = true)
+	@Column(name="description", columnDefinition="TEXT", nullable = true)
 	private String description;
 	
 	@Column(name="hotelImageURL", nullable = true)
@@ -36,6 +42,14 @@ public class Hotel {
 	
 	@Column(name="stars", nullable = false)
 	private int stars;
+	
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Room> sobe = new HashSet<Room>();
+	
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Service> usluge = new HashSet<Service>();
+	
+	//Ocena
 	
 	public Long getId() {
 		return id;
@@ -100,4 +114,21 @@ public class Hotel {
 	public void setMap(String map) {
 		this.map = map;
 	}
+
+	public Set<Room> getSobe() {
+		return sobe;
+	}
+
+	public void setSobe(Set<Room> sobe) {
+		this.sobe = sobe;
+	}
+
+	public Set<Service> getUsluge() {
+		return usluge;
+	}
+
+	public void setUsluge(Set<Service> usluge) {
+		this.usluge = usluge;
+	}
+
 }
