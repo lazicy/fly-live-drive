@@ -102,7 +102,8 @@ export class FlightFormComponent implements OnInit {
 			'landingCountryId': new FormControl(""),
 			'landingCityId': new FormControl(""),
 			'price': new FormControl(""),
-			'interceptions': interceptions
+			'interceptions': interceptions,
+			'numberOfSeats': new FormControl(30)
 			
 		});
 
@@ -209,7 +210,8 @@ export class FlightFormComponent implements OnInit {
 					landingDestination: { cityDTO: { id: this.flightInfoForm.value.landingCityId }},
 					price: this.flightInfoForm.value.price,
 					totalDuration: this.totalDuration,
-					interceptionsDTO: interceptionsDTO
+					interceptionsDTO: interceptionsDTO,
+					numberOfSeats: this.flightInfoForm.value.numberOfSeats
 				}
 				
 				this.flightService.saveFlight(flight).subscribe(
