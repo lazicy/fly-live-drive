@@ -1,43 +1,160 @@
 <div class="container" >
-  <h2>Hotel administration</h2>
-  <button class="btn btn-primary" id="addhotel" (click)="onAddHotel()">Add hotel</button>
-  
-  <!-- <div class="form-modal" *ngIf="showFormDialog">
-    <div class="modal-content">
-      <div class="modal-body">
-          <button type="button" class="close" (click)="onCloseForm()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          <app-hotel-form (hotelSubmit)="hotelSubmitted($event)"></app-hotel-form>
+  <br>
+    <h3 class="link inline-block" (click)="onToggleEditHotel()" >
+        <i
+          class="fa fa-arrow-right" aria-hidden="true" 
+          [ngClass] = "{'fa-arrow-right':showEditHotel === false,  'fa-arrow-down':showEditHotel  === true }" 
+        ></i>
+        Hotel information - Edit
+    </h3>
+
+    <form (ngSubmit)="onSubmitEditHotel()" [formGroup]="hotelForm" *ngIf="showEditHotel" class="do-animation">
+        
+        <div class="row">
+          <div class="form-group col-8">
+            <label>Name: </label>
+            <input type="text" class="form-control" formControlName="name" id=name  required>
+            <!-- Validation msg -->
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger">
+
+              <div *ngIf="name.errors.required">
+                Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-2">
+              <label for="stars">Stars: </label>
+              <select name="stars" id="stars" class="form-control" formControlName="starsNo" style="border-right: 1px solid #ccc; padding-right: 3px;">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select>
+            </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-5">
+            <label>Address: </label>
+            <input type="text" class="form-control" formControlName="address" id=address required>
+          </div>
+
+          <div class="form-group col-3">
+        
+            <label for="countryId">Country:</label>
+            <select class="form-control"  id="countryId"
+                    required
+                    formControlName="countryId" 
+                    (change)="onChangeCountry()">
+              <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
+            </select>
+              
+        </div>
+
+          <div class="form-group col-3">
+        
+            <label for="cityId">City:</label>
+            <select class="form-control"  id="cityId"
+                    formControlName="cityId" required >
+              <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+
+            </select>
+             <!-- Validation city msg -->
+             <div *ngIf="!cityValid"
+             class="alert alert-danger">
+           
+                 City is required.
+               
+             </div>
+          </div>
       </div>
+
+      <div class="row">
+          <div class="form-group col-12">
+            <label>Image URL: </label>
+            <input type="text" class="form-control" formControlName="image" id=image placeholder="http://..." >
+          </div>
+        </div>
+
+      <div class="row">
+        <div class="form-group col-12">
+          <label>Adress on map: </label>
+          <input type="text" class="form-control" formControlName="map" id=map placeholder="from google maps" >
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group col-12">
+            <label for="description">Promo description: </label>
+            <textarea type="text" id="description" formControlName="description" placeholder="Hotel description"  class="form-control" rows="4"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-12">
+            <button type="submit" [disabled]="!hotelForm.valid" class="btn btn-success" >Update</button>
+            <button type="button" (click)="onRestoreHotelInfo()" class="btn btn-danger">Restore</button>
+          </div>
+        </div>
+    </form>
+
+  <hr>
+
+
+  <h3 class="link inline-block" (click)="onToggleServices()" >
+      <i
+        class="fa fa-arrow-right" aria-hidden="true" 
+        [ngClass] = "{'fa-arrow-right':showServices === false,  'fa-arrow-down':showServices  === true }" 
+      ></i>
+      Services
+  </h3>
+  <button (click)="onNewService()" *ngIf="showServices" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Service</button>
+
+  <div class="destinations-container do-animation" *ngIf="showServices">
+          <div class="table-responsive">
+            <table class="table" >
+              <tbody>
+                <!-- <tr *ngFor="let city of country.cities" >
+                  
+                  <td>{{ city.name }}</td>
+                  <td class="actions ">
+                    <span *ngIf="avio.cityDTO.id !== city.id">
+                      <button class="btn btn-link" ><i class="fa fa-trash"></i> Remove</button>
+                    </span>
+                    <span class="based align-center" *ngIf="avio.cityDTO.id === city.id">based</span>
+                  </td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
     </div>
-  </div> -->
+
+    <div class="form-modal" *ngIf="showNewServiceDialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <button type="button" class="close" (click)="onCloseAddService()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <!-- <app-add-destination avioId="{{hotel.id}}" (serviceSubmit)="serviceSubmitted($event)"></app-add-destination> -->
+          </div>
+        </div>
+      </div>
   
-  <div *ngIf="hotelList">
-    <div class="table-responsive">
-    <table class="table table-hover" id="lista">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Hotel name</th>
-          <th scope="col">Hotel address</th>
-          <th scope="col">Hotel description</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let hotel of hotelList">
-              <th scope="row">{{ hotel.id }}</th>
-              <td><a [routerLink]="['/hotel', hotel.id]">{{ hotel.name }}</a></td>
-              <td>{{ hotel.address }}, {{ hotel.city }}, {{hotel.country}}</td>
-              <td>{{ hotel.description }}</td>
-              <td style="width:10px"><button class="btn btn-link" (click)="onEditHotel(hotel.id)"><i class="fa fa-pencil"></i> Edit</button></td>
-              <td style="width:10px"><button class="btn btn-link" (click)="onDeleteHotel(hotel.id)"><i class="fa fa-trash"></i> Delete</button></td>
-            </tr>
-          </tbody>
-    </table>
+    <hr>
+
+    <h3 class="link inline-block" (click)="onToggleRooms()" >
+        <i
+          class="fa fa-arrow-right" aria-hidden="true" 
+          [ngClass] = "{'fa-arrow-right':showRooms === false,  'fa-arrow-down':showRooms  === true }" 
+        ></i>
+        Rooms
+    </h3>
+    <button (click)="onNewRoom()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Room</button>
+  
+    <div class="do-animation" *ngIf="showRooms">
+        <!-- <app-flightlist-admin avioId="{{hotel.id}}"></app-flightlist-admin> -->
+    
     </div>
-  </div>
-    <h3 *ngIf="emptyHotelList">There are no hotels in the system.</h3>
-  </div>
+
+</div>

@@ -23,9 +23,17 @@ export class HotelService {
     deleteHotel(id: number) {
 		return this.http.delete("/api/hotel/" + id);
     }
+
+    updateHotel(hotel) {
+        return this.http.put("/api/hotel", hotel);
+    }
     
     searchHotel(name: string) {
         return this.http.get("/api/hotel/search/" + name);
     }
+
+    getHotelServices(id: number) {
+		return this.http.get("/api/hotel/" + id + "/services");
+	}
 
 }

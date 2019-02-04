@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bff.flylivedrive.model.Service;
+import com.bff.flylivedrive.model.Usluga;
 
-public interface ServiceRepository extends JpaRepository<Service, Long>{
+public interface ServiceRepository extends JpaRepository<Usluga, Long>{
 	
-	Service findOneById(Long id);
+	Usluga findOneById(Long id);
 	
 }

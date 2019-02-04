@@ -1,6 +1,5 @@
 package com.bff.flylivedrive.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,8 +15,14 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name="name", nullable = false)
+	private String name;
+	
 	@Column(name="broj_kreveta", nullable = false)
 	private Integer broj_kreveta;
+	
+	@Column(name="kapacitet_ljudi", nullable = false)
+	private Integer kapacitet_ljudi;
 	
 	@Column(name="cena", nullable = false)
 	private Double cena;
@@ -49,12 +54,28 @@ public class Room {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Integer getBroj_kreveta() {
 		return broj_kreveta;
 	}
 
 	public void setBroj_kreveta(Integer broj_kreveta) {
 		this.broj_kreveta = broj_kreveta;
+	}
+
+	public Integer getKapacitet_ljudi() {
+		return kapacitet_ljudi;
+	}
+
+	public void setKapacitet_ljudi(Integer kapacitet_ljudi) {
+		this.kapacitet_ljudi = kapacitet_ljudi;
 	}
 
 	public Double getCena() {

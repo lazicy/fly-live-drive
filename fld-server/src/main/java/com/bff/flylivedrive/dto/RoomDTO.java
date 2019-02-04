@@ -5,7 +5,9 @@ import com.bff.flylivedrive.model.Room;
 public class RoomDTO {
 	
 	private Long id;
+	private String name;
 	private int broj_kreveta;
+	private int kapacitet_ljudi;
 	private double cena;
 	private int sprat;
 	private boolean balkon;
@@ -16,13 +18,15 @@ public class RoomDTO {
 	}
 	
 	public RoomDTO(Room r) {
-		this(r.getId(), r.getBroj_kreveta(), r.getCena(), r.getSprat(), r.isBalkon(), r.isZauzeta());
+		this(r.getId(), r.getName(), r.getBroj_kreveta(), r.getKapacitet_ljudi(), r.getCena(), r.getSprat(), r.isBalkon(), r.isZauzeta());
 	}
 	
-	public RoomDTO(Long id, int broj_kreveta, double cena, int sprat, boolean balkon, boolean zauzeta) {
+	public RoomDTO(Long id, String name, int broj_kreveta, int kapacitet_ljudi, double cena, int sprat, boolean balkon, boolean zauzeta) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.broj_kreveta = broj_kreveta;
+		this.kapacitet_ljudi = kapacitet_ljudi;
 		this.cena = cena;
 		this.sprat = sprat;
 		this.balkon = balkon;
@@ -64,6 +68,22 @@ public class RoomDTO {
 	}
 	public void setZauzeta(boolean zauzeta) {
 		this.zauzeta = zauzeta;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getKapacitet_ljudi() {
+		return kapacitet_ljudi;
+	}
+
+	public void setKapacitet_ljudi(int kapacitet_ljudi) {
+		this.kapacitet_ljudi = kapacitet_ljudi;
 	}
 	
 	

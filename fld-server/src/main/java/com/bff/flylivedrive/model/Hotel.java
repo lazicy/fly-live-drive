@@ -47,7 +47,7 @@ public class Hotel {
 	private Set<Room> sobe = new HashSet<Room>();
 	
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Service> usluge = new HashSet<Service>();
+	private Set<Usluga> usluge = new HashSet<Usluga>();
 	
 	//Ocena
 	
@@ -123,11 +123,11 @@ public class Hotel {
 		this.sobe = sobe;
 	}
 
-	public Set<Service> getUsluge() {
+	public Set<Usluga> getUsluge() {
 		return usluge;
 	}
 
-	public void setUsluge(Set<Service> usluge) {
+	public void setUsluge(Set<Usluga> usluge) {
 		this.usluge = usluge;
 	}
 

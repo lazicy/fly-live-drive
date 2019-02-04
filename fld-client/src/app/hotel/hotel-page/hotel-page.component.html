@@ -2,12 +2,18 @@
   <div *ngIf="slika" class="slika" id="slika" [ngStyle]="currentStyles"></div>
     <div class="basic_info">
       <div class="content">
-        <h2>{{hotel.name}} </h2><p style="text-align:center"><span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
-        <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
-        <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
-        <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
-        <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
-        <h6><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.cityDTO.name}}, {{hotel.cityDTO.countryDTO.name}}</h6>
+        <div class="gore">
+            <h2>{{hotel.name}} </h2><p style="text-align:center"><span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+              <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+              <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+              <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+              <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></p>
+              <h6><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.cityDTO.name}}, {{hotel.cityDTO.countryDTO.name}}</h6>
+        
+              <div class="admin">
+                  <button type="button" class="btn btn-primary" [routerLink]="['/hotel/admin', hotel.id]">Administrate</button>
+                </div>
+            </div>
         
         <div class="description">
           <h5>Description</h5>

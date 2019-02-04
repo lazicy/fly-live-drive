@@ -68,3 +68,13 @@ h5 {
     width: 70%;
     padding-right: 15px;
 }
+
+.gore {
+    position:relative;
+}
+
+.admin {
+    position: absolute;
+    right: 25px;
+    top: 30px;
+}

@@ -61,7 +61,7 @@ const appRoutes: Routes = [
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
-		{ path: 'admin', component: HotelAdminComponent },
+		{ path: 'admin/:idH', component: HotelAdminComponent},
 		{ path: ':id', component: HotelPageComponent}
 	]},
 	{path: 'login', component: LoginComponent},

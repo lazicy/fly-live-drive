@@ -1,6 +1,6 @@
 package com.bff.flylivedrive.dto;
 
-import com.bff.flylivedrive.model.Service;
+import com.bff.flylivedrive.model.Usluga;
 
 public class ServiceDTO {
 	
@@ -12,7 +12,7 @@ public class ServiceDTO {
 		
 	}
 	
-	public ServiceDTO(Service s) {
+	public ServiceDTO(Usluga s) {
 		this(s.getId(), s.getNaziv(), s.getCena());
 	}
 	

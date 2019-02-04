@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Service {
+public class Usluga {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

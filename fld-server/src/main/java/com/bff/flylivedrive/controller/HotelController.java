@@ -2,6 +2,7 @@ package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
+import com.bff.flylivedrive.dto.ServiceDTO;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Hotel;
+import com.bff.flylivedrive.model.Usluga;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.HotelService;
+import com.bff.flylivedrive.service.UslugaService;
 
 @RestController
 @RequestMapping(value = "/hotel")
@@ -31,8 +36,8 @@ public class HotelController {
 //	@Autowired
 //	private RoomService roomService;
 //	
-//	@Autowired
-//	private ServiceService serviceService;
+	@Autowired
+	UslugaService serviceService;
 	
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -130,5 +135,23 @@ public class HotelController {
 		}
 		
 		return new ResponseEntity<>(hotelsDTO, HttpStatus.OK);
+	}
+	
+	//ALL hotel services
+	@RequestMapping(value = "/{hotelId}/services", method = RequestMethod.GET)
+	public ResponseEntity<List<ServiceDTO>> getHotelServices(@PathVariable Long hotelId) {
+		
+		Hotel hotel = hotelService.findOneById(hotelId);
+		if(hotel == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Usluga> services = hotel.getUsluge();
+		List<ServiceDTO> servicesDTO = new ArrayList<>();
+		for(Usluga s : services) {
+			servicesDTO.add(new ServiceDTO(s));
+		}
+		
+		return new ResponseEntity<>(servicesDTO, HttpStatus.OK);
 	}
 }
