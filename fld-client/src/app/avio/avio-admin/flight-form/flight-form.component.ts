@@ -17,7 +17,8 @@ export class FlightFormComponent implements OnInit {
 	aId: number;
 	fId: number;
 
-
+	// dialog
+	showSeatsDialog = false;
 	
 	// mode 
 	editMode: boolean = false;
@@ -400,6 +401,14 @@ export class FlightFormComponent implements OnInit {
 		this.interceptionCityValid.splice(index,1);
 		this.n--;
 		
+	}
+
+	onShowSeats() {
+		this.showSeatsDialog = true;
+	}
+
+	onCloseSeats() {
+		this.showSeatsDialog = false;
 	}
 	
 

@@ -154,10 +154,11 @@ select {
 .modal-content {
     width: 35%;
     margin: 0 auto;
+    overflow-y: scroll;
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
 }
 
 .do-animation {
@@ -202,3 +203,9 @@ select {
     to {top:0; opacity:1}
   }
   
+.seats-modal {
+
+    width: 90%;
+    height: 95%;
+
+}

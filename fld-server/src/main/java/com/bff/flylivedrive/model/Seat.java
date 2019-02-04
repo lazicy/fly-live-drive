@@ -21,7 +21,7 @@ public class Seat {
 	
 	private String place;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Flight flight;
 
 	public Long getId() {

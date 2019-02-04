@@ -1,7 +1,6 @@
 package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.FlightDTO;
 import com.bff.flylivedrive.dto.InterceptionDTO;
+import com.bff.flylivedrive.dto.SeatDTO;
 import com.bff.flylivedrive.dto.mappers.FlightMapper;
 import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
 import com.bff.flylivedrive.model.Avio;
@@ -72,6 +72,28 @@ public class FlightController {
 		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.OK);
 	}
 	
+	// Get ONE flight's seats
+	@RequestMapping(value="/{id}/seats", method=RequestMethod.GET)
+	public ResponseEntity<List<SeatDTO>> getFlightSeats(@PathVariable Long id) {
+		
+		Flight flight = flightService.findOneById(id);
+		
+		if(flight == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		List<SeatDTO> seatsDTO = new ArrayList<>();
+		
+		System.out.println("Seats: " + flight.getSeats().size());
+		
+		for (Seat s: flight.getSeats()) {
+			seatsDTO.add(new SeatDTO(s));
+		}
+		
+		return new ResponseEntity<>(seatsDTO, HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
 		
@@ -122,7 +144,7 @@ public class FlightController {
 		flight.setInterceptions(interceptions);
 		
 		// form seats (and set them to false)
-		List<Seat> seats = formSeatList(flightDTO.getNumberOfSeats());
+		List<Seat> seats = formSeatList(flightDTO.getNumberOfSeats(), flight);
 		
 		flight.setSeats(seats);
 		
@@ -168,13 +190,14 @@ public class FlightController {
 		
 	}
 	
-	private List<Seat> formSeatList(int numberOfSeats) {
+	private List<Seat> formSeatList(int numberOfSeats, Flight f) {
 		
 		List<Seat> seats = new ArrayList<>();
 		int row = 0;
 		
 		for (int i = 0; i < numberOfSeats; i++) {
 			Seat s = new Seat();
+			s.setFlight(f);
 			s.setReserved(false);
 			seats.add(s);
 			

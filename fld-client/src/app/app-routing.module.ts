@@ -32,6 +32,7 @@ import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
+import { SeatsEditComponent } from './avio/avio-admin/flight-form/seats-edit/seats-edit.component';
 
 
 const appRoutes: Routes = [

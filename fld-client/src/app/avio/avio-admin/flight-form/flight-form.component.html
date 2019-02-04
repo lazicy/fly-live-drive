@@ -198,18 +198,21 @@
 
 		<div class="form-group col-3">
 
-			<h5 class="mt-4"> <i class="fa fa-user-o mr-1"></i> Number of seats: (30 - 120)</h5>
+			<h5 class="mt-4"> <i class="fa fa-user-o mr-1"></i> Number of seats:</h5>
 			<hr>
 			<input type="number" id="numberOfSeats" formControlName="numberOfSeats" class="form-control" min="30" max="120">
 
 		</div>
 
-		<div class="form-group col-5">
-
-				<h5 class="mt-4"> <i class="fa fa-clock-o mr-1"></i> Flight duration: {{ totalDuration }} minutes</h5>
-				
+		<div class="form-group col-3">
+			<h5 class="mt-4"> <i class="fa fa-clock-o mr-1"></i> Flight duration: {{ totalDuration }} minutes</h5>
+		</div>
 	
-			</div>
+		<div class="form-group col-2">
+			<h5 class="mt-4"> <button type="button" class="btn btn-secondary" (click)="onShowSeats()">Manage seats</button></h5>
+		</div>
+	
+	
 	</div>
 
 
@@ -223,3 +226,16 @@
 	</div>
 
 </form>
+
+
+<!-- SEATS COMPONENT MODAL -->
+<div class="form-modal" *ngIf="showSeatsDialog">
+	<div class="modal-content seats-modal">
+	  <div class="modal-body">
+		  <button type="button" class="close" (click)="onCloseSeats()">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		<app-seats-edit fId="{{ fId }}"></app-seats-edit>
+	  </div>
+	</div>
+  </div>

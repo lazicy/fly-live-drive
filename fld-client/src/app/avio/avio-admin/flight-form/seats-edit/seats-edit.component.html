@@ -1,0 +1,24 @@
+
+
+	<div class="s-plane">
+		
+		<div class="s-head"></div>
+		
+		<div class="s-body">
+
+			<div class="seat" *ngFor="let s of seats; let i = index" 
+			 [ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D', 's-invisible-seat': s.place === 'X',
+							'seat-free': s.reserved === false, 'seat-reserved': s.reserved === true }" (click)="onReserveSeat(i)"
+			>
+
+				<span  class="seat-text">{{ s.row }}{{ s.place }}</span>
+
+			</div>
+
+
+		</div>
+		
+		<div class="s-tail"></div>
+		
+	</div>
+
