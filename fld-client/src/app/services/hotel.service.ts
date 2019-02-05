@@ -44,4 +44,16 @@ export class HotelService {
         return this.http.get("/api/hotel/" + id + "/rooms");
     }
 
+    removeHotelService(idSer: number, idHot: number) {
+        return this.http.delete("/api/hotel/" + idHot + "/service/" + idSer);
+    }
+
+    updateHotelService(serv, id:number) {
+        return this.http.put("/api/hotel/service/" + id, serv);
+    }
+
+    getHotelService(idS: number) {
+		return this.http.get("/api/hotel/service/" + idS);
+    }
+
 }

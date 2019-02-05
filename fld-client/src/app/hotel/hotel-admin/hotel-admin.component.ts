@@ -17,11 +17,13 @@ export class HotelAdminComponent implements OnInit {
   id: number;
   countryList: any = [];
   cityList: any = [];
+  servToEdit: any = null;
 
   //show-hides
   showEditHotel: boolean = false;
   showServices: boolean = false;
   showNewServiceDialog: boolean = false;
+  showUpdateServiceDialog: boolean = false;
   showRooms: boolean = false;
   cityValid: boolean = true;
 
@@ -103,7 +105,6 @@ export class HotelAdminComponent implements OnInit {
   onToggleServices() {
     this.showServices = !this.showServices;
 
-    // needs to be fixed!
     if (!this.hotel.services) {
       this.fetchServices();
     }
@@ -181,8 +182,17 @@ export class HotelAdminComponent implements OnInit {
     this.showNewServiceDialog = true;
   }
 
+  onUpdateService(serv) {
+    this.servToEdit = serv;
+    this.showUpdateServiceDialog = true;
+  }
+
   onCloseAddService() {
     this.showNewServiceDialog = false;
+  }
+
+  onCloseUpdateService() {
+    this.showUpdateServiceDialog = false;
   }
 
   serviceSubmitted(serv) {
@@ -190,8 +200,37 @@ export class HotelAdminComponent implements OnInit {
     this.showNewServiceDialog = false;
   }
 
+  
+  serviceUpdated(serv) {
+    let i = this.hotel.services.findIndex(service => service.id === serv.id);
+    this.hotel.services.splice(i, 1, serv);
+    this.showUpdateServiceDialog = false;
+  }
+
   onNewRoom() {
     // this.router.navigate(['hotel/admin/' + this.hotel.id + "/room/new"]);
+  }
+
+  onRemoveService(idSer) {
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.hotelService.removeHotelService(idSer, this.id).subscribe(
+          (result) => {
+              // fensi for petlja
+              let i = this.hotel.services.findIndex(service => service.id === idSer);
+              // obrisi jednog clana na poziciji i
+              this.hotel.services.splice(i, 1);
+              swal({title: "Success!", text: "Service deleted.", icon: "success", timer: 1500});
+          }, (error) =>  {swal ( "Error occured" ,  "The service was not deleted." ,  "error" );}
+          );
+      }
+    });
   }
 
   ngOnDestroy() {

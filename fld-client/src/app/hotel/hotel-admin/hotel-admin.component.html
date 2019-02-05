@@ -117,8 +117,11 @@
                 <tr *ngFor="let serv of hotel.services">
                   <td>{{serv.name}}</td>
                   <td>{{serv.price}}€ per {{serv.charge}}</td>
-                  <td class="actions ">
-                      <button class="btn btn-link" ><i class="fa fa-trash"></i> Remove</button>
+                  <td class="actions">
+                    <button (click)="onUpdateService(serv.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
+                  </td>
+                  <td class="actions">
+                    <button (click)="onRemoveService(serv.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button>
                   </td>
                 </tr>
               </tbody>
@@ -133,6 +136,17 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
             <app-add-service hotelId="{{hotel.id}}" (serviceSubmit)="serviceSubmitted($event)"></app-add-service>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-modal" *ngIf="showUpdateServiceDialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <button type="button" class="close" (click)="onCloseUpdateService()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <app-edit-service hotelId="{{hotel.id}}" [servic]=servToEdit (serviceUpdate)="serviceUpdated($event)"></app-edit-service>
           </div>
         </div>
       </div>
