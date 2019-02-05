@@ -30,6 +30,10 @@ export class RentService{
         return this.http.put("http://localhost:4200/api/rent/edit/",rent)
     }
 
+    getBranchOffice(id){
+        return this.http.get('/api/rent/getBranchOffice/' + id);
+    }
+
     addBranchOffice(branch,idRent){
         return this.http.post("http://localhost:4200/api/rent/addBranch/" + idRent,branch);
     }
@@ -60,6 +64,10 @@ export class RentService{
 
     editVehicle(vehicle,idF){
         return this.http.put('api/rent/editVehicle/'+idF,vehicle);
+    }
+
+    getVehicle(id){
+        return this.http.get('/api/rent/getVehicle/'+id);
     }
 
     getRENTVehicles(id){

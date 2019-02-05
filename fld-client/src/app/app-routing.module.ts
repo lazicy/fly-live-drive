@@ -32,6 +32,8 @@ import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
+import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component';
+import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
 
 
 const appRoutes: Routes = [
@@ -54,10 +56,14 @@ const appRoutes: Routes = [
 	{ path: 'rent', component: RentComponent, children: [
 		{path: '', component: RentHomepageComponent},
 		{path: 'list', component: RentListComponent},
-		{path: 'administrateRents', component: RentAdminComponent},
 		{path: ':id', component: RentProfileComponent},
-		{path: ':idR', component: BranchesComponent},
-		{path: ':idR/:idF', component: VehiclesComponent}
+		{path: 'rentAdmin/:id', component: RentAdminComponent, children:[
+			{path: '', component: BranchesComponent},
+			{path: ':idF', component: VehiclesComponent}
+		]},
+		{path: 'vehicles/:id', component: VehicleListComponent, children:[
+			{path: '', component: VehicleSearchComponent}
+		]}
 	]},
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},

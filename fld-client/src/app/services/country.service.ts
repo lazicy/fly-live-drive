@@ -84,6 +84,12 @@ export class CountryService {
 		return destCountries;
 	  }
 
-
+	  getRentCountries(id){
+        return this.http.get('/api/rent/getRentCountries/' + id);
+	}
+	
+	getCityByCountryId(idR,idC){
+		return this.http.get('api/rent/getCityByCountryId/'+ idR +'/' + idC);
+	}
 
 }

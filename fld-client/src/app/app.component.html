@@ -12,15 +12,13 @@
     <app-verify-mail></app-verify-mail>
 </div>
 
-<div *ngIf="!isLogin && !isSignUp && !isVerifed">
+<div *ngIf="!isLogin && !isSignUp && !isVerifed" class="h-100">
     <app-header></app-header>
-    <div class="container">
- 
+    <div class="container h-100">
     <router-outlet></router-outlet>
-            
     </div>
 </div>
 
- 
+
 
 

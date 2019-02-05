@@ -136,7 +136,11 @@ INSERT INTO `destination` (`id`, `avio_id`, `city_id`) VALUES (2,1,52);
 insert into rentacar (id,name,address,city_id,description) values (1,'Drive a lot','Bulevar Evrope',51,'Najbolji servis ikada');
 insert into rentacar (id,name,address,city_id,description) values (2,'Teraj bona','Bosanskog cevapa 10',54,'Bolji servis bona od ovog drugog');
 
-insert into filijala (id,name,address,city,country,description,servis_id) values (1,'Drive a lot','Bulevar Kralja Petra','Novi Sad','Srbija','Najbolji servis ikada',1);
+insert into filijala (id,name,address,city_id,description,servis_id) values (12,'Drive a lot','Bulevar Kralja Petra',51,'Najbolji servis ikada',1);
+insert into filijala (id,name,address,city_id,description,servis_id) values (13, 'Drive a lot', 'Bulevar Vojvode Stepe', 52, 'Naj', 1);
+insert into filijala (id,name,address,city_id,description,servis_id) values (14, 'Drive a lot', 'Mihajla Pupina 1', 53, 'Naj', 1);
+insert into filijala (id,name,address,city_id,description,servis_id) values (15, 'Drive a lot', 'Ksong Ksung', 12, 'Ma ja sam naj', 1);
 
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,filijala_id) values (1, 'Q7','Audi','2016',5,'SUV',1);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,filijala_id) values (2, 'X5','BMW','2016',5,'SUV',1);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (54, 'Q7','Audi','2016',5,'SUV',10,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (68, 'X5','BMW','2016',5,'SUV',15,12);
+

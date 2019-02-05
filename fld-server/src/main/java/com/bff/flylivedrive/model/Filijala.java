@@ -29,11 +29,8 @@ public class Filijala {
 	@Column(name = "address", nullable = false)
 	String address;
 	
-	@Column(name = "city", nullable = false)
-	String city;
-	
-	@Column(name = "country", nullable = false)
-	String country;
+	@ManyToOne(fetch = FetchType.LAZY)
+	City city;
 	
 	@Column(name = "description", nullable = true)
 	String description;
@@ -41,7 +38,6 @@ public class Filijala {
 	//filijala sadrzi lisu vozila, moze ih biti n
 	@OneToMany(mappedBy = "filijala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Vozilo> vozila = new HashSet<Vozilo>();
-	
 	
 	//jedna filijala vezana je samo za jedan servis
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -51,19 +47,17 @@ public class Filijala {
 		
 	}
 	
-	
-	public Filijala(Long id, String name, String address, String city, String country, String description) {
+	public Filijala(Long id, String name, String address, City city,String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
-		this.country = country;
 		this.description = description;
 	}
 	
 	public Filijala(FilijalaDTO fDTO) {
-		this(fDTO.getId(),fDTO.getName(),fDTO.getAddress(), fDTO.getCity(), fDTO.getCountry(), fDTO.getDescription());
+		this(fDTO.getId(),fDTO.getName(),fDTO.getAddress(), new City(fDTO.getCityDTO()), fDTO.getDescription());
 	}
 
 	public Long getId() {
@@ -106,22 +100,12 @@ public class Filijala {
 		this.servis = servis;
 	}
 
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
-
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public Set<Vozilo> getVozila() {
 		return vozila;
 	}
@@ -129,6 +113,4 @@ public class Filijala {
 	public void setVozila(Set<Vozilo> vozila) {
 		this.vozila = vozila;
 	}	 
-	
-	
 }

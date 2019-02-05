@@ -6,7 +6,7 @@ public class CityDTO {
 	
 	private Long id;
 	private String name;
-	private CountryDTO countryDTO;
+	private CountryDTO countryDTO;	
 	
 	
 	public CityDTO() {

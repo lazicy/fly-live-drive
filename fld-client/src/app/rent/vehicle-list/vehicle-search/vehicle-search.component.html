@@ -1,0 +1,119 @@
+<div class="container h-100 form">
+  <div class="row justify-content-center align-items-center w-100">
+    <form class="form-area w-100">
+        <div class="row">
+          <div class="form-group col-5">
+              <label>Choose country: </label>
+              <div class="input-group mb-2">    
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-flag"></i></div>
+              </div>
+              <select class="form-control" name="country"
+                      ngModel (change)="onChangeCountry($event)">
+              <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-5">
+            <label>Choose city: </label>
+            <div class="input-group mb-2">    
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-building-o"></i></div>
+            </div>
+            <select class="form-control">
+              <option selected hidden></option>
+              <option *ngFor="let city of cityList" [value]="city.id">{{ city.name }}</option>
+            </select>
+          </div>
+        </div>
+        </div>
+    <div class="row">
+        <div class="form-group col-5">
+          <label>Choose pick-up date: </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+              <input type="date" class="form-control">
+        </div>
+        </div>
+        <div class="form-group col-5">
+            <label>Choose drop-off date: </label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+              <input type="date" class="form-control">
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-5">
+            <label>Choose pick-up time: </label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                </div>
+                <select class="form-control">
+                  <option selected hidden></option>
+                  <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+                </select>
+          </div>
+          </div>
+          <div class="form-group col-5">
+              <label>Choose drop-off time: </label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                  </div>
+                  <select class="form-control">
+                    <option selected hidden></option>  
+                    <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+                  </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-5">
+              <label>Type of vehicle: </label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-car"></i></div>
+                  </div>
+                  <select class="form-control">
+                      <option selected hidden></option>
+                      <option>Sedan</option>
+                      <option>SUV</option>
+                      <option>Coupe</option>
+                      <option>Convertible</option>
+                      <option>Van</option>
+                  </select>
+            </div>
+            </div>
+            <div class="form-group col-5">
+                <label>Number of seats: </label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text"><img src="/src/img//seat-belt.png"></div>
+                    </div>
+                  <select class="form-control">
+                    <option selected hidden></option>
+                    <option>2</option>
+                    <option>5</option>
+                    <option>9</option>
+                  </select>
+                  </div>
+              </div>
+          </div>
+  
+
+    </form>
+  </div>
+  <hr>
+  <!-- VEHICLE LIST -->
+  <div>
+
+  </div>
+
+</div>

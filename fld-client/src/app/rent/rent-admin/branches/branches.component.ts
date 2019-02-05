@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RentService } from 'src/app/services/rentacar.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params, ChildActivationEnd } from '@angular/router';
 import swal from 'sweetalert';
 import { DataService } from 'src/app/services/data.service';
+import { BranchFormComponent } from './branch-form/branch-form.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-branches',
@@ -15,12 +17,13 @@ export class BranchesComponent implements OnInit {
   emptyBranchList: boolean = false;
   showFormDialog: boolean = false;
   ID: string;
+  isClosed: Subject<boolean> = new Subject();
 
   constructor(private service: RentService, private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.route.params.subscribe(
       (params: Params) => {
         //uzmi id rent-a-car servisa iz putanje
-        this.id = +params['idR'];
+        this.id = +params['id'];
       }
     );
       if(this.id !== NaN && this.id !== undefined){
@@ -40,8 +43,10 @@ export class BranchesComponent implements OnInit {
 
    }
 
+
   ngOnInit() {
     this.dataService.edit.subscribe(data => this.ID = data);
+    this.notifyChild(false);
   }
 
   onAddBranch(){
@@ -77,6 +82,7 @@ export class BranchesComponent implements OnInit {
   }
 
   onCloseForm(){
+    this.notifyChild(true);
     this.showFormDialog = false;
   }
 
@@ -93,4 +99,10 @@ export class BranchesComponent implements OnInit {
       this.showFormDialog = false;
       this.emptyBranchList = false;}
   }
+
+  //obavestava child komponentu da je forma zatvorena
+  notifyChild(value){
+    this.isClosed.next(value);
+  }
+
 }

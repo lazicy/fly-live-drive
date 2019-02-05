@@ -6,10 +6,10 @@ export class DataService {
 
   ID = new BehaviorSubject("");
   edit = this.ID.asObservable();
-
+  
   username = new BehaviorSubject("");
   changed = this.username.asObservable();
-
+  
   constructor() { }
 
   changeID(value){
@@ -19,5 +19,6 @@ export class DataService {
   changeUsername(value){
     this.username.next(value);
   }
+
 
 }

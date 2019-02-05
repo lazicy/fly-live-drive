@@ -51,11 +51,13 @@ import { FlightlistAdminComponent } from './avio/avio-admin/avio-edit/flightlist
 import { FlightFormComponent } from './avio/avio-admin/flight-form/flight-form.component';
 import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
-import { BranchFormComponent } from './rent/rent-admin/branch-form/branch-form.component';
 import { DataService } from './services/data.service';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
-import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
+import { VehicleFormComponent } from './rent/rent-admin/branches/vehicles/vehicle-form/vehicle-form.component';
+import { BranchFormComponent } from './rent/rent-admin/branches/branch-form/branch-form.component';
+import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component';
+import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { RentProfileComponent } from './rent/rent-profile/rent-profile.component
     BranchFormComponent,
     VehiclesComponent,
     VehicleFormComponent,
-    RentProfileComponent
+    RentProfileComponent,
+    VehicleListComponent,
+    VehicleSearchComponent
   ],
   imports: [
     BrowserModule,

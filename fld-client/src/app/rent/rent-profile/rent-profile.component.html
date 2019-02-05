@@ -1,12 +1,16 @@
-<div class="container">
-  <div *ngIf="rent">
-    <div class="basic_info">
-      <div class="content">
+<div class="container h-100">
+  <div *ngIf="rent" class="h-100">
+    <div class="basic_info h-100">
+      <div class="content h-100">
         <div class="naslov">
             <h2>{{rent.name}} </h2>
             <h6><i class="fa fa-map-marker"></i> {{rent.address}}, {{rent.cityDTO.name}}, {{rent.cityDTO.countryDTO.name}}</h6>
+            <h6>Search our deals</h6>
+          </div>
+        <div class="description">
+          <button class="btn btn-link" [routerLink]="['/rent/rentAdmin/',rent.id]">Administration</button>
         </div>
-        
+
         <div class="description">
           <h5>Description</h5>
         <p>{{rent.description}}</p>
@@ -27,7 +31,7 @@
                 <tbody>
                   <tr *ngFor="let br of branches">
                     <td>{{ br.name }}</td>
-                    <td>{{ br.address }}</td>
+                    <td>{{ br.address }}, {{br.cityDTO.name}}, {{br.cityDTO.countryDTO.name}} </td>
                     <td>{{ br.description }}</td>
                   </tr>
                 </tbody>
@@ -38,9 +42,10 @@
 
         <div class="vehicles">
             <h5 class="grane" (click)="onToggleVehicles()">
-              Vehicles <i class="fa fa-arrow-right" aria-hidden="true" 
-              [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i></h5>
+              <i class="fa fa-arrow-right" aria-hidden="true" 
+              [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i> Vehicles</h5>
               <div class="table-responsive" *ngIf="showVehicles">
+                <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
                 <table class="table" *ngIf="!emptyVehicleList">
                   <tbody>
                     <tr *ngFor="let vh of vehicles">

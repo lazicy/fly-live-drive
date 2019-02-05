@@ -34,6 +34,8 @@ public class Vozilo {
 	String type;
 	
 	//price per day?
+	@Column(name = "price_per_day", nullable = false)
+	int pricePerDay;
 	
 	//jedno vozilo vezano je samo za jednu filjalu
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -43,7 +45,7 @@ public class Vozilo {
 		
 	}
 
-	public Vozilo(Long id, String model, String brand, String productionYear, int numberOfSeats, String type) {
+	public Vozilo(Long id, String model, String brand, String productionYear, int numberOfSeats, String type, int price) {
 		super();
 		this.id = id;
 		this.model = model;
@@ -51,11 +53,11 @@ public class Vozilo {
 		this.productionYear = productionYear;
 		this.numberOfSeats = numberOfSeats;
 		this.type = type;
+		this.pricePerDay = price;
 	}
 
-
 	public Vozilo(VoziloDTO voziloDTO) {
-		this(voziloDTO.getId(),voziloDTO.getModel(), voziloDTO.getBrand(),voziloDTO.getProductionYear(),voziloDTO.getNumberOfSeats(),voziloDTO.getType());
+		this(voziloDTO.getId(),voziloDTO.getModel(), voziloDTO.getBrand(),voziloDTO.getProductionYear(),voziloDTO.getNumberOfSeats(),voziloDTO.getType(),voziloDTO.getPricePerDay());
 	}
 
 	public Long getId() {
@@ -113,5 +115,14 @@ public class Vozilo {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public int getPricePerDay() {
+		return pricePerDay;
+	}
+
+	public void setPricePerDay(int pricePerDay) {
+		this.pricePerDay = pricePerDay;
+	}
+	
 	
 }

@@ -3,28 +3,40 @@
       <form (ngSubmit)="onSubmitVehicle(f)" name="addVehicleForm" #f="ngForm">
           <h2>Insert new vehicle</h2>
           <hr>
+        <div class="row">
           <div class="row">
               <div class="col form-group">
                   <label>Model:</label>
-                  <input type="text" class="form-control" name="model" id=model ngModel required/>
+                  <input type="text" [(ngModel)]="model.model" class="form-control" name="model" id=model ngModel required/>
               </div>
           </div>
           <div class="row">
               <div class="col form-group">
                   <label>Brand:</label>
-                  <input type="text" class="form-control" name="brand" id=brand ngModel required/>
+                  <input type="text" [(ngModel)]="model.brand" class="form-control" name="brand" id=brand ngModel required/>
               </div>
           </div>
+    </div>
+    <div class="row">
           <div class="row">
             <div class="col form-group">
                 <label>Year of production:</label>
-                <input type="text" class="form-control" name="production_year" id=production_year ngModel required/>
+                <input type="text" [(ngModel)]="model.productionYear" class="form-control" name="production_year" id=production_year ngModel required/>
             </div>
         </div>
         <div class="row">
-            <div class="col form-group">
+                <div class="col form-group">
+                    <label>Price per day:</label>
+                    <input type="text" [(ngModel)]="model.pricePerDay" class="form-control" name="price_per_day" id=price_per_day ngModel required/>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col form-group" style="margin-right:5px">
                 <label>Number of seats:</label>
-                <select class="form-control" id=number_of_seats ngModel required>
+                <select class="form-control" [(ngModel)]="seatIdx" id=number_of_seats ngModel required>
+                    <option hidden></option>
                     <option>2</option>
                     <option>5</option>
                     <option>9</option>
@@ -34,9 +46,16 @@
         <div class="row">
             <div class="col form-group">
                 <label>Type:</label>
-                <input type="text" class="form-control" name="type" id=type ngModel required/>
+                <select class="form-control" [(ngModel)]="model.type" name="type" id=type ngModel required>
+                <option>Sedan</option>
+                <option>SUV</option>
+                <option>Coupe</option>
+                <option>Convertible</option>
+                <option>Van</option>
+                </select>
             </div>
         </div>
+    </div>
           <div class="row">
               <div class="col form-group">
                 <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
