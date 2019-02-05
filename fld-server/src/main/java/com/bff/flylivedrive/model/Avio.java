@@ -1,5 +1,6 @@
 package com.bff.flylivedrive.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,9 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -49,6 +47,7 @@ public class Avio {
 	private Set<Destination> destinations = new HashSet<Destination>();
 	
 
+	private ArrayList<Double> ocene = new ArrayList<>();
 	
 	
 	public Long getId() {
@@ -118,6 +117,16 @@ public class Avio {
 
 	public void setDestinations(Set<Destination> destinations) {
 		this.destinations = destinations;
+	}
+
+	
+	
+	public ArrayList<Double> getOcene() {
+		return ocene;
+	}
+
+	public void setOcene(ArrayList<Double> ocene) {
+		this.ocene = ocene;
 	}
 
 	@Override

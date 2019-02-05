@@ -12,15 +12,19 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 export class AvioProfileComponent implements OnInit {
 	avio: any;
+	flights: any = [];
 	id: number;
 	emptyFlightList: boolean = false;
 	emptyDestinationList: boolean = false;
-	map: boolean = false;
+	map = null;
 	
-	//showFlights: boolean = false;
+	showFlights: boolean = false;
 	showDestinations: boolean = false;
 	destCountries: any = [];
 	arrows: any = [];
+
+
+
 
 	constructor(private avioService: AvioService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
 		
@@ -35,8 +39,8 @@ export class AvioProfileComponent implements OnInit {
 			this.avioService.getAvio(this.id).subscribe(
 				(data) => {
 					this.avio = data;
-					if(this.avio.map === "") {
-						this.map = true;
+					if(this.avio.map !== "") {
+						this.map = sanitizer.bypassSecurityTrustResourceUrl(this.avio.map);
 					}
 				},
 				(error) => {
@@ -70,6 +74,16 @@ export class AvioProfileComponent implements OnInit {
 		);
 		
 		
+	}
+
+	fetchFlights() {
+		this.avioService.getAviosFlights(this.avio.id).subscribe(
+			(data) => {
+				this.flights = data;
+				this.formatHoursMinutes();
+			},
+			(error) => console.log(error)
+		);
 	}
 	/*
 	onShowFlights() {
@@ -122,7 +136,28 @@ export class AvioProfileComponent implements OnInit {
 		}
 	}
 
+	formatHoursMinutes() {
+
+		for (let f of this.flights) {
+			f.totalDurationMins = f.totalDuration % 60;
+			f.totalDurationHours = Math.floor(f.totalDuration/60);
+			f.totalDurationDays = Math.floor(f.totalDurationHours/24);
+			f.totalDurationHours -= f.totalDurationDays * 24;
+
+			f.departureDate = new Date(f.departureDate);
+			f.landingDate = new Date(f.landingDate);
+			
+		}
+
+
+	}
+
+
 	onToggleCountry(i) {
 		this.arrows[i] = !this.arrows[i];
+	}
+
+	onToggleFlights() {
+		this.showFlights = !this.showFlights;
 	}
 }

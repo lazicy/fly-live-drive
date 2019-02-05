@@ -57,6 +57,7 @@ import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.
 import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
 import { SeatsEditComponent } from './avio/avio-admin/flight-form/seats-edit/seats-edit.component';
+import { FlightlistComponent } from './avio/avio-profile/flightlist/flightlist.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { SeatsEditComponent } from './avio/avio-admin/flight-form/seats-edit/sea
     VehiclesComponent,
     VehicleFormComponent,
     RentProfileComponent,
-    SeatsEditComponent
+    SeatsEditComponent,
+    FlightlistComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,132 @@
+.card-container {
+    display: flex;
+    background: rgb(241, 247, 254);
+    border: 2px solid #80808017;
+    border-radius: 15px;
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+}
+
+.card-general-info {
+
+    display: flex;
+    width: 70%;
+    height: 100%;
+    justify-content: space-evenly;
+
+}
+
+.card-right-info {
+
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+}
+
+.card-departure {
+
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 100%;
+    padding: 10px;
+    justify-content: space-between;
+
+}
+
+.card-dest {
+
+    display: flex;
+    align-items: center;
+    height: 60%;
+    justify-content: flex-end;
+
+}
+
+.card-dest-arrival {
+    justify-content: flex-start;
+}
+
+.card-date {
+    font-size: 20px;
+}
+
+.card-icon {
+    font-size: 55px;
+    opacity: 0.8;
+}
+
+.card-place {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.card-city {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.card-country {
+    font-size: 20px;
+    opacity: 0.8;
+    line-height: 1;
+    text-transform: uppercase
+    
+}
+
+.card-trip {
+
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.card-trip-duration {
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: 500;
+
+}
+
+.card-trip-arrow {
+
+    font-size: 50px;
+    color: rgb(12, 153, 196);
+    line-height: 1.1;
+    transform: scaleX(1.5);
+
+
+}
+
+.card-trip-interceptions {
+    font-size: 15px;
+    
+    line-height: 1.1;
+}
+
+.card-arrival {
+
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 100%;
+    
+}
+
+
+
+
+
+
+.fa-plane-rotate {
+    transform: rotateZ(80deg);
+}

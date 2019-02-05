@@ -18,7 +18,7 @@
           <span class="rate_circle"></span>
         </div><hr>
 
-        <div class="destinations">
+        <div class="banner-bar">
           <h5>Destinations</h5>
           <div *ngFor="let country of destCountries, let i = index">
             <p class="country-name" (click)="onToggleCountry(i)"><i
@@ -37,10 +37,20 @@
           </div>
         </div>
 
+
+        <div class="banner-bar">
+          <h5 (click)="onToggleFlights()"> Flights </h5>
+
+          <div *ngIf="showFlights">
+            <app-flightlist avioId="{{avio.id}}"></app-flightlist>
+        
+          </div>
+        </div>
+
         <div class="map" id="mapa" >
           <h5>Location</h5>
           <div *ngIf="map">
-            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(avio.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe [src]="map" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
           <div *ngIf="!map">
             Google map location was not provided

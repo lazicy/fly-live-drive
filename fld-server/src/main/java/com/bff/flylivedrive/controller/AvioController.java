@@ -53,7 +53,14 @@ public class AvioController {
 		for (Avio a: avios) {
 			AvioDTO aDTO = new AvioDTO(a);
 			aviosDTO.add(aDTO);
+			
+			if (a.getOcene() != null) {
+				System.out.println(a.getOcene().toString());
+				
+			}
 		}
+		
+		
 		
 		return new ResponseEntity<>(aviosDTO, HttpStatus.OK);
 	}
@@ -103,6 +110,12 @@ public class AvioController {
 		
 		AvioMapper mapper = new AvioMapper();
 		Avio avio = mapper.mapNew(avioDTO, c);
+		
+		
+		avio.getOcene().add(3.0);
+		avio.getOcene().add(5.0);
+		avio.getOcene().add(4.0);
+		
 		
 		
 		
