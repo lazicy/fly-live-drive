@@ -34,6 +34,14 @@ export class HotelService {
 
     getHotelServices(id: number) {
 		return this.http.get("/api/hotel/" + id + "/services");
-	}
+    }
+    
+    saveHotelService(serv, id:number) {
+		return this.http.post("/api/hotel/service/" + id, serv);
+    }
+    
+    getHotelRooms(id: number) {
+        return this.http.get("/api/hotel/" + id + "/rooms");
+    }
 
 }

@@ -9,5 +9,60 @@ h2 {
 }
 
 .modal-content {
-    width: 40%;
+    width: 30%;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: rgb(1, 163, 192);
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.fa-plus-circle {
+    line-height: 1;
+    font-size: 18px;
+    color:white;
+}
+
+.fa-plus-circle:hover {
+    color:rgb(194, 255, 175);
+    cursor: pointer;
+}
+
+.actions {
+    text-align: center;
+    width: 10%;
+}
+
+.align-center {
+    margin: 0px auto;
+}
+
+.new-button {
+    background: rgb(1, 148, 206);
+    font-size: 15px;
+    float: right;
+    margin-bottom: 10px;
+    line-height: 1;
+} 
+
+.new-button:hover {
+    background: rgb(0, 88, 139);
+}
+
+.servicess-container {
+    padding: 10px 0px 10px 0px
+}
+
+.table td {
+    padding: 2px 0 2px 15px;
+    vertical-align: middle;
+    height: 50px;
+}
+
+.table-responsive {
+    overflow: unset;
 }

@@ -1,6 +1,5 @@
 package com.bff.flylivedrive.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +15,14 @@ public class Usluga {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="naziv", nullable = false)
-	private String naziv;
+	@Column(name="name", nullable = false)
+	private String name;
 	
 	@Column(name="cena", nullable = false)
-	private Double cena;
+	private Double price;
+	
+	@Column(name="naplata", nullable = false)
+	private String charge;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
@@ -33,20 +35,28 @@ public class Usluga {
 		this.id = id;
 	}
 
-	public String getNaziv() {
-		return naziv;
+	public String getName() {
+		return name;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Double getCena() {
-		return cena;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setCena(Double cena) {
-		this.cena = cena;
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getCharge() {
+		return charge;
+	}
+
+	public void setCharge(String charge) {
+		this.charge = charge;
 	}
 
 	public Hotel getHotel() {

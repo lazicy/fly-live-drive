@@ -38,8 +38,9 @@
 
         <div class="vehicles">
             <h5 class="grane" (click)="onToggleVehicles()">
-              Vehicles <i class="fa fa-arrow-right" aria-hidden="true" 
-              [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i></h5>
+              <i class="fa fa-arrow-right" aria-hidden="true" 
+              [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i> 
+              Vehicles</h5>
               <div class="table-responsive" *ngIf="showVehicles">
                 <table class="table" *ngIf="!emptyVehicleList">
                   <tbody>

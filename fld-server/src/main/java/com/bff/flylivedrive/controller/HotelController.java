@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
-import com.bff.flylivedrive.dto.ServiceDTO;
+import com.bff.flylivedrive.dto.UslugaDTO;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Hotel;
 import com.bff.flylivedrive.model.Usluga;
@@ -37,7 +37,7 @@ public class HotelController {
 //	private RoomService roomService;
 //	
 	@Autowired
-	UslugaService serviceService;
+	UslugaService uslugaService;
 	
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -108,7 +108,13 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		City c = cityService.findOneById(hotelDTO.getCityDTO().getId());
+		City c;
+		
+		try {
+			c = cityService.findOneById(hotelDTO.getCityDTO().getId());
+		} catch (NullPointerException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		hotel.setName(hotelDTO.getName());
 		hotel.setAddress(hotelDTO.getAddress());
@@ -139,19 +145,41 @@ public class HotelController {
 	
 	//ALL hotel services
 	@RequestMapping(value = "/{hotelId}/services", method = RequestMethod.GET)
-	public ResponseEntity<List<ServiceDTO>> getHotelServices(@PathVariable Long hotelId) {
+	public ResponseEntity<List<UslugaDTO>> getHotelServices(@PathVariable Long hotelId) {
 		
 		Hotel hotel = hotelService.findOneById(hotelId);
 		if(hotel == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		Set<Usluga> services = hotel.getUsluge();
-		List<ServiceDTO> servicesDTO = new ArrayList<>();
-		for(Usluga s : services) {
-			servicesDTO.add(new ServiceDTO(s));
+		Set<Usluga> usluga = hotel.getUsluge();
+		List<UslugaDTO> uslugaDTO = new ArrayList<>();
+		for(Usluga s : usluga) {
+			uslugaDTO.add(new UslugaDTO(s));
 		}
 		
-		return new ResponseEntity<>(servicesDTO, HttpStatus.OK);
+		return new ResponseEntity<>(uslugaDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/service/{id}", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<UslugaDTO> saveUsluga(@RequestBody UslugaDTO uslugaDTO, @PathVariable("id") Long id) {
+		Hotel h = hotelService.findOneById(id);
+		
+		if (h == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Usluga usl = new Usluga();
+		usl.setName(uslugaDTO.getName());
+		usl.setPrice(uslugaDTO.getPrice());
+		usl.setCharge(uslugaDTO.getCharge());
+		usl.setHotel(h);
+		
+		Set<Usluga> usluge = h.getUsluge();
+		usluge.add(usl);
+		
+		usl = uslugaService.save(usl);
+		
+		return new ResponseEntity<>(new UslugaDTO(usl), HttpStatus.CREATED);
 	}
 }

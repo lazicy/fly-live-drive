@@ -55,6 +55,7 @@ import { DataService } from './services/data.service';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/vehicle-form.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
+import { AddServiceComponent } from './hotel/hotel-admin/add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { RentProfileComponent } from './rent/rent-profile/rent-profile.component
     BranchFormComponent,
     VehiclesComponent,
     VehicleFormComponent,
-    RentProfileComponent
+    RentProfileComponent,
+    AddServiceComponent
   ],
   imports: [
     BrowserModule,

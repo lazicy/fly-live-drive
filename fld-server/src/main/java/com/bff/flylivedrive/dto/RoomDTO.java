@@ -6,31 +6,31 @@ public class RoomDTO {
 	
 	private Long id;
 	private String name;
-	private int broj_kreveta;
-	private int kapacitet_ljudi;
-	private double cena;
-	private int sprat;
-	private boolean balkon;
-	private boolean zauzeta;
+	private int beds;
+	private int people_capacity;
+	private double price;
+	private int floor;
+	private boolean balcony;
+	private boolean booked;
 	
 	public RoomDTO() {
 		
 	}
 	
 	public RoomDTO(Room r) {
-		this(r.getId(), r.getName(), r.getBroj_kreveta(), r.getKapacitet_ljudi(), r.getCena(), r.getSprat(), r.isBalkon(), r.isZauzeta());
+		this(r.getId(), r.getName(), r.getBeds(), r.getPeople_capacity(), r.getPrice(), r.getFloor(), r.isBalcony(), r.isBooked());
 	}
 	
-	public RoomDTO(Long id, String name, int broj_kreveta, int kapacitet_ljudi, double cena, int sprat, boolean balkon, boolean zauzeta) {
+	public RoomDTO(Long id, String name, int beds, int people_capacity, double price, int floor, boolean balcony, boolean booked) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.broj_kreveta = broj_kreveta;
-		this.kapacitet_ljudi = kapacitet_ljudi;
-		this.cena = cena;
-		this.sprat = sprat;
-		this.balkon = balkon;
-		this.zauzeta = zauzeta;
+		this.beds = beds;
+		this.people_capacity = people_capacity;
+		this.price = price;
+		this.floor = floor;
+		this.balcony = balcony;
+		this.booked = booked;
 	}
 	
 	public Long getId() {
@@ -38,36 +38,6 @@ public class RoomDTO {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public int getBroj_kreveta() {
-		return broj_kreveta;
-	}
-	public void setBroj_kreveta(int broj_kreveta) {
-		this.broj_kreveta = broj_kreveta;
-	}
-	public double getCena() {
-		return cena;
-	}
-	public void setCena(double cena) {
-		this.cena = cena;
-	}
-	public int getSprat() {
-		return sprat;
-	}
-	public void setSprat(int sprat) {
-		this.sprat = sprat;
-	}
-	public boolean isBalkon() {
-		return balkon;
-	}
-	public void setBalkon(boolean balkon) {
-		this.balkon = balkon;
-	}
-	public boolean isZauzeta() {
-		return zauzeta;
-	}
-	public void setZauzeta(boolean zauzeta) {
-		this.zauzeta = zauzeta;
 	}
 
 	public String getName() {
@@ -78,12 +48,52 @@ public class RoomDTO {
 		this.name = name;
 	}
 
-	public int getKapacitet_ljudi() {
-		return kapacitet_ljudi;
+	public int getBeds() {
+		return beds;
 	}
 
-	public void setKapacitet_ljudi(int kapacitet_ljudi) {
-		this.kapacitet_ljudi = kapacitet_ljudi;
+	public void setBeds(int beds) {
+		this.beds = beds;
+	}
+
+	public int getPeople_capacity() {
+		return people_capacity;
+	}
+
+	public void setPeople_capacity(int people_capacity) {
+		this.people_capacity = people_capacity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+
+	public boolean isBalcony() {
+		return balcony;
+	}
+
+	public void setBalcony(boolean balcony) {
+		this.balcony = balcony;
+	}
+
+	public boolean isBooked() {
+		return booked;
+	}
+
+	public void setBooked(boolean booked) {
+		this.booked = booked;
 	}
 	
 	

@@ -18,8 +18,6 @@ export class HotelAdminComponent implements OnInit {
   countryList: any = [];
   cityList: any = [];
 
-  services: any = [];
-
   //show-hides
   showEditHotel: boolean = false;
   showServices: boolean = false;
@@ -41,10 +39,6 @@ export class HotelAdminComponent implements OnInit {
 				this.id = +params['idH'];
 			}
     );
-
-    // this.route.paramMap.subscribe(params => {
-    //   this.id = params.get("idH")
-    // })
     
     // avoiding sending multiple requests to the server, instead if it's initialized get's the value, if not waits for countries loaded event to pop up and subscribes to it => getting countryList anyway
     this.countryList = this.countryService.getCountryList();
@@ -123,8 +117,6 @@ export class HotelAdminComponent implements OnInit {
     this.hotelService.getHotelServices(this.hotel.id).subscribe(
       data => {
         this.hotel.services = data;
-        // just a reference for a better comparison
-        this.services = this.hotel.destinations;
       },  
       error => console.log(error)
         

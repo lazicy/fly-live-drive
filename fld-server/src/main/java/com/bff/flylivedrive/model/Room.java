@@ -18,23 +18,23 @@ public class Room {
 	@Column(name="name", nullable = false)
 	private String name;
 	
-	@Column(name="broj_kreveta", nullable = false)
-	private Integer broj_kreveta;
+	@Column(name="no_of_beds", nullable = false)
+	private Integer beds;
 	
-	@Column(name="kapacitet_ljudi", nullable = false)
-	private Integer kapacitet_ljudi;
+	@Column(name="people_capacity", nullable = false)
+	private Integer people_capacity;
 	
-	@Column(name="cena", nullable = false)
-	private Double cena;
+	@Column(name="price", nullable = false)
+	private Double price;
 	
-	@Column(name="sprat", nullable = false)
-	private Integer sprat;
+	@Column(name="floor", nullable = false)
+	private Integer floor;
 	
-	@Column(name="balkon", nullable = false)
-	private boolean balkon;
+	@Column(name="balcony", nullable = false)
+	private boolean balcony;
 	
-	@Column(name="zauzeta", nullable = false)
-	private boolean zauzeta;
+	@Column(name="booked", nullable = false)
+	private boolean booked;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
@@ -43,7 +43,7 @@ public class Room {
 	
 	public Room() {
 		super();
-		zauzeta = false;
+		booked = false;
 	}
 
 	public Long getId() {
@@ -62,52 +62,52 @@ public class Room {
 		this.name = name;
 	}
 
-	public Integer getBroj_kreveta() {
-		return broj_kreveta;
+	public Integer getBeds() {
+		return beds;
 	}
 
-	public void setBroj_kreveta(Integer broj_kreveta) {
-		this.broj_kreveta = broj_kreveta;
+	public void setBeds(Integer beds) {
+		this.beds = beds;
 	}
 
-	public Integer getKapacitet_ljudi() {
-		return kapacitet_ljudi;
+	public Integer getPeople_capacity() {
+		return people_capacity;
 	}
 
-	public void setKapacitet_ljudi(Integer kapacitet_ljudi) {
-		this.kapacitet_ljudi = kapacitet_ljudi;
+	public void setPeople_capacity(Integer people_capacity) {
+		this.people_capacity = people_capacity;
 	}
 
-	public Double getCena() {
-		return cena;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setCena(Double cena) {
-		this.cena = cena;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public Integer getSprat() {
-		return sprat;
+	public Integer getFloor() {
+		return floor;
 	}
 
-	public void setSprat(Integer sprat) {
-		this.sprat = sprat;
+	public void setFloor(Integer floor) {
+		this.floor = floor;
 	}
 
-	public boolean isBalkon() {
-		return balkon;
+	public boolean isBalcony() {
+		return balcony;
 	}
 
-	public void setBalkon(boolean balkon) {
-		this.balkon = balkon;
+	public void setBalcony(boolean balcony) {
+		this.balcony = balcony;
 	}
 
-	public boolean isZauzeta() {
-		return zauzeta;
+	public boolean isBooked() {
+		return booked;
 	}
 
-	public void setZauzeta(boolean zauzeta) {
-		this.zauzeta = zauzeta;
+	public void setBooked(boolean booked) {
+		this.booked = booked;
 	}
 
 	public Hotel getHotel() {
