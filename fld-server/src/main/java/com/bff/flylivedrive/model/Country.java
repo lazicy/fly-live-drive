@@ -11,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.bff.flylivedrive.dto.CountryDTO;
 
 @Entity
 public class Country {
@@ -24,6 +27,20 @@ public class Country {
 	
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<City> cites = new HashSet<City>();
+	
+	public Country() {
+		
+	}
+	
+	public Country(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	public Country(CountryDTO country) {
+		this(country.getId(),country.getName());
+	}
 
 	public Long getId() {
 		return id;

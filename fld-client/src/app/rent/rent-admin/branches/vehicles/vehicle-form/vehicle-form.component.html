@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+      <form (ngSubmit)="onSubmitVehicle(f)" name="addVehicleForm" #f="ngForm">
+          <h2>Insert new vehicle</h2>
+          <hr>
+        <div class="row">
+          <div class="row">
+              <div class="col form-group">
+                  <label>Model:</label>
+                  <input type="text" [(ngModel)]="model" name="v_model" class="form-control" id=model ngModel required/>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col form-group">
+                  <label>Brand:</label>
+                  <input type="text" [(ngModel)]="brand" name="v_brand" class="form-control"  id=brand ngModel required/>
+              </div>
+          </div>
+    </div>
+    <div class="row">
+          <div class="row">
+            <div class="col form-group">
+                <label>Year of production:</label>
+                <input type="text" [(ngModel)]="production_year" name="v_production_year" class="form-control" id=production_year ngModel required/>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col form-group">
+                    <label>Price per day:</label>
+                    <input type="text" [(ngModel)]="price_per_day" name="v_price_per_day" class="form-control"  id=price_per_day ngModel required/>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col form-group" style="margin-right:5px">
+                <label>Number of seats:</label>
+                <select class="form-control" [(ngModel)]="number_of_seats" name="v_number_of_seats"  id=v_number_of_seats ngModel required>
+                        <option *ngFor="let seat of seatList" [value]="seat"> {{ seat }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label>Type:</label>
+                <select class="form-control" [(ngModel)]="type" name="v_type"  id=v_type ngModel required>
+                <option>Sedan</option>
+                <option>SUV</option>
+                <option>Coupe</option>
+                <option>Convertible</option>
+                <option>Van</option>
+                </select>
+            </div>
+        </div>
+    </div>
+          <div class="row">
+              <div class="col form-group">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
+                <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+              </div>
+            </div>
+            
+      </form>
+  </div>
+</div>

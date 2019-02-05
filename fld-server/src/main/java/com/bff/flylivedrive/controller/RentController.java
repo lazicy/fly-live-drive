@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bff.flylivedrive.dto.CityDTO;
+import com.bff.flylivedrive.dto.CountryDTO;
 import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
 import com.bff.flylivedrive.dto.VoziloDTO;
 import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.Country;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
 import com.bff.flylivedrive.model.Vozilo;
 import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.CityService;
+import com.bff.flylivedrive.service.CountryService;
 import com.bff.flylivedrive.service.RentService;
 import com.bff.flylivedrive.service.VoziloService;
 
@@ -42,6 +46,9 @@ public class RentController {
 	
 	@Autowired
 	CityService cityService;
+	
+	@Autowired
+	CountryService countryService;
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -84,9 +91,7 @@ public class RentController {
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<RentDTO> saveRent(@RequestBody RentDTO rent){
-		City c = cityService.findOneById(rent.getCityDTO().getId());
-		
-		RentACar rentAcar = new RentACar(rent, c);
+		RentACar rentAcar = new RentACar(rent);
 		//kreiraj novi objekat i sacuvaj ga u bazu
 		rentAcar = rentService.save(rentAcar);
 		
@@ -98,7 +103,6 @@ public class RentController {
 	//@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<RentDTO> editRent(@RequestBody RentDTO rentDTO){
 		RentACar rentAcar = rentService.findOneById(rentDTO.getId());
-	
 		City c;
 		
 		try {
@@ -121,7 +125,6 @@ public class RentController {
 		rentAcar.setAddress(rentDTO.getAddress());
 		rentAcar.setCity(c);
 		rentAcar.setDescription(rentDTO.getDescription());
-		rentAcar.setRentImageUrl(rentDTO.getRentImageUrl());
 		
 		rentAcar = rentService.save(rentAcar);
 		
@@ -152,6 +155,12 @@ public class RentController {
 		}
 		
 		return new ResponseEntity<>(filijale, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getBranchOffice/{id}", method = RequestMethod.GET)
+	public ResponseEntity<FilijalaDTO> getBranchOffice(@PathVariable("id")Long id){
+		Filijala f = fService.findOneById(id);
+		return new ResponseEntity<>(new FilijalaDTO(f),HttpStatus.OK);
 	}
 	
 	
@@ -238,6 +247,12 @@ public class RentController {
 		return new ResponseEntity<>(new VoziloDTO(vozilo), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getVehicle/{idV}", method = RequestMethod.GET)
+	public ResponseEntity<VoziloDTO> getVehicle(@PathVariable("idV")Long id){
+		Vozilo v = vService.findOneById(id);
+		return new ResponseEntity<>(new VoziloDTO(v),HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/getRENTVehicles/{id}",method = RequestMethod.GET)
 	public ResponseEntity<List<VoziloDTO>> getRENTVehicles(@PathVariable("id") Long id){
 		
@@ -255,6 +270,40 @@ public class RentController {
 		}
 		
 		return new ResponseEntity<>(temp, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getRentCountries/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<CountryDTO>> getRentCountries(@PathVariable("id") Long id){
+		List<Country> countries = countryService.getRentCountries(id);
+		if(countries == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		List<CountryDTO> countriesDTO = new ArrayList<CountryDTO>();
+		for(Country c: countries) {
+			countriesDTO.add(new CountryDTO(c));
+		}
+		
+		return new ResponseEntity<>(countriesDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getCityByCountryId/{idR}/{idC}", method = RequestMethod.GET)
+	public ResponseEntity<List<CityDTO>> getCityByCountryId(@PathVariable("idC") Long idC, @PathVariable("idR") Long idR){
+		//lista gradova za zemlju 
+		List<City> cities = cityService.findCityByCountryId(idC);
+		//za filijale servisa nadji u kojim gradovima za konkretnu zemlju posloju
+		RentACar rent = rentService.findOneById(idR);
+		Set<Filijala> filijale = rent.getFilijale();
+		List<CityDTO> citiesDTO = new ArrayList<CityDTO>();
+		for(Filijala f: filijale) {
+			for(City c: cities) {
+				System.out.println("CITY" + c.getName());
+				if(c.getId().equals(f.getCity().getId())) {
+					citiesDTO.add(new CityDTO(c));
+					break;
+				}
+			}
+		}
+		return new ResponseEntity<>(citiesDTO,HttpStatus.OK);
 	}
 	
 }

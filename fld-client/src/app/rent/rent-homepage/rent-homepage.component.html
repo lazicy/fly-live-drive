@@ -17,7 +17,6 @@
     </div>
   </div>
     <div class="row" id="pretrazi">
-      <button class="btn btn-primary" [routerLink]="['/rent/administrateRents']" style="background-color: green; border-color: green; text-align: center;">Administration</button>
       <button class="btn btn-primary" (click)="onSearch()">Search services</button>
       <button class="btn btn-primary" (click)="onRefresh()">Refresh</button>
     </div>
@@ -29,7 +28,7 @@
 <div *ngIf="filter">
 <div id="main-part" class="container">
   <div class="row" class="center">
-    <h3 style="margin-bottom: 25px;">All services.</h3>
+    <h3 style="margin-bottom: 25px;">All services</h3>
   </div>
   <div class="container" *ngIf="rentListFilter">
     <div class="row" *ngFor="let rent of rentListFilter">

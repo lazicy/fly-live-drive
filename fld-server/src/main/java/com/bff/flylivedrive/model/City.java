@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.bff.flylivedrive.dto.CityDTO;
 
 @Entity
 public class City {
@@ -38,6 +41,27 @@ public class City {
 	
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<RentACar> rents = new HashSet<RentACar>();
+	
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Filijala> filijale = new HashSet<Filijala>();
+	
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<VehicleReservation> vehicleReservations = new HashSet<VehicleReservation>();
+	
+	public City() {
+		
+	}
+	
+	public City(Long id, String name, Country country) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.country = country;
+	}
+	
+	public City(CityDTO city) {
+		this(city.getId(),city.getName(),new Country(city.getCountryDTO()));
+	}
 	
 	public Long getId() {
 		return id;
@@ -93,6 +117,14 @@ public class City {
 
 	public void setRents(Set<RentACar> rents) {
 		this.rents = rents;
+	}
+
+	public Set<Filijala> getFilijale() {
+		return filijale;
+	}
+
+	public void setFilijale(Set<Filijala> filijale) {
+		this.filijale = filijale;
 	}
 	
 }

@@ -7,8 +7,8 @@
         <div class="modal-body">
             <button type="button" class="close" (click)="onCloseForm()">
                 <span aria-hidden="true">&times;</span>
-              </button>
-          <app-branch-form (branchSubmit)="branchSubmitted($event)"></app-branch-form>
+            </button>
+          <app-branch-form (branchSubmit)="branchSubmitted($event)" [closed]="isClosed"></app-branch-form>
         </div>
       </div>
     </div>
@@ -34,14 +34,14 @@
         <tbody>
             <tr *ngFor="let branch of branchList">
                 <th scope="row">{{ branch.id }}</th>
-                <td><a [routerLink]="">{{ branch.name }}</a></td>
+                <td> {{ branch.name }} </td>
                 <td>{{ branch.address }}</td>
-                <td>{{ branch.city }}</td>
-                <td>{{ branch.country }}</td>
+                <td>{{ branch.cityDTO.name }}</td>
+                <td>{{ branch.cityDTO.countryDTO.name }}</td>
                 <td>{{ branch.description }}</td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onEditBranch(branch.id)"><i class="fa fa-pencil"></i>Edit</button></td>
                 <td style="width:10px"><button class="btn btn-link" (click)="onDeleteBranch(branch.id)"><i class="fa fa-trash"></i>Delete</button></td>
-                <td style="width:10px"> <button  class="btn btn-link" [routerLink]="['/rent/', id, branch.id]"><i class="fa fa-bars"></i> Vehicles </button>  </td>
+                <td style="width:10px"> <button  class="btn btn-link" [routerLink]="[branch.id]"><i class="fa fa-bars"></i> Vehicles </button>  </td>
               </tr>
             </tbody>
       </table>

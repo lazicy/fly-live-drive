@@ -10,14 +10,14 @@ public class VoziloDTO {
 	private String productionYear;
 	private int numberOfSeats;
 	private String type;
+	private int pricePerDay;
 	
 	public VoziloDTO() {
 		
 	}
-
 	
 	
-	public VoziloDTO(Long id, String model, String brand, String productionYear, int numberOfSeats, String type) {
+	public VoziloDTO(Long id, String model, String brand, String productionYear, int numberOfSeats, String type, int price) {
 		super();
 		this.id = id;
 		this.model = model;
@@ -25,12 +25,11 @@ public class VoziloDTO {
 		this.productionYear = productionYear;
 		this.numberOfSeats = numberOfSeats;
 		this.type = type;
+		this.setPricePerDay(price);
 	}
 
-
-
 	public VoziloDTO(Vozilo vozilo) {
-		this(vozilo.getId(), vozilo.getModel(), vozilo.getBrand(),vozilo.getProductionYear(),vozilo.getNumberOfSeats(),vozilo.getType());
+		this(vozilo.getId(), vozilo.getModel(), vozilo.getBrand(),vozilo.getProductionYear(),vozilo.getNumberOfSeats(),vozilo.getType(),vozilo.getPricePerDay());
 	}
 
 	public Long getId() {
@@ -79,5 +78,14 @@ public class VoziloDTO {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public int getPricePerDay() {
+		return pricePerDay;
+	}
+
+	public void setPricePerDay(int pricePerDay) {
+		this.pricePerDay = pricePerDay;
+	}
 	
+
 }

@@ -29,5 +29,7 @@ public class CountryService {
 	public void remove(Long id) {
 		countryRepo.deleteById(id);
 	}
-
+	public List<Country> getRentCountries(Long id){
+		return countryRepo.getRentCountries(id);
+	}
 }

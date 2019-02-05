@@ -19,6 +19,7 @@ export class VehiclesComponent implements OnInit {
   showFormDialog: boolean = false;
   isClosed: Subject<boolean> = new Subject();
 
+
   constructor(private service: RentService,private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.route.params.subscribe(
       (params: Params) => {
@@ -95,14 +96,13 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
-  //obavestava child komponentu da je forma zatvorena
-  notifyChild(value){
-    this.isClosed.next(value);
-  }
-
-
   onCloseForm(){
     this.showFormDialog = false;
     this.notifyChild(true);
+  }
+
+  //obavestava child komponentu da je forma zatvorena
+  notifyChild(value){
+    this.isClosed.next(value);
   }
 }

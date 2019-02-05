@@ -34,9 +34,6 @@ public class RentACar {
 	@Column(name = "description", nullable = true)
 	String description;
 	
-	@Column(name = "rentImageUrl", nullable = true)
-	String rentImageUrl;
-	
 	//jedan servis sadrzi vise filijala
 	@OneToMany(mappedBy = "servis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
@@ -46,19 +43,17 @@ public class RentACar {
 		
 	}
 	
-	public RentACar(Long id, String name, String address, City city, String description,
-			String rentImageUrl) {
+	public RentACar(Long id, String name, String address, City city, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
 		this.description = description;
-		this.rentImageUrl = rentImageUrl;
 	}
 
-	public RentACar(RentDTO rent, City c) {
-		this(rent.getId(),rent.getName(),rent.getAddress(),c,rent.getDescription(),rent.getRentImageUrl());
+	public RentACar(RentDTO rent) {
+		this(rent.getId(),rent.getName(),rent.getAddress(),new City(rent.getCityDTO()),rent.getDescription());
 	}
 	
 	public City getCity() {
@@ -107,14 +102,6 @@ public class RentACar {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getRentImageUrl() {
-		return rentImageUrl;
-	}
-
-	public void setRentImageUrl(String rentImageUrl) {
-		this.rentImageUrl = rentImageUrl;
 	}
 	
 }

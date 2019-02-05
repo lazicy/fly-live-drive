@@ -1,5 +1,6 @@
 package com.bff.flylivedrive.dto;
 
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
 
@@ -8,29 +9,25 @@ public class FilijalaDTO {
 	private Long id;
 	private String name;
 	private String address;
-	private String city;
-	private String country;
+	private CityDTO cityDTO;
 	private String description;
 	
 	public FilijalaDTO() {
 		
 	}
 
-	public FilijalaDTO(Filijala f) {
-		this(f.getId(),f.getName(),f.getAddress(),f.getCity(),f.getCountry(),f.getDescription());
-	}
-	
-	public FilijalaDTO(Long id, String name, String adress, String city, String country, String description) {
+	public FilijalaDTO(Long id, String name, String adress, CityDTO city, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = adress;
-		this.city = city;
-		this.country = country;
+		this.cityDTO = city;
 		this.description = description;
 	}
-
 	
+	public FilijalaDTO(Filijala f) {
+		this(f.getId(),f.getName(),f.getAddress(),new CityDTO(f.getCity()),f.getDescription());
+	}
 	public Long getId() {
 		return id;
 	}
@@ -55,22 +52,6 @@ public class FilijalaDTO {
 		this.address = adress;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -78,5 +59,14 @@ public class FilijalaDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public CityDTO getCityDTO() {
+		return cityDTO;
+	}
+
+	public void setCityDTO(CityDTO cityDTO) {
+		this.cityDTO = cityDTO;
+	}
+	
 	
 }
