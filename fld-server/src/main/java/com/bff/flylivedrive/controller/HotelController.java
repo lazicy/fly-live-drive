@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
+import com.bff.flylivedrive.dto.RoomDTO;
 import com.bff.flylivedrive.dto.UslugaDTO;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Hotel;
+import com.bff.flylivedrive.model.Room;
 import com.bff.flylivedrive.model.Usluga;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.HotelService;
+import com.bff.flylivedrive.service.RoomService;
 import com.bff.flylivedrive.service.UslugaService;
 
 @RestController
@@ -34,9 +37,9 @@ public class HotelController {
 	@Autowired
 	CityService cityService;
 	
-//	@Autowired
-//	private RoomService roomService;
-//	
+	@Autowired
+	RoomService roomService;
+	
 	@Autowired
 	UslugaService uslugaService;
 	
@@ -260,5 +263,79 @@ public class HotelController {
 		usl = uslugaService.save(usl);
 		
 		return new ResponseEntity<UslugaDTO>(new UslugaDTO(usl),HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/room/{id}", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<RoomDTO> saveRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
+		Hotel h = hotelService.findOneById(id);
+		
+		if (h == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Room r = new Room();
+		r.setName(roomDTO.getName());
+		r.setBeds(roomDTO.getBeds());
+		r.setFloor(roomDTO.getFloor());
+		r.setPeople_capacity(roomDTO.getPeople_capacity());
+		r.setPrice(roomDTO.getPrice());
+		r.setBalcony(roomDTO.getBalcony());
+		r.setHotel(h);
+		
+		Set<Room> sobe = h.getRooms();
+		sobe.add(r);
+		
+		r = roomService.save(r);
+		
+		return new ResponseEntity<>(new RoomDTO(r), HttpStatus.CREATED);
+	}
+	
+	//ALL hotel rooms
+	@RequestMapping(value = "/{hotelId}/rooms", method = RequestMethod.GET)
+	public ResponseEntity<List<RoomDTO>> getHotelRooms(@PathVariable Long hotelId) {
+		
+		Hotel hotel = hotelService.findOneById(hotelId);
+		if(hotel == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Room> rooms = hotel.getRooms();
+		List<RoomDTO> roomDTO = new ArrayList<>();
+		for(Room r : rooms) {
+			roomDTO.add(new RoomDTO(r));
+		}
+		
+		return new ResponseEntity<>(roomDTO, HttpStatus.OK);
+	}
+		
+	@RequestMapping(value="/{idH}/room/{idR}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteRoom(@PathVariable("idH") Long idH, @PathVariable("idR") Long idR){
+		
+		Hotel hotel = hotelService.findOneById(idH);
+		
+		if(hotel == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Room r = roomService.findOneById(idR);
+		
+		if(r == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		roomService.remove(idR);
+		
+		Set<Room> rooms = hotel.getRooms();
+		Iterator<Room> itr = rooms.iterator();
+		while (itr.hasNext())
+		{
+		    Room ro = itr.next();
+		    if (ro.getId().equals(idR)) {
+		        itr.remove();
+		        break;
+		    }
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

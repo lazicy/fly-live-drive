@@ -31,7 +31,7 @@ public class Room {
 	private Integer floor;
 	
 	@Column(name="balcony", nullable = false)
-	private boolean balcony;
+	private String balcony;
 	
 	@Column(name="booked", nullable = false)
 	private boolean booked;
@@ -94,11 +94,11 @@ public class Room {
 		this.floor = floor;
 	}
 
-	public boolean isBalcony() {
+	public String getBalcony() {
 		return balcony;
 	}
 
-	public void setBalcony(boolean balcony) {
+	public void setBalcony(String balcony) {
 		this.balcony = balcony;
 	}
 

@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -44,7 +42,7 @@ public class Hotel {
 	private int stars;
 	
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Room> sobe = new HashSet<Room>();
+	private Set<Room> rooms = new HashSet<Room>();
 	
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Usluga> usluge = new HashSet<Usluga>();
@@ -115,12 +113,12 @@ public class Hotel {
 		this.map = map;
 	}
 
-	public Set<Room> getSobe() {
-		return sobe;
+	public Set<Room> getRooms() {
+		return rooms;
 	}
 
-	public void setSobe(Set<Room> sobe) {
-		this.sobe = sobe;
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
 	}
 
 	public Set<Usluga> getUsluge() {
