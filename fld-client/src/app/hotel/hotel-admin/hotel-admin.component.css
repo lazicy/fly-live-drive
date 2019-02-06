@@ -12,6 +12,10 @@ h2 {
     width: 30%;
 }
 
+.room-content {
+    width: 45%;
+}
+
 .link:hover {
     cursor: pointer;
     color: rgb(1, 163, 192);

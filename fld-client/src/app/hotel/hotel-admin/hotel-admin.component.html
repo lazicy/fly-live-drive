@@ -138,7 +138,7 @@
             <app-add-service hotelId="{{hotel.id}}" (serviceSubmit)="serviceSubmitted($event)"></app-add-service>
           </div>
         </div>
-      </div>
+    </div>
 
       <div class="form-modal" *ngIf="showUpdateServiceDialog">
         <div class="modal-content">
@@ -163,8 +163,51 @@
     <button (click)="onNewRoom()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Room</button>
   
     <div class="do-animation" *ngIf="showRooms">
-        <!-- <app-flightlist-admin avioId="{{hotel.id}}"></app-flightlist-admin> -->
-    
+        <div class="table">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of beds</th>
+                    <th>Capacity</th>
+                    <th>Floor</th>
+                    <th>Balcony</th>
+                    <th>Price per night</th>
+                    <th>Rating</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let room of hotel.rooms">
+                  <td>{{room.name}}</td>
+                  <td>{{room.beds}}</td>
+                  <td>{{room.people_capacity}} persons</td>
+                  <td>{{room.floor}}</td>
+                  <td>{{room.balcony}}</td>
+                  <td>{{room.price}} €</td>
+                  <td>rating</td>
+                  <td class="actions">
+                      <button (click)="onUpdateRoom(room.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
+                    </td>
+                    <td class="actions">
+                      <button (click)="onRemoveRoom(room.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+
+    <div class="form-modal" *ngIf="showNewRoomDialog">
+        <div class="modal-content room-content">
+          <div class="modal-body">
+              <button type="button" class="close" (click)="onCloseAddRoom()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <app-add-room hotelId="{{hotel.id}}" (roomSubmit)="roomSubmitted($event)"></app-add-room>
+          </div>
+        </div>
     </div>
 
 </div>

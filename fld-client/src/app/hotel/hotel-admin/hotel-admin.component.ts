@@ -24,6 +24,8 @@ export class HotelAdminComponent implements OnInit {
   showServices: boolean = false;
   showNewServiceDialog: boolean = false;
   showUpdateServiceDialog: boolean = false;
+  showNewRoomDialog: boolean = false;
+  showUpdateRoomDialog: boolean = false;
   showRooms: boolean = false;
   cityValid: boolean = true;
 
@@ -57,6 +59,7 @@ export class HotelAdminComponent implements OnInit {
 				(data) => {
           this.hotel = data;
           this.fetchServices();
+          this.fetchRooms();
           this.initHotelForm();
 				},
 				(error) => {
@@ -118,6 +121,16 @@ export class HotelAdminComponent implements OnInit {
     this.hotelService.getHotelServices(this.hotel.id).subscribe(
       data => {
         this.hotel.services = data;
+      },  
+      error => console.log(error)
+        
+    );
+  }
+
+  fetchRooms() {
+    this.hotelService.getHotelRooms(this.hotel.id).subscribe(
+      data => {
+        this.hotel.rooms = data;
       },  
       error => console.log(error)
         
@@ -208,7 +221,16 @@ export class HotelAdminComponent implements OnInit {
   }
 
   onNewRoom() {
-    // this.router.navigate(['hotel/admin/' + this.hotel.id + "/room/new"]);
+    this.showNewRoomDialog = true;
+  }
+
+  onCloseAddRoom() {
+    this.showNewRoomDialog = false;
+  }
+
+  roomSubmitted(r) {
+    this.hotel.rooms.push(r);
+    this.showNewRoomDialog = false;
   }
 
   onRemoveService(idSer) {
@@ -222,12 +244,30 @@ export class HotelAdminComponent implements OnInit {
       if (willDelete) {
         this.hotelService.removeHotelService(idSer, this.id).subscribe(
           (result) => {
-              // fensi for petlja
               let i = this.hotel.services.findIndex(service => service.id === idSer);
-              // obrisi jednog clana na poziciji i
               this.hotel.services.splice(i, 1);
               swal({title: "Success!", text: "Service deleted.", icon: "success", timer: 1500});
           }, (error) =>  {swal ( "Error occured" ,  "The service was not deleted." ,  "error" );}
+          );
+      }
+    });
+  }
+
+  onRemoveRoom(idRoom) {
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.hotelService.removeHotelRoom(idRoom, this.id).subscribe(
+          (result) => {
+              let i = this.hotel.rooms.findIndex(room => room.id === idRoom);
+              this.hotel.rooms.splice(i, 1);
+              swal({title: "Success!", text: "Room deleted.", icon: "success", timer: 1500});
+          }, (error) =>  {swal ( "Error occured" ,  "The room was not deleted." ,  "error" );}
           );
       }
     });

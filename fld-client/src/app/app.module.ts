@@ -57,6 +57,8 @@ import { VehicleFormComponent } from './rent/rent-admin/branches/vehicle-form/ve
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
 import { AddServiceComponent } from './hotel/hotel-admin/add-service/add-service.component';
 import { EditServiceComponent } from './hotel/hotel-admin/edit-service/edit-service.component';
+import { AddRoomComponent } from './hotel/hotel-admin/add-room/add-room.component';
+import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,9 @@ import { EditServiceComponent } from './hotel/hotel-admin/edit-service/edit-serv
     VehicleFormComponent,
     RentProfileComponent,
     AddServiceComponent,
-    EditServiceComponent
+    EditServiceComponent,
+    AddRoomComponent,
+    EditRoomComponent
   ],
   imports: [
     BrowserModule,

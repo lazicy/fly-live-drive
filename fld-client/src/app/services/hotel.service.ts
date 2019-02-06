@@ -39,10 +39,6 @@ export class HotelService {
     saveHotelService(serv, id:number) {
 		return this.http.post("/api/hotel/service/" + id, serv);
     }
-    
-    getHotelRooms(id: number) {
-        return this.http.get("/api/hotel/" + id + "/rooms");
-    }
 
     removeHotelService(idSer: number, idHot: number) {
         return this.http.delete("/api/hotel/" + idHot + "/service/" + idSer);
@@ -54,6 +50,18 @@ export class HotelService {
 
     getHotelService(idS: number) {
 		return this.http.get("/api/hotel/service/" + idS);
+    }
+
+    getHotelRooms(id: number) {
+        return this.http.get("/api/hotel/" + id + "/rooms");
+    }
+
+    saveHotelRoom(room, id:number) {
+		return this.http.post("/api/hotel/room/" + id, room);
+    }
+
+    removeHotelRoom(idR: number, idH: number) {
+        return this.http.delete("/api/hotel/" + idH + "/room/" + idR);
     }
 
 }
