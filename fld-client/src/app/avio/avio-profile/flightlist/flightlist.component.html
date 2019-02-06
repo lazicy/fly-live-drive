@@ -48,7 +48,7 @@
 
 			<div class="card-dest">
 
-				<i class="fa fa-plane mr-1 card-icon"></i> 
+				<i class="fa fa-plane mr-3 card-icon"></i> 
 
 				<div class="card-place">
 					<span class="card-city">
@@ -65,7 +65,14 @@
 			</div>
 
 			<div class="card-date">
-				{{ f.departureDate }}
+				
+				<span class="time">
+					{{ f.departureTime }}
+				</span>
+	
+				<span class="date">
+					{{ f.departureDate }}
+				</span>
 
 			</div>
 
@@ -74,25 +81,28 @@
 		<div class="card-trip">
 
 			<div class="card-trip-duration">
-				<span *ngIf="f.totalDurationDays > 0">{{f.totalDurationDays}}d</span> 
-				<span *ngIf="f.totalDurationHours > 0"> {{f.totalDurationHours}}h</span> 
-				<span *ngIf="f.totalDurationMins > 0"> {{f.totalDurationMins}}m</span> 
+				<span *ngIf="f.totalDurationDays > 0"><span class="bold">{{f.totalDurationDays}}</span>d</span> 
+				<span *ngIf="f.totalDurationHours > 0"> <span class="bold"> {{f.totalDurationHours}}</span>h</span> 
+				<span *ngIf="f.totalDurationMins > 0"> <span class="bold"> {{f.totalDurationMins}}</span>m</span> 
 			</div>
 
-			<i class="fa fa-long-arrow-right card-trip-arrow"></i>
+			<div class="card-trip-arrow">
+				<i class="fa fa-location-arrow card-trip-arrow"></i>
+
+			</div> 
 
 			<div class="card-trip-interceptions">
-				{{ f.interceptionsDTO.length }} stops
+			<span class="bold">{{ f.interceptionsDTO.length }} </span> stop<span *ngIf="f.interceptionsDTO.length != 1">s</span>
 			</div>
 
 		</div>
 
-		<div class="card-arrival">
+		<div class="card-departure">
 
 			
 			<div class="card-dest card-dest-arrival">
 
-				<i class="fa fa-plane fa-plane-rotate mr-2 card-icon"></i> 
+				<i class="fa fa-plane fa-plane-rotate mr-3 card-icon"></i> 
 
 				<div class="card-place">
 					<span class="card-city">
@@ -109,7 +119,14 @@
 			</div>
 
 			<div class="card-date">
-				{{ f.landingDate }}
+
+				<span class="time">
+					{{ f.landingTime }}
+				</span>
+
+				<span class="date">
+					{{ f.landingDate }}
+				</span>
 			</div>
 
 		</div>
@@ -118,7 +135,23 @@
 	</div>
 
 	<div class="card-right-info">
+		
+		<div class="card-seats">
+			<span *ngIf="f.availableSeats > 10">{{ f.availableSeats }} seats available</span>
+			<span *ngIf="f.availableSeats <= 10">Only {{ f.availableSeats }} seats left</span>
+			
+		</div>
+		
+		<div class="card-price">
+			{{ f.price }} €
 
+		</div>
+
+		<div class="card-reserve">
+
+			Reserve now <i class="fa fa-arrow-circle-o-right ml-2"></i>
+
+		</div>
 
 	</div>
 

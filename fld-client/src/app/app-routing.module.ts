@@ -35,13 +35,14 @@ import { RentProfileComponent } from './rent/rent-profile/rent-profile.component
 import { SeatsEditComponent } from './avio/avio-admin/flight-form/seats-edit/seats-edit.component';
 import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component';
 import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
+import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
 
 
 const appRoutes: Routes = [
 	{ path: '', redirectTo: '/test', pathMatch: 'full'},
 	{ path: 'test', component: TestComponent },
 	{ path: 'avio', component: AvioComponent, children: [
-		{ path: '', component: AviolistComponent},
+		{ path: '', component: AvioHomepageComponent},
 		{ path: 'admin', component: AvioAdminComponent, children: [
 			{ path: '', component: AviolistAdminComponent },
 			//{ path: ':aId/flight/', component: FlightFormComponent },
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
 			{ path: ':id', component: AvioEditComponent}
 			
 		]},
-		{ path: ':id', component: AvioProfileComponent}
+		{ path: ':id', component: AvioProfileComponent},
+		{ path: 'list', component: AviolistComponent}
 	]},
 	{ path: 'rent', component: RentComponent, children: [
 		{path: '', component: RentHomepageComponent},

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AvioService } from 'src/app/services/avio.service';
 import { FlightService } from 'src/app/services/flight.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-flightlist',
@@ -11,7 +12,7 @@ import { FlightService } from 'src/app/services/flight.service';
 export class FlightlistComponent implements OnInit {
 	flights: any = [];
 	@Input() avioId: number;
-	constructor(private avioService: AvioService, private flightSerice: FlightService) { }
+	constructor(private avioService: AvioService, private flightSerice: FlightService, private utilService: UtilService) { }
 
 	ngOnInit() {
 		this.fetchFlights();
@@ -21,13 +22,13 @@ export class FlightlistComponent implements OnInit {
 		this.avioService.getAviosFlights(this.avioId).subscribe(
 			(data) => {
 				this.flights = data;
-				this.formatHoursMinutes();
+				this.formatDateAndTime();
 			},
 			(error) => console.log(error)
 		);
 	}
 	
-	formatHoursMinutes() {
+	formatDateAndTime() {
 
 		for (let f of this.flights) {
 			f.totalDurationMins = f.totalDuration % 60;
@@ -35,11 +36,32 @@ export class FlightlistComponent implements OnInit {
 			f.totalDurationDays = Math.floor(f.totalDurationHours/24);
 			f.totalDurationHours -= f.totalDurationDays * 24;
 
-			f.departureDate = new Date(f.departureDate);
-			f.landingDate = new Date(f.landingDate);
-			
-		}
+			let fd = new Date(f.departureDate);
+			let fl = new Date(f.landingDate);
 
+			f.departureDate = this.utilService.monthsFull[fd.getMonth()] + " " + fd.getDate() + ", " + fd.getFullYear();
+			f.landingDate = this.utilService.monthsFull[fl.getMonth()] + " " + fl.getDate() + ", " + fl.getFullYear();
+			
+			if (fd.getMinutes() < 10) {
+				f.departureTime = fd.getHours() + ":0" + fd.getMinutes();
+				
+			} else {
+				f.departureTime = fd.getHours() + ":" + fd.getMinutes();
+			}
+
+
+			if (fl.getMinutes() < 10) {
+				f.landingTime = fl.getHours() + ":0" + fl.getMinutes();
+				
+			} else {
+				f.landingTime = fl.getHours() + ":" + fl.getMinutes();
+			}
+		}
+	}
+
+	calculateAvailableSeats() {
+
+		
 
 	}
 

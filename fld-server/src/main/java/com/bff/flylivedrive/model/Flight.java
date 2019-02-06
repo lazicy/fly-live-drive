@@ -44,6 +44,9 @@ public class Flight {
 	@Column(name="price", nullable=false)
 	private double price;
 	
+	@Column(name="availableSeats", nullable=false)
+	private int availableSeats;
+	
 	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Interception> interceptions = new HashSet<Interception>();
 	
@@ -138,6 +141,16 @@ public class Flight {
 	public void setSeats(List<Seat> seats) {
 		this.seats = seats;
 	}
+
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+	
+	
 
 	
 	

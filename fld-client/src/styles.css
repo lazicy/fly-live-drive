@@ -114,7 +114,8 @@ select {
 }
 .lbl {
     display: block;
-    text-shadow: 0px 3.2px 6px rgba(0,0,0,0.2);
+    text-shadow: 1px 0.5px 5px rgba(0,0,0,0.6);
+    font-weight: 600;
 }
 .srcbar {
     float: left;
@@ -208,4 +209,10 @@ select {
     width: 90%;
     height: 95%;
 
+}
+
+
+.bold {
+    font-weight: 700;
+    opacity: 0.8;
 }

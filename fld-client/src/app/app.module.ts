@@ -60,6 +60,8 @@ import { VehicleFormComponent } from './rent/rent-admin/branches/vehicles/vehicl
 import { BranchFormComponent } from './rent/rent-admin/branches/branch-form/branch-form.component';
 import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component';
 import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
+import { UtilService } from './services/util.service';
+import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,8 @@ import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehic
     SeatsEditComponent,
     FlightlistComponent,
     VehicleListComponent,
-    VehicleSearchComponent
+    VehicleSearchComponent,
+    AvioHomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +122,7 @@ import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehic
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

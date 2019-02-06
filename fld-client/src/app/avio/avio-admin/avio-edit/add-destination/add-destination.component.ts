@@ -59,7 +59,7 @@ export class AddDestinationComponent implements OnInit, OnDestroy {
         form.reset();
         this.ngOnDestroy();
       },
-      (error) => {swal ( "Error occured" ,  "The company was not added." ,  "error" );}
+      (error) => {swal ( "Error occured" ,  "The destination cannot be added." ,  "error" );}
     );
 
    

@@ -16,5 +16,10 @@ export class FlightService {
         return this.http.get("/api/flight/" + id + "/seats");
     }
 
+    searchFlights(searchParams) {
+		return this.http.post("/api/flight/search", searchParams);
+	}
+
+
 }
 

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.FlightDTO;
 import com.bff.flylivedrive.dto.InterceptionDTO;
+import com.bff.flylivedrive.dto.SearchFlightDTO;
+import com.bff.flylivedrive.dto.SearchFlightResultDTO;
 import com.bff.flylivedrive.dto.SeatDTO;
 import com.bff.flylivedrive.dto.mappers.FlightMapper;
 import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
@@ -40,7 +42,7 @@ public class FlightController {
 	CityService cityService;
 
 	// Get ALL flights of ALL avios
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<FlightDTO>> getAllFlight(){
 		
 		System.out.println("getAllFlight");
@@ -147,6 +149,7 @@ public class FlightController {
 		List<Seat> seats = formSeatList(flightDTO.getNumberOfSeats(), flight);
 		
 		flight.setSeats(seats);
+		flight.setAvailableSeats(flightDTO.getNumberOfSeats());
 		
 		// save to database
 		flight = flightService.save(flight);
@@ -154,6 +157,28 @@ public class FlightController {
 		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.CREATED);
 		
 	}
+	
+	@RequestMapping(value ="/search", method = RequestMethod.POST, consumes = "application/json")
+	private ResponseEntity<List<SearchFlightResultDTO>> searchFlights(@RequestBody SearchFlightDTO sfDTO) {
+		
+		
+		System.out.println(sfDTO.getDepartureDate());
+		System.out.println(sfDTO.getReturnDate());
+		System.out.println(sfDTO.getFromCity());
+		System.out.println(sfDTO.getToCity());
+		System.out.println(sfDTO.getNumberOfPeople());
+		System.out.println(sfDTO.getTripType());
+		
+		
+		
+		
+		List<SearchFlightResultDTO> results = new ArrayList<>();
+		
+		return new ResponseEntity<>(results, HttpStatus.OK);
+	}
+	
+	
+	
 	
 	
 	// forming set of interceptions
