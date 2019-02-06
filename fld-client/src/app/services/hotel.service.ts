@@ -64,4 +64,12 @@ export class HotelService {
         return this.http.delete("/api/hotel/" + idH + "/room/" + idR);
     }
 
+    updateHotelRoom(room, idH: number) {
+        return this.http.put("/api/hotel/room/" + idH, room);
+    }
+
+    getHotelRoom(idR: number) {
+        return this.http.get("/api/hotel/room/" + idR);
+    }
+
 }

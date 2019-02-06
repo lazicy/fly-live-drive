@@ -1,3 +1,81 @@
-<p>
-  edit-room works!
-</p>
+<div class="container">
+  <div class="row">
+      <form style="width:100%" (ngSubmit)="onSubmitRoom()" *ngIf="roomForm" [formGroup]="roomForm" class="do-animation">
+          <h2>Edit Service</h2>
+          <span class="mand">*all fields are mandatory</span>
+          <hr>
+
+          <div class="row">
+            <div class="form-group col-8">
+              <label for="name">Name:</label>
+              <input type="text" id="name" class="form-control" formControlName="name" required>
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                  Name is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-3">
+              <label for="charge">Balcony:</label>
+              <select class="form-control"  id="balcony"
+                        required
+                        name="balcony" formControlName="balcony">
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-3">
+              <label for="beds">No. of beds:</label>
+                <select class="form-control"  id="beds"
+                          required
+                          name="beds" formControlName="beds">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                  </select>
+            </div>
+            <div class="form-group col-3">
+                <label for="people">People:</label>
+                  <select class="form-control"  id="people"
+                            required
+                            name="people" formControlName="people">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                    </select>
+            </div>
+            <div class="form-group col-2">
+                <label for="floor">Floor:</label>
+                  <select class="form-control"  id="floor"
+                            required
+                            name="floor" formControlName="floor">
+                      <option *ngFor="let n of niz_spratova" value="{{n}}">{{n}}</option>
+                    </select>
+            </div>
+            <div class="form-group col-3">
+              <label for="price">Price:</label>
+              <input type="number" id="price" name="price" class="form-control" min="0" (keydown)="onKeydown($event)" placeholder="€" formControlName="price" required>
+            </div>
+          </div>
+
+          <p *ngIf="showErrorMsg" class="msgError">Cannot add a room with selected number of beds and people.</p>
+          
+          <div class="row ">
+            <div class="form-group center-button">
+              <button type="submit" class="btn btn-success" [disabled]="!roomForm.valid">Update</button>
+            </div>
+          </div>
+        </form>
+  </div>
+</div>

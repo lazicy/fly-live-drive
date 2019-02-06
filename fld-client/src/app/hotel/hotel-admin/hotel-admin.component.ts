@@ -18,6 +18,7 @@ export class HotelAdminComponent implements OnInit {
   countryList: any = [];
   cityList: any = [];
   servToEdit: any = null;
+  roomToEdit: any = null;
 
   //show-hides
   showEditHotel: boolean = false;
@@ -27,6 +28,8 @@ export class HotelAdminComponent implements OnInit {
   showNewRoomDialog: boolean = false;
   showUpdateRoomDialog: boolean = false;
   showRooms: boolean = false;
+  showCharts: boolean = false;
+
   cityValid: boolean = true;
 
   //form
@@ -271,6 +274,25 @@ export class HotelAdminComponent implements OnInit {
           );
       }
     });
+  }
+
+  onUpdateRoom(rid) {
+    this.roomToEdit = rid;
+    this.showUpdateRoomDialog = true;
+  }
+
+  roomUpdated(r) {
+    let i = this.hotel.rooms.findIndex(room => room.id === r.id);
+    this.hotel.rooms.splice(i, 1, r);
+    this.showUpdateRoomDialog = false;
+  }
+
+  onCloseUpdateRoom() {
+    this.showUpdateRoomDialog = false;
+  }
+
+  onToggleCharts() {
+    this.showCharts = !this.showCharts;
   }
 
   ngOnDestroy() {

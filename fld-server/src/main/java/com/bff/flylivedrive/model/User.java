@@ -51,6 +51,9 @@ public class User implements UserDetails{
 	@Column(name = "city", nullable = false)
 	private String city;
 	
+	@Column(name="bonus_points", nullable = false)
+	private int bonus_points;
+	
 	@Column(name = "active", nullable = false)
 	private boolean active = false; //inicijalno je uvek false prilikom registracije, menja se nakon potvrde mejlom
 	
@@ -68,7 +71,7 @@ public class User implements UserDetails{
 		super();
 	}
 	
-	public User(String username, String password, String firstname, String lastname, String email, String city,
+	public User(String username, String password, String firstname, String lastname, String email, String city, int bonus_points,
 			boolean active, Timestamp lastPasswordResetDate, List<Authority> authorities) {
 		super();
 		this.username = username;
@@ -77,13 +80,14 @@ public class User implements UserDetails{
 		this.lastname = lastname;
 		this.email = email;
 		this.city = city;
+		this.bonus_points = bonus_points;
 		this.active = active;
 		this.lastPasswordResetDate = lastPasswordResetDate;
 		this.authorities = authorities;
 	}
 	
 	public User(User user) {
-		this(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.isActive(), user.getLastPasswordResetDate(), (List<Authority>) user.getAuthorities());
+		this(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.getBonus_points(), user.isActive(), user.getLastPasswordResetDate(), (List<Authority>) user.getAuthorities());
 	}
 	
 	public Timestamp getLastPasswordResetDate() {
@@ -142,6 +146,14 @@ public class User implements UserDetails{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getBonus_points() {
+		return bonus_points;
+	}
+
+	public void setBonus_points(int bonus_points) {
+		this.bonus_points = bonus_points;
 	}
 
 	public boolean isActive() {

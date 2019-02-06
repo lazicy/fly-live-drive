@@ -27,7 +27,8 @@ export class AddServiceComponent implements OnInit {
     let servc = {
       name: form.value.name,
       price: form.value.price,
-      charge: form.value.charge
+      charge: form.value.charge,
+      discount: form.value.discount
     }
 
     this.hotelService.saveHotelService(servc, this.hotelId).subscribe(

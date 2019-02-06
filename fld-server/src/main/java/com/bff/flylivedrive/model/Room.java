@@ -1,5 +1,9 @@
 package com.bff.flylivedrive.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Room {
@@ -33,8 +38,11 @@ public class Room {
 	@Column(name="balcony", nullable = false)
 	private String balcony;
 	
-	@Column(name="booked", nullable = false)
-	private boolean booked;
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<FastRoom> fast_res = new HashSet<FastRoom>();
+	
+	@Column(name="rating", nullable = true)
+	private Double rating;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
@@ -43,7 +51,7 @@ public class Room {
 	
 	public Room() {
 		super();
-		booked = false;
+		rating = 0.0;
 	}
 
 	public Long getId() {
@@ -102,12 +110,12 @@ public class Room {
 		this.balcony = balcony;
 	}
 
-	public boolean isBooked() {
-		return booked;
+	public Double getRating() {
+		return rating;
 	}
 
-	public void setBooked(boolean booked) {
-		this.booked = booked;
+	public void setRating(Double rating) {
+		this.rating = rating;
 	}
 
 	public Hotel getHotel() {

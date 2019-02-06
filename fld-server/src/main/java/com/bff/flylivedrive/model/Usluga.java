@@ -24,6 +24,9 @@ public class Usluga {
 	@Column(name="naplata", nullable = false)
 	private String charge;
 	
+	@Column(name="discount", nullable = true)
+	private Double discount;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
 
@@ -57,6 +60,14 @@ public class Usluga {
 
 	public void setCharge(String charge) {
 		this.charge = charge;
+	}
+
+	public Double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 
 	public Hotel getHotel() {

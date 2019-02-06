@@ -192,6 +192,7 @@ public class HotelController {
 		usl.setName(uslugaDTO.getName());
 		usl.setPrice(uslugaDTO.getPrice());
 		usl.setCharge(uslugaDTO.getCharge());
+		usl.setDiscount(uslugaDTO.getDiscount());
 		usl.setHotel(h);
 		
 		Set<Usluga> usluge = h.getUsluge();
@@ -247,10 +248,11 @@ public class HotelController {
 		while (itr.hasNext())
 		{
 		    Usluga us = itr.next();
-		    if (us.getId().equals(id)) {
+		    if (us.getId().equals(uslugaDTO.getId())) {
 		        us.setName(uslugaDTO.getName());
 		        us.setPrice(uslugaDTO.getPrice());
 		        us.setCharge(uslugaDTO.getCharge());
+		        us.setDiscount(uslugaDTO.getDiscount());
 		        break;
 		    }
 		}
@@ -259,6 +261,7 @@ public class HotelController {
 		usl.setName(uslugaDTO.getName());
 		usl.setPrice(uslugaDTO.getPrice());
 		usl.setCharge(uslugaDTO.getCharge());
+		usl.setDiscount(uslugaDTO.getDiscount());
 		
 		usl = uslugaService.save(usl);
 		
@@ -290,6 +293,44 @@ public class HotelController {
 		return new ResponseEntity<>(new RoomDTO(r), HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value="/room/{id}", method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
+		
+		Hotel h = hotelService.findOneById(id);
+		
+		if (h == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Set<Room> rooms = h.getRooms();
+		Iterator<Room> itr = rooms.iterator();
+		
+		while (itr.hasNext())
+		{
+		    Room ro = itr.next();
+		    if (ro.getId().equals(roomDTO.getId())) {
+		    	ro.setName(roomDTO.getName());
+				ro.setBeds(roomDTO.getBeds());
+				ro.setFloor(roomDTO.getFloor());
+				ro.setPeople_capacity(roomDTO.getPeople_capacity());
+				ro.setPrice(roomDTO.getPrice());
+				ro.setBalcony(roomDTO.getBalcony());
+		        break;
+		    }
+		}
+		Room r = roomService.findOneById(roomDTO.getId());
+		r.setName(roomDTO.getName());
+		r.setBeds(roomDTO.getBeds());
+		r.setFloor(roomDTO.getFloor());
+		r.setPeople_capacity(roomDTO.getPeople_capacity());
+		r.setPrice(roomDTO.getPrice());
+		r.setBalcony(roomDTO.getBalcony());
+		
+		r = roomService.save(r);
+		
+		return new ResponseEntity<RoomDTO>(new RoomDTO(r),HttpStatus.CREATED);
+	}
+	
 	//ALL hotel rooms
 	@RequestMapping(value = "/{hotelId}/rooms", method = RequestMethod.GET)
 	public ResponseEntity<List<RoomDTO>> getHotelRooms(@PathVariable Long hotelId) {
@@ -304,6 +345,39 @@ public class HotelController {
 		for(Room r : rooms) {
 			roomDTO.add(new RoomDTO(r));
 		}
+		
+		return new ResponseEntity<>(roomDTO, HttpStatus.OK);
+	}
+	
+	//get ALL FREE rooms
+	@RequestMapping(value = "/{hotelId}/freeRooms", method = RequestMethod.GET)
+	public ResponseEntity<List<RoomDTO>> getHotelFreeRooms(@PathVariable Long hotelId) {
+		
+		Hotel hotel = hotelService.findOneById(hotelId);
+		if(hotel == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Room> rooms = hotel.getRooms();
+		List<RoomDTO> roomDTO = new ArrayList<>();
+		for(Room r : rooms) {
+			roomDTO.add(new RoomDTO(r));
+		}
+		
+		return new ResponseEntity<>(roomDTO, HttpStatus.OK);
+	}
+	
+	//ONE hotel room
+	@RequestMapping(value = "/room/{rid}", method = RequestMethod.GET)
+	public ResponseEntity<RoomDTO> getHotelRoom(@PathVariable("rid") Long rid) {
+		
+		Room r = roomService.findOneById(rid);
+		
+		if(r == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		RoomDTO roomDTO = new RoomDTO(r);
 		
 		return new ResponseEntity<>(roomDTO, HttpStatus.OK);
 	}

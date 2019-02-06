@@ -11,17 +11,17 @@ public class RoomDTO {
 	private double price;
 	private int floor;
 	private String balcony;
-	private boolean booked;
+	private double rating;
 	
 	public RoomDTO() {
 		
 	}
 	
 	public RoomDTO(Room r) {
-		this(r.getId(), r.getName(), r.getBeds(), r.getPeople_capacity(), r.getPrice(), r.getFloor(), r.getBalcony(), r.isBooked());
+		this(r.getId(), r.getName(), r.getBeds(), r.getPeople_capacity(), r.getPrice(), r.getFloor(), r.getBalcony(), r.getRating());
 	}
 	
-	public RoomDTO(Long id, String name, int beds, int people_capacity, double price, int floor, String balcony, boolean booked) {
+	public RoomDTO(Long id, String name, int beds, int people_capacity, double price, int floor, String balcony, double rating) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -30,7 +30,7 @@ public class RoomDTO {
 		this.price = price;
 		this.floor = floor;
 		this.balcony = balcony;
-		this.booked = booked;
+		this.rating = rating;
 	}
 	
 	public Long getId() {
@@ -88,12 +88,12 @@ public class RoomDTO {
 		this.balcony = balcony;
 	}
 
-	public boolean isBooked() {
-		return booked;
+	public double getRating() {
+		return rating;
 	}
 
-	public void setBooked(boolean booked) {
-		this.booked = booked;
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 	
 	

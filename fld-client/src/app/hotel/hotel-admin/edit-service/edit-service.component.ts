@@ -45,7 +45,8 @@ export class EditServiceComponent implements OnInit {
     this.serviceForm = new FormGroup({
       'name': new FormControl(this.usluga.name, Validators.required),
       'price': new FormControl(this.usluga.price),
-      'charge': new FormControl(this.usluga.charge)
+      'charge': new FormControl(this.usluga.charge),
+      'discount': new FormControl(this.usluga.discount)
     });
   }
 
@@ -59,7 +60,8 @@ export class EditServiceComponent implements OnInit {
       id: this.servic,
       name: this.serviceForm.value.name,
       price: this.serviceForm.value.price,
-      charge: this.serviceForm.value.charge
+      charge: this.serviceForm.value.charge,
+      discount: this.serviceForm.value.discount
     }
 
     this.hotelService.updateHotelService(servc, this.idH).subscribe(

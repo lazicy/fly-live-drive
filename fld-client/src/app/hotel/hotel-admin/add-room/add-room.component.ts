@@ -14,6 +14,7 @@ export class AddRoomComponent implements OnInit {
   @Input() hotelId: number;
 
   niz_spratova: any = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+  showErrorMsg: boolean = false;
 
   constructor(private hotelService: HotelService, private router: Router) { }
 
@@ -25,25 +26,31 @@ export class AddRoomComponent implements OnInit {
   }
 
   onSubmitRoom(form: NgForm) {
-
-    let room = {
-      name: form.value.name,
-      beds: form.value.beds,
-      people_capacity: form.value.people,
-      price: form.value.price,
-      floor: form.value.floor,
-      balcony: form.value.balcony
+    let razlika = form.value.people - form.value.beds;
+    if(razlika <= 2 && razlika >= 0) {
+      this.showErrorMsg = false;
+      let room = {
+        name: form.value.name,
+        beds: form.value.beds,
+        people_capacity: form.value.people,
+        price: form.value.price,
+        floor: form.value.floor,
+        balcony: form.value.balcony
+      }
+  
+      this.hotelService.saveHotelRoom(room, this.hotelId).subscribe(
+        (response) => {
+          this.roomSubmit.emit(response);
+          swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
+          form.reset();
+          this.ngOnDestroy();
+        },
+        (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
+      );
+    } else {
+      this.showErrorMsg = true;
     }
-
-    this.hotelService.saveHotelRoom(room, this.hotelId).subscribe(
-      (response) => {
-        this.roomSubmit.emit(response);
-        swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
-        form.reset();
-        this.ngOnDestroy();
-      },
-      (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
-    );
+    
   }
 
   onKeydown(e) {

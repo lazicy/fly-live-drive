@@ -111,12 +111,20 @@
   <button (click)="onNewService()" *ngIf="showServices" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Service</button>
 
   <div class="services-container do-animation" *ngIf="showServices">
-          <div class="table-responsive">
-            <table class="table" >
+          <div class="table">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Discount</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr *ngFor="let serv of hotel.services">
                   <td>{{serv.name}}</td>
                   <td>{{serv.price}}€ per {{serv.charge}}</td>
+                  <td>{{serv.discount}} %</td> 
                   <td class="actions">
                     <button (click)="onUpdateService(serv.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
                   </td>
@@ -127,87 +135,108 @@
               </tbody>
             </table>
           </div>
-    </div>
+  </div>
 
-    <div class="form-modal" *ngIf="showNewServiceDialog">
-        <div class="modal-content">
-          <div class="modal-body">
-              <button type="button" class="close" (click)="onCloseAddService()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            <app-add-service hotelId="{{hotel.id}}" (serviceSubmit)="serviceSubmitted($event)"></app-add-service>
-          </div>
-        </div>
-    </div>
-
-      <div class="form-modal" *ngIf="showUpdateServiceDialog">
-        <div class="modal-content">
-          <div class="modal-body">
-              <button type="button" class="close" (click)="onCloseUpdateService()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            <app-edit-service hotelId="{{hotel.id}}" [servic]=servToEdit (serviceUpdate)="serviceUpdated($event)"></app-edit-service>
-          </div>
+  <div class="form-modal" *ngIf="showNewServiceDialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseAddService()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <app-add-service hotelId="{{hotel.id}}" (serviceSubmit)="serviceSubmitted($event)"></app-add-service>
         </div>
       </div>
-  
-    <hr>
+  </div>
 
-    <h3 class="link inline-block" (click)="onToggleRooms()" >
-        <i
-          class="fa fa-arrow-right" aria-hidden="true" 
-          [ngClass] = "{'fa-arrow-right':showRooms === false,  'fa-arrow-down':showRooms  === true }" 
-        ></i>
-        Rooms
-    </h3>
-    <button (click)="onNewRoom()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Room</button>
-  
-    <div class="do-animation" *ngIf="showRooms">
-        <div class="table">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of beds</th>
-                    <th>Capacity</th>
-                    <th>Floor</th>
-                    <th>Balcony</th>
-                    <th>Price per night</th>
-                    <th>Rating</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let room of hotel.rooms">
-                  <td>{{room.name}}</td>
-                  <td>{{room.beds}}</td>
-                  <td>{{room.people_capacity}} persons</td>
-                  <td>{{room.floor}}</td>
-                  <td>{{room.balcony}}</td>
-                  <td>{{room.price}} €</td>
-                  <td>rating</td>
-                  <td class="actions">
-                      <button (click)="onUpdateRoom(room.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
-                    </td>
-                    <td class="actions">
-                      <button (click)="onRemoveRoom(room.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button>
-                    </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-    </div>
-
-    <div class="form-modal" *ngIf="showNewRoomDialog">
-        <div class="modal-content room-content">
-          <div class="modal-body">
-              <button type="button" class="close" (click)="onCloseAddRoom()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            <app-add-room hotelId="{{hotel.id}}" (roomSubmit)="roomSubmitted($event)"></app-add-room>
-          </div>
+    <div class="form-modal" *ngIf="showUpdateServiceDialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseUpdateService()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <app-edit-service hotelId="{{hotel.id}}" [servic]=servToEdit (serviceUpdate)="serviceUpdated($event)"></app-edit-service>
         </div>
+      </div>
     </div>
+  
+  <hr>
+
+  <h3 class="link inline-block" (click)="onToggleRooms()" >
+      <i
+        class="fa fa-arrow-right" aria-hidden="true" 
+        [ngClass] = "{'fa-arrow-right':showRooms === false,  'fa-arrow-down':showRooms  === true }" 
+      ></i>
+      Rooms
+  </h3>
+  <button (click)="onNewRoom()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Room</button>
+  
+  <div class="do-animation" *ngIf="showRooms">
+      <div class="table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number of beds</th>
+                <th>Capacity</th>
+                <th>Floor</th>
+                <th>Balcony</th>
+                <th>Price per night</th>
+                <th>Rating</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let room of hotel.rooms">
+                <td>{{room.name}}</td>
+                <td>{{room.beds}}</td>
+                <td>{{room.people_capacity}} persons</td>
+                <td>{{room.floor}}</td>
+                <td>{{room.balcony}}</td>
+                <td>{{room.price}} €</td>
+                <td>{{room.rating}}</td>
+                <td class="actions">
+                    <button (click)="onUpdateRoom(room.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
+                  </td>
+                  <td class="actions">
+                    <button (click)="onRemoveRoom(room.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+
+  <div class="form-modal" *ngIf="showNewRoomDialog">
+      <div class="modal-content room-content">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseAddRoom()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <app-add-room hotelId="{{hotel.id}}" (roomSubmit)="roomSubmitted($event)"></app-add-room>
+        </div>
+      </div>
+  </div>
+  
+  <div class="form-modal" *ngIf="showUpdateRoomDialog">
+    <div class="modal-content room-content">
+      <div class="modal-body">
+          <button type="button" class="close" (click)="onCloseUpdateRoom()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        <app-edit-room hotelId="{{hotel.id}}" [roomId]=roomToEdit  (roomUpdate)="roomUpdated($event)"></app-edit-room>
+      </div>
+    </div>
+</div>
+
+  <hr>
+
+  <h3 class="link inline-block" (click)="onToggleCharts()">
+    <i
+      class="fa fa-arrow-right" aria-hidden="true" 
+      [ngClass] = "{'fa-arrow-right':showCharts === false,  'fa-arrow-down':showCharts  === true }" 
+    ></i>
+    Visitation and income
+  </h3>
 
 </div>

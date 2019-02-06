@@ -42,7 +42,6 @@ h5 {
     margin-bottom: 30px;
 }
 .rooms {
-    margin-bottom: 30px;
     margin-top: 15px;
 }
 
@@ -95,6 +94,16 @@ h5 {
     width: 100%;
 }
 
+.tblScroll {
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+.table {
+    vertical-align: middle;
+    text-align: center;
+}
+
 .hideContent {
     overflow: hidden;
     line-height: 1.4em;
@@ -115,6 +124,16 @@ h5 {
 }
 
 .map {
-    margin-top: 100px;
+    margin-top: 50px;
+}
+
+.book {
+    float: right;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.bookBtn {
+    font-size: 22px;
 }
 

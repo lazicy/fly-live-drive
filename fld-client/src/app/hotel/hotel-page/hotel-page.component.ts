@@ -72,16 +72,15 @@ export class HotelPageComponent implements OnInit {
   }
 
   fetchRooms() {
-    // this.hotelService.getHotelRooms(this.id).subscribe(
-    //   data => {
-    //     this.hotel.rooms = data;
-    //     if(this.hotel.rooms.length === 0) {
-    //       this.emptyRoomList = true;
-    //     }
-    //   },  
-    //   error => console.log(error)
-        
-    // );
+    this.hotelService.getHotelRooms(this.hotel.id).subscribe(
+      data => {
+        this.hotel.rooms = data;
+        if(this.hotel.rooms.length === 0) {
+          this.emptyRoomList = true;
+        }
+      },  
+      error => console.log(error)
+    );
   }
 
   onShowMore() {

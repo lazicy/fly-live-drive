@@ -8,21 +8,23 @@ public class UslugaDTO {
 	private String name;
 	private double price;
 	private String charge;
+	private double discount;
 	
 	public UslugaDTO() {
 		
 	}
 	
 	public UslugaDTO(Usluga s) {
-		this(s.getId(), s.getName(), s.getPrice(), s.getCharge());
+		this(s.getId(), s.getName(), s.getPrice(), s.getCharge(), s.getDiscount());
 	}
 	
-	public UslugaDTO(Long id, String name, double price, String charge) {
+	public UslugaDTO(Long id, String name, double price, String charge, double discount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.charge = charge;
+		this.discount = discount;
 	}
 	
 	public Long getId() {
@@ -54,5 +56,13 @@ public class UslugaDTO {
 
 	public void setCharge(String charge) {
 		this.charge = charge;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 }

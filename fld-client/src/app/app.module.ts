@@ -59,6 +59,7 @@ import { AddServiceComponent } from './hotel/hotel-admin/add-service/add-service
 import { EditServiceComponent } from './hotel/hotel-admin/edit-service/edit-service.component';
 import { AddRoomComponent } from './hotel/hotel-admin/add-room/add-room.component';
 import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.component';
+import { BonusPointsService } from './services/bonus.service';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,7 @@ import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.compo
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, BonusPointsService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

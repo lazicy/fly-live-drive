@@ -6,10 +6,22 @@
           <hr>
        
           <div class="row">
-            <div class="form-group col-11">
+            <div class="form-group col-7">
               <label for="name">Name:</label>
               <input type="text" id="name" name="name" class="form-control" ngModel required>
             </div>
+
+            <div class="form-group col-4">
+                <label for="discount">Discount:</label>
+                <select class="form-control"  id="discount"
+                        required
+                        name="discount" ngModel>
+                  <option value="0">0 %</option>
+                  <option value="1">1 %</option>
+                  <option value="2">2 %</option>
+                  <option value="3">3 %</option>
+                </select>
+              </div>
           </div>
           
           <div class="row">
