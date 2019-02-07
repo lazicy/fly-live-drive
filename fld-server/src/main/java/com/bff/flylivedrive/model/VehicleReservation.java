@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class VehicleReservation {
@@ -19,23 +22,19 @@ public class VehicleReservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "pick_up_location", nullable = false)
-	String pickUpLocation;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	Filijala pickUpLocation;
 	
-	@Column(name = "drop_off_location", nullable = false)
-	String dropOffLocation;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	Filijala dropOffLocation;
 	
 	@Column(name = "pick_up_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	Date pickUpDate;
 	
 	@Column(name = "drop_off_date", nullable = false)
-	Date pickOffDate;
-	
-	@Column(name = "pick_up_time", nullable = false)
-	String pickUpTime;
-	
-	@Column(name = "drop_off_time", nullable = false)
-	String dropOffTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	Date dropOffDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	City city;
@@ -43,6 +42,8 @@ public class VehicleReservation {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	User user;
 	
+	@OneToOne
+	Vozilo vozilo;
 	
 	public VehicleReservation() {
 		
@@ -58,26 +59,7 @@ public class VehicleReservation {
 	}
 
 
-	public String getPickUpLocation() {
-		return pickUpLocation;
-	}
-
-
-	public void setPickUpLocation(String pickUpLocation) {
-		this.pickUpLocation = pickUpLocation;
-	}
-
-
-	public String getDropOffLocation() {
-		return dropOffLocation;
-	}
-
-
-	public void setDropOffLocation(String dropOffLocation) {
-		this.dropOffLocation = dropOffLocation;
-	}
-
-
+	
 	public Date getPickUpDate() {
 		return pickUpDate;
 	}
@@ -87,36 +69,15 @@ public class VehicleReservation {
 		this.pickUpDate = pickUpDate;
 	}
 
-
-	public Date getPickOffDate() {
-		return pickOffDate;
+	
+	
+	public Date getDropOffDate() {
+		return dropOffDate;
 	}
 
-
-	public void setPickOffDate(Date pickOffDate) {
-		this.pickOffDate = pickOffDate;
+	public void setDropOffDate(Date dropOffDate) {
+		this.dropOffDate = dropOffDate;
 	}
-
-
-	public String getPickUpTime() {
-		return pickUpTime;
-	}
-
-
-	public void setPickUpTime(String pickUpTime) {
-		this.pickUpTime = pickUpTime;
-	}
-
-
-	public String getDropOffTime() {
-		return dropOffTime;
-	}
-
-
-	public void setDropOffTime(String dropOffTime) {
-		this.dropOffTime = dropOffTime;
-	}
-
 
 	public City getCity() {
 		return city;
@@ -136,11 +97,29 @@ public class VehicleReservation {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-	
-	
-	
-	
+
+	public Vozilo getVozilo() {
+		return vozilo;
+	}
+
+	public void setVozilo(Vozilo vozilo) {
+		this.vozilo = vozilo;
+	}
+
+	public Filijala getPickUpLocation() {
+		return pickUpLocation;
+	}
+
+	public void setPickUpLocation(Filijala pickUpLocation) {
+		this.pickUpLocation = pickUpLocation;
+	}
+
+	public Filijala getDropOffLocation() {
+		return dropOffLocation;
+	}
+
+	public void setDropOffLocation(Filijala dropOffLocation) {
+		this.dropOffLocation = dropOffLocation;
+	}
 	
 }

@@ -1,6 +1,8 @@
 package com.bff.flylivedrive.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -42,6 +44,13 @@ public class Filijala {
 	//jedna filijala vezana je samo za jedan servis
 	@ManyToOne(fetch = FetchType.EAGER)
 	private RentACar servis;
+	
+	@OneToMany(mappedBy = "dropOffLocation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	List<VehicleReservation> dropOffLocations = new ArrayList<VehicleReservation>();
+	
+	@OneToMany(mappedBy = "pickUpLocation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	List<VehicleReservation> pickUpLocations = new ArrayList<VehicleReservation>();
+	
 	
 	public Filijala() {
 		
