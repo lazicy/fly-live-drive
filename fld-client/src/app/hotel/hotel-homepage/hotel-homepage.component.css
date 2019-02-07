@@ -4,7 +4,7 @@
 
 .section-parallax {
     text-align: center;
-    background: url(/src/img/nature.jpg) center repeat fixed;
+    background: url(/src/img/nature.jpg) bottom repeat fixed;
     padding: 120px 0;
     background-size: cover;
     color: white;
@@ -19,9 +19,6 @@
     margin: 35px 90px 0px 0px;
 }
 
-#main-part {
-    border: 1px solid red;
-}
 .center { /* klasa celog reda tj. kontejnera u kojem se nalaze elementi */
     text-align: center;
     margin-top: 0.8%;
