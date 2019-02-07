@@ -12,6 +12,10 @@ export class FlightService {
         return this.http.post("/api/flight", flight);
     }
 
+    getFlight(id) {
+        return this.http.get("/api/flight/" + id);
+    }
+
     getFlightSeats(id) {
         return this.http.get("/api/flight/" + id + "/seats");
     }

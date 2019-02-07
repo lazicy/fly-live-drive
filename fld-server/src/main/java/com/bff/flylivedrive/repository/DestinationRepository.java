@@ -7,5 +7,6 @@ import com.bff.flylivedrive.model.Destination;
 public interface DestinationRepository extends JpaRepository<Destination, Long>{
 	
 	Destination findOneById(Long id);
+	
 
 }

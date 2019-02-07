@@ -10,8 +10,9 @@
 
 					<div class="form-group col-6 full-width">
 						<label class="lbl" for="countryId">Country:</label>
-						<select class="form-control"  id="countryId" name="countryId"
+						<select class="form-control"  id="countryId"
 								required
+								formControlName="fromCountry"
 								(change)="onChangeFromCountry($event)">
 							<option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
 						</select>
@@ -68,9 +69,8 @@
 
 					<div class="form-group col-6 full-width">
 						<label class="lbl" for="countryId">Country:</label>
-						<select class="form-control"  id="countryId"
-								required
-								name="countryId" 
+						<select class="form-control" 
+								formControlName="toCountry"
 								(change)="onChangeToCountry($event)">
 							<option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
 						</select>
@@ -144,11 +144,81 @@
     </div>
   </section>
   
-  <div class="main-part">
-    <div class="row" class="center">
-      <h3 style="margin-bottom: 25px;">All airline companies</h3>
-    </div>
-    <div>
-      <app-aviolist></app-aviolist>
-    </div>
-  </div>
+  <div class="main-part basic_info">
+
+
+	<div class="list" *ngIf="showList">
+		<h3 style="margin-bottom: 25px;">All airline companies</h3>
+		<app-aviolist></app-aviolist>
+	</div>
+
+	<div class="search-results" *ngIf="!showList">
+		<img appLoading *ngIf="loadingResults">
+
+		<div class="loaded-results" *ngIf="!loadingResults">
+			<br>
+			
+			<!-- RESERVATION CONTROL -->
+			<div  class="align-center reservation-control" *ngIf="searchResults.departureFlights.length > 0">
+
+				<!-- ONLY DEPARTURE -->
+				<div class="reserve-flight" *ngIf="departureFlight !== null && returnFlight === null" (click)="onReserveOneWay()">
+					Reserve one-way flight <i class="fa fa-arrow-right" aria-hidden="true"></i>
+
+				</div>
+					
+					<!-- ROUND -->
+				<div class="reserve-flight"  *ngIf="departureFlight !== null && returnFlight !== null" (click)="onReserveRound()">
+					Reserve round flight <i class="fa fa-arrow-right" aria-hidden="true"></i>
+
+				</div>
+				
+				<div class="reserve-msg"  *ngIf="departureFlight === null">
+					Select departure flight to proceed with reservation 
+				</div>
+			
+			</div>
+			
+			<br>
+
+			<!-- DEPARTING LIST -->
+			<div>
+				<h3>Departing to <span class="bold">{{ toCity.name }}</span></h3>
+				<hr>
+				<div  class="stroke selected"  *ngFor="let df of searchResults.departureFlights; let iDf = index "
+					[ngClass] = "{'selected': selectedDeparture[iDf] === true }" 
+				>
+					
+					<app-flightlist-search [flight]="df" (click)="selectDepartureFlight(iDf)"></app-flightlist-search>
+				</div>
+				<div *ngIf="searchResults.departureFlights.length <= 0">
+					There are no departing flights.
+				</div>
+			</div>
+			<br>
+			
+			<!-- RETURNING LIST -->
+			<div *ngIf="searchResults.tripType === 'round' && searchResults.departureFlights.length > 0">
+				<h3>Returning to <span class="bold">{{ fromCity.name }}</span></h3>
+				<hr>
+				<div class="stroke selected" *ngFor="let rf of searchResults.returnFlights; let iRf = index "
+					[ngClass] = "{'selected': selectedReturn[iRf] === true }" 
+				>
+					<app-flightlist-search [flight]="rf" (click)="selectReturnFlight(iRf)"></app-flightlist-search>
+				</div>
+				<div *ngIf="searchResults.returnFlights.length <= 0">
+					There are no returning flights.
+				</div>
+			</div>
+
+
+			
+			
+			
+		</div>
+
+
+
+	</div>
+
+      

@@ -42,8 +42,8 @@
           <h5 (click)="onToggleFlights()"> Flights </h5>
 
           <div *ngIf="showFlights">
-            <app-flightlist avioId="{{avio.id}}"></app-flightlist>
-        
+            <app-flightlist avioId="{{avio.id}}" flightList="[]"></app-flightlist>
+            <br>
           </div>
         </div>
 

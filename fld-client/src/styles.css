@@ -173,6 +173,11 @@ select {
     display: inline-block;
 }
 
+.basic_info {
+    background-color: white;
+}
+
+
 .new-button {
     background: rgb(1, 148, 206);
     font-size: 15px;

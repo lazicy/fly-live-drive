@@ -22,6 +22,7 @@ import com.bff.flylivedrive.dto.SeatDTO;
 import com.bff.flylivedrive.dto.mappers.FlightMapper;
 import com.bff.flylivedrive.dto.mappers.InterceptionMapper;
 import com.bff.flylivedrive.model.Avio;
+import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Destination;
 import com.bff.flylivedrive.model.Flight;
 import com.bff.flylivedrive.model.Interception;
@@ -159,7 +160,7 @@ public class FlightController {
 	}
 	
 	@RequestMapping(value ="/search", method = RequestMethod.POST, consumes = "application/json")
-	private ResponseEntity<List<SearchFlightResultDTO>> searchFlights(@RequestBody SearchFlightDTO sfDTO) {
+	private ResponseEntity<SearchFlightResultDTO> searchFlights(@RequestBody SearchFlightDTO sfDTO) {
 		
 		
 		System.out.println(sfDTO.getDepartureDate());
@@ -170,11 +171,45 @@ public class FlightController {
 		System.out.println(sfDTO.getTripType());
 		
 		
+		// pronadji u bazi gradove, moraju biti unesena oba, ukoliko nisu oba unesena vrati bad_request
+		City fromCity = cityService.findOneById(sfDTO.getFromCity().getId());
+		City toCity = cityService.findOneById(sfDTO.getToCity().getId());
+		
+		if (fromCity == null || toCity == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		List<Flight> departureFlights = new ArrayList<>();
+		departureFlights = flightService.searchDepartureFlight(fromCity.getId(), toCity.getId(), sfDTO.getDepartureDate(), sfDTO.getNumberOfPeople());
+		
+		List<Flight> returnFlights = new ArrayList<>();
+		if (sfDTO.getTripType().equals("round")) {
+			
+			returnFlights = flightService.searchDepartureFlight(toCity.getId(), fromCity.getId(), sfDTO.getReturnDate(), sfDTO.getNumberOfPeople());
+		}
+		
+		System.out.println("DEPARTURE FLIGHTS");
+		List<FlightDTO> departureFlightsDTO = new ArrayList<>();
+		for (Flight f: departureFlights) {
+			
+			System.out.println(f.toString());
+			departureFlightsDTO.add(new FlightDTO(f));
+		}
+		
+		System.out.println("------------------");
+		
+		System.out.println("RETURN FLIGHTS");
+
+		List<FlightDTO> returnFlightsDTO = new ArrayList<>();
+		
+		for (Flight f: returnFlights) {
+			returnFlightsDTO.add(new FlightDTO(f));
+		}
 		
 		
-		List<SearchFlightResultDTO> results = new ArrayList<>();
+		SearchFlightResultDTO resultsRet = new SearchFlightResultDTO(departureFlightsDTO, returnFlightsDTO, sfDTO.getTripType());
 		
-		return new ResponseEntity<>(results, HttpStatus.OK);
+		return new ResponseEntity<>(resultsRet, HttpStatus.OK);
 	}
 	
 	

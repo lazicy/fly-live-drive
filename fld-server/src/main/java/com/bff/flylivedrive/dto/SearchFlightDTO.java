@@ -13,6 +13,7 @@ public class SearchFlightDTO {
 	
 	public SearchFlightDTO() {
 		
+		
 	}
 	
 	

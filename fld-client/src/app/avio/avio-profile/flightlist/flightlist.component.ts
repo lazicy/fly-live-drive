@@ -12,10 +12,25 @@ import { UtilService } from 'src/app/services/util.service';
 export class FlightlistComponent implements OnInit {
 	flights: any = [];
 	@Input() avioId: number;
+	@Input() flightList: any = []
+
+	searchList: boolean = false;
+	whichOnes = false;
+
 	constructor(private avioService: AvioService, private flightSerice: FlightService, private utilService: UtilService) { }
 
 	ngOnInit() {
-		this.fetchFlights();
+
+		if (this.avioId != -1) {
+			this.fetchFlights();
+		} else {
+			this.flights = this.flightList;
+			console.log(this.flightList);
+			this.formatDateAndTime();
+			this.searchList = true;
+
+		}
+
 	}
 
 	fetchFlights() {
@@ -65,5 +80,14 @@ export class FlightlistComponent implements OnInit {
 
 	}
 
+	overInterceptions() {
+		this.whichOnes = true;
+	}
+
+	outInterceptions() {
+		this.whichOnes = false;
+	}
+
+	
 
 }

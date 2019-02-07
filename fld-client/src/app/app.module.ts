@@ -62,6 +62,9 @@ import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component
 import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
 import { UtilService } from './services/util.service';
 import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
+import { FlightlistSearchComponent } from './avio/flightlist-search/flightlist-search.component';
+import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
+import { ReservationFlightService } from './services/reservation-flight.service';
 
 @NgModule({
   declarations: [
@@ -111,7 +114,9 @@ import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.compon
     FlightlistComponent,
     VehicleListComponent,
     VehicleSearchComponent,
-    AvioHomepageComponent
+    AvioHomepageComponent,
+    FlightlistSearchComponent,
+    AvioReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +127,7 @@ import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.compon
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService, ReservationFlightService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

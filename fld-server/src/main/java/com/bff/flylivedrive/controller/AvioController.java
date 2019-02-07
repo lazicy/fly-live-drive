@@ -54,10 +54,6 @@ public class AvioController {
 			AvioDTO aDTO = new AvioDTO(a);
 			aviosDTO.add(aDTO);
 			
-			if (a.getOcene() != null) {
-				System.out.println(a.getOcene().toString());
-				
-			}
 		}
 		
 		
@@ -110,13 +106,7 @@ public class AvioController {
 		
 		AvioMapper mapper = new AvioMapper();
 		Avio avio = mapper.mapNew(avioDTO, c);
-		
-		
-		avio.getOcene().add(3.0);
-		avio.getOcene().add(5.0);
-		avio.getOcene().add(4.0);
-		
-		
+
 		
 		
 		avio = avioService.save(avio);

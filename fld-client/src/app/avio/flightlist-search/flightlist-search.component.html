@@ -1,0 +1,183 @@
+<!-- <div class="table-responsive">
+  <table class="table" >
+   
+    <thead>
+      <th>ID</th>
+      <th>Departure Destination</th>
+      <th>Landing Destination</th>
+      <th>Duration</th>
+      <th>Departure Date</th>
+      <th>Landing Date</th>
+      <th>Price</th>
+      <th>No of Interceptions</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of flights" >
+        
+        <td><a [routerLink]="['flight/', f.id]">{{ f.id }}</a></td>
+        <td>{{ f.departureDestination.cityDTO.name }}, {{ f.departureDestination.cityDTO.countryDTO.name }}</td>
+        <td>{{ f.landingDestination.cityDTO.name }}, {{ f.landingDestination.cityDTO.countryDTO.name }}</td>
+       <td>
+         <span *ngIf="f.totalDurationDays > 0">{{f.totalDurationDays}}d</span> 
+         <span *ngIf="f.totalDurationHours > 0"> {{f.totalDurationHours}}h</span> 
+         <span *ngIf="f.totalDurationMins > 0"> {{f.totalDurationMins}}m</span> 
+        </td>
+        <td>{{ f.departureDate }}</td>
+        <td>{{ f.landingDate }}</td>
+        <td>{{ f.price }}</td>
+        <td>{{ f.interceptionsDTO.length }}</td>
+        
+        
+        <td class="actions ">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+  
+    
+    
+    <div class="card-container">
+    
+      <div class="card-general-info">
+    
+      
+    
+        <div class="card-departure">
+    
+          
+    
+          <div class="card-dest">
+    
+            <i class="fa fa-plane mr-3 card-icon"></i> 
+    
+            <div class="card-place">
+              <span class="card-city">
+                {{ f.departureDestination.cityDTO.name }}
+              </span>
+      
+              <span class="card-country">
+                {{ f.departureDestination.cityDTO.countryDTO.name }}
+              </span>
+            </div>
+    
+            
+    
+          </div>
+    
+          <div class="card-date">
+            
+            <span class="time">
+              {{ f.departureTime }}
+            </span>
+      
+            <span class="date">
+              {{ f.departureDate }}
+            </span>
+    
+          </div>
+    
+        </div>
+    
+        <div class="card-trip" (mouseover)="overInterceptions()" (mouseout)="outInterceptions()">
+    
+          <div class="card-trip-duration">
+            <span *ngIf="f.totalDurationDays > 0"><span class="bold">{{f.totalDurationDays}}</span>d</span> 
+            <span *ngIf="f.totalDurationHours > 0"> <span class="bold"> {{f.totalDurationHours}}</span>h</span> 
+            <span *ngIf="f.totalDurationMins > 0"> <span class="bold"> {{f.totalDurationMins}}</span>m</span> 
+          </div>
+    
+          <div class="card-trip-arrow">
+            <i class="fa fa-location-arrow card-trip-arrow"></i>
+    
+          </div> 
+    
+          <div class="card-trip-interceptions align-center" >
+            
+            <span class="how-many" >
+              <span class="bold">{{ f.interceptionsDTO.length }} </span> stop<span *ngIf="f.interceptionsDTO.length != 1">s</span>
+            </span>
+    
+            <span class="which-ones"  *ngIf="whichOnes">
+              <div *ngFor="let i of f.interceptionsDTO">
+                <span class="bold">{{ i.duration }}</span> mins in <span class="bold">{{ i.destinationDTO.cityDTO.name }}</span>
+    
+              </div>
+    
+            </span>
+    
+          </div>
+    
+          
+    
+        </div>
+    
+        <div class="card-departure">
+    
+          
+          <div class="card-dest card-dest-arrival">
+    
+            <i class="fa fa-plane fa-plane-rotate mr-3 card-icon"></i> 
+    
+            <div class="card-place">
+              <span class="card-city">
+                {{ f.landingDestination.cityDTO.name }}
+              </span>
+      
+              <span class="card-country">
+                {{ f.landingDestination.cityDTO.countryDTO.name }}
+              </span>
+            </div>
+    
+            
+    
+          </div>
+    
+          <div class="card-date">
+    
+            <span class="time">
+              {{ f.landingTime }}
+            </span>
+    
+            <span class="date">
+              {{ f.landingDate }}
+            </span>
+          </div>
+    
+        </div>
+    
+    
+      </div>
+    
+      <div class="card-right-info">
+    
+        <div class="card-trip-avio" *ngIf="searchList">
+            {{ f.avioDTO.name }}
+    
+        </div>
+        
+        <div class="card-seats">
+          <span *ngIf="f.availableSeats > 10">{{ f.availableSeats }} seats available</span>
+          <span *ngIf="f.availableSeats <= 10">Only {{ f.availableSeats }} seats left</span>
+          
+        </div>
+        
+        <div class="card-price">
+          {{ f.price }} €
+    
+        </div>
+    
+        <div class="card-reserve" *ngIf="!searchList">
+    
+          Reserve now <i class="fa fa-arrow-circle-o-right ml-2"></i>
+    
+        </div>
+    
+      </div>
+    
+    
+    
+    </div>

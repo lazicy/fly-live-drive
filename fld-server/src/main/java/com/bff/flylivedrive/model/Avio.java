@@ -46,8 +46,6 @@ public class Avio {
 	@OneToMany(mappedBy = "avio", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Destination> destinations = new HashSet<Destination>();
 	
-
-	private ArrayList<Double> ocene = new ArrayList<>();
 	
 	
 	public Long getId() {
@@ -119,15 +117,6 @@ public class Avio {
 		this.destinations = destinations;
 	}
 
-	
-	
-	public ArrayList<Double> getOcene() {
-		return ocene;
-	}
-
-	public void setOcene(ArrayList<Double> ocene) {
-		this.ocene = ocene;
-	}
 
 	@Override
 	public int hashCode() {

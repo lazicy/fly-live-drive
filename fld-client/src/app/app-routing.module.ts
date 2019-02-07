@@ -36,6 +36,7 @@ import { SeatsEditComponent } from './avio/avio-admin/flight-form/seats-edit/sea
 import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component';
 import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
 import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
+import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
 
 
 const appRoutes: Routes = [
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
 			{ path: ':id', component: AvioEditComponent}
 			
 		]},
+		{ path: 'reservation', component: AvioReservationComponent},
 		{ path: ':id', component: AvioProfileComponent},
 		{ path: 'list', component: AviolistComponent}
 	]},

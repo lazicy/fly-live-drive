@@ -10,6 +10,21 @@
     left: 0;
 }
 
+.basic_info {
+    padding: 20px;
+}
+
+.stroke {
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.selected {
+    background: green;
+    transition: all 0.3s;
+}
 
 #pretrazi { /* id za dugme pretrage */
     float:right;
@@ -25,6 +40,28 @@ input[type=date]::-webkit-inner-spin-button {
     display: none;
 }
 
+.reservation-control {
+    font-size: 25px;
+    font-weight: 600;
+    color: green;
+    margin-top: 10px;
+    
+}
+
+.reserve-flght {
+    transition: all 0.5s;
+}
+
+.reserve-flight:hover {
+    text-decoration: underline;
+    transform: scale(1.2);
+    transition: all 0.5s;
+
+}
+
+.reserve-msg {
+    color: darkgray;
+}
 
 .full-width {
     margin: 0px !important;
