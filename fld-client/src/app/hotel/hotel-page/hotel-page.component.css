@@ -96,7 +96,7 @@ h5 {
 
 .tblScroll {
     overflow-y: scroll;
-    max-height: 500px;
+    max-height: 55vh;
 }
 
 .table {

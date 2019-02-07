@@ -60,6 +60,7 @@ import { EditServiceComponent } from './hotel/hotel-admin/edit-service/edit-serv
 import { AddRoomComponent } from './hotel/hotel-admin/add-room/add-room.component';
 import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.component';
 import { BonusPointsService } from './services/bonus.service';
+import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { BonusPointsService } from './services/bonus.service';
     AddServiceComponent,
     EditServiceComponent,
     AddRoomComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    HotelBookComponent
   ],
   imports: [
     BrowserModule,

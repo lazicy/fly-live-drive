@@ -38,11 +38,14 @@ public class Room {
 	@Column(name="balcony", nullable = false)
 	private String balcony;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<FastRoom> fast_res = new HashSet<FastRoom>();
 	
 	@Column(name="rating", nullable = true)
 	private Double rating;
+	
+	@OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<HotelReservation> hotel_res = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
@@ -116,6 +119,22 @@ public class Room {
 
 	public void setRating(Double rating) {
 		this.rating = rating;
+	}
+
+	public Set<FastRoom> getFast_res() {
+		return fast_res;
+	}
+
+	public void setFast_res(Set<FastRoom> fast_res) {
+		this.fast_res = fast_res;
+	}
+
+	public Set<HotelReservation> getHotel_res() {
+		return hotel_res;
+	}
+
+	public void setHotel_res(Set<HotelReservation> hotel_res) {
+		this.hotel_res = hotel_res;
 	}
 
 	public Hotel getHotel() {

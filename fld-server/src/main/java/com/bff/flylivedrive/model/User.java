@@ -10,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 import org.assertj.core.util.DateUtil;
@@ -25,7 +26,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy=SINGLE_TABLE) //ovom anotacijom se naglasava tip mapiranja "jedna tabela po hijerarhiji"
@@ -53,6 +56,9 @@ public class User implements UserDetails{
 	
 	@Column(name="bonus_points", nullable = false)
 	private int bonus_points;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	Set<HotelReservation> hotelRes = new HashSet<>();
 	
 	@Column(name = "active", nullable = false)
 	private boolean active = false; //inicijalno je uvek false prilikom registracije, menja se nakon potvrde mejlom
@@ -154,6 +160,14 @@ public class User implements UserDetails{
 
 	public void setBonus_points(int bonus_points) {
 		this.bonus_points = bonus_points;
+	}
+
+	public Set<HotelReservation> getHotelRes() {
+		return hotelRes;
+	}
+
+	public void setHotelRes(Set<HotelReservation> hotelRes) {
+		this.hotelRes = hotelRes;
 	}
 
 	public boolean isActive() {

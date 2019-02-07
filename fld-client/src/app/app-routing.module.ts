@@ -31,6 +31,7 @@ import { RentListComponent } from './rent/rent-list/rent-list.component';
 import { BranchesComponent } from './rent/rent-admin/branches/branches.component';
 import { VehiclesComponent } from './rent/rent-admin/branches/vehicles/vehicles.component';
 import { RentProfileComponent } from './rent/rent-profile/rent-profile.component';
+import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 
 
 const appRoutes: Routes = [
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
 		{ path: 'admin/:idH', component: HotelAdminComponent},
+		{ path: 'book/:idB', component: HotelBookComponent},
 		{ path: ':id', component: HotelPageComponent}
 	]},
 	{path: 'login', component: LoginComponent},

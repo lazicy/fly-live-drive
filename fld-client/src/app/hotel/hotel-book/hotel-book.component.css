@@ -1,0 +1,103 @@
+h3 {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.tblScroll {
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.table {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.container {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 10px;
+    height: 90vh;
+}
+
+.btnBackService {
+    position: absolute;
+    bottom: 4%;
+    right: 29%;
+}
+
+.btnFinish {
+    position: absolute;
+    bottom: 4%;
+    right: 20%;
+}
+
+.btnFinishContinue {
+    position: absolute;
+    bottom: 12%;
+    right: 20%;
+}
+
+.btnNextRoom {
+    position: absolute;
+    bottom: 4%;
+    right: 20%;
+}
+
+.btn {
+    padding: 7px 16px;
+    font-size: 19px;
+}
+
+.err {
+    color: red;
+}
+
+.leviDiv {
+    width: 49%;
+    float: left;
+}
+
+.desniDiv {
+    width: 49%;
+    float: right;
+}
+
+.leviScrollable {
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.desniScrollable {
+    margin-top:5px;
+    max-height: 45vh;
+    overflow-y: auto;
+    margin-right: 5px;
+}
+
+.tabSer {
+    margin-left: 15px;
+}
+
+.tabela {
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+}
+
+.podvucenTH {
+    border-bottom: 1px solid lightgray;
+}
+
+.tabSerGray th {
+    background-color: lightgray;
+}
+.cene {
+    position: absolute;
+    bottom: 21%;
+    right: 20%;
+    width: 23%;
+}
+.floatCene {
+    float: right;
+}

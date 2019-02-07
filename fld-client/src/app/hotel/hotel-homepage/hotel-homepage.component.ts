@@ -27,7 +27,7 @@ export class HotelHomepageComponent implements OnInit {
     const name = form.value.search;
 
     //uraditi search
-    /*this.hotelService.searchHotel(name).subscribe(
+    this.hotelService.searchHotel(name).subscribe(
       (data) => {
         this.hotelSearch = data;
         if(this.hotelSearch.length === 0) {
@@ -35,6 +35,6 @@ export class HotelHomepageComponent implements OnInit {
         }
       },
       (error) => alert("Error: " + error)
-    );*/
+    );
   }
 }

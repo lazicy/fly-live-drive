@@ -63,7 +63,8 @@
                           <th>Capacity</th>
                           <th>Floor</th>
                           <th>Balcony</th>
-                          <th>Price per night</th>
+                          <th>Price</th>
+                          <th>Rating</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -74,6 +75,7 @@
                         <td>{{room.floor}}</td>
                         <td>{{room.balcony}}</td>
                         <td>{{room.price}} €</td>
+                        <td>{{room.rating}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -83,7 +85,7 @@
         </div>
 
         <div class="book">
-          <button class="btn btn-primary bookBtn">Book a room</button>
+          <button class="btn btn-primary bookBtn" [routerLink]="['/hotel/book', hotel.id]">Book a room</button>
         </div>
 
         <div class="map" id="mapa" >
