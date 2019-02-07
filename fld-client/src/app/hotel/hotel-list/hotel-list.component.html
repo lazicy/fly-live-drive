@@ -17,9 +17,12 @@
                           <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{ hotel.cityDTO.name }}, {{hotel.cityDTO.countryDTO.name}}</h6>
                   <p class="card-text">{{hotel.description}}</p>
                   </div>
-                  <div class="details-btn-card">
+                  <div class="rating">
+                    <span class="rate_circle"></span>
+                  </div>
+                  <div class="details-btn-card dugmeDetails">
                       <a class="btn btn-primary" [routerLink]="['/hotel', hotel.id]" id="details">See details</a>
-                    </div> 
+                  </div> 
               </div>
             </div>
           </div>

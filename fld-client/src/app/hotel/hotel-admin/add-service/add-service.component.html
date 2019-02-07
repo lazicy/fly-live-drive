@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+      <form style="width:100%" (ngSubmit)="onSubmitService(f)"  #f="ngForm">
+          <h2>Insert New Service</h2>
+          <span class="mand">*all fields are mandatory</span>
+          <hr>
+       
+          <div class="row">
+            <div class="form-group col-7">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" class="form-control" ngModel required>
+            </div>
+
+            <div class="form-group col-4">
+                <label for="discount">Discount:</label>
+                <select class="form-control"  id="discount"
+                        required
+                        name="discount" ngModel>
+                  <option value="0">0 %</option>
+                  <option value="1">1 %</option>
+                  <option value="2">2 %</option>
+                  <option value="3">3 %</option>
+                </select>
+              </div>
+          </div>
+          
+          <div class="row">
+            <div class="form-group col-4">
+              <label for="price">Price:</label>
+              <input type="number" id="price" name="price" class="form-control" min="0" (keydown)="onKeydown($event)" placeholder="€" ngModel required>
+            </div>
+            <div class="form-group col-7">
+              <label for="charge">Charge:</label>
+              <select class="form-control"  id="charge"
+                        required
+                        name="charge" ngModel>
+                  <option value="Person" selected>per Person</option>
+                  <option value="Day">per Day</option>
+                  <option value="Room">per Room</option>
+                </select>
+            </div>
+          </div>
+          
+          <div class="row ">
+            <div class="form-group center-button">
+              <button type="submit" class="btn btn-success" [disabled]="!f.valid">Insert</button>
+            </div>
+          </div>
+        </form>
+  </div>
+</div>

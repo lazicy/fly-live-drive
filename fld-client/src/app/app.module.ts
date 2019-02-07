@@ -23,7 +23,6 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
-import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { UserService } from './services/user.service';
@@ -65,6 +64,12 @@ import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.compon
 import { FlightlistSearchComponent } from './avio/flightlist-search/flightlist-search.component';
 import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
 import { ReservationFlightService } from './services/reservation-flight.service';
+import { AddServiceComponent } from './hotel/hotel-admin/add-service/add-service.component';
+import { EditServiceComponent } from './hotel/hotel-admin/edit-service/edit-service.component';
+import { AddRoomComponent } from './hotel/hotel-admin/add-room/add-room.component';
+import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.component';
+import { BonusPointsService } from './services/bonus.service';
+import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +89,6 @@ import { ReservationFlightService } from './services/reservation-flight.service'
     SignUpComponent,
     AvioAdminComponent,
     HotelHomepageComponent,
-    HotelFormComponent,
     HotelAdminComponent,
     VerifyMailComponent,
     RentComponent,
@@ -116,7 +120,12 @@ import { ReservationFlightService } from './services/reservation-flight.service'
     VehicleSearchComponent,
     AvioHomepageComponent,
     FlightlistSearchComponent,
-    AvioReservationComponent
+    AvioReservationComponent,
+    AddServiceComponent,
+    EditServiceComponent,
+    AddRoomComponent,
+    EditRoomComponent,
+    HotelBookComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +136,7 @@ import { ReservationFlightService } from './services/reservation-flight.service'
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService, ReservationFlightService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService, ReservationFlightService, BonusPointsService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

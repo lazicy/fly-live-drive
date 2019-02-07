@@ -21,11 +21,36 @@ th[scope="row"] {
 }
 
 .klasa {
- width: 50%;
- height: 200px;
- display: inline-block;
+ width: 45%;
+ border-right: 1px solid lightgray;
+ float: left;
+}
+
+.klasaB {
+ width: 45%;
+ float: right;
 }
 
 .form-control {
     width: 95%;
+}
+
+.dugme {
+    float: right;
+    margin-right: 5px;
+}
+
+.dodajBonusDiv {
+    border-radius: 10px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.table {
+    margin-left: 20px;
+}
+
+.pnts {
+    font-size: 13px;
+    color: red;
 }

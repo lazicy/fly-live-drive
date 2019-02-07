@@ -12,7 +12,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AvioAdminComponent } from './avio/avio-admin/avio-admin.component';
 import { HotelHomepageComponent } from './hotel/hotel-homepage/hotel-homepage.component';
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
-import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 import { VerifyMailComponent } from './verify-mail/verify-mail.component';
 import { RentHomepageComponent } from './rent/rent-homepage/rent-homepage.component';
 import { RentAdminComponent } from './rent/rent-admin/rent-admin.component';
@@ -37,6 +36,7 @@ import { VehicleListComponent } from './rent/vehicle-list/vehicle-list.component
 import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehicle-search.component';
 import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
 import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
+import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 
 
 const appRoutes: Routes = [
@@ -73,9 +73,8 @@ const appRoutes: Routes = [
 	{ path: 'hotel', component: HotelComponent, children: [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
-		{ path: 'administrateHotels', component: HotelAdminComponent, children: [
-			{ path: 'add', component: HotelFormComponent}
-		]},
+		{ path: 'admin/:idH', component: HotelAdminComponent},
+		{ path: 'book/:idB', component: HotelBookComponent},
 		{ path: ':id', component: HotelPageComponent}
 	]},
 	{path: 'login', component: LoginComponent},

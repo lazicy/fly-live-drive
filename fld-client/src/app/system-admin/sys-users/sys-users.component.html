@@ -41,14 +41,53 @@
           <option value="SYSTEM_ADMIN">System admin</option>
         </select>
       </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-success" [disabled]="!f.valid">Add</button>
-    <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+      <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Add</button>
+        <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+      </div>
+    </form>
   </div>
-</form>
-  </div>
-  <div class="klasa">
+  <div class="klasaB">
+    <button class="btn btn-primary dugme" (click)="onAddBonus()">Add bonus</button>
+    <div class="dodajBonusDiv" *ngIf="showAdd">
+        <form (ngSubmit)="onSubmitBonus(fB)" #fB="ngForm">
+          <div class="row">
+              <div class="form-group col-5">
+                  <label for="points">Points: </label>
+                  <input ngModel required type="number" min="0" (keydown)="onKeydown($event)" class="form-control" name="points" id="points">
+              </div>
+              <div class="form-group col-5">
+                  <label for="discount">Discount: </label>
+                  <select name="discount" id="discount" class="form-control" ngModel required>
+                      <option *ngFor="let p of posto" [value]="p">{{p}}%</option>
+                  </select>
+              </div>
+          </div>
+          <button type="submit" class="btn btn-success" [disabled]="!fB.valid">Add</button>
+        </form>
+        <p *ngIf="showPointExistMsg" class="pnts">There is already a discount for that amount of points.</p>
+        <hr>
+      </div>
     <h4>Bonuses</h4>
-    
+    <div class="leviDiv">
+      <div class="table">
+        <table class="table-responsive">
+          <thead>
+            <tr>
+              <th>Points</th>
+              <th>Discount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bp of bonusi">
+              <td>{{bp.points}}</td>
+              <td>{{bp.discount}} %</td>
+              <td><button (click)="onRemoveBonus(bp.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  </div>
+</div>

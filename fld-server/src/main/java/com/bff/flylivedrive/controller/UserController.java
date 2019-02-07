@@ -96,6 +96,7 @@ public class UserController {
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
 		user.setCity(userDTO.getCity());
+		user.setBonus_points(0);
 		Authority a = new Authority();
 		a.setId((long) 5);
 		a.setName("USER");
@@ -156,6 +157,7 @@ public class UserController {
 		user.setLastname(userDTO.getLastname());
 		user.setEmail(userDTO.getEmail());
 		user.setCity(userDTO.getCity());
+		user.setBonus_points(0);
 		
 		List<Authority> al = new ArrayList<Authority>();
 		al.add(a);

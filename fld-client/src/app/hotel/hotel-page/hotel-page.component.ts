@@ -9,10 +9,14 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./hotel-page.component.css']
 })
 export class HotelPageComponent implements OnInit {
-  hotel: any = new Object();
+  hotel: any = null;
   id: number;
   map: boolean = false;
   slika: any = null;
+  emptyServicesList: boolean = false;
+  emptyRoomList: boolean = false;
+  hideServ: boolean = true;
+  ShowText: any = "Show more";
   currentStyles = {     
     
   };
@@ -35,6 +39,8 @@ export class HotelPageComponent implements OnInit {
             if(this.hotel.map === "") {
                 this.map = true;
             }
+            this.fetchServices();
+            this.fetchRooms();
           },
           (error) => {
             alert(error);
@@ -50,5 +56,39 @@ export class HotelPageComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  fetchServices() {
+    this.hotelService.getHotelServices(this.id).subscribe(
+      data => {
+        this.hotel.services = data;
+        if(this.hotel.services.length === 0) {
+          this.emptyServicesList = true;
+        }
+      },  
+      error => console.log(error)
+        
+    );
+  }
+
+  fetchRooms() {
+    this.hotelService.getHotelRooms(this.hotel.id).subscribe(
+      data => {
+        this.hotel.rooms = data;
+        if(this.hotel.rooms.length === 0) {
+          this.emptyRoomList = true;
+        }
+      },  
+      error => console.log(error)
+    );
+  }
+
+  onShowMore() {
+    this.hideServ = !this.hideServ;
+    if(this.ShowText == "Show more") {
+      this.ShowText = "Show less"
+    } else {
+      this.ShowText = "Show more"
+    }
   }
 }

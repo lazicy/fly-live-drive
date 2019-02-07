@@ -1,6 +1,6 @@
 <section class="section-parallax" data-type="background" data-speed="4">
   <div class="container">
-    <form (ngSubmit)="onSearchHotel(f)" name="searchHotels" #f="ngForm">
+    <form (ngSubmit)="onSearchHotels(f)" name="searchHotels" #f="ngForm">
       <div class="row" class="center">
         <div class="srcbar" style="margin-left: 70px;">
             <label for="search" class="lbl">Find hotel deals</label>
@@ -41,8 +41,7 @@
         </div>
       </div>
     <div class="row" id="pretrazi">
-      <button class="btn btn-primary" [routerLink]="['/hotel/administrateHotels']" style="background-color: green; border-color: green; text-align: center;">Administration</button>
-      <button class="btn btn-primary">Search hotels</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Search hotels</button>
     </div>
   </form>
   </div>

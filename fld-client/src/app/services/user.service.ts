@@ -8,7 +8,7 @@ export class UserService {
 
     saveUser(user){
         return this.http.post("http://localhost:4200/api/users", user);
-      }
+    }
 
     login(user){
         return this.http.post("http://localhost:4200/api/auth/login",user);
