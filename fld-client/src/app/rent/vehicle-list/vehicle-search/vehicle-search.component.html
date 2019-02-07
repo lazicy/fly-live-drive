@@ -1,4 +1,4 @@
-<div class="container h-100 form">
+<div class="container h-70 form">
   <div class="row justify-content-center align-items-center w-100">
     <form class="form-area w-100" (ngSubmit)="onSubmitSearch()" [formGroup]="searchForm">
         <div class="row">
@@ -74,33 +74,16 @@
             </div>
             <div class="col-10">
               <span *ngIf="!dateValid" class="text-danger" >Pick up date and time must be at least 60 minutes before drop off.</span>
+              <br>
+              <span *ngIf="!dateSet" class="text-danger">You must set the date and time for pick up and drop off.</span>
             </div>
         </div>
-
-          
-
         <div class="row">
-            <div class="form-group col-5">
-              <label>Type of vehicle: </label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-car"></i></div>
-                  </div>
-                  <select class="form-control" formControlName="type">
-                      <option selected hidden></option>
-                      <option>Sedan</option>
-                      <option>SUV</option>
-                      <option>Coupe</option>
-                      <option>Convertible</option>
-                      <option>Van</option>
-                  </select>
-            </div>
-            </div>
             <div class="form-group col-5">
                 <label>Number of seats: </label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                      <div class="input-group-text"><img src="/src/img//seat-belt.png"></div>
+                      <div class="input-group-text"><img src="/src/img/seat.png"></div>
                     </div>
                   <select class="form-control" formControlName="numberOfSeats">
                     <option selected hidden></option>
@@ -113,17 +96,46 @@
           </div>
           <div class="row">
               <div class="col form-group">
-                <button type="submit" class="btn btn-success">Search</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">Search</button>
                 <button type="button" (click)="onReset()" class="btn btn-danger">Reset</button>
               </div>
             </div>
     </form>
   </div>
   <hr>
-  <!-- VEHICLE LIST -->
-  <div>
-
   </div>
+  <!-- VEHICLE LIST -->
+  <div class="container" *ngIf="vehicleList">
+        <div class="tile-search" *ngFor="let vehicle of vehicleList">
+            <div class="row main">
+              <div class="left-part-card-search col-3">
+              <div class="info">
+                  <h4> {{ vehicle.brand }} </h4>
+                  <h6> {{ vehicle.model }} </h6>
+              </div>
+                  <div class="ocena">
+                      Rating
+                  </div>
+              </div>
+              <div class="col-3 table-div">
+                <div class="icons">
+                  <span><i class="fa fa-car"></i> {{ vehicle.type }} </span>
+                  <span> <img src="/src/img/seat.png"> {{ vehicle.numberOfSeats}}</span> <br>
+                  <span> <i class="fa fa-wrench"></i> {{vehicle.productionYear}} </span>
+                  <span><i class="fa fa-map-marker"> {{ vehicle.filijalaDTO.address }}</i></span>
+                </div>
+                </div>
 
+              <div class="right-part-card-search col-3">
+                  <p class="hotel-name">Ukupna cena: </p>
+                  <h4><b>{{ vehicle.pricePerDay * duration}}</b>  <b>€</b></h4>
+                </div> 
+              <div class="col-1 table-div">
+                <div class="icons">
+                  <button class="btn btn-primary" style="float: right">Reserve vehicle</button>
+                </div>
+              </div>
+            </div>
+  </div>
 </div>
 
