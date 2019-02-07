@@ -11,6 +11,8 @@ import com.bff.flylivedrive.model.City;
 public interface CityRepository extends JpaRepository<City, Long>{
 	
 	City findOneById(Long id);
+	City findOneByName(String name);
+	
 	@Query("select city from City city, Country country where country.id = city.country.id and country.id = :id")
 	public List<City> findCityByCountryId(@Param("id") Long id);
 

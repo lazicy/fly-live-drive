@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.bff.flylivedrive.dto.VoziloDTO;
 
@@ -40,7 +41,11 @@ public class Vozilo {
 	//jedno vozilo vezano je samo za jednu filjalu
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Filijala filijala;
-
+	
+	@OneToOne(mappedBy = "vozilo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private VehicleReservation vehicleReservation;
+	
+	
 	public Vozilo() {
 		
 	}
@@ -106,6 +111,14 @@ public class Vozilo {
 
 	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
+	}
+
+	public VehicleReservation getVehicleReservation() {
+		return vehicleReservation;
+	}
+
+	public void setVehicleReservation(VehicleReservation vehicleReservation) {
+		this.vehicleReservation = vehicleReservation;
 	}
 
 	public String getType() {

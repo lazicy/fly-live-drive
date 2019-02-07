@@ -48,7 +48,6 @@ public class UserService {
 	}
 	
 	public void sendNotificationSync(User user, HttpServletRequest request) throws MailException, InterruptedException {
-		//System.out.println("Slanje emaila...");
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
 		mail.setFrom(env.getProperty("spring.mail.username"));

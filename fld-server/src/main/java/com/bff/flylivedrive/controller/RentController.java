@@ -1,6 +1,10 @@
 package com.bff.flylivedrive.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,12 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.CountryDTO;
 import com.bff.flylivedrive.dto.FilijalaDTO;
 import com.bff.flylivedrive.dto.RentDTO;
+import com.bff.flylivedrive.dto.VehicleSearchParams;
 import com.bff.flylivedrive.dto.VoziloDTO;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Country;
@@ -29,6 +35,7 @@ import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.CountryService;
 import com.bff.flylivedrive.service.RentService;
+import com.bff.flylivedrive.service.VehicleReservationService;
 import com.bff.flylivedrive.service.VoziloService;
 
 @RestController
@@ -296,7 +303,6 @@ public class RentController {
 		List<CityDTO> citiesDTO = new ArrayList<CityDTO>();
 		for(Filijala f: filijale) {
 			for(City c: cities) {
-				System.out.println("CITY" + c.getName());
 				if(c.getId().equals(f.getCity().getId())) {
 					citiesDTO.add(new CityDTO(c));
 					break;
@@ -304,6 +310,33 @@ public class RentController {
 			}
 		}
 		return new ResponseEntity<>(citiesDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/searchVehicles", method = RequestMethod.POST)
+	public ResponseEntity<List<VoziloDTO>> getVehiclesSearch(@RequestBody VehicleSearchParams params){
+		
+		//vozila koja nisu rezervisana
+		List<Vozilo> notResVehicles = new ArrayList<Vozilo>();
+		List<Vozilo> resVehicles = new ArrayList<Vozilo>();
+		City c = cityService.findOneById(Long.parseLong(params.getCity()));
+		
+		if(params.getSeats() != 0) {
+			resVehicles = vService.getResVehicles(params.getPickUp(), params.getDropOff(), c.getId(), params.getSeats());
+			notResVehicles = vService.getNotResVehicles(c.getId(),params.getSeats());
+		}else{
+			resVehicles = vService.getResVehicles(params.getPickUp(), params.getDropOff(), c.getId());
+			notResVehicles = vService.getNotResVehicles(c.getId());
+		}
+		List<VoziloDTO> res = new ArrayList<VoziloDTO>();
+		for(Vozilo v: notResVehicles) {
+			res.add(new VoziloDTO(v));
+		}
+		for(Vozilo v: resVehicles) {
+			res.add(new VoziloDTO(v));
+		}
+		//vozila koja su rezervisana ali ne u datom periodu pretrage
+		
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
 }

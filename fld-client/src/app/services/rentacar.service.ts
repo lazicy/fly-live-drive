@@ -73,4 +73,9 @@ export class RentService{
     getRENTVehicles(id){
         return this.http.get('/api/rent/getRENTVehicles/'+ id);
     }
+
+    searchVehicles(params){
+        return this.http.post('/api/rent/searchVehicles',params);
+    }
+
 }
