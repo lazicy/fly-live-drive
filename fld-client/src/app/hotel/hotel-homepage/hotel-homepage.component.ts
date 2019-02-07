@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators  } from '@angular/forms';
 
 @Component({
   selector: 'app-hotel-homepage',
@@ -14,12 +14,15 @@ export class HotelHomepageComponent implements OnInit {
   tomorrow: any;
   hotelSearch: any;
   notFound: any;
+
+  searchForm: FormGroup;
+
   constructor(private hotelService: HotelService) {
   }
 
   ngOnInit() {
-    this.tom.setDate(this.tod.getDate() + 1);
     this.today = this.tod.toISOString().split('T')[0];
+    this.tom.setDate(this.tod.getDate() + 1);
     this.tomorrow = this.tom.toISOString().split('T')[0];
   }
 

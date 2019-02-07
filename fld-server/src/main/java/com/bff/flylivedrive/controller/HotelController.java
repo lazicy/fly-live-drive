@@ -133,8 +133,8 @@ public class HotelController {
 		return new ResponseEntity<>(new HotelDTO(hotel), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ResponseEntity<List<HotelDTO>> getSearchedHotels(@PathVariable String name) {
+	@RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<HotelDTO>> getSearchedHotels(@PathVariable("name") String name) {
 		
 		List<Hotel> hotels = hotelService.search(name);
 		List<HotelDTO> hotelsDTO = new ArrayList<>();
