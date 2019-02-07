@@ -93,11 +93,29 @@
                   </select>
                   </div>
               </div>
+
+              <div class="form-group col-5" *ngIf="showDropOff">
+                <div class="animate">  
+                <label>Choose drop-off: </label>
+                  <div class="input-group mb-2">    
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-building-o"></i></div>
+                  </div>
+                  <select class="form-control" formControlName="dropOff"> 
+                    <option selected hidden></option>
+                    <option *ngFor="let city of cityList" [value]="city.id">{{ city.name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row">
               <div class="col form-group">
                 <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">Search</button>
                 <button type="button" (click)="onReset()" class="btn btn-danger">Reset</button>
+              </div>
+              <div class="form-froup col">
+                  <label style="padding-right:10px">Drop off car at different location?</label> <input type="checkbox" formControlName="diffDropOff" (click)="toggleShowDropOff()">
               </div>
             </div>
     </form>
@@ -105,6 +123,7 @@
   <hr>
   </div>
   <!-- VEHICLE LIST -->
+  <div class="container" *ngIf="noResult" style="text-align:center"> <h2>There are no results for this search.</h2> </div>
   <div class="container" *ngIf="vehicleList">
         <div class="tile-search" *ngFor="let vehicle of vehicleList">
             <div class="row main">
@@ -132,7 +151,7 @@
                 </div> 
               <div class="col-1 table-div">
                 <div class="icons">
-                  <button class="btn btn-primary" style="float: right">Reserve vehicle</button>
+                  <button class="btn btn-primary" style="float: right" (click)="onReserveVehicle()">Reserve vehicle</button>
                 </div>
               </div>
             </div>

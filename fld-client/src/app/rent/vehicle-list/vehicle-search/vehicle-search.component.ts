@@ -5,10 +5,11 @@ import { CountryService } from 'src/app/services/country.service';
 import { formGroupNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { FormGroup, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: 'app-vehicle-search',
   templateUrl: './vehicle-search.component.html',
-  styleUrls: ['./vehicle-search.component.css']
+  styleUrls: ['./vehicle-search.component.css'],
 })
 export class VehicleSearchComponent implements OnInit {
 
@@ -19,11 +20,14 @@ export class VehicleSearchComponent implements OnInit {
   vehicleList: any = [];
   duration: any;
 
+  noResult: boolean = false;
+
   //FORMA
   searchForm: FormGroup;
   dateValid: boolean = true;
   dateSet: boolean = true;
-  
+  showDropOff: boolean = false;
+
   constructor(private countryService: CountryService, private rentService: RentService, private route: ActivatedRoute) {
     this.route.params.subscribe(
       (params: Params)=>{
@@ -48,6 +52,8 @@ export class VehicleSearchComponent implements OnInit {
       "dropOffTime": new FormControl(""),
       "type": new FormControl(""),
       "numberOfSeats": new FormControl(""),
+      "dropOff": new FormControl(""),
+      "diffDropOff": new FormControl(false),
     })
   }
 
@@ -72,11 +78,21 @@ export class VehicleSearchComponent implements OnInit {
       this.rentService.searchVehicles(params).subscribe(
         (data) => {
           this.vehicleList = data;
-          this.calculateDuration(pickUp,dropOff);
+          if(this.vehicleList.length == 0){
+            this.noResult = true;
+          }else{
+            this.noResult = false;
+            this.calculateDuration(pickUp,dropOff);
+          }
+          
         }
       )
 
     }
+  }
+
+  onReserveVehicle(){
+
   }
   
   isDateSet(){
@@ -114,6 +130,10 @@ export class VehicleSearchComponent implements OnInit {
   }
   onReset(){
     this.searchForm.reset();
+  }
+
+  toggleShowDropOff(){
+    this.showDropOff = !this.showDropOff;
   }
 
 }
