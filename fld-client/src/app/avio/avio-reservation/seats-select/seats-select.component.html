@@ -19,6 +19,7 @@
 			 [ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D',
 							'seat-free': !s.reserved, 
 							'seat-reserved': s.reserved, 
+							'seat-deleted': s.deleted,
 							'seat-selected': s.selected === true }"
 			(click)="onReserveSeat(i)"
 			>

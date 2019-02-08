@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,11 @@ public class Seat {
 
 	private boolean reserved;
 	
+	private double discount;
+	
 	private int row;
+	
+	private boolean deleted;
 	
 	private String place;
 	
@@ -88,6 +93,24 @@ public class Seat {
 		this.reservationReturn = reservationReturn;
 	}
 
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	
+	
 	
 	
 	

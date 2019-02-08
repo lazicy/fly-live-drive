@@ -41,4 +41,8 @@ public class FlightService {
 	public List<Flight> searchDepartureFlight(Long fromId, Long toId, Date depDate, int seats) {
 		return flightRepo.searchDepartureFlight(fromId, toId, depDate, seats);
 	}
+	
+	public List<Flight> searchReturnFlight(Long fromId, Long toId, Date depDate, Date retDate, int seats) {
+		return flightRepo.searchReturnFlight(fromId, toId, depDate, retDate, seats);
+	}
 }

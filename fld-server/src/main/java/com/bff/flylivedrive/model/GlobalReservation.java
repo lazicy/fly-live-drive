@@ -17,8 +17,8 @@ public class GlobalReservation {
 	
 	private boolean active;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(nullable = true)
 	private FlightReservation flightReservation;
 	
 

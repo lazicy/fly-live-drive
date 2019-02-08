@@ -22,7 +22,15 @@ export class FlightService {
 
     searchFlights(searchParams) {
 		return this.http.post("/api/flight/search", searchParams);
-	}
+    }
+    
+    deleteSeats(seats) {
+        return this.http.delete("/api/flight/deleteseats", seats);
+    }
+
+    setOnDiscount(seats) {
+        return this.http.put("/api/flight/discount", seats);
+    }
 
 
 }

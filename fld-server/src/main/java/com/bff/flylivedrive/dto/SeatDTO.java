@@ -8,21 +8,25 @@ public class SeatDTO {
 	private boolean reserved;
 	private int row;
 	private String place;
+	private double discount;
+	private boolean deleted;
 	
 	public SeatDTO() {
 		
 	}
 	
 	public SeatDTO(Seat s) {
-		this(s.getId(), s.isReserved(), s.getRow(), s.getPlace());
+		this(s.getId(), s.isReserved(), s.getRow(), s.getPlace(), s.getDiscount(), s.isDeleted());
 	}
 	
-	public SeatDTO(Long id, boolean reserved, int row, String place) {
+	public SeatDTO(Long id, boolean reserved, int row, String place, double discount, boolean deleted) {
 		super();
 		this.id = id;
 		this.reserved = reserved;
 		this.row = row;
 		this.place = place;
+		this.discount = discount;
+		this.deleted = deleted;
 	}
 	public Long getId() {
 		return id;
@@ -52,6 +56,24 @@ public class SeatDTO {
 	public void setPlace(String place) {
 		this.place = place;
 	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 
 
 

@@ -50,6 +50,8 @@ public class Flight {
 	@Column(name="availableSeats", nullable=false)
 	private int availableSeats;
 	
+	private int discountSeats;
+	
 	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Interception> interceptions = new HashSet<Interception>();
 	
@@ -155,6 +157,30 @@ public class Flight {
 
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
+	}
+
+	public int getDiscountSeats() {
+		return discountSeats;
+	}
+
+	public void setDiscountSeats(int discountSeats) {
+		this.discountSeats = discountSeats;
+	}
+
+	public List<FlightReservation> getDepartureReservations() {
+		return departureReservations;
+	}
+
+	public void setDepartureReservations(List<FlightReservation> departureReservations) {
+		this.departureReservations = departureReservations;
+	}
+
+	public List<FlightReservation> getReturnReservations() {
+		return returnReservations;
+	}
+
+	public void setReturnReservations(List<FlightReservation> returnReservations) {
+		this.returnReservations = returnReservations;
 	}
 	
 	

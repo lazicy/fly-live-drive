@@ -27,4 +27,16 @@ public interface FlightRepository extends JpaRepository<Flight, Long>{
 			+ "and f.availableSeats >= :seats "
 			+ "and f.departureDate >= :depDate")
 	List<Flight> searchDepartureFlight(@Param("fromId") Long fromId, @Param("toId") Long toId, @Param("depDate") Date depDate, @Param("seats") int seats);
+	
+	
+	
+	@Query("select f from Flight f, Destination fromDest, Destination toDest, City fromCity, City toCity "
+			+ "where fromCity.id = :fromId and toCity.id = :toId "
+			+ "and fromCity.id = fromDest.city.id and toCity.id = toDest.city.id "
+			+ "and fromDest.id = f.departureDestination.id and toDest.id = f.landingDestination.id "
+			+ "and f.availableSeats >= :seats "
+			+ "and f.departureDate >= :depDate and f.departureDate <= :retDate")
+	List<Flight> searchReturnFlight(@Param("fromId") Long fromId, @Param("toId") Long toId,
+			@Param("depDate") Date depDate, @Param("retDate") Date retDate, @Param("seats") int seats);
+
 }

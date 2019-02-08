@@ -38,8 +38,6 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 			this.flightService.getFlightSeats(this.fId).subscribe(
 				(data) => {
 					this.seats = data;
-					//this.fillEmptyPlaces();
-					console.log(this.seats);
 				}, (error) => {
 					console.log(error);
 				}
@@ -51,23 +49,6 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 
 	}
 
-	fillEmptyPlaces() {
-		let howMany = 6 - (this.seats.length % 6);
-
-		const invisibleSeat = {
-			row: -1,
-			reserved: true,
-			position: 'X',
-			selected: false,
-			id: -1
-		} 
-
-		while (howMany > 0 && howMany < 6) {
-			this.seats.push(invisibleSeat);
-			howMany--;
-		}
-
-	}
 
 	onReserveSeat(i) {
 		
@@ -75,7 +56,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		if (this.seats[i].reserved) {
+		if (this.seats[i].reserved || this.seats[i].deleted) {
 			return;
 		}
 
@@ -90,7 +71,6 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 			this.selectedSeats.splice(this.selectedSeats.findIndex(seat => seat.id == i), 1);
 		}
 
-		console.log(this.selectedSeats);
 	}
 
 	onProceed() {
@@ -126,7 +106,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 		for (let i = 0; i < this.selected.length; i++) {
 			// ukoliko je u medjuvremenu obrisano ili rezervisano
 			let index = this.selected[i];
-			if (this.seats[index] == null || this.seats[index].reserved) {
+			if (this.seats[index] == null || this.seats[index].reserved || this.seats[index].deleted) {
 				this.allValid = false;
 			} else {
 				console.log("asign to true");
@@ -160,7 +140,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 		}
 
 		if(!this.allValid) {
-			{swal ( "Please take other seats!" ,  "During your slecting, somebody else took your seats or it's been deleted, what a bummer! Please select other seats." );}
+			{swal ( "Please take other seats!" ,  "During your slecting, someony else took your seats or it's been deleted, what a bummer! Please select other seats." );}
 			return;
 		}
 

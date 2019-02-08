@@ -1,241 +1,236 @@
-<div class="mt-3">
-	<h3 class="align-center" *ngIf="!editMode">Insert new flight for {{avio.name}} </h3>
-	<h3 class="align-center" *ngIf="editMode">Update flight information</h3>
-</div>
+<div *ngIf="!editMode">
 
-
-<form (ngSubmit)="onSubmitFlightInfo()" [formGroup]="flightInfoForm">
-
-
-	<h5 class="mt-3"><i class="fa fa-plane mr-1"></i> Departure details </h5>
-	<hr>
-	<!-- DEPARTURE FIELDS -->
-	<div class="row">
-
-
-
-		<div class="col-5">
-
-			<div class="row">
-
-				<div class="form-group col-6">
-					<label for="departureDate">Date:</label>
-					<input class="form-control" formControlName="departureDate" type="date" name="departureDate">
-				</div>
-
-				<div class="form-group col-5">
-					<label for="departureTime">Time:</label>
-					<input class="form-control" formControlName="departureTime" type="time" name="departureTime">
-				</div>
-
-			</div>
-		</div>
-
-		<div class="col-6">
-			<div class="row">
-
-
-				<div class="form-group col-6">
-
-					<label for="departureCountryId">Country:</label>
-					<select class="form-control" id="departureCountryId" formControlName="departureCountryId" (change)="onChangeDepartureCountry($event)">
-						<option *ngFor="let c of destCountries" [value]="c.id">{{c.name}}</option>
-					</select>
-
-				</div>
-
-				<div class="form-group col-5">
-
-					<label for="departureCityId">City:</label>
-					<select class="form-control" id="departureCityId" formControlName="departureCityId" required>
-						<option *ngFor="let city of destDepartureCities" [value]="city.id">{{city.name}}</option>
-					</select>
-
-				</div>
-			</div>
-
-
-
-		</div>
-
+	<div class="mt-3">
+		<h3 class="align-center" *ngIf="!editMode">Insert new flight for {{avio.name}} </h3>
+		<h3 class="align-center" *ngIf="editMode">Update flight information</h3>
 	</div>
 
 
-	<h5 class="mt-5"> <i class="fa fa-plane fa-plane-rotate mr-1"></i> Landing details</h5>
-	<hr>
-	<!-- LANDING FIELDS -->
-	<div class="row">
+	<form (ngSubmit)="onSubmitFlightInfo()" [formGroup]="flightInfoForm">
+
+
+		<h5 class="mt-3"><i class="fa fa-plane mr-1"></i> Departure details </h5>
+		<hr>
+		<!-- DEPARTURE FIELDS -->
+		<div class="row">
 
 
 
-		<div class="col-5">
-			<div class="row ">
+			<div class="col-5">
 
-				<div class="form-group col-6">
-					<label for="landingDate">Date:</label>
-					<input class="form-control" formControlName="landingDate" type="date" name="landingDate">
+				<div class="row">
+
+					<div class="form-group col-6">
+						<label for="departureDate">Date:</label>
+						<input class="form-control" formControlName="departureDate" type="date" name="departureDate">
+					</div>
+
+					<div class="form-group col-5">
+						<label for="departureTime">Time:</label>
+						<input class="form-control" formControlName="departureTime" type="time" name="departureTime">
+					</div>
+
 				</div>
-
-				<div class="form-group col-5">
-					<label for="landingTime">Time:</label>
-					<input class="form-control" formControlName="landingTime" type="time" name="landingTime">
-
-				</div>
-
 			</div>
 
-			<div class="row">
-				<div class="col-12">
-					<span *ngIf="!dateValid" class="red-text">Landing can not happen before the departure. Minimal flight duration is 60 minutes.</span>
+			<div class="col-6">
+				<div class="row">
+
+
+					<div class="form-group col-6">
+
+						<label for="departureCountryId">Country:</label>
+						<select class="form-control" id="departureCountryId" formControlName="departureCountryId" (change)="onChangeDepartureCountry($event)">
+							<option *ngFor="let c of destCountries" [value]="c.id">{{c.name}}</option>
+						</select>
+
+					</div>
+
+					<div class="form-group col-5">
+
+						<label for="departureCityId">City:</label>
+						<select class="form-control" id="departureCityId" formControlName="departureCityId" required>
+							<option *ngFor="let city of destDepartureCities" [value]="city.id">{{city.name}}</option>
+						</select>
+
+					</div>
 				</div>
+
+
+
 			</div>
 
 		</div>
 
-		<div class="col-6">
-			<div class="row">
+
+		<h5 class="mt-5"> <i class="fa fa-plane fa-plane-rotate mr-1"></i> Landing details</h5>
+		<hr>
+		<!-- LANDING FIELDS -->
+		<div class="row">
 
 
-				<div class="form-group col-6">
 
-					<label for="landingCountryId">Country:</label>
-					<select class="form-control" id="landingCountryId" formControlName="landingCountryId" (change)="onChangeLandingCountry($event)">
-						<option *ngFor="let c of destCountries" [value]="c.id">{{c.name}}</option>
-					</select>
+			<div class="col-5">
+				<div class="row ">
+
+					<div class="form-group col-6">
+						<label for="landingDate">Date:</label>
+						<input class="form-control" formControlName="landingDate" type="date" name="landingDate">
+					</div>
+
+					<div class="form-group col-5">
+						<label for="landingTime">Time:</label>
+						<input class="form-control" formControlName="landingTime" type="time" name="landingTime">
+
+					</div>
 
 				</div>
 
-				<div class="form-group col-5">
-
-					<label for="landingCityId">City:</label>
-					<select class="form-control" id="landingCityId" formControlName="landingCityId" required>
-						<option *ngFor="let city of destLandingCities" [value]="city.id">{{city.name}}</option>
-					</select>
-
+				<div class="row">
+					<div class="col-12">
+						<span *ngIf="!dateValid" class="red-text">Landing can not happen before the departure. Minimal flight duration is 60 minutes.</span>
+					</div>
 				</div>
+
 			</div>
 
+			<div class="col-6">
+				<div class="row">
 
-			<div class="row">
-				<div class="col-12">
-					<span *ngIf="!destValid" class="red-text">Landing and departure cities are required and can not be the same.</span>
+
+					<div class="form-group col-6">
+
+						<label for="landingCountryId">Country:</label>
+						<select class="form-control" id="landingCountryId" formControlName="landingCountryId" (change)="onChangeLandingCountry($event)">
+							<option *ngFor="let c of destCountries" [value]="c.id">{{c.name}}</option>
+						</select>
+
+					</div>
+
+					<div class="form-group col-5">
+
+						<label for="landingCityId">City:</label>
+						<select class="form-control" id="landingCityId" formControlName="landingCityId" required>
+							<option *ngFor="let city of destLandingCities" [value]="city.id">{{city.name}}</option>
+						</select>
+
+					</div>
 				</div>
+
+
+				<div class="row">
+					<div class="col-12">
+						<span *ngIf="!destValid" class="red-text">Landing and departure cities are required and can not be the same.</span>
+					</div>
+				</div>
+
+
+
 			</div>
-
-
 
 		</div>
 
-	</div>
 
 
 
+		
+		<h5 class="mt-5 inline-block mr-2"> <i class="fa fa-arrows-h mr-1"></i>Interceptions</h5>
+		<button (click)="onAddInterception()"  type="button" class="btn btn-primary new-button mt-5"><i class="fa fa-plus-circle"></i> Add Interception</button>
+		<hr>
 
-	
-	<h5 class="mt-5 inline-block mr-2"> <i class="fa fa-arrows-h mr-1"></i>Interceptions</h5>
-	<button (click)="onAddInterception()"  type="button" class="btn btn-primary new-button mt-5"><i class="fa fa-plus-circle"></i> Add Interception</button>
-	<hr>
+		<div  formArrayName="interceptions">
 
-	<div  formArrayName="interceptions">
+			<div class="one-interception" *ngFor="let interceptionCtrl of flightInfoForm.get('interceptions').controls; let i = index" [formGroupName]="i">
+				
+				<div class="row">
 
-		<div class="one-interception" *ngFor="let interceptionCtrl of flightInfoForm.get('interceptions').controls; let i = index" [formGroupName]="i">
-			
-			<div class="row">
+				
+					<div class="form-group col-5 ">
+						<label for="duration">Interception duration (mins): </label>
+						<input type="number inline-block" formControlName="duration" id="duration" required class="form-control">
+						<span class="red-text" *ngIf="!interceptionValid[i]">Interception must last longer that no time.</span>
+					</div>
 
-			
-				<div class="form-group col-5 ">
-					<label for="duration">Interception duration (mins): </label>
-					<input type="number inline-block" formControlName="duration" id="duration" required class="form-control">
-					<span class="red-text" *ngIf="!interceptionValid[i]">Interception must last longer that no time.</span>
+					
+						
+					<div class="form-group col-5">
+						
+						<label for="intCityId">City:</label>
+						<select class="form-control" formControlName="intCityId" id="intCityId"  required>
+							<option *ngFor="let city of destinations" [value]="city.id">{{city.name}}, {{city.countryDTO.name}}</option>
+						</select>
+						
+						<span class="red-text" *ngIf="!interceptionCityValid[i]">Interception city must be selected.</span>
+						
+					</div>
+
+					<div class="col-1">
+						<i class="fa fa-minus" (click)="onDeleteInterception(i)"></i>
+					</div>
+							
 				</div>
 
 				
-					
-				<div class="form-group col-5">
-					
-					<label for="intCityId">City:</label>
-					<select class="form-control" formControlName="intCityId" id="intCityId"  required>
-						<option *ngFor="let city of destinations" [value]="city.id">{{city.name}}, {{city.countryDTO.name}}</option>
-					</select>
-					
-					<span class="red-text" *ngIf="!interceptionCityValid[i]">Interception city must be selected.</span>
-					
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<span class="red-text" *ngIf="!interceptionDurationValid">Total interceptions duration can not be longer than flight duration. Exceeded by: {{ exceeded }} minutes.</span>
 				</div>
 
-				<div class="col-1">
-					<i class="fa fa-minus" (click)="onDeleteInterception(i)"></i>
+				<div class="col-12">
+					<span class="red-text" *ngIf="!interceptionCitiesDistinct">Interception cities can not be the same.</span>
 				</div>
-						
+			</div>
+				
+		</div>
+
+
+
+
+
+		<div class="row mt-2">
+			<div class="form-group col-3">
+
+				<h5 class="mt-4"> <i class="fa fa-usd mr-1"></i> Flight price</h5>
+				<hr>
+				<input type="number" id="price" formControlName="price" class="form-control">
+
 			</div>
 
-			
-		</div>
+			<div class="form-group col-3">
+
+				<h5 class="mt-4"> <i class="fa fa-user-o mr-1"></i> Number of seats:</h5>
+				<hr>
+				<input type="number" id="numberOfSeats" formControlName="numberOfSeats" class="form-control" min="30" max="120">
+
+			</div>
+
+			<div class="form-group col-3">
+				<h5 class="mt-4"> <i class="fa fa-clock-o mr-1"></i> Flight duration: {{ totalDuration }} minutes</h5>
+			</div>
 		
-		<div class="row">
-			<div class="col-12">
-				<span class="red-text" *ngIf="!interceptionDurationValid">Total interceptions duration can not be longer than flight duration. Exceeded by: {{ exceeded }} minutes.</span>
-			</div>
-
-			<div class="col-12">
-				<span class="red-text" *ngIf="!interceptionCitiesDistinct">Interception cities can not be the same.</span>
-			</div>
-		</div>
-			
-	</div>
-
-
-
-
-
-	<div class="row mt-2">
-		<div class="form-group col-3">
-
-			<h5 class="mt-4"> <i class="fa fa-usd mr-1"></i> Flight price</h5>
-			<hr>
-			<input type="number" id="price" formControlName="price" class="form-control">
-
 		</div>
 
-		<div class="form-group col-3">
 
-			<h5 class="mt-4"> <i class="fa fa-user-o mr-1"></i> Number of seats:</h5>
-			<hr>
-			<input type="number" id="numberOfSeats" formControlName="numberOfSeats" class="form-control" min="30" max="120">
+		
 
+
+		<div class="row mt-2 mb-5">
+				<div class="col-7">
+					<input type="submit" class="btn btn-success" value="Insert">
+				</div>
 		</div>
 
-		<div class="form-group col-3">
-			<h5 class="mt-4"> <i class="fa fa-clock-o mr-1"></i> Flight duration: {{ totalDuration }} minutes</h5>
-		</div>
-	
-		<div class="form-group col-2">
-			<h5 class="mt-4"> <button type="button" class="btn btn-secondary" (click)="onShowSeats()">Manage seats</button></h5>
-		</div>
-	
-	
-	</div>
+	</form>
 
 
-	
+
+		
+</div>
+
+<div *ngIf="editMode">
 
 
-	<div class="row mt-2 mb-5">
-			<div class="col-7">
-				<input type="submit" class="btn btn-success" value="Insert">
-			</div>
-	</div>
-
-</form>
-
-
-<!-- SEATS COMPONENT MODAL -->
-<div class="form-modal" *ngIf="showSeatsDialog">
-	<div class="modal-content seats-modal">
-	  <div class="modal-body">
-		  <button type="button" class="close" (click)="onCloseSeats()">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		<app-seats-edit fId="{{ fId }}"></app-seats-edit>
-	  </div>
-	</div>
-  </div>
+	<app-seats-edit fId="{{ fId }}"></app-seats-edit>
+</div>

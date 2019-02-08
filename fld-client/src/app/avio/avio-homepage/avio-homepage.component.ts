@@ -137,9 +137,15 @@ export class AvioHomepageComponent implements OnInit, OnDestroy {
 		this.showList = false;
 		this.loadingResults = true;
 
+		let returnFlightDate = new Date(this.searchFlightForm.value.returnDate);
+		
+		const returnFlighDateTom = new Date();
+		returnFlighDateTom.setDate(returnFlightDate.getDate() + 1);
+		console.log("returnFlighDateTom: " + returnFlighDateTom);
+
 		let searchParams = {
 			departureDate: this.searchFlightForm.value.departureDate,
-			returnDate: this.searchFlightForm.value.returnDate,
+			returnDate: returnFlighDateTom,
 			fromCity: { id: this.searchFlightForm.value.fromCity },
 			toCity: { id: this.searchFlightForm.value.toCity},
 			numberOfPeople: parseInt(this.searchFlightForm.value.numberOfPeople),

@@ -15,7 +15,7 @@
       <tbody>
         <tr *ngFor="let f of flights" >
           
-          <td><a [routerLink]="['flight/', f.id]">{{ f.id }}</a></td>
+          <td><a class="btn btn-secondary" [routerLink]="['flight/', f.id]">Manage seats</a></td>
           <td>{{ f.departureDestination.cityDTO.name }}, {{ f.departureDestination.cityDTO.countryDTO.name }}</td>
           <td>{{ f.landingDestination.cityDTO.name }}, {{ f.landingDestination.cityDTO.countryDTO.name }}</td>
          <td>

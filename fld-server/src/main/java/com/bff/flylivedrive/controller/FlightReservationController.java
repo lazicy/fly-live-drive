@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,6 +93,8 @@ public class FlightReservationController {
 		return new ResponseEntity<>(frDTO, HttpStatus.OK);
 	}
 	
+
+	@PreAuthorize("hasRole('User')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<FlightReservationDTO> saveFlightReservation(@RequestBody FlightReservationDTO frDTO) {
 		
@@ -155,6 +158,12 @@ public class FlightReservationController {
 		if (tripType.equals("round")) {
 			returnSeats = formSeats(frDTO.getReturnSeatsDTO(), retFlight, fr, false);
 			if (returnSeats == null || returnSeats.size() == 0) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+			
+			// check if return after departing
+			if(depFlight.getLandingDate().after(retFlight.getDepartureDate())) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}

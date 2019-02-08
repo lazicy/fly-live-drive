@@ -81,6 +81,10 @@
     transition: all .4s;
 }
 
+.seat-deleted {
+    background-color: gray !important;
+}
+
 .seat .seat-text {
     line-height: 1.9;
 }

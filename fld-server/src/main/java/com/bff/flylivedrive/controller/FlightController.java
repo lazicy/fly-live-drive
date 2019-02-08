@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import com.bff.flylivedrive.model.Seat;
 import com.bff.flylivedrive.service.AvioService;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.FlightService;
+import com.bff.flylivedrive.service.SeatService;
 
 @RestController
 @RequestMapping(value = "/flight")
@@ -41,6 +43,8 @@ public class FlightController {
 	AvioService avioService;
 	@Autowired
 	CityService cityService;
+	@Autowired
+	SeatService seatService;
 
 	// Get ALL flights of ALL avios
 	@RequestMapping(value="/all", method = RequestMethod.GET)
@@ -150,6 +154,7 @@ public class FlightController {
 		
 		flight.setSeats(seats);
 		flight.setAvailableSeats(flightDTO.getNumberOfSeats());
+		flight.setDiscountSeats(0);
 		
 		// save to database
 		flight = flightService.save(flight);
@@ -184,7 +189,9 @@ public class FlightController {
 		List<Flight> returnFlights = new ArrayList<>();
 		if (sfDTO.getTripType().equals("round")) {
 			
-			returnFlights = flightService.searchDepartureFlight(toCity.getId(), fromCity.getId(), sfDTO.getReturnDate(), sfDTO.getNumberOfPeople());
+			returnFlights = flightService.searchReturnFlight(toCity.getId(), fromCity.getId(), sfDTO.getDepartureDate(),
+					sfDTO.getReturnDate(), sfDTO.getNumberOfPeople());
+
 		}
 		
 		System.out.println("DEPARTURE FLIGHTS");
@@ -210,6 +217,64 @@ public class FlightController {
 		
 		return new ResponseEntity<>(resultsRet, HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value ="/{id}/delete", method = RequestMethod.PUT, consumes = "application/json")
+	private ResponseEntity<SeatDTO> deleteSeats(@RequestBody List<SeatDTO> seatsDTO, @PathVariable Long flightId) {
+		
+		Flight f = flightService.findOneById(flightId);
+		if (f == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		for (SeatDTO sDTO: seatsDTO) {
+			Seat s = seatService.findOneById(sDTO.getId());
+			if (s == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+			if (s.isReserved()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+			s.setDeleted(true);
+			seatService.save(s);
+		}
+		
+		f.setAvailableSeats(f.getAvailableSeats() - seatsDTO.size());
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value ="/{id}/discount", method = RequestMethod.PUT, consumes = "application/json")
+	private ResponseEntity<SeatDTO> discountSeats(@RequestBody List<SeatDTO> seatsDTO, @PathVariable Long flightId) {
+		
+
+		Flight f = flightService.findOneById(flightId);
+		if (f == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		for (SeatDTO sDTO: seatsDTO) {
+			Seat s = seatService.findOneById(sDTO.getId());
+			if (s == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+			if (s.isReserved() || s.isDeleted()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+			
+			s.setDiscount(sDTO.getDiscount());
+			seatService.save(s);
+		}
+		
+
+		f.setAvailableSeats(f.getAvailableSeats() - seatsDTO.size());
+		f.setDiscountSeats(seatsDTO.size());
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	
 	
 	
@@ -258,6 +323,8 @@ public class FlightController {
 			Seat s = new Seat();
 			s.setFlight(f);
 			s.setReserved(false);
+			s.setDiscount(0);
+			s.setDeleted(false);
 			seats.add(s);
 			
 			int ostatak = i % 6;

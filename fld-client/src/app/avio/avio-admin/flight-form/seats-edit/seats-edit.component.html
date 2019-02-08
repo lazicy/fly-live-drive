@@ -2,13 +2,46 @@
 
 	<div class="s-plane">
 		
-		<div class="s-head"></div>
+		<div class="s-head">
+			<h4>
+					Manage seats for flight: <span class="bold">{{fId}}</span>
+			</h4>
+
+			<div class="forma">
+
+				<form *ngIf="discountForm" (onSubmit)="onSetDiscount()" [formGroup]="discountForm">
+
+					<div class="forma">
+
+						<div class="dugme">
+							<button [disabled] = "selectedSeats.length == 0" type="submit" class="btn btn-secondary">Set on discount</button>
+						</div>
+						<div class="select-taj">
+							<select class="form-control inlajn" formControlName="dsc"   required>
+									<option *ngFor="let d of discounts" [value]="d.how">{{d.fullFormat}}</option>
+							</select>
+						</div>
+						
+					</div>
+					
+				</form>
+
+			</div>
+		
+			<button class="btn btn-danger" (click)="onRemoveSeats()" [disabled]="selectedSeats.length == 0"><i class="fa fa-ban" aria-hidden="true"></i>
+ 				Remove selected seats</button>
+
+		</div>
 		
 		<div class="s-body">
 
 			<div class="seat" *ngFor="let s of seats; let i = index" 
-			 [ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D', 's-invisible-seat': s.place === 'X',
-							'seat-free': s.reserved === false, 'seat-reserved': s.reserved === true }" (click)="onReserveSeat(i)"
+			[ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D',
+						'seat-free': !s.reserved, 
+						'seat-reserved': s.reserved, 
+						'seat-deleted' : s.deleted,
+						'seat-selected': s.selected === true }"
+			 (click)="onReserveSeat(i)"
 			>
 
 				<span  class="seat-text">{{ s.row }}{{ s.place }}</span>
@@ -18,7 +51,6 @@
 
 		</div>
 		
-		<div class="s-tail"></div>
 		
 	</div>
 

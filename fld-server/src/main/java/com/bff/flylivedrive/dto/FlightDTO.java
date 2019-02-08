@@ -24,6 +24,7 @@ public class FlightDTO {
 	private List<SeatDTO> seatsDTO;
 	private int numberOfSeats;
 	private int availableSeats;
+	private int discountSeats;
 	
 	public FlightDTO() {
 		
@@ -32,7 +33,7 @@ public class FlightDTO {
 	public FlightDTO(Flight f) {
 		this(f.getId(), f.getDepartureDate(), f.getLandingDate(), f.getTotalDuration(),
 				new DestinationDTO(f.getDepartureDestination()), new DestinationDTO(f.getLandingDestination()),
-				f.getPrice(), new AvioDTO(f.getAvio()), f.getAvailableSeats());
+				f.getPrice(), new AvioDTO(f.getAvio()), f.getAvailableSeats(), f.getDiscountSeats());
 		
 		// mapping to interceptionsDTO list
 		interceptionsDTO = new ArrayList<>();
@@ -62,7 +63,7 @@ public class FlightDTO {
 	
 	
 	public FlightDTO(Long id, Date departureDate, Date landingDate, int totalDuration,
-			DestinationDTO departureDest, DestinationDTO landingDest, double price, AvioDTO avioDTO, int availableSeats) {
+			DestinationDTO departureDest, DestinationDTO landingDest, double price, AvioDTO avioDTO, int availableSeats, int discountSeats) {
 		super();
 		this.id = id;
 		this.departureDate = departureDate;
@@ -73,6 +74,8 @@ public class FlightDTO {
 		this.price = price;
 		this.avioDTO = avioDTO;
 		this.availableSeats = availableSeats;
+		this.discountSeats = discountSeats;
+		
 	}
 
 	public Long getId() {
@@ -164,6 +167,18 @@ public class FlightDTO {
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
 	}
+
+	public int getDiscountSeats() {
+		return discountSeats;
+	}
+
+	public void setDiscountSeats(int discountSeats) {
+		this.discountSeats = discountSeats;
+	}
+	
+	
+	
+	
 	
 	
 	
