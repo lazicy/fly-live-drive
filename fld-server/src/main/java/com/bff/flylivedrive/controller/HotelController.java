@@ -20,6 +20,7 @@ import com.bff.flylivedrive.dto.FastRoomDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.dto.HotelReservationDTO;
 import com.bff.flylivedrive.dto.RoomDTO;
+import com.bff.flylivedrive.dto.RoomOnFastDTO;
 import com.bff.flylivedrive.dto.SearchHotelDTO;
 import com.bff.flylivedrive.dto.UslugaDTO;
 import com.bff.flylivedrive.model.City;
@@ -595,7 +596,7 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		//proveri da li je rez;
+		
 		
 		Date danasnjiDatum = new Date();
 		
@@ -759,23 +760,38 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		HotelReservation hr = new HotelReservation();
-		hr.setReservation_date(hDTO.getReservation_date());
-		hr.setArrival_date(hDTO.getArrival_date());
-		hr.setDeparture_date(hDTO.getDeparture_date());
-		hr.setNo_nights(hDTO.getNo_nights());
-		hr.setDiscount(hDTO.getDiscount());
-		hr.setTotal_price(hDTO.getTotal_price());
-		hr.setFastRez(hDTO.isFastRez());
-		hr.setRoom(r);
-		hr.setUser(u);
+		Set<HotelReservation> h = r.getHotel_res();
+		Iterator<HotelReservation> itr = h.iterator();
+		boolean slobodna = true;
+		while (itr.hasNext())
+		{
+			HotelReservation hr = itr.next();
+			if(((hr.getArrival_date()).equals(hDTO.getArrival_date()) && (hr.getDeparture_date()).equals(hDTO.getDeparture_date())) || ((hr.getArrival_date()).after(hDTO.getArrival_date()) && (hr.getArrival_date()).before(hDTO.getDeparture_date())) || ((hDTO.getArrival_date()).after(hr.getArrival_date()) && (hDTO.getArrival_date()).before(hr.getDeparture_date())) || ((hDTO.getDeparture_date()).after(hr.getArrival_date()) && (hDTO.getDeparture_date()).before(hr.getDeparture_date()))) {
+				slobodna = false;
+				break;
+			}
+		}
+		if(slobodna) {
+			HotelReservation hr = new HotelReservation();
+			hr.setReservation_date(hDTO.getReservation_date());
+			hr.setArrival_date(hDTO.getArrival_date());
+			hr.setDeparture_date(hDTO.getDeparture_date());
+			hr.setNo_nights(hDTO.getNo_nights());
+			hr.setDiscount(hDTO.getDiscount());
+			hr.setTotal_price(hDTO.getTotal_price());
+			hr.setFastRez(hDTO.isFastRez());
+			hr.setRoom(r);
+			hr.setUser(u);
+			
+			Set<HotelReservation> sobe_rez = r.getHotel_res();
+			sobe_rez.add(hr);
+			
+			hr = hotelRezService.save(hr);
 		
-		Set<HotelReservation> sobe_rez = r.getHotel_res();
-		sobe_rez.add(hr);
-		
-		hr = hotelRezService.save(hr);
-	
-		return new ResponseEntity<>(new HotelReservationDTO(hr), HttpStatus.CREATED);
+			return new ResponseEntity<>(new HotelReservationDTO(hr), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 	}
 	
 	@RequestMapping(value="/addReservationServices/{id}", method=RequestMethod.POST, consumes = "application/json")
@@ -792,5 +808,35 @@ public class HotelController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
+	
+	@RequestMapping(value="/getRoomsOnFast/{id}", method=RequestMethod.POST)
+	//@PreAuthorize("hasRole('User')")
+	public ResponseEntity<List<RoomOnFastDTO>> getRoomsOnFast(@PathVariable("id") Long id, @RequestBody SearchHotelDTO s) {
+		
+		List<RoomOnFastDTO> lista = new ArrayList<>();
+		
+		Hotel h = hotelService.findOneById(id);
+		
+		Set<Room> rooms = h.getRooms();
+		Iterator<Room> itr = rooms.iterator();
+		while (itr.hasNext())
+		{
+			Room r = itr.next();
+			List<FastRoom> fast = fastService.findAllByRoomId(r.getId());
+			for(FastRoom fas : fast) {
+				if((fas.getStart_date().after(s.getCheckin()) && fas.getEnd_date().before(s.getCheckout())) || (fas.getStart_date().equals(s.getCheckin()) && fas.getEnd_date().before(s.getCheckout())) || (fas.getStart_date().after(s.getCheckin()) && fas.getEnd_date().equals(s.getCheckout()))) {
+						RoomOnFastDTO rof = new RoomOnFastDTO();
+						rof.setRoomName(r.getName());
+						rof.setStart_date(fas.getStart_date());
+						rof.setEnd_date(fas.getEnd_date());
+						rof.setDis_price(r.getPrice() - r.getPrice()*fas.getDiscount()/100);
+						rof.setReg_price(r.getPrice());
+						lista.add(rof);
+					}
+			}
+		}
+		
+		return new ResponseEntity<>(lista, HttpStatus.OK);
+	}
 	
 }

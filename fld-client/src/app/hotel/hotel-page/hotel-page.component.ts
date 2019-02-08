@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { ReservationHotelService } from 'src/app/services/reservation-hotel.service';
 import { UserService } from 'src/app/services/user.service';
+import { FlightService } from 'src/app/services/flight.service';
+import { ReservationFlightService } from 'src/app/services/reservation-flight.service';
 
 @Component({
   selector: 'app-hotel-page',
@@ -30,8 +32,11 @@ export class HotelPageComponent implements OnInit {
   jesteKorisnik: boolean = false;
   jesteAdmin: boolean = false;
   rola: any;
+  fastRes: any = null;
+  prikaziBrze: boolean = false;
+  imaflight: boolean = false;
 
-  constructor(private hotelService: HotelService, private route: ActivatedRoute, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
+  constructor(private hotelService: HotelService, private route: ActivatedRoute, private fliResService: ReservationFlightService, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
     this.route.params.subscribe(
         (params: Params) => {
           this.id = +params['id'];
@@ -59,6 +64,7 @@ export class HotelPageComponent implements OnInit {
             this.fetchServices();
             this.fetchRooms();
             this.funkcije();
+            this.fetchFast();
           },
           (error) => {
             alert(error);
@@ -72,7 +78,24 @@ export class HotelPageComponent implements OnInit {
     }
   }
 
+  fetchFast() {
+    let src = {
+      search: "",
+      checkin: this.CIdate,
+      checkout: this.COdate,
+      numberOfPeople: 0
+    }
+    this.hotelService.getRoomOnFast(this.hotel.id, src).subscribe(
+      (data) => {
+        this.fastRes = data;
+      }, (error) => {
+        alert(error);
+      }
+    );
+  }
+
   funkcije() {
+
     this.userService.getUserRole().subscribe(
       (data) => {
         this.rola = data;
@@ -85,10 +108,14 @@ export class HotelPageComponent implements OnInit {
           this.jesteAdmin = false;
           this.jesteKorisnik = false;
         }
+        this.checkIfFlightResExists();
       },
       (error) => console.log(error)
 
     );
+  }
+
+  checkIfFlightResExists() {
   }
 
   fetchServices() {
@@ -135,5 +162,9 @@ export class HotelPageComponent implements OnInit {
 
   onBookRoom(rid) {
     this.router.navigate(['hotel/' + this.id + '/book/' + rid]);
+  }
+
+  onBookFastRoom(rid) {
+
   }
 }

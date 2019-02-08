@@ -21,6 +21,10 @@ public class GlobalReservation {
 	@JoinColumn(nullable = true)
 	private FlightReservation flightReservation;
 	
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(nullable = true)
+	private HotelReservation hotelReservation;
 
 	// ovde dodajte i vase rezervacije
 	@OneToOne(fetch = FetchType.LAZY, optional = true)
@@ -47,6 +51,14 @@ public class GlobalReservation {
 
 	public void setFlightReservation(FlightReservation flightReservation) {
 		this.flightReservation = flightReservation;
+	}
+
+	public HotelReservation getHotelReservation() {
+		return hotelReservation;
+	}
+
+	public void setHotelReservation(HotelReservation hotelReservation) {
+		this.hotelReservation = hotelReservation;
 	}
 
 	public boolean isActive() {

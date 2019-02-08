@@ -14,6 +14,7 @@ public class HotelReservationDTO {
 	private double discount;
 	private double total_price;
 	private boolean fastRez;
+	private Long globalReservationId;
 	
 	public HotelReservationDTO() {
 		
@@ -97,6 +98,14 @@ public class HotelReservationDTO {
 
 	public void setFastRez(boolean fastRez) {
 		this.fastRez = fastRez;
+	}
+
+	public Long getGlobalReservationId() {
+		return globalReservationId;
+	}
+
+	public void setGlobalReservationId(Long globalReservationId) {
+		this.globalReservationId = globalReservationId;
 	}
 	
 }

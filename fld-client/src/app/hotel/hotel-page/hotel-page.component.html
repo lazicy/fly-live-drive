@@ -51,6 +51,33 @@
           <p *ngIf="emptyServicesList">This hotel provides no additional services.</p>
         </div>
 
+        <div class="fast" *ngIf="prikaziBrze">
+          <h5>Quick book</h5>
+          <div class="table">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Regular price</th>
+                    <th>Discount price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fast of fastRes">
+                  <td>{{fast.roomName}}</td>
+                  <td>{{fast.start_date}}</td>
+                  <td>{{fast.end_date}} persons</td>
+                  <td>{{fast.reg_price}}</td>
+                  <td>{{fast.dic_price}}</td>
+                  <td><button class="btn btn-primary book" (click)="onBookFastRoom(fast)">Book</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="rooms">
           <h5>Room options</h5>
           <div *ngIf="!emptyRoomList">

@@ -8,6 +8,7 @@ public class GlobalReservationDTO {
 	private Long id;
 	private boolean active;
 	private FlightReservationDTO frDTO;
+	private HotelReservationDTO hrDTO;
 	
 	private GlobalReservationDTO() {
 		
@@ -30,7 +31,6 @@ public class GlobalReservationDTO {
 		}
 		
 		frDTO.setBonusPointsEarned(0);
-		
 		this.setFrDTO(frDTO);
 		
 	}
@@ -61,6 +61,16 @@ public class GlobalReservationDTO {
 	}
 	public void setFrDTO(FlightReservationDTO frDTO) {
 		this.frDTO = frDTO;
+	}
+
+
+	public HotelReservationDTO getHrDTO() {
+		return hrDTO;
+	}
+
+
+	public void setHrDTO(HotelReservationDTO hrDTO) {
+		this.hrDTO = hrDTO;
 	}
 	
 	
