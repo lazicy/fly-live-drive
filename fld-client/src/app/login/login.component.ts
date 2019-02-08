@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/test']);
       },
       (error) => {
-        if(error.status === '500'){
+        if(error.status === 500){
           swal("Error","Please verify your email adress.","error");
-        }else if(error.status === '401'){
+        }else if(error.status === 401){
           swal("Error","Wrong username or password.","error");
         }
       }
