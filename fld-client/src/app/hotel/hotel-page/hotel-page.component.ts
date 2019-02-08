@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { ReservationHotelService } from 'src/app/services/reservation-hotel.service';
 import { UserService } from 'src/app/services/user.service';
+import { FlightService } from 'src/app/services/flight.service';
+import { ReservationFlightService } from 'src/app/services/reservation-flight.service';
 
 @Component({
   selector: 'app-hotel-page',
@@ -32,8 +34,9 @@ export class HotelPageComponent implements OnInit {
   rola: any;
   fastRes: any = null;
   prikaziBrze: boolean = false;
+  imaflight: boolean = false;
 
-  constructor(private hotelService: HotelService, private route: ActivatedRoute, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
+  constructor(private hotelService: HotelService, private route: ActivatedRoute, private fliResService: ReservationFlightService, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
     this.route.params.subscribe(
         (params: Params) => {
           this.id = +params['id'];
@@ -92,6 +95,7 @@ export class HotelPageComponent implements OnInit {
   }
 
   funkcije() {
+
     this.userService.getUserRole().subscribe(
       (data) => {
         this.rola = data;
@@ -104,10 +108,14 @@ export class HotelPageComponent implements OnInit {
           this.jesteAdmin = false;
           this.jesteKorisnik = false;
         }
+        this.checkIfFlightResExists();
       },
       (error) => console.log(error)
 
     );
+  }
+
+  checkIfFlightResExists() {
   }
 
   fetchServices() {

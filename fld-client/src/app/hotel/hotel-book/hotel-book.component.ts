@@ -69,7 +69,6 @@ export class HotelBookComponent implements OnInit {
         this.usluge = data;
       },  
       error => console.log(error)
-        
     );
   }
 
@@ -118,7 +117,6 @@ export class HotelBookComponent implements OnInit {
 	  fastRez: false
     }
 
-    //USLUGE POSALJI ISTO
     this.resHService.saveHotelReservation(this.room.id, this.username, hotelrez).subscribe(
       (data) => {
         this.addServicesToRes(data);
@@ -139,12 +137,49 @@ export class HotelBookComponent implements OnInit {
       (data) => {
         let pom = data;
         swal({title: "Congratulations!", text: "Your room has been booked", icon: "success", timer: 1800});
-        // this.router.navigate(['globalreservation', pom.globalReservationId] );
+        this.router.navigate(['/home']);
       },
       (error) => {
         swal ( "Error occured" ,  "Your room was not booked." ,  "error" );
       }
     );
-    
   }
+
+    onFinishContinue() {
+      const res_date = new Date();
+      let hotelrez = {
+	      reservation_date: res_date,
+	      arrival_date: this.chkI,
+	      departure_date: this.chkO,
+	      no_nights: this.br_dana,
+	      discount: 0,
+	      total_price: this.cenaTotal,
+	      fastRez: false
+      }
+      this.resHService.saveHotelReservation(this.room.id, this.username, hotelrez).subscribe(
+        (data) => {
+          this.addServicesToResANDCONTINUE(data);
+        },
+        (error) => {
+          if (error.status === 409) {
+          swal ( "Cannot do that" ,  "Unfortunately some has already booked the room." ,  "warning" );
+          } else {
+            swal ( "Error occured" ,  "Reservation has not been made." ,  "error" );
+        }
+       }
+      );
+    }
+
+    addServicesToResANDCONTINUE(res) {
+      this.resHService.saveHotelReservationServices(res.id, this.selektovaneUsluge).subscribe(
+        (data) => {
+          let pom = data;
+          swal({title: "Congratulations!", text: "Your room has been booked", icon: "success", timer: 1800});
+          this.router.navigate(['/rent']);
+        },
+        (error) => {
+          swal ( "Error occured" ,  "Your room was not booked." ,  "error" );
+        }
+      );
+    }
 }

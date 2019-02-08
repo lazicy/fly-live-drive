@@ -105,6 +105,7 @@ public class UserController {
 		return 0;
 	}
 	
+	
 	@RequestMapping(value = "/changePass",method = RequestMethod.POST, consumes="application/json")
 	public boolean changePass(@RequestBody UserDTO usr) {
 		User u = userService.findOneByUsername(usr.getUsername());
@@ -117,7 +118,8 @@ public class UserController {
 		u = userService.save(u);
 		
 		return true;
-	}	
+	}
+	
 	@RequestMapping(value = "/info",method = RequestMethod.GET)
 	public UserInfoDTO getUserInfo(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
