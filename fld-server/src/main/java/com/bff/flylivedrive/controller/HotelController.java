@@ -8,18 +8,19 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bff.flylivedrive.dto.FastRoomDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.dto.RoomDTO;
 import com.bff.flylivedrive.dto.SearchHotelDTO;
 import com.bff.flylivedrive.dto.UslugaDTO;
 import com.bff.flylivedrive.model.City;
+import com.bff.flylivedrive.model.FastRoom;
 import com.bff.flylivedrive.model.Hotel;
 import com.bff.flylivedrive.model.HotelReservation;
 import com.bff.flylivedrive.model.Room;
@@ -597,5 +598,27 @@ public class HotelController {
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addFastRes/{id}", method=RequestMethod.POST, consumes = "application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	public ResponseEntity<FastRoomDTO> addFastRes(@PathVariable("id") Long id, @RequestBody FastRoomDTO frDTO) {
+		Room r = roomService.findOneById(id);
+		FastRoom fr = new FastRoom();
+		fr.setStart_date(frDTO.getStart_date());
+		fr.setEnd_date(fr.getEnd_date());
+		fr.setDiscount(frDTO.getDiscount());
+		
+		Set<FastRoom> frs = r.getFast_res();
+		
+		
+		return new ResponseEntity<FastRoomDTO>(new FastRoomDTO(),HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/addFastResServices/{id}", method=RequestMethod.POST, consumes = "application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	public ResponseEntity<Void> addFastResServices(@PathVariable("id") Long id, @RequestBody List<UslugaDTO> usDTO) {
+		
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

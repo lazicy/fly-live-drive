@@ -36,7 +36,7 @@
                     <table class="tabela">
                       <tbody>
                         <tr *ngFor="let ser of usluge">
-                          <td><input type="checkbox" value="ser.id">{{ser.name}}</td>
+                          <td><input type="checkbox" value="ser.id" data-md-icheck (change)="serviceIsSelected($event, ser)">{{ser.name}}</td>
                         </tr>
                       </tbody>
                     </table>

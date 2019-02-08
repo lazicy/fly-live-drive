@@ -19,6 +19,7 @@ export class AddFastresComponent implements OnInit {
   tom: Date = new Date();
   danas: any;
   sutra: any;
+  selektovaneUsluge: any = [];
 
   constructor(private hotelService: HotelService, private router: Router) { }
 
@@ -46,30 +47,36 @@ export class AddFastresComponent implements OnInit {
   }
 
   onSubmitRoom(form: NgForm) {
-    // let razlika = form.value.end - form.value.start;
-    // if(razlika <= 2 && razlika >= 0) {
-    //   this.showErrorMsg = false;
-    //   let room = {
-    //     name: form.value.name,
-    //     beds: form.value.beds,
-    //     people_capacity: form.value.people,
-    //     price: form.value.price,
-    //     floor: form.value.floor,
-    //     balcony: form.value.balcony
-    //   }
+      let fastRoom = {
+        start_date: form.value.start,
+        end_date: form.value.end,
+        discount: form.value.discount
+      }
+
+      this.hotelService.saveFastRez(fastRoom, form.value.room).subscribe(
+
+      );
   
-    //   this.hotelService.saveHotelRoom(room, this.hotelId).subscribe(
-    //     (response) => {
-    //       this.roomSubmit.emit(response);
-    //       swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
-    //       form.reset();
-    //       this.ngOnDestroy();
-    //     },
-    //     (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
-    //   );
-    // } else {
-    //   this.showErrorMsg = true;
-    // }
+      // this.hotelService.saveHotelRoom(fastRoom, this.selektovaneUsluge, this.hotelId).subscribe(
+      //   (response) => {
+      //     this.roomSubmit.emit(response);
+      //     swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
+      //     form.reset();
+      //     this.ngOnDestroy();
+      //   },
+      //   (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
+      // );
+  }
+
+  serviceIsSelected(e, ser) {
+    let selecte = e.target.checked;
+    if(selecte) {
+      this.selektovaneUsluge.push(ser);
+      
+    } else {
+      let i = this.selektovaneUsluge.findIndex(usluga => usluga.id === ser.id);
+      this.selektovaneUsluge.splice(i, 1);
+    }
   }
 
   onKeydown(e) {

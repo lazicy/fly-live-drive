@@ -896,3 +896,23 @@ insert into hotel (id, name, address, city_id, description, hotel_imageurl, map,
 insert into hotel (id, name, address, city_id, description, hotel_imageurl, map, stars) values (3, 'The Plaza', '768 5th Ave', 76, 'The Plaza Hotel is a landmark 20-story luxury hotel and condominium apartment building in the Midtown Manhattan neighborhood in the borough of Manhattan, New York City. It opened in 1907 and is now owned by Katara Hospitality.', 'https://images.datahubus.com/5739f864b5dc6545f27c3164/the-plaza-residences/1-central-park-s_.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.888861850124!2d-73.97667638459352!3d40.76446907932614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f07d5da561%3A0x61f6aa300ba8339d!2sThe+Plaza!5e0!3m2!1ssr!2srs!4v1549150623903', 5);
 
 insert into vehicle_reservation (id,pick_up_location_id,drop_off_location_id,pick_up_date,drop_off_date,city_id,user_username,vozilo_id) values (1,12,12,'2019-02-25 15:30','2019-02-26 15:00', 51,'dovla96', 54);
+
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (1, 'Normal double', 'No', 2, 15, 2, 90, 0, 1);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (2, 'Royal', 'Yes', 1, 3, 2, 380, 0, 1);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (3, 'Single', 'No', 1, 25, 1, 90, 0, 2);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (4, 'Normal double', 'Yes', 2, 15, 2, 160, 0, 2);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (5, 'Regular prime', 'No', 2, 13, 3, 160, 0, 3);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (6, 'Royal deluxe', 'Yes', 1, 28, 2, 530, 0, 3);
+
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (1, 'WiFi', 0, 'Room', 0, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (2, 'Swimming pool', 20, 'Day', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (3, 'Room Service', 45, 'Day', 2, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (4, 'Restaurant', 40, 'Room', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (5, 'Spa', 50, 'Person', 3, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (6, 'Parking', 0, 'Room', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (7, 'Garage', 30, 'Room', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (8, 'Breakfast', 5, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (9, 'Lunch', 8, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (10, 'Diner', 8, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (11, 'Wellness', 60, 'Person', 3, 3);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (12, 'WiFi', 0, 'Room', 0, 3);

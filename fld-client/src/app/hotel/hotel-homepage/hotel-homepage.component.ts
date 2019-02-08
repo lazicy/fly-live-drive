@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel.service';
 import { NgForm, FormGroup, FormControl, Validators  } from '@angular/forms';
+import { ReservationHotelService } from 'src/app/services/reservation-hotel.service';
 
 @Component({
   selector: 'app-hotel-homepage',
@@ -19,7 +20,7 @@ export class HotelHomepageComponent implements OnInit {
   emptyHotelList: boolean = false;
   notFound: boolean = false;
 
-  constructor(private hotelService: HotelService) {
+  constructor(private hotelService: HotelService, private resHService: ReservationHotelService) {
   }
 
   ngOnInit() {
@@ -29,7 +30,9 @@ export class HotelHomepageComponent implements OnInit {
 
   initForm() {
     const today = this.tod.toISOString().split('T')[0];
+    this.resHService.checkin = this.tod;
     this.tom.setDate(this.tod.getDate() + 1);
+    this.resHService.checkout = this.tom;
     const tomorrow = this.tom.toISOString().split('T')[0];
 
     this.searchHotels = new FormGroup({
@@ -40,7 +43,9 @@ export class HotelHomepageComponent implements OnInit {
     });
 
     this.searchHotels.controls['checkin'].setValue(today);
-		this.searchHotels.controls['checkout'].setValue(tomorrow);
+    this.searchHotels.controls['checkout'].setValue(tomorrow);
+    
+    this.resHService.checkout = this.searchHotels.value.guests;
   }
 
   initList() {
@@ -69,6 +74,9 @@ export class HotelHomepageComponent implements OnInit {
     this.hotelService.searchHotel(searchParams).subscribe(
       (data) => {
         this.hotelSearch = data;
+        this.resHService.checkin = this.searchHotels.value.checkin;
+        this.resHService.checkout = this.searchHotels.value.checkout;
+        this.resHService.guests = this.searchHotels.value.guests;
         this.showSearch = true;
         this.showAllHotels = false;
         this.notFound = false;
