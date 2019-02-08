@@ -94,7 +94,6 @@ public class FlightReservationController {
 	}
 	
 
-	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<FlightReservationDTO> saveFlightReservation(@RequestBody FlightReservationDTO frDTO) {
 		
