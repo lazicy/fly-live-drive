@@ -76,8 +76,6 @@ public class UserController {
 		return username;
 	}
 	
-<<<<<<< HEAD
-	
 	@RequestMapping(value = "/getUserRole", method = RequestMethod.GET)
 	public String getUserRole(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
@@ -117,7 +115,6 @@ public class UserController {
 		
 		return true;
 	}	
-=======
 	@RequestMapping(value = "/info",method = RequestMethod.GET)
 	public UserInfoDTO getUserInfo(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
@@ -129,8 +126,6 @@ public class UserController {
 		return new UserInfoDTO(u);
 	}
 	
-	
->>>>>>> avio
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
