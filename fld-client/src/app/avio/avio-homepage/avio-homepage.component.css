@@ -48,14 +48,15 @@ input[type=date]::-webkit-inner-spin-button {
     
 }
 
-.reserve-flght {
-    transition: all 0.5s;
+.reserve-flight {
+    transition: all 0.7s;
 }
 
 .reserve-flight:hover {
     text-decoration: underline;
-    transform: scale(1.2);
-    transition: all 0.5s;
+    transform: scale(1.4);
+    transition: all 0.3s;
+    cursor: pointer;
 
 }
 
@@ -80,7 +81,7 @@ input[type=date]::-webkit-inner-spin-button {
 
 .lbl {
     text-align: left;
-    color: #0a5060;
+    color: white;
     text-shadow: 1px 0.5px 5px rgba(90, 109, 114, 0.6);
 }
 

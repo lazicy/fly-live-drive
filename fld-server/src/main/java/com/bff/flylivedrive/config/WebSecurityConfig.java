@@ -83,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			.antMatchers("/avio/**").permitAll()
 			.antMatchers("/country/**").permitAll()
 			.antMatchers("/flight/**").permitAll()
+			.antMatchers("/flightreservation/**").permitAll()
 			
 			// svaki zahtev mora biti autorizovan
 			.anyRequest().authenticated().and()

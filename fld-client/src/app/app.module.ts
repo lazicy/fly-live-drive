@@ -65,6 +65,7 @@ import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.compon
 import { FlightlistSearchComponent } from './avio/flightlist-search/flightlist-search.component';
 import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
 import { ReservationFlightService } from './services/reservation-flight.service';
+import { SeatsSelectComponent } from './avio/avio-reservation/seats-select/seats-select.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { ReservationFlightService } from './services/reservation-flight.service'
     VehicleSearchComponent,
     AvioHomepageComponent,
     FlightlistSearchComponent,
-    AvioReservationComponent
+    AvioReservationComponent,
+    SeatsSelectComponent
   ],
   imports: [
     BrowserModule,

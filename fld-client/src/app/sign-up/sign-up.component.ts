@@ -52,12 +52,12 @@ export class SignUpComponent implements OnInit {
 
   onSubmitSignUp(form: NgForm){
     let user = {
-      firstname: this.model.name,
-      lastname: this.model.lastname,
-      username: this.model.username,
-      password: this.model.password,
-      email: this.model.email,
-      city: this.model.city
+      firstname: this.myForm.value.name,
+      lastname: this.myForm.value.lastname,
+      username: this.myForm.value.username,
+      password: this.myForm.value.password,
+      email: this.myForm.value.email,
+      city: this.myForm.value.city
     }
     this.service.saveUser(user).subscribe(
       (success) => {

@@ -1,22 +1,15 @@
 package com.bff.flylivedrive.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
-import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,17 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bff.flylivedrive.dto.UserDTO;
-import com.bff.flylivedrive.dto.HotelDTO;
+import com.bff.flylivedrive.dto.UserInfoDTO;
 import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.AvioAdmin;
 import com.bff.flylivedrive.model.HotelAdmin;
-import com.bff.flylivedrive.model.Authority;
 import com.bff.flylivedrive.model.RentAdmin;
 import com.bff.flylivedrive.model.SysAdmin;
 import com.bff.flylivedrive.model.User;
-import com.bff.flylivedrive.model.UserTokenState;
 import com.bff.flylivedrive.security.TokenUtils;
-import com.bff.flylivedrive.security.auth.JwtAuthenticationRequest;
 import com.bff.flylivedrive.service.CustomUserDetailsService;
 import com.bff.flylivedrive.service.UserService;
 
@@ -84,6 +74,19 @@ public class UserController {
 		System.out.println("Name: "+username);
 		return username;
 	}
+	
+	@RequestMapping(value = "/info",method = RequestMethod.GET)
+	public UserInfoDTO getUserInfo(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		System.out.println("token: "+token);
+		String username = tokenUtils.getUsernameFromToken(token);
+
+		User u = userService.findOneByUsername(username);
+		
+		return new UserInfoDTO(u);
+	}
+	
+	
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
