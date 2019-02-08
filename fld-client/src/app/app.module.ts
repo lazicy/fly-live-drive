@@ -72,6 +72,7 @@ import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 import { HomeComponent } from './home/home.component';
 import { FirstLogComponent } from './home/first-log/first-log.component';
 import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres.component';
+import { SeatsSelectComponent } from './avio/avio-reservation/seats-select/seats-select.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres
     HotelBookComponent,
     HomeComponent,
     FirstLogComponent,
-    AddFastresComponent
+    AddFastresComponent,
+    SeatsSelectComponent
   ],
   imports: [
     BrowserModule,

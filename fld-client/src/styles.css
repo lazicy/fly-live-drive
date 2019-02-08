@@ -148,7 +148,8 @@ select {
 }
 
 .modal-content {
-    width: 35%;
+    width: 520px;
+    background-color: black;
     margin: 0 auto;
     overflow-y: scroll;
     -webkit-animation-name: animatetop;
@@ -206,7 +207,6 @@ select {
   
 .seats-modal {
 
-    width: 90%;
     height: 95%;
 
 }
