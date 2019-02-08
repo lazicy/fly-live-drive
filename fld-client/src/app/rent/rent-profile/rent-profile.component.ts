@@ -5,6 +5,7 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { BranchesComponent } from '../rent-admin/branches/branches.component';
 import { VehiclesComponent } from '../rent-admin/branches/vehicles/vehicles.component';
 import { UserService } from 'src/app/services/user.service';
+import { FastVehicleService } from 'src/app/services/fastvehicle.service';
 
 @Component({
   selector: 'app-rent-profile',
@@ -16,9 +17,11 @@ export class RentProfileComponent implements OnInit {
   rent: any;
   branches: any = [];
   vehicles: any = [];
+  vehicleFastList: any = [];
   pomocna: any = [];
   objekat: any;
   id: number;
+  emptyVehicleFastList: boolean = false;
   emptyVehicleList: boolean = false;
   emptyBranchesList: boolean = false;
   map: boolean = false;
@@ -29,8 +32,9 @@ export class RentProfileComponent implements OnInit {
   showFormDialog: boolean = false;
   showBranches: boolean = false;
   showVehicles: boolean = false;
+  showVehicleFast: boolean =  false;
 
-  constructor(private userService: UserService,private rentService: RentService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
+  constructor(private fastService: FastVehicleService,private userService: UserService,private rentService: RentService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
 
 
     this.route.params.subscribe(
@@ -60,6 +64,18 @@ export class RentProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+
+	this.fastService.getFastVehicles(this.id).subscribe(
+		(data) => {
+			this.vehicleFastList = data;
+			if(this.vehicleFastList.length === 0){
+				this.emptyVehicleFastList = true;
+			}
+		},
+		(error) => {
+			this.emptyVehicleFastList = true;
+		}
+	)
 
 	this.userService.getUserRole().subscribe(
 		(data: string) => {
@@ -106,6 +122,10 @@ export class RentProfileComponent implements OnInit {
 
 	onToggleVehicles() {
 		this.showVehicles = !this.showVehicles;
+	}
+
+	onToggleFast(){
+		this.showVehicleFast = !this.showVehicleFast;
 	}
 
 	svaVozila() {

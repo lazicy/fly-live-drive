@@ -37,6 +37,8 @@ import { AvioReservationComponent } from './avio/avio-reservation/avio-reservati
 import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 import { HomeComponent } from './home/home.component';
 import { GlobalReservationOverviewComponent } from './global-reservation/global-reservation-overview/global-reservation-overview.component';
+import { FastResComponent } from './rent/fast-res/fast-res.component';
+import { FastResVehicleComponent } from './rent/fast-res/fast-res-vehicle/fast-res-vehicle.component';
 
 
 const appRoutes: Routes = [
@@ -65,7 +67,10 @@ const appRoutes: Routes = [
 		{path: ':id', component: RentProfileComponent},
 		{path: 'rentAdmin/:id', component: RentAdminComponent, children:[
 			{path: '', component: BranchesComponent},
-			{path: ':idF', component: VehiclesComponent}
+			{path: ':idF', component: VehiclesComponent},
+		]},
+		{path:'fastRes/:id', component: FastResComponent, children:[
+			{path:'', component: FastResVehicleComponent},
 		]},
 		{path: 'vehicles/:id', component: VehicleListComponent, children:[
 			{path: '', component: VehicleSearchComponent}

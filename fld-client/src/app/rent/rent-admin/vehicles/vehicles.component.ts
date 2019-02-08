@@ -75,7 +75,13 @@ export class VehiclesComponent implements OnInit {
             if(this.vehicleList.length === 0) {
               this.emptyVehicleList = true;
             }
-          }, (error) => swal("Error", error, "error")
+          }, (error) => {
+              if(error.status === 403){
+                swal("Error","Vehicle is reserved. You cant make any changes.","error")
+              }else{
+                alert(error);
+              }            
+            }
         );
       }
     })

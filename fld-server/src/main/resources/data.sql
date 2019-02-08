@@ -2,11 +2,12 @@ insert into user (username,password,firstname,lastname,email,city,active,first_l
 insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('jvukasin', '$2a$10$IV7ZaFtBPWfRQ.Xk1y7Xguwoo/Cl6Ue/g7EjKGZNfa7ESkFn7R0y.', 'Vukasin', 'Jovic', 'jovic.vukasin@gmail.com', 'Novi Sad', true, false, 'HOTEL_ADMIN', 0);
 insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('perap', '$2a$10$6bXdqdf8Ob8GEDbeL4ACEexIhqruND5JwHfsHRS0SrwaDqgy2EJXq', 'Petar', 'Peric', 'perpet@yahoo.com', 'Beograd', true, false, 'User', 0);
 
-insert into authority (id,name) values (1,'RENT_ADMIN');
-insert into authority (id,name) values (2,'HOTEL_ADMIN');
-insert into authority (id,name) values (3,'AVIO_ADMIN');
-insert into authority (id,name) values (4,'SYSTEM_ADMIN');
-insert into authority (id,name) values (5,'User');
+
+insert into authority (id,name) values (1,'ROLE_RENT_ADMIN');
+insert into authority (id,name) values (2,'ROLE_HOTEL_ADMIN');
+insert into authority (id,name) values (3,'ROLE_AVIO_ADMIN');
+insert into authority (id,name) values (4,'ROLE_SYSTEM_ADMIN');
+insert into authority (id,name) values (5,'ROLE_USER');
 
 insert into user_authority (user_id, authority_id) values ('dovla96',1);
 insert into user_authority (user_id, authority_id) values ('jvukasin',2);
@@ -162,18 +163,23 @@ INSERT INTO `destination` (`id`,`avio_id`,`city_id`) VALUES (598,102,52);
 insert into rentacar (id,name,address,city_id,description) values (1,'Drive a lot','Bulevar Evrope',51,'Najbolji servis ikada');
 insert into rentacar (id,name,address,city_id,description) values (2,'Teraj bona','Bosanskog cevapa 10',54,'Bolji servis bona od ovog drugog');
 
+insert into filijala (id,name,address,city_id,description,servis_id) values (22,'Teraj bona','Banjalucka 2',54,'Bolji servis bona od ovog drugog',2);
+
 insert into filijala (id,name,address,city_id,description,servis_id) values (12,'Drive a lot','Bulevar Kralja Petra',51,'Najbolji servis ikada',1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (13, 'Drive a lot', 'Bulevar Vojvode Stepe', 52, 'Naj', 1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (14, 'Drive a lot', 'Mihajla Pupina 1', 53, 'Naj', 1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (15, 'Drive a lot', 'Ksong Ksung', 12, 'Ma ja sam naj', 1);
 
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (54, 'Q7','Audi','2016',5,'SUV',10,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (68, 'X5','BMW','2016',5,'SUV',15,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (12, 'X4','BMW','2016',5,'SUV',30,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (66, 'X3','BMW','2016',5,'SUV',30,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (13, 'X2','Audi','2016',5,'SUV',10,13);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (22, 'Focus','Ford','2016',5,'SUV',15,13);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (35, 'Astra','Opel','2016',5,'SUV',30,13);
+insert into fast_res_vehicle (id, start_date, end_date, discount) values (12, '2019-02-02', '2019-02-08', 10);
+
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (54, 'Q7','Audi','2016',5,'SUV',10,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (68, 'X5','BMW','2016',5,'SUV',15,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (12, 'X4','BMW','2016',5,'SUV',30,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (66, 'X3','BMW','2016',5,'SUV',30,12,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (13, 'X2','Audi','2016',5,'SUV',10,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (22, 'Focus','Ford','2016',5,'SUV',15,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (35, 'Astra','Opel','2016',5,'SUV',30,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (36, 'Astra','Opel','2016',5,'SUV',30,22,12);
 
 
 

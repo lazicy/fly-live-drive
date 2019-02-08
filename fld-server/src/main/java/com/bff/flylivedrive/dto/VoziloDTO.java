@@ -1,5 +1,6 @@
 package com.bff.flylivedrive.dto;
 
+import com.bff.flylivedrive.model.FastResVehicle;
 import com.bff.flylivedrive.model.Vozilo;
 
 public class VoziloDTO {
@@ -12,6 +13,7 @@ public class VoziloDTO {
 	private String type;
 	private int pricePerDay;
 	private FilijalaDTO filijalaDTO;
+	private FastResVehicleDTO frDTO;
 	
 	public VoziloDTO() {
 		
@@ -102,6 +104,15 @@ public class VoziloDTO {
 	public void setFilijalaDTO(FilijalaDTO filijalaDTO) {
 		this.filijalaDTO = filijalaDTO;
 	}
-	
+
+
+	public FastResVehicleDTO getFrDTO() {
+		return frDTO;
+	}
+
+
+	public void setFrDTO(FastResVehicleDTO frDTO) {
+		this.frDTO = frDTO;
+	}
 
 }

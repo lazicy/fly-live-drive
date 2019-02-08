@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 	// Definisemo prava pristupa odredjenim URL-ovima
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
+		http.csrf().disable()
 			// komunikacija izmedju klijenta i servera je stateless
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			
@@ -78,28 +78,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			.antMatchers("/auth/**").permitAll()
 			.antMatchers("/h2-console/**").permitAll()
 			.antMatchers("/users/**").permitAll()
-			.antMatchers("/rent/**").permitAll()
 			.antMatchers("/hotel/**").permitAll()
 			.antMatchers("/avio/**").permitAll()
 			.antMatchers("/country/**").permitAll()
 			.antMatchers("/flight/**").permitAll()
 			.antMatchers("/bonus/**").permitAll()
 			.antMatchers("/flightreservation/**").permitAll()
-
 			// svaki zahtev mora biti autorizovan
 			.anyRequest().authenticated().and()
 			
 			// presretni svaki zahtev filterom
 			.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
-
-		http.csrf().disable();
 	}
 
 	// Generalna bezbednost aplikacije
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
-		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
+		web.ignoring()
+		.antMatchers(HttpMethod.POST, "/auth/login").antMatchers(HttpMethod.OPTIONS, "/**");;
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js");
 	}
 	
