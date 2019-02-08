@@ -47,25 +47,42 @@ export class AddFastresComponent implements OnInit {
   }
 
   onSubmitRoom(form: NgForm) {
+
+    let sd = new Date(form.value.start);
+    let ed = new Date(form.value.end);
+
       let fastRoom = {
-        start_date: form.value.start,
-        end_date: form.value.end,
+        start_date: sd,
+        end_date: ed,
         discount: form.value.discount
       }
 
       this.hotelService.saveFastRez(fastRoom, form.value.room).subscribe(
-
+        (response) => {
+            this.addServices(response, form);
+          },
+          (error) => {
+            if (error.status === 409) {
+              swal ( "Cannot do that" ,  "There is already a discount that collides with those dates." ,  "warning" );
+            } else {
+              console.error(error);
+              swal ( "Error occured" ,  "Discount was not added." ,  "error" );
+            }
+          }
       );
-  
-      // this.hotelService.saveHotelRoom(fastRoom, this.selektovaneUsluge, this.hotelId).subscribe(
-      //   (response) => {
-      //     this.roomSubmit.emit(response);
-      //     swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
-      //     form.reset();
-      //     this.ngOnDestroy();
-      //   },
-      //   (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
-      // );
+  }
+
+  addServices(fr, form) {
+    this.hotelService.saveFastResServices(this.selektovaneUsluge, fr.id).subscribe(
+      (data) => {
+        this.fastSubmit.emit(data);
+        swal({title: "Success!", text: "Discounted room added", icon: "success", timer: 1500});
+        form.reset();
+        this.ngOnDestroy();
+      }, (error) => {
+        swal ( "Error occured" ,  "Discounted room was not added." ,  "error" );
+      }
+    );
   }
 
   serviceIsSelected(e, ser) {

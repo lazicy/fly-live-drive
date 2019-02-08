@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bff.flylivedrive.model.Usluga;
 import com.bff.flylivedrive.repository.ServiceRepository;
@@ -22,10 +23,12 @@ public class UslugaService {
 		return uslugaRepo.findAll();
 	}
 	
+	//@Transactional
 	public Usluga save(Usluga usluga) {
 		return uslugaRepo.save(usluga);
 	}
 	
+	//@Transactional
 	public void remove(Long id) {
 		uslugaRepo.deleteById(id);
 	}

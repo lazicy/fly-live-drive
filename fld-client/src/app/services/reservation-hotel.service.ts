@@ -8,12 +8,16 @@ export class ReservationHotelService {
 
   constructor(private http: HttpClient) { }
 
-  public checkin: Date = new Date();
-  public checkout: Date = new Date();
-  public guests: number = 2;
+  public checkin: Date;
+  public checkout: Date;
+  public guests: number;
 
-  saveFlightReservation(hotelReservation) {
-    return this.http.post("/api/flightreservation", hotelReservation);
-}
+  saveHotelReservation(id:number, username, hotelReservation) {
+    return this.http.post("/api/hotel/saveReservation/" + id + '/' + username, hotelReservation);
+  }
+
+  saveHotelReservationServices(id: number, usluge) {
+    return this.http.post('/api/hotel/addReservationServices/' + id, usluge);
+  }
 
 }

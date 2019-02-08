@@ -45,7 +45,7 @@ export class HotelHomepageComponent implements OnInit {
     this.searchHotels.controls['checkin'].setValue(today);
     this.searchHotels.controls['checkout'].setValue(tomorrow);
     
-    this.resHService.checkout = this.searchHotels.value.guests;
+    this.resHService.guests = this.searchHotels.value.guests;
   }
 
   initList() {
@@ -74,8 +74,10 @@ export class HotelHomepageComponent implements OnInit {
     this.hotelService.searchHotel(searchParams).subscribe(
       (data) => {
         this.hotelSearch = data;
-        this.resHService.checkin = this.searchHotels.value.checkin;
-        this.resHService.checkout = this.searchHotels.value.checkout;
+        let ci = new Date(this.searchHotels.value.checkin);
+        let co = new Date(this.searchHotels.value.checkout);
+        this.resHService.checkin = ci;
+        this.resHService.checkout = co;
         this.resHService.guests = this.searchHotels.value.guests;
         this.showSearch = true;
         this.showAllHotels = false;

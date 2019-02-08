@@ -169,6 +169,7 @@
       Rooms
   </h3>
   <button (click)="onNewRoom()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Room</button>
+  <button (click)="onNewFast()" *ngIf="showRooms" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Discount</button>
   
   <div class="do-animation" *ngIf="showRooms">
       <div class="table">
@@ -229,43 +230,7 @@
     </div>
 </div>
 
-  <hr>
-
-  <h3 class="link inline-block" (click)="onToggleFast()">
-      <i
-        class="fa fa-arrow-right" aria-hidden="true" 
-        [ngClass] = "{'fa-arrow-right':showFast === false,  'fa-arrow-down':showFast  === true }" 
-      ></i>
-      Fast Reservations
-  </h3>
-  <button (click)="onNewFast()" *ngIf="showFast" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Fast Reservation</button>
-  
-  <div class="do-animation" *ngIf="showFast">
-      <div class="table">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Discount</th>
-                <th>Normal price</th>
-                <th>Room</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let fast of fastRes">
-                <td>{{fast.start_date}}</td>
-                <td>{{fast.end_date}}</td>
-                <td>{{fast.discount}} %</td>
-                <td>{{fast.room.price}}</td>
-                <td>{{fast.room.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-  </div>
-
-  <div class="form-modal" *ngIf="showAddFastDialog">
+<div class="form-modal" *ngIf="showAddFastDialog">
     <div class="modal-content room-content">
       <div class="modal-body">
           <button type="button" class="close" (click)="onCloseAddFast()">
@@ -275,8 +240,33 @@
       </div>
     </div>
   </div>
-  
+
   <hr>
+  
+  <div class="do-animation" *ngIf="showFast">
+      <div class="table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Room</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Discount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let room of hotel.rooms">
+                <td>{{fast.room.name}}</td>
+                <td>{{fast.start_date}}</td>
+                <td>{{fast.end_date}}</td>
+                <td>{{fast.discount}} %</td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+
 
   <h3 class="link inline-block" (click)="onToggleCharts()">
     <i

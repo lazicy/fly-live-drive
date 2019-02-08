@@ -80,4 +80,12 @@ export class HotelService {
       return this.http.post('/api/hotel/addFastResServices/' + id, usluge);
     }
 
+    getFastRes(id: number) {
+      return this.http.get('/api/hotel/getFastRes/' + id);
+    }
+
+    getFreeRooms(id: number, podaci) {
+      return this.http.post('/api/hotel/getFreeRooms/' + id, podaci)
+    }
+
 }

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.CascadeType;
 
 
@@ -23,9 +25,11 @@ public class FastRoom {
 	private Long id;
 	
 	@Column(name="start_date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date start_date;
 	
 	@Column(name="end_date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date end_date;
 	
 	@Column(name="discount", nullable = false)

@@ -34,14 +34,12 @@
                     <tr>
                       <th>Name</th>
                       <th>Price</th>
-                      <th>Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let su of selektovaneUsluge">
                       <td>{{su.name}}</td>
                       <td>{{su.price}}€ per {{su.charge}}</td>
-                      <td>{{su.price}}€</td>
                     </tr>
                   </tbody>
                 </table>
@@ -50,7 +48,8 @@
     </div>
     <div class="cene">
       <h5>Room price: <span class="floatCene">{{cenaSobe}}€</span></h5>
-      <h5>Additional services: <span class="floatCene">{{cenaUsluga}}€</span></h5><hr>
+      <h5>Additional services: <span class="floatCene">{{cenaUsluga}}€</span></h5>
+      <h6>Discount from services: <span class="floatCene">{{popust}}%</span></h6><hr>
       <h2>TOTAL <span class="floatCene">{{cenaTotal}}€</span></h2>
     </div>
     <div class="btnFinishContinue">

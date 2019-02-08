@@ -1,12 +1,16 @@
 insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('dovla96', '$2a$04$nRJALierFkUMWbUfQBzvy.DhKLc6UTMSX4vI4.HfPF0THn.VjTIYm', 'Vladimir', 'Cvetanovic', 'cvetanovic9696@gmail.com', 'Novi Sad',true, false,'RENT_ADMIN', 0);
+insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('jvukasin', '$2a$10$IV7ZaFtBPWfRQ.Xk1y7Xguwoo/Cl6Ue/g7EjKGZNfa7ESkFn7R0y.', 'Vukasin', 'Jovic', 'jovic.vukasin@gmail.com', 'Novi Sad', true, false, 'HOTEL_ADMIN', 0);
+insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('perap', '$2a$10$6bXdqdf8Ob8GEDbeL4ACEexIhqruND5JwHfsHRS0SrwaDqgy2EJXq', 'Petar', 'Peric', 'perpet@yahoo.com', 'Beograd', true, false, 'User', 0);
 
 insert into authority (id,name) values (1,'RENT_ADMIN');
 insert into authority (id,name) values (2,'HOTEL_ADMIN');
 insert into authority (id,name) values (3,'AVIO_ADMIN');
 insert into authority (id,name) values (4,'SYSTEM_ADMIN');
-insert into authority (id,name) values (5,'USER');
+insert into authority (id,name) values (5,'User');
 
 insert into user_authority (user_id, authority_id) values ('dovla96',1);
+insert into user_authority (user_id, authority_id) values ('jvukasin',2);
+insert into user_authority (user_id, authority_id) values ('perap',5);
 
 
 INSERT INTO country (id, name) values
@@ -907,12 +911,13 @@ insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, 
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (1, 'WiFi', 0, 'Room', 0, 2);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (2, 'Swimming pool', 20, 'Day', 1, 2);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (3, 'Room Service', 45, 'Day', 2, 2);
-insert into usluga (id, name, cena, naplata, discount, hotel_id) values (4, 'Restaurant', 40, 'Room', 1, 2);
-insert into usluga (id, name, cena, naplata, discount, hotel_id) values (5, 'Spa', 50, 'Person', 3, 1);
-insert into usluga (id, name, cena, naplata, discount, hotel_id) values (6, 'Parking', 0, 'Room', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (4, 'Restaurant', 30, 'Person', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (5, 'Spa', 50, 'Day', 3, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (6, 'Parking', 10, 'Room', 1, 1);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (7, 'Garage', 30, 'Room', 1, 2);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (8, 'Breakfast', 5, 'Person', 0, 1);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (9, 'Lunch', 8, 'Person', 0, 1);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (10, 'Diner', 8, 'Person', 0, 1);
-insert into usluga (id, name, cena, naplata, discount, hotel_id) values (11, 'Wellness', 60, 'Person', 3, 3);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (11, 'Wellness', 60, 'Day', 3, 3);
 insert into usluga (id, name, cena, naplata, discount, hotel_id) values (12, 'WiFi', 0, 'Room', 0, 3);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (13, 'Gym', 40, 'Person', 2, 3);

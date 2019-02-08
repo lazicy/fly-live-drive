@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
+import { ReservationHotelService } from 'src/app/services/reservation-hotel.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-hotel-page',
@@ -20,14 +22,29 @@ export class HotelPageComponent implements OnInit {
   currentStyles = {     
     
   };
+  CIdate: Date;
+  COdate: Date;
+  gosti: number;
+  broj_dana: number;
 
-  constructor(private hotelService: HotelService, private route: ActivatedRoute, private router: Router, public sanitizer: DomSanitizer) {
+  jesteKorisnik: boolean = false;
+  jesteAdmin: boolean = false;
+  rola: any;
+
+  constructor(private hotelService: HotelService, private route: ActivatedRoute, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
     this.route.params.subscribe(
         (params: Params) => {
           this.id = +params['id'];
         }
-      );
+    );
 
+    this.CIdate = this.resHService.checkin;
+    this.COdate = this.resHService.checkout;
+    this.gosti = this.resHService.guests;
+    this.broj_dana =  Math.round((this.COdate.valueOf()-this.CIdate.valueOf())/(1000*60*60*24));
+  }
+
+  ngOnInit() {
     if(this.id !== NaN && this.id !== undefined) {
       this.hotelService.getHotel(this.id).subscribe(
           (data) => {
@@ -41,6 +58,7 @@ export class HotelPageComponent implements OnInit {
             }
             this.fetchServices();
             this.fetchRooms();
+            this.funkcije();
           },
           (error) => {
             alert(error);
@@ -54,8 +72,23 @@ export class HotelPageComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    
+  funkcije() {
+    this.userService.getUserRole().subscribe(
+      (data) => {
+        this.rola = data;
+        if(this.rola === "HOTEL_ADMIN") {
+          this.jesteAdmin = true;
+        } else if (this.rola === "User") {
+          this.jesteKorisnik = true;
+        } else {
+          //just in case
+          this.jesteAdmin = false;
+          this.jesteKorisnik = false;
+        }
+      },
+      (error) => console.log(error)
+
+    );
   }
 
   fetchServices() {
@@ -72,8 +105,16 @@ export class HotelPageComponent implements OnInit {
   }
 
   fetchRooms() {
-    this.hotelService.getHotelRooms(this.hotel.id).subscribe(
-      data => {
+
+    let podaci = {
+      search: "",
+      checkin: this.CIdate,
+      checkout: this.COdate,
+      numberOfPeople: this.gosti
+    }
+
+    this.hotelService.getFreeRooms(this.hotel.id, podaci).subscribe(
+      (data) => {
         this.hotel.rooms = data;
         if(this.hotel.rooms.length === 0) {
           this.emptyRoomList = true;
