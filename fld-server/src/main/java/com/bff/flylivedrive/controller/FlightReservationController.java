@@ -94,7 +94,6 @@ public class FlightReservationController {
 	}
 	
 
-	@PreAuthorize("hasRole('User')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<FlightReservationDTO> saveFlightReservation(@RequestBody FlightReservationDTO frDTO) {
 		
@@ -192,7 +191,6 @@ public class FlightReservationController {
 		fr.setGlobalReservation(gr);
 
 		fr = flightResService.save(fr);
-		
 		
 		FlightReservationDTO frDTOret;
 		

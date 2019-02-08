@@ -194,7 +194,7 @@ public class RentController {
 	
 	
 	@RequestMapping(value = "/addBranch/{id}", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('RENT_ADMIN')")
+	//@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<FilijalaDTO> addBranch(@RequestBody FilijalaDTO filijalaDTO, @PathVariable("id") Long id){
 		Filijala f = new Filijala(filijalaDTO);
 		
@@ -384,7 +384,6 @@ public class RentController {
 		//vozila koja su rezervisana ali ne u datom periodu pretrage
 		List<Vozilo> resVehicles = new ArrayList<Vozilo>();
 		
-		
 		if(params.getSeats() != 0) {
 			resVehicles = vService.getResVehicles(params.getPickUp(), params.getDropOff(), c.getId(), params.getSeats());
 			notResVehicles = vService.getNotResVehicles(c.getId(),params.getSeats());
@@ -419,7 +418,4 @@ public class RentController {
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
-	
-	
 }

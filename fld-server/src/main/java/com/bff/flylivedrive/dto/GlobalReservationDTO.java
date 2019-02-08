@@ -8,6 +8,8 @@ public class GlobalReservationDTO {
 	private Long id;
 	private boolean active;
 	private FlightReservationDTO frDTO;
+	private VehicleReservationDTO vDTO;
+	private String username;
 	
 	private GlobalReservationDTO() {
 		
@@ -62,9 +64,23 @@ public class GlobalReservationDTO {
 	public void setFrDTO(FlightReservationDTO frDTO) {
 		this.frDTO = frDTO;
 	}
-	
-	
-	
+
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public VehicleReservationDTO getvDTO() {
+		return vDTO;
+	}
+
+
+	public void setvDTO(VehicleReservationDTO vDTO) {
+		this.vDTO = vDTO;
+	}
 	
 
 }

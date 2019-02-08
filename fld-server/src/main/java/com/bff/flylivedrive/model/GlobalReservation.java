@@ -30,7 +30,7 @@ public class GlobalReservation {
 	// ovde dodajte i vase rezervacije
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(nullable = false)
-	private User usera;
+	private User user;
 	
 
 	public Long getId() {
