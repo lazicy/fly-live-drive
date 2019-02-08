@@ -69,6 +69,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/getUser",method = RequestMethod.GET)
 	public String getUser(HttpServletRequest request) {
+		System.out.println("***************GETUSER*********************");
 		String token = tokenUtils.getToken(request);
 		System.out.println("token: "+token);
 		String username = tokenUtils.getUsernameFromToken(token);

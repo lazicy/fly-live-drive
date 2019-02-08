@@ -35,5 +35,6 @@ public interface VoziloRepository extends JpaRepository<Vozilo, Long>, JpaSpecif
 			+ " and vozilo.filijala.id = filijala.id")
 	public List<Vozilo> getResVehicles(@Param("pickUpDate") Date pickUpDate,@Param("dropOffDate") Date dropOffDate,@Param("city") Long city);
 	
-	
+	@Query("select v from Vozilo v, Filijala f where v.filijala.id = f.id and f.city.id = :id")
+	public List<Vozilo> findAllByCityId(@Param("id") Long id);
 }

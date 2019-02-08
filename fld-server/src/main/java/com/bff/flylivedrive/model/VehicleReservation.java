@@ -36,6 +36,9 @@ public class VehicleReservation {
 	@Temporal(TemporalType.TIMESTAMP)
 	Date dropOffDate;
 	
+	@Column(name = "price", nullable = false)
+	int price;
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	City city;
 	
@@ -120,6 +123,14 @@ public class VehicleReservation {
 
 	public void setDropOffLocation(Filijala dropOffLocation) {
 		this.dropOffLocation = dropOffLocation;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 }

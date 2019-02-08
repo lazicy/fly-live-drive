@@ -58,4 +58,7 @@ public class VoziloService {
 		return voziloRepo.getResVehicles(pickUpDate, dropOffDate, city, seats);
 	}
 	
+	public List<Vozilo> findAllByCityId(Long id){
+		return voziloRepo.findAllByCityId(id);
+	}
 }
