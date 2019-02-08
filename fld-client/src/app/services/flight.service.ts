@@ -24,12 +24,12 @@ export class FlightService {
 		return this.http.post("/api/flight/search", searchParams);
     }
     
-    deleteSeats(seats) {
-        return this.http.delete("/api/flight/deleteseats", seats);
+    deleteSeats(seats, fId) {
+        return this.http.put("/api/flight/" + fId + "/deleteseats", seats);
     }
 
-    setOnDiscount(seats) {
-        return this.http.put("/api/flight/discount", seats);
+    setOnDiscount(seats, fId) {
+        return this.http.put("/api/flight/" + fId + "/discount", seats);
     }
 
 

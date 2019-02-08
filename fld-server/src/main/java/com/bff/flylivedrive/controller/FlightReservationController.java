@@ -94,7 +94,7 @@ public class FlightReservationController {
 	}
 	
 
-	@PreAuthorize("hasRole('User')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<FlightReservationDTO> saveFlightReservation(@RequestBody FlightReservationDTO frDTO) {
 		
@@ -186,6 +186,7 @@ public class FlightReservationController {
 		// setovanje na aktiv
 		gr.setActive(true);
 		gr.setFlightReservation(fr);
+		gr.setUsera(u);
 		
 		gr = globalResService.save(gr);
 		
@@ -202,6 +203,85 @@ public class FlightReservationController {
 			frDTOret = new FlightReservationDTO(fr, new Long(-1));
 			
 		}
+		
+		frDTOret.setBonusPointsEarned(earned);
+		
+		return new ResponseEntity<>(frDTOret, HttpStatus.CREATED);
+			
+	}
+	
+	
+	
+	@RequestMapping(value="/quick", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<FlightReservationDTO> saveQuickFlightReservation(@RequestBody FlightReservationDTO frDTO) {
+		
+		String tripType = frDTO.getTripType();
+
+		User u = userService.findOneByUsername(frDTO.getUsername());
+		if (u == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+
+		
+		Flight depFlight = flightService.findOneById(frDTO.getDepartureFlightId());
+		
+		if (depFlight == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
+		int earned;
+		
+		
+		earned = calculateBonus(u, depFlight.getTotalDuration());
+		
+	
+		u.setBonus_points(u.getBonus_points() + earned);
+		userService.save(u);
+		
+		FlightReservation fr = new FlightReservation();
+		
+	
+		fr.setTripType(tripType);
+		fr.setReservationDate(frDTO.getReservationDate());	
+		fr.setDepartureFlight(depFlight);
+		fr.setUsername(frDTO.getUsername());
+		fr.setTotalPrice(frDTO.getTotalPrice());
+		
+	
+		// form departure seats
+		List<Seat> departureSeats = formSeats(frDTO.getDepartureSeatsDTO(), depFlight, fr, true);
+		if (departureSeats == null || departureSeats.size() == 0) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		fr.setDepartureSeats(departureSeats);
+		
+		flightService.save(depFlight);
+		System.out.println("Znaci doso dovde.");
+		fr = flightResService.save(fr);
+		
+		// creating GlobalReservationObject
+		GlobalReservation gr = new GlobalReservation();
+		
+		// setovanje na PASIV JER JE QUICK
+		gr.setActive(false);
+		gr.setFlightReservation(fr);
+		gr.setUsera(u);
+		
+		
+		gr = globalResService.save(gr);
+		
+		fr.setGlobalReservation(gr);
+
+		fr = flightResService.save(fr);
+		
+		
+		FlightReservationDTO frDTOret;
+		
+		frDTOret = new FlightReservationDTO(fr, new Long(-1));
 		
 		frDTOret.setBonusPointsEarned(earned);
 		

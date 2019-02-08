@@ -42,144 +42,229 @@
 </div>
 
 
-<div class="card-container" *ngFor="let f of flights">
+<div  *ngFor="let f of flights; let i = index">
 
-	<div class="card-general-info">
+	<div class="card-container mt-5" *ngIf="f.discountSeats > 0">
+
 
 	
 
-		<div class="card-departure">
+		<div class="card-general-info">
 
-			
+		
 
-			<div class="card-dest">
-
-				<i class="fa fa-plane mr-3 card-icon"></i> 
-
-				<div class="card-place">
-					<span class="card-city">
-						{{ f.departureDestination.cityDTO.name }}
-					</span>
-	
-					<span class="card-country">
-						{{ f.departureDestination.cityDTO.countryDTO.name }}
-					</span>
-				</div>
+			<div class="card-departure">
 
 				
 
-			</div>
+				<div class="card-dest">
 
-			<div class="card-date">
-				
-				<span class="time">
-					{{ f.departureTime }}
-				</span>
-	
-				<span class="date">
-					{{ f.departureDate }}
-				</span>
+					<i class="fa fa-plane mr-3 card-icon"></i> 
 
-			</div>
-
-		</div>
-
-		<div class="card-trip">
-
-			<div class="card-trip-duration">
-				<span *ngIf="f.totalDurationDays > 0"><span class="bold">{{f.totalDurationDays}}</span>d</span> 
-				<span *ngIf="f.totalDurationHours > 0"> <span class="bold"> {{f.totalDurationHours}}</span>h</span> 
-				<span *ngIf="f.totalDurationMins > 0"> <span class="bold"> {{f.totalDurationMins}}</span>m</span> 
-			</div>
-
-			<div class="card-trip-arrow">
-				<i class="fa fa-location-arrow card-trip-arrow"></i>
-
-			</div> 
-
-			<div class="card-trip-interceptions" (mouseover)="overInterceptions()" (mouseout)="outInterceptions()">
-				
-				<span class="how-many" *ngIf="!whichOnes" >
-					<span class="bold">{{ f.interceptionsDTO.length }} </span> stop<span *ngIf="f.interceptionsDTO.length != 1">s</span>
-				</span>
-
-				<span class="which-ones"  *ngIf="whichOnes">
-					<div *ngFor="let i of f.interceptionsDTO">
-						<span class="bold">{{ i.duration }}</span> mins in <span class="bold">{{ i.destinationDTO.cityDTO.name }}</span>
-
+					<div class="card-place">
+						<span class="card-city">
+							{{ f.departureDestination.cityDTO.name }}
+						</span>
+		
+						<span class="card-country">
+							{{ f.departureDestination.cityDTO.countryDTO.name }}
+						</span>
 					</div>
 
-				</span>
+					
+
+				</div>
+
+				<div class="card-date">
+					
+					<span class="time">
+						{{ f.departureTime }}
+					</span>
+		
+					<span class="date">
+						{{ f.departureDate }}
+					</span>
+
+				</div>
 
 			</div>
 
-			
+			<div class="card-trip" (mouseover)="overInterceptions()" (mouseout)="outInterceptions()">
 
-		</div>
+				<div class="card-trip-duration">
+					<span *ngIf="f.totalDurationDays > 0"><span class="bold">{{f.totalDurationDays}}</span>d</span> 
+					<span *ngIf="f.totalDurationHours > 0"> <span class="bold"> {{f.totalDurationHours}}</span>h</span> 
+					<span *ngIf="f.totalDurationMins > 0"> <span class="bold"> {{f.totalDurationMins}}</span>m</span> 
+				</div>
 
-		<div class="card-departure">
+				<div class="card-trip-arrow">
+					<i class="fa fa-location-arrow card-trip-arrow"></i>
 
-			
-			<div class="card-dest card-dest-arrival">
+				</div> 
 
-				<i class="fa fa-plane fa-plane-rotate mr-3 card-icon"></i> 
-
-				<div class="card-place">
-					<span class="card-city">
-						{{ f.landingDestination.cityDTO.name }}
+				<div class="card-trip-interceptions" >
+					
+					<span class="how-many" *ngIf="!whichOnes" >
+						<span class="bold">{{ f.interceptionsDTO.length }} </span> stop<span *ngIf="f.interceptionsDTO.length != 1">s</span>
 					</span>
-	
-					<span class="card-country">
-						{{ f.landingDestination.cityDTO.countryDTO.name }}
+
+					<span class="which-ones"  *ngIf="whichOnes">
+						<div *ngFor="let i of f.interceptionsDTO">
+							<span class="bold">{{ i.duration }}</span> mins in <span class="bold">{{ i.destinationDTO.cityDTO.name }}</span>
+
+						</div>
+
 					</span>
+
 				</div>
 
 				
 
 			</div>
 
-			<div class="card-date">
+			<div class="card-departure">
 
-				<span class="time">
-					{{ f.landingTime }}
-				</span>
+				
+				<div class="card-dest card-dest-arrival">
 
-				<span class="date">
-					{{ f.landingDate }}
-				</span>
+					<i class="fa fa-plane fa-plane-rotate mr-3 card-icon"></i> 
+
+					<div class="card-place">
+						<span class="card-city">
+							{{ f.landingDestination.cityDTO.name }}
+						</span>
+		
+						<span class="card-country">
+							{{ f.landingDestination.cityDTO.countryDTO.name }}
+						</span>
+					</div>
+
+					
+
+				</div>
+
+				<div class="card-date">
+
+					<span class="time">
+						{{ f.landingTime }}
+					</span>
+
+					<span class="date">
+						{{ f.landingDate }}
+					</span>
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<div class="card-right-info">
+
+			<div class="card-trip-avio" *ngIf="searchList">
+					{{ f.avioDTO.name }}
+
+			</div>
+			
+			<div class="card-seats">
+				<span *ngIf="f.discountSeats > 0">{{ f.discountSeats }} seats 10% off</span>
+			</div>
+			
+			<div class="card-price">
+				{{ f.price }} €
+
+			</div>
+
+			<div class="card-reserve" *ngIf="!searchList" (click)="onShowQuickReserve(f)">
+
+				Reserve now <i class="fa fa-arrow-circle-o-right ml-2"></i>
+
 			</div>
 
 		</div>
-
-
-	</div>
-
-	<div class="card-right-info">
-
-		<div class="card-trip-avio" *ngIf="searchList">
-				{{ f.avioDTO.name }}
-
-		</div>
-		
-		<div class="card-seats">
-			<span *ngIf="f.availableSeats > 10">{{ f.availableSeats }} seats available</span>
-			<span *ngIf="f.availableSeats <= 10">Only {{ f.availableSeats }} seats left</span>
-			
-		</div>
-		
-		<div class="card-price">
-			{{ f.price }} €
-
-		</div>
-
-		<div class="card-reserve" *ngIf="!searchList">
-
-			Reserve now <i class="fa fa-arrow-circle-o-right ml-2"></i>
-
-		</div>
-
 	</div>
 
 
 
 </div>
+
+
+<div class="form-modal" *ngIf="showQuickReserve">
+		<div class="modal-content">
+		  <div class="modal-body">
+			  <button type="button" class="close" (click)="onCloseQuickReserve()">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			
+				<h2>Quick reservation</h2>
+				<div *ngIf="loggedUser" class="logged-user mt-5" >
+				
+				<div class="quick-res-cont">
+
+					<div class="left">
+
+						<form [formGroup]="quickResForm">
+			
+							<h5>Your information</h5>
+							
+							<div class="row">
+								<div class="form-group col-12" >
+									<label for="loggedUserName">Firstname:</label>
+									<input disabled type="text" class="form-control" value="{{ loggedUser.firstName }}">
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="form-group col-12" >
+									<label for="loggedUserName">Lastname:</label>
+									<input disabled type="text" class="form-control" value="{{ loggedUser.lastName }}">
+								</div>
+							</div>
+
+							<div class="row">
+									<div class="form-group col-12" >
+										<label for="loggedUserName">Select your seat:</label>
+										<select class="form-control" formControlName="selectedSeat"   required>
+												<option *ngFor="let s of seatsOnDiscount" [value]="s.id">{{s.row}}{{s.place}}</option>
+										</select>
+									</div>
+								</div>
+								
+							<div class="row">
+								<div class="form-group col-12" >
+									<label for="loggedUserName">Passport number: </label>
+									<input formControlName="loggedUserPassportNumber"  type="text" class="form-control" >
+								</div>
+							</div>
+						</form>
+
+					</div>
+
+					<div class="right">
+
+						
+
+							<span class="price">Total price: <span class="bold">{{ totalPrice }}€</span> </span>
+						
+							<br>
+						
+							<button type="submit" (click)="onQuickReserve()" class="btn btn-success btn-res" [disabled]="!this.quickResForm.valid">Reserve flight</button>
+						
+						
+						
+
+					</div>
+
+
+				</div>
+
+				
+				</div>
+				<div *ngIf="!loggedUser">
+					Please register or login to reserve a flight.
+				</div>
+
+		  </div>
+		</div>
+	  </div>
+  

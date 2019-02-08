@@ -15,6 +15,10 @@ export class ReservationFlightService {
     return this.http.post("/api/flightreservation", flightReservation);
   }
 
+  saveQuickFlightReservation(quickFlightReservation) {
+    return this.http.post("/api/flightreservation/quick", quickFlightReservation);
+  }
+
   getFlightReservation(id) {
     return this.http.get("/api/flightreservation/" + id);
   }

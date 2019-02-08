@@ -39,7 +39,7 @@
 
 
         <div class="banner-bar">
-          <h5 (click)="onToggleFlights()"> Flights </h5>
+          <h5 class="pointer" (click)="onToggleFlights()"> Flights with discounted prices </h5>
 
           <div *ngIf="showFlights">
             <app-flightlist avioId="{{avio.id}}" flightList="[]"></app-flightlist>

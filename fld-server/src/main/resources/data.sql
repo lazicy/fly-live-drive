@@ -344,7 +344,6 @@ INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_i
 INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_id`,`reservation_departure_id`,`reservation_return_id`) VALUES (151,false,0,'C',false,12,82,NULL,NULL);
 INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_id`,`reservation_departure_id`,`reservation_return_id`) VALUES (152,false,0,'D',false,12,82,NULL,NULL);
 
-insert into vehicle_reservation (id,pick_up_location_id,drop_off_location_id,pick_up_date,drop_off_date,city_id,user_username,vozilo_id) values (1,12,12,'2019-02-25 15:30','2019-02-26 15:00', 51,'dovla96', 54);
 
 insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (1, 'Normal double', 'No', 2, 15, 2, 90, 0, 1);
 insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (2, 'Royal', 'Yes', 1, 3, 2, 380, 0, 1);

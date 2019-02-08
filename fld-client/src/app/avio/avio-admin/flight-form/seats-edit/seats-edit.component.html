@@ -9,18 +9,18 @@
 
 			<div class="forma">
 
-				<form *ngIf="discountForm" (onSubmit)="onSetDiscount()" [formGroup]="discountForm">
+				<form *ngIf="discountForm"  [formGroup]="discountForm">
 
 					<div class="forma">
 
 						<div class="dugme">
-							<button [disabled] = "selectedSeats.length == 0" type="submit" class="btn btn-secondary">Set on discount</button>
+							<button [disabled] = "selectedSeats.length == 0" (click)="onSetDiscount()" class="btn btn-secondary">Set on discount</button>
 						</div>
-						<div class="select-taj">
+						<!-- <div class="select-taj">
 							<select class="form-control inlajn" formControlName="dsc"   required>
 									<option *ngFor="let d of discounts" [value]="d.how">{{d.fullFormat}}</option>
 							</select>
-						</div>
+						</div> -->
 						
 					</div>
 					
@@ -40,6 +40,7 @@
 						'seat-free': !s.reserved, 
 						'seat-reserved': s.reserved, 
 						'seat-deleted' : s.deleted,
+						'seat-discount': s.discount > 0,
 						'seat-selected': s.selected === true }"
 			 (click)="onReserveSeat(i)"
 			>

@@ -78,6 +78,12 @@
     transition: all .4s;
 }
 
+.seat-discount {
+    background: rgb(3, 40, 119) !important;
+    cursor: default;
+
+}
+
 .seat .seat-text {
     line-height: 1.9;
 }

@@ -216,9 +216,43 @@
     
 }
 
-
-
+.modal-content {
+    width: 750px;
+    background: white !important;
+    margin: 0 auto;
+    overflow-y: scroll;
+}
 
 .fa-plane-rotate {
     transform: rotateZ(80deg);
+}
+
+
+.quick-res-cont {
+    display: flex;
+}
+
+
+.price {
+    font-size: 30px;
+}
+
+.btn-res {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 50px;
+}
+
+.left {
+    flex: 1 0 auto;
+}
+
+.right {
+    flex: 1 0 auto;
+
+    align-self: center;
+
+    text-align: center;
+
+    width: 50%;
 }

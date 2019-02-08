@@ -23,13 +23,13 @@ public class GlobalReservation {
 	
 
 	// ovde dodajte i vase rezervacije
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(nullable = true)
 	private VehicleReservation vehicleReservation;
 	
 	// ovde dodajte i vase rezervacije
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(nullable = true)
 	private User usera;
 	
 
@@ -55,6 +55,22 @@ public class GlobalReservation {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public VehicleReservation getVehicleReservation() {
+		return vehicleReservation;
+	}
+
+	public void setVehicleReservation(VehicleReservation vehicleReservation) {
+		this.vehicleReservation = vehicleReservation;
+	}
+
+	public User getUsera() {
+		return usera;
+	}
+
+	public void setUsera(User usera) {
+		this.usera = usera;
 	}
 	
 	

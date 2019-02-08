@@ -219,7 +219,7 @@ public class FlightController {
 	}
 	
 	
-	@RequestMapping(value ="/{id}/delete", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value ="/{flightId}/deleteseats", method = RequestMethod.PUT, consumes = "application/json")
 	private ResponseEntity<SeatDTO> deleteSeats(@RequestBody List<SeatDTO> seatsDTO, @PathVariable Long flightId) {
 		
 		Flight f = flightService.findOneById(flightId);
@@ -245,7 +245,7 @@ public class FlightController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value ="/{id}/discount", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value ="/{flightId}/discount", method = RequestMethod.PUT, consumes = "application/json")
 	private ResponseEntity<SeatDTO> discountSeats(@RequestBody List<SeatDTO> seatsDTO, @PathVariable Long flightId) {
 		
 
@@ -270,7 +270,9 @@ public class FlightController {
 		
 
 		f.setAvailableSeats(f.getAvailableSeats() - seatsDTO.size());
-		f.setDiscountSeats(seatsDTO.size());
+		f.setDiscountSeats(f.getDiscountSeats() + seatsDTO.size());
+		
+		flightService.save(f);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -86,7 +86,7 @@ export class SeatsEditComponent implements OnInit {
 
 	onReserveSeat(i) {
 		
-		if (this.seats[i].reserved || this.seats[i].deleted) {
+		if (this.seats[i].reserved || this.seats[i].deleted || this.seats[i].discount > 0) {
 			return;
 		}
 
@@ -111,7 +111,7 @@ export class SeatsEditComponent implements OnInit {
 		console.log("Seats to be removed: ");
 		console.log(this.selectedSeats);
 
-		this.flightService.deleteSeats(this.selectedSeats).subscribe(
+		this.flightService.deleteSeats(this.selectedSeats, this.fId).subscribe(
 			(data) => {
 				swal({title: "Seats removed!", text: "Selected seats are successfully removed.", icon: "success", timer: 1500});
 				
@@ -131,6 +131,29 @@ export class SeatsEditComponent implements OnInit {
 	}
 
 	onSetDiscount() {
+
+		console.log("onSetDiscont");
+
+		for (let i = 0; i < this.selectedSeats.length; i++) {
+			this.selectedSeats[i].discount = 0.1;
+
+		}
+
+		this.flightService.setOnDiscount(this.selectedSeats, this.fId).subscribe(
+			(data) => {
+				swal({title: "Seats set on discount!", text: "Selected seats are successfully set on discount.", icon: "success", timer: 1500});
+				
+				this.selectedSeats.splice(0, this.selectedSeats.length);
+
+			}, (error) => {
+				console.log(error);
+				if (error.status == 409) {
+					{swal ( "Selected seats can not be set on discount!" ,  "During your selecting, a reservation with the same seats has been recieved." );}
+
+					this.fetchSeats();
+				}
+			}
+		);
 
 	}
 
