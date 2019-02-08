@@ -6,21 +6,14 @@
     <h4 *ngIf="!globalReservation.frDTO.active">Your reservation is completed!</h4>
     
     
-    <div class="mt-5" *ngIf="!globalReservation.frDTO.active">
+    <div class="mt-5" *ngIf="globalReservation.frDTO.active">
         
-        <button class="btn-primary">
-            Check out hotel deals
-        </button>
+       
 
+        <a [routerLink]="['/hotels']" class="link">Check out out hotels</a>
+        <br>
 
-        <button class="btn btn-primary">
-            Check out hotel deals
-        </button>
-
-        <button class="btn btn-primary">
-            Check out rent-a-car
-        </button>
-    
+        <a [routerLink]="['/rent']" class="link">Check out out rent-a-car deals</a>
 
     </div>
   
