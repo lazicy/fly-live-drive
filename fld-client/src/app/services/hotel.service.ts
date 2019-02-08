@@ -88,4 +88,8 @@ export class HotelService {
       return this.http.post('/api/hotel/getFreeRooms/' + id, podaci)
     }
 
+    getRoomOnFast(id:number, src) {
+      return this.http.post('/api/hotel/getFreeRooms/' + id, src)
+    }
+
 }

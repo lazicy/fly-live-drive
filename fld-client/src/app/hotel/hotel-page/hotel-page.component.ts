@@ -30,6 +30,8 @@ export class HotelPageComponent implements OnInit {
   jesteKorisnik: boolean = false;
   jesteAdmin: boolean = false;
   rola: any;
+  fastRes: any = null;
+  prikaziBrze: boolean = false;
 
   constructor(private hotelService: HotelService, private route: ActivatedRoute, private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private resHService: ReservationHotelService) {
     this.route.params.subscribe(
@@ -59,6 +61,7 @@ export class HotelPageComponent implements OnInit {
             this.fetchServices();
             this.fetchRooms();
             this.funkcije();
+            this.fetchFast();
           },
           (error) => {
             alert(error);
@@ -70,6 +73,22 @@ export class HotelPageComponent implements OnInit {
           }
       );
     }
+  }
+
+  fetchFast() {
+    let src = {
+      search: "",
+      checkin: this.CIdate,
+      checkout: this.COdate,
+      numberOfPeople: 0
+    }
+    this.hotelService.getRoomOnFast(this.hotel.id, src).subscribe(
+      (data) => {
+        this.fastRes = data;
+      }, (error) => {
+        alert(error);
+      }
+    );
   }
 
   funkcije() {
@@ -135,5 +154,9 @@ export class HotelPageComponent implements OnInit {
 
   onBookRoom(rid) {
     this.router.navigate(['hotel/' + this.id + '/book/' + rid]);
+  }
+
+  onBookFastRoom(rid) {
+
   }
 }

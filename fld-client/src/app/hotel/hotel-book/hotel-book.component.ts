@@ -124,59 +124,22 @@ export class HotelBookComponent implements OnInit {
         this.addServicesToRes(data);
       },
       (error) => {
-          console.error(error);
+        if (error.status === 409) {
+          swal ( "Cannot do that" ,  "Unfortunately some has already booked the room." ,  "warning" );
+        } else {
           swal ( "Error occured" ,  "Reservation has not been made." ,  "error" );
+        }
+         
       }
     );
-
-    // swal("A wild Pikachu appeared! What do you want to do?", {
-    //   buttons: {
-    //     cancel: "Run away!",
-    //     catch: {
-    //       text: "Throw Pokéball!",
-    //       value: "catch",
-    //     },
-    //     defeat: true,
-    //   },
-    // })
-    // .then((value) => {
-    //   switch (value) {
-     
-    //     case "defeat":
-    //       swal("Pikachu fainted! You gained 500 XP!");
-    //       break;
-     
-    //     case "catch":
-    //       swal("Gotcha!", "Pikachu was caught!", "success");
-    //       break;
-     
-    //     default:
-    //       swal("Got away safely!");
-    //   }
-    // });
-
-    // swal({
-    //   buttons: ["Cancel", "No", "Yes"],
-    //   dangerMode: false,
-    // })
-    // .then((will Book) => {
-    //   if (willDelete) {
-    //     this.hotelService.removeHotelService(idSer, this.id).subscribe(
-    //       (result) => {
-    //           let i = this.hotel.services.findIndex(service => service.id === idSer);
-    //           this.hotel.services.splice(i, 1);
-    //           swal({title: "Success!", text: "Service deleted.", icon: "success", timer: 1500});
-    //       }, (error) =>  {swal ( "Error occured" ,  "The service was not deleted." ,  "error" );}
-    //       );
-    //   }
-    // });
   }
 
   addServicesToRes(res) {
     this.resHService.saveHotelReservationServices(res.id, this.selektovaneUsluge).subscribe(
       (data) => {
+        let pom = data;
         swal({title: "Congratulations!", text: "Your room has been booked", icon: "success", timer: 1800});
-        this.router.navigate(['/home']);
+        // this.router.navigate(['globalreservation', pom.globalReservationId] );
       },
       (error) => {
         swal ( "Error occured" ,  "Your room was not booked." ,  "error" );

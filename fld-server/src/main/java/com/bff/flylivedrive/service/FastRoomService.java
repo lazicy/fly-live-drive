@@ -32,4 +32,8 @@ public class FastRoomService {
 	public void addServices(Long fid, Long sid) {
 		fastRepo.addServices(fid, sid);
 	}
+	
+	public List<FastRoom> findAllByRoomId(Long id) {
+		return fastRepo.findAllByRoomId(id);
+	}
 }
