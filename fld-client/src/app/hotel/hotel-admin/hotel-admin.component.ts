@@ -304,6 +304,7 @@ export class HotelAdminComponent implements OnInit {
     this.showFast = !this.showFast;
   }
 
+
   // getters for the form validation
   get name() { return this.hotelForm.get('name'); }
 
