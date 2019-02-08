@@ -62,8 +62,7 @@ public class AuthenticationController {
 		
 		String jwt = tokenUtils.generateToken(user.getUsername(), device);
 		
-		//int expiresIn = tokenUtils.getExpiredIn(device);
-		int expiresIn = 60*60000; //token ce trajati 1h
+		int expiresIn = tokenUtils.getExpiredIn(device);
 		return ResponseEntity.ok(new UserTokenState(jwt,expiresIn));
 	}
 }

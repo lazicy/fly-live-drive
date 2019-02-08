@@ -30,6 +30,7 @@ import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Country;
 import com.bff.flylivedrive.model.Filijala;
 import com.bff.flylivedrive.model.RentACar;
+import com.bff.flylivedrive.model.VehicleReservation;
 import com.bff.flylivedrive.model.Vozilo;
 import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.CityService;
@@ -56,6 +57,9 @@ public class RentController {
 	
 	@Autowired
 	CountryService countryService;
+	
+	@Autowired
+	VehicleReservationService vResService;
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -328,10 +332,23 @@ public class RentController {
 	@RequestMapping(value = "/searchVehicles", method = RequestMethod.POST)
 	public ResponseEntity<List<VoziloDTO>> getVehiclesSearch(@RequestBody VehicleSearchParams params){
 		
+		City c = cityService.findOneById(Long.parseLong(params.getCity()));
+		List<VoziloDTO> res = new ArrayList<VoziloDTO>();
+		List<VehicleReservation> vRes = vResService.findAll();
+		
+		
+		if(vRes.isEmpty()) {
+			List<Vozilo> vAll = vService.findAllByCityId(c.getId());
+			for(Vozilo v: vAll) {
+				res.add(new VoziloDTO(v));
+			}
+			return new ResponseEntity<>(res, HttpStatus.OK);
+		}
+		
 		//vozila koja nisu rezervisana
 		List<Vozilo> notResVehicles = new ArrayList<Vozilo>();
 		List<Vozilo> resVehicles = new ArrayList<Vozilo>();
-		City c = cityService.findOneById(Long.parseLong(params.getCity()));
+		
 		
 		if(params.getSeats() != 0) {
 			resVehicles = vService.getResVehicles(params.getPickUp(), params.getDropOff(), c.getId(), params.getSeats());
@@ -340,7 +357,8 @@ public class RentController {
 			resVehicles = vService.getResVehicles(params.getPickUp(), params.getDropOff(), c.getId());
 			notResVehicles = vService.getNotResVehicles(c.getId());
 		}
-		List<VoziloDTO> res = new ArrayList<VoziloDTO>();
+		
+		
 		for(Vozilo v: notResVehicles) {
 			res.add(new VoziloDTO(v));
 		}

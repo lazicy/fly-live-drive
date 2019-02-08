@@ -61,9 +61,7 @@
               <i class="fa fa-arrow-right" aria-hidden="true" 
               [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i> Vehicles</h5>
               <div class="table-responsive" *ngIf="showVehicles">
-                <div *ngIf="isAdmin">
-                    <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
-                </div>
+                <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
                 <table class="table" *ngIf="!emptyVehicleList">
                   <tbody>
                     <tr *ngFor="let vh of vehicles">

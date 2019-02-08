@@ -115,7 +115,7 @@
                 <button type="button" (click)="onReset()" class="btn btn-danger">Reset</button>
               </div>
               <div class="form-froup col">
-                  <label style="padding-right:10px">Drop off car at different location?</label> <input type="checkbox" formControlName="diffDropOff" (click)="toggleShowDropOff()">
+                  <label style="padding-right:10px">Drop off car at different location?</label> <input type="checkbox" (click)="toggleShowDropOff()">
               </div>
             </div>
     </form>
@@ -146,12 +146,12 @@
                 </div>
 
               <div class="right-part-card-search col-3">
-                  <p class="hotel-name">Ukupna cena: </p>
+                  <p class="hotel-name">Total price: </p>
                   <h4><b>{{ vehicle.pricePerDay * duration}}</b>  <b>€</b></h4>
                 </div> 
               <div class="col-1 table-div">
                 <div class="icons">
-                  <button class="btn btn-primary" style="float: right" (click)="onReserveVehicle()">Reserve vehicle</button>
+                  <button class="btn btn-primary" style="float: right" (click)="onReserveVehicle(vehicle.id)">Reserve vehicle</button>
                 </div>
               </div>
             </div>

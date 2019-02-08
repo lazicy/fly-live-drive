@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { CountryService } from 'src/app/services/country.service';
 import { formGroupNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -28,7 +29,10 @@ export class VehicleSearchComponent implements OnInit {
   dateSet: boolean = true;
   showDropOff: boolean = false;
 
-  constructor(private countryService: CountryService, private rentService: RentService, private route: ActivatedRoute) {
+  v_temp: any;
+  username: string;
+
+  constructor(private countryService: CountryService, private rentService: RentService, private route: ActivatedRoute, private authService: AuthService) {
     this.route.params.subscribe(
       (params: Params)=>{
         this.id = +params['id'];
@@ -38,6 +42,12 @@ export class VehicleSearchComponent implements OnInit {
       (data) => {
         this.countryList = data;
       }
+    )
+    this.authService.getUser().subscribe(
+      (data) =>{
+        this.username = data;
+      },
+      (error) => {alert("nije uzeo username")}
     )
     this.initForm()
    }
@@ -53,7 +63,6 @@ export class VehicleSearchComponent implements OnInit {
       "type": new FormControl(""),
       "numberOfSeats": new FormControl(""),
       "dropOff": new FormControl(""),
-      "diffDropOff": new FormControl(false),
     })
   }
 
@@ -91,7 +100,63 @@ export class VehicleSearchComponent implements OnInit {
     }
   }
 
-  onReserveVehicle(){
+  onReserveVehicle(id){
+    //uzmi vozilo koje se rez
+    
+    this.rentService.getVehicle(id).subscribe(
+      (data) => {
+        this.v_temp = data;
+      
+      //filijala iz koje se kupi vozilo
+      var filijala = {
+        id: this.v_temp.filijalaDTO.id,
+        name: this.v_temp.filijalaDTO.name,
+        address: this.v_temp.filijalaDTO.address,
+        cityDTO: this.v_temp.filijalaDTO.cityDTO,
+        description: this.v_temp.filijalaDTO.description,
+      };
+      //ukupna cena
+      var vehicleRes;
+      let price = this.v_temp.pricePerDay * this.duration;
+        
+      if(this.searchForm.value.dropOff != ""){
+        let cname = this.searchForm.value.dropOff;
+        let cityDTO = this.cityList.findIndex(c => c.name === cname);  
+        
+        var dropFilijala = {
+            id: this.v_temp.filijalaDTO.id,
+            name: this.v_temp.filijalaDTO.name,
+            address: '',
+            cityDTO: cityDTO,
+            description: this.v_temp.filijalaDTO.description,
+          }
+          vehicleRes = {
+            pickUpLocation: filijala,
+            dropOffLocation: dropFilijala,
+            pickUpDate: new Date(this.searchForm.value.pickUpDate + " " + this.searchForm.value.pickUpTime),
+            dropOffDate: new Date(this.searchForm.value.dropOffDate + " " + this.searchForm.value.dropOffTime),
+            price: price,
+            city: filijala.cityDTO,
+            username: this.username,
+            vozilo: this.v_temp,
+          }
+  
+        }else{
+          vehicleRes = {
+            pickUpLocation: filijala,
+            dropOffLocation: filijala,
+            pickUpDate: new Date(this.searchForm.value.pickUpDate + " " + this.searchForm.value.pickUpTime),
+            dropOffDate: new Date(this.searchForm.value.dropOffDate + " " + this.searchForm.value.dropOffTime),
+            price: price,
+            city: filijala.cityDTO,
+            username: this.username,
+            vozilo: this.v_temp,
+          };
+        }
+      },
+      (error) => {alert("error?")}
+    )
+    
 
   }
   
