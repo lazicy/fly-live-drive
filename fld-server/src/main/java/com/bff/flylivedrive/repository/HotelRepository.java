@@ -13,14 +13,11 @@ public interface HotelRepository extends JpaRepository<Hotel, Long>{
 	
 	Hotel findOneById(Long id);
 	
-	@Query("select h from Hotel h where h.name = :hname")
-	List<Hotel> searchHotels(@Param("hname") String name);
+	@Query("select h from Hotel h where h.name = :name")
+	List<Hotel> findByName(@Param("name") String name);
 	
-//	@Query("select f from Flight f, Destination fromDest, Destination toDest, City fromCity, City toCity "
-//			+ "where fromCity.id = :fromId and toCity.id = :toId "
-//			+ "and fromCity.id = fromDest.city.id and toCity.id = toDest.city.id "
-//			+ "and fromDest.id = f.departureDestination.id and toDest.id = f.landingDestination.id "
-//			+ "and f.availableSeats >= :seats "
-//			+ "and f.departureDate >= :depDate")
-//	List<Flight> searchDepartureFlight(@Param("fromId") Long fromId, @Param("toId") Long toId, @Param("depDate") Date depDate, @Param("seats") int seats);
+	@Query("select h from Hotel h where h.city.id = :id")
+	List<Hotel> findByCity(@Param("id") Long id);
+	
+	List<Hotel> findByNameContainingIgnoreCase(String username);
 }

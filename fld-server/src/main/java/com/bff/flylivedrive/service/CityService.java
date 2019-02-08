@@ -25,5 +25,13 @@ public class CityService {
 	public List<City> findCityByCountryId(Long id){
 		return cityRepo.findCityByCountryId(id);
 	}
+	
+	public List<City> findByName(String name) {
+		return cityRepo.findByName(name);
+	}
+	
+	public List<City> findByNameContainingIgnoreCase(String name) {
+		return cityRepo.findByNameContainingIgnoreCase(name);
+	}
 
 }

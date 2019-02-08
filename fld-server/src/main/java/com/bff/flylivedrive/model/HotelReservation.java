@@ -49,9 +49,6 @@ public class HotelReservation {
 	@Column(name="fastRez")
 	private boolean fastRez;
 	
-	@Column(name="active")
-	private boolean active;
-	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "hotelRes_services",
     joinColumns = @JoinColumn(name = "hotelRes_id", referencedColumnName = "id"),
@@ -126,14 +123,6 @@ public class HotelReservation {
 
 	public void setFastRez(boolean fastRez) {
 		this.fastRez = fastRez;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public Set<Usluga> getUsluge() {

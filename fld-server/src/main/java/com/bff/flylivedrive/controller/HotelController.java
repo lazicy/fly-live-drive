@@ -8,21 +8,24 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bff.flylivedrive.dto.CityDTO;
 import com.bff.flylivedrive.dto.HotelDTO;
 import com.bff.flylivedrive.dto.RoomDTO;
+import com.bff.flylivedrive.dto.SearchHotelDTO;
 import com.bff.flylivedrive.dto.UslugaDTO;
 import com.bff.flylivedrive.model.City;
 import com.bff.flylivedrive.model.Hotel;
+import com.bff.flylivedrive.model.HotelReservation;
 import com.bff.flylivedrive.model.Room;
 import com.bff.flylivedrive.model.Usluga;
 import com.bff.flylivedrive.service.CityService;
+import com.bff.flylivedrive.service.HotelReservationService;
 import com.bff.flylivedrive.service.HotelService;
 import com.bff.flylivedrive.service.RoomService;
 import com.bff.flylivedrive.service.UslugaService;
@@ -42,6 +45,9 @@ public class HotelController {
 	
 	@Autowired
 	UslugaService uslugaService;
+	
+	@Autowired
+	HotelReservationService hotelRezService;
 	
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -70,6 +76,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<HotelDTO> saveHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		City c = cityService.findOneById(hotelDTO.getCityDTO().getId());
@@ -90,6 +97,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<Void> deleteHotel(@PathVariable Long id){
 		
 		Hotel hotel = hotelService.findOneById(id);
@@ -103,6 +111,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		//checking if hotel exists
@@ -133,18 +142,189 @@ public class HotelController {
 		return new ResponseEntity<>(new HotelDTO(hotel), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
-	public ResponseEntity<List<HotelDTO>> getSearchedHotels(@PathVariable("name") String name) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<List<HotelDTO>> getSearchedHotels(@RequestBody SearchHotelDTO shDTO) {
 		
-		List<Hotel> hotels = hotelService.search(name);
-		List<HotelDTO> hotelsDTO = new ArrayList<>();
-		
-		for (Hotel h : hotels) {
-			HotelDTO hDTO = new HotelDTO(h);
-			hotelsDTO.add(hDTO);
+		List<City> city = cityService.findByNameContainingIgnoreCase(shDTO.getSearch());
+		List<Hotel> hotels = hotelService.findByNameContainingIgnoreCase(shDTO.getSearch());
+		if(city.size() == 0 && hotels.size() > 0) {
+			List<Hotel> slobodni = new ArrayList<Hotel>();
+			for(Hotel h : hotels) {
+				List<Room> rooms = roomService.findByHotel(h.getId());
+				boolean imaSlob = false;
+				
+				for(Room r : rooms) {
+					boolean slobodna = false;
+					
+					if(r.getHotel_res().isEmpty()) {
+						imaSlob = true;
+						break;
+					} else {
+						for(HotelReservation hr : r.getHotel_res()) {
+							if(((hr.getArrival_date()).after(shDTO.getCheckin()) && (hr.getArrival_date()).before(shDTO.getCheckout())) || ((shDTO.getCheckin()).after(hr.getArrival_date()) && (shDTO.getCheckin()).before(hr.getDeparture_date())) || ((shDTO.getCheckout()).after(hr.getArrival_date()) && (shDTO.getCheckout()).before(hr.getDeparture_date()))) {
+								slobodna = false;
+							} else {
+								slobodna = true;
+								break;
+							}
+						}
+						if(slobodna) { {
+							if(shDTO.getNumberOfPeople() >= r.getBeds() && shDTO.getNumberOfPeople() <=r.getPeople_capacity()) {
+								imaSlob = true;
+								break;
+							}
+						}
+						}
+					}
+					
+				}
+				if(imaSlob) {
+					slobodni.add(h);
+				}
+			}
+			List<HotelDTO> hoteli = new ArrayList<HotelDTO>();
+			if(slobodni.size() > 0) {
+				for(Hotel h : slobodni) {
+					hoteli.add(new HotelDTO(h));
+				}
+			}
+			return new ResponseEntity<>(hoteli, HttpStatus.OK);
+			
+		} else if (city.size() > 0 && hotels.size() == 0) {
+			List<Hotel> hotelKraj = new ArrayList<Hotel>();
+			for(City c : city) {
+				List<Hotel> ho = hotelService.findByCity(c.getId());
+				for(Hotel h : ho) {
+					List<Room> rooms = roomService.findByHotel(h.getId());
+					boolean imaSlob = false;
+					
+					for(Room r : rooms) {
+						boolean slobodna = false;
+						
+						if(r.getHotel_res().isEmpty()) {
+							imaSlob = true;
+							break;
+						} else {
+							for(HotelReservation hr : r.getHotel_res()) {
+								if(((hr.getArrival_date()).after(shDTO.getCheckin()) && (hr.getArrival_date()).before(shDTO.getCheckout())) || ((shDTO.getCheckin()).after(hr.getArrival_date()) && (shDTO.getCheckin()).before(hr.getDeparture_date())) || ((shDTO.getCheckout()).after(hr.getArrival_date()) && (shDTO.getCheckout()).before(hr.getDeparture_date()))) {
+									slobodna = false;
+								} else {
+									slobodna = true;
+									break;
+								}
+							}
+							if(slobodna) { {
+								if(shDTO.getNumberOfPeople() >= r.getBeds() && shDTO.getNumberOfPeople() <=r.getPeople_capacity()) {
+									imaSlob = true;
+									break;
+								}
+							}
+							}
+						}
+					}
+					if(imaSlob) {
+						hotelKraj.add(h);
+					}
+				}
+			}
+			List<HotelDTO> hoteli = new ArrayList<HotelDTO>();
+			if(hotelKraj.size() > 0) {
+				for(Hotel h : hotelKraj) {
+					hoteli.add(new HotelDTO(h));
+				}
+			}
+			return new ResponseEntity<>(hoteli, HttpStatus.OK);
+		} else if (city.size() > 0 && hotels.size() > 0) {
+			List<Hotel> hotelKraj = new ArrayList<Hotel>();
+			for(City c : city) {
+				List<Hotel> ho = hotelService.findByCity(c.getId());
+				for(Hotel h : ho) {
+					List<Room> rooms = roomService.findByHotel(h.getId());
+					boolean imaSlob = false;
+					
+					for(Room r : rooms) {
+						boolean slobodna = false;
+						
+						if(r.getHotel_res().isEmpty()) {
+							imaSlob = true;
+							break;
+						} else {
+							for(HotelReservation hr : r.getHotel_res()) {
+								if(((hr.getArrival_date()).after(shDTO.getCheckin()) && (hr.getArrival_date()).before(shDTO.getCheckout())) || ((shDTO.getCheckin()).after(hr.getArrival_date()) && (shDTO.getCheckin()).before(hr.getDeparture_date())) || ((shDTO.getCheckout()).after(hr.getArrival_date()) && (shDTO.getCheckout()).before(hr.getDeparture_date()))) {
+									slobodna = false;
+								} else {
+									slobodna = true;
+									break;
+								}
+							}
+							if(slobodna) { {
+								if(shDTO.getNumberOfPeople() >= r.getBeds() && shDTO.getNumberOfPeople() <=r.getPeople_capacity()) {
+									imaSlob = true;
+									break;
+								}
+							}
+							}
+						}
+					}
+					if(imaSlob) {
+						hotelKraj.add(h);
+					}
+				}
+			}
+			for(Hotel h : hotels) {
+				List<Room> rooms = roomService.findByHotel(h.getId());
+				boolean imaSlob = false;
+				
+				for(Room r : rooms) {
+					boolean slobodna = false;
+					
+					if(r.getHotel_res().isEmpty()) {
+						imaSlob = true;
+						break;
+					} else {
+						for(HotelReservation hr : r.getHotel_res()) {
+							if(((hr.getArrival_date()).after(shDTO.getCheckin()) && (hr.getArrival_date()).before(shDTO.getCheckout())) || ((shDTO.getCheckin()).after(hr.getArrival_date()) && (shDTO.getCheckin()).before(hr.getDeparture_date())) || ((shDTO.getCheckout()).after(hr.getArrival_date()) && (shDTO.getCheckout()).before(hr.getDeparture_date()))) {
+								slobodna = false;
+							} else {
+								slobodna = true;
+								break;
+							}
+						}
+						if(slobodna) { {
+							if(shDTO.getNumberOfPeople() >= r.getBeds() && shDTO.getNumberOfPeople() <=r.getPeople_capacity()) {
+								imaSlob = true;
+								break;
+							}
+						}
+						}
+					}
+					
+				}
+				if(imaSlob) {
+					boolean pom = false;
+					for(Hotel temp : hotelKraj) {
+						if(temp.getId().equals(h.getId())) {
+							pom = true;
+							break;
+						}
+					}
+					if(!pom) {
+						hotelKraj.add(h);
+					}
+				}
+			}
+			List<HotelDTO> hoteli = new ArrayList<HotelDTO>();
+			if(hotelKraj.size() > 0) {
+				for(Hotel h : hotelKraj) {
+					hoteli.add(new HotelDTO(h));
+				}
+			}
+			return new ResponseEntity<>(hoteli, HttpStatus.OK);
+		} else {
+			List<HotelDTO> hoteli = new ArrayList<HotelDTO>();
+			return new ResponseEntity<>(hoteli, HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<>(hotelsDTO, HttpStatus.OK);
 	}
 	
 	//ALL hotel services
@@ -181,6 +361,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/service/{id}", method = RequestMethod.POST, consumes = "application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<UslugaDTO> saveUsluga(@RequestBody UslugaDTO uslugaDTO, @PathVariable("id") Long id) {
 		Hotel h = hotelService.findOneById(id);
 		
@@ -204,6 +385,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/{idHot}/service/{idSer}", method=RequestMethod.DELETE)
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<Void> deleteService(@PathVariable("idHot") Long idHot, @PathVariable("idSer") Long idSer){
 		
 		Hotel hotel = hotelService.findOneById(idHot);
@@ -235,6 +417,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/service/{idSer}", method=RequestMethod.PUT, consumes="application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<UslugaDTO> updateHotelService(@RequestBody UslugaDTO uslugaDTO, @PathVariable("idSer") Long id) {
 		
 		Hotel h = hotelService.findOneById(id);
@@ -269,6 +452,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/room/{id}", method = RequestMethod.POST, consumes = "application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<RoomDTO> saveRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
 		Hotel h = hotelService.findOneById(id);
 		
@@ -294,6 +478,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/room/{id}", method=RequestMethod.PUT, consumes="application/json")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
 		
 		Hotel h = hotelService.findOneById(id);
@@ -383,7 +568,8 @@ public class HotelController {
 	}
 		
 	@RequestMapping(value="/{idH}/room/{idR}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteRoom(@PathVariable("idH") Long idH, @PathVariable("idR") Long idR){
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	public ResponseEntity<Void> deleteRoom(@PathVariable("idH") Long idH, @PathVariable("idR") Long idR) {
 		
 		Hotel hotel = hotelService.findOneById(idH);
 		
