@@ -1,40 +1,5 @@
 <div class="container">
-  <div class="sobe" *ngIf="prikaziSobe">
-    <h3>Select rooms:</h3>
-    <div class="table tblScroll">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-              <th>Name</th>
-              <th>Number of beds</th>
-              <th>Capacity</th>
-              <th>Floor</th>
-              <th>Balcony</th>
-              <th>Price</th>
-              <th>Rating</th>
-              <th>Select</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let room of rooms">
-            <td>{{room.name}}</td>
-            <td>{{room.beds}}</td>
-            <td>{{room.people_capacity}} persons</td>
-            <td>{{room.floor}}</td>
-            <td>{{room.balcony}}</td>
-            <td>{{room.price}} €</td>
-            <td>{{room.rating}}</td>
-            <td><input type="checkbox" name="room"  id="{{room.id}}" value="{{room.id}}" data-md-icheck (change)="roomIsSelected($event, room)"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="err" *ngIf="noRoomsSelected">You have to select at least one room to continue.</p>
-    <div class="btnNextRoom">
-      <button class="btn btn-primary" (click)="onNextRoom()">Next</button>
-    </div>
-  </div>
-  <div class="usluge" *ngIf="prikaziUsluge">
+  <div class="usluge">
     <div class="leviDiv">
       <h3>Select services:</h3>
       <div class="leviScrollable">
@@ -84,17 +49,14 @@
           </div>
     </div>
     <div class="cene">
-      <h5>Room price: <span class="floatCene">{{cenaSoba}}€</span></h5>
+      <h5>Room price: <span class="floatCene">{{cenaSobe}}€</span></h5>
       <h5>Additional services: <span class="floatCene">{{cenaUsluga}}€</span></h5><hr>
       <h2>TOTAL <span class="floatCene">{{cenaTotal}}€</span></h2>
     </div>
     <div class="btnFinishContinue">
         <button class="btn btn-primary" (click)="onFinishContinue()">Book & See rent-a-car</button>
       </div>
-    <div class="btnBackService">
-      <button class="btn btn-secondary" (click)="onBack()">Back</button>
-    </div>
     <div class="btnFinish">
-      <button class="btn btn-primary" (click)="onFinishRes()">Book room</button>
+      <button class="btn btn-primary" (click)="onFinishRes()">Book room & finish</button>
     </div>
 </div>

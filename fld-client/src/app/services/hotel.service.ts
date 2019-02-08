@@ -28,8 +28,8 @@ export class HotelService {
         return this.http.put("/api/hotel", hotel);
     }
     
-    searchHotel(name: string) {
-        return this.http.get("/api/hotel/search/" + name);
+    searchHotel(searchParams) {
+        return this.http.post("/api/hotel/search", searchParams);
     }
 
     getHotelServices(id: number) {

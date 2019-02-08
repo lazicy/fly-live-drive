@@ -11,29 +11,28 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service: AuthService, private router: Router) { }
+  constructor(private service: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
 
 
   loginUser(form: NgForm){
-
-    let user = {
-      username: form.value.username,
-      password: form.value.password,
-    }
-
-    this.service.login(user).subscribe(
-      (success) => {
-        this.router.navigate(['/test']);
-      },
-      (error) => {
-          swal("Error","Please verify your email adress.","error");
-          this.router.navigate(['/test']);
+      let user = {
+        username: form.value.username,
+        password: form.value.password,
       }
-    )
-    form.reset();
+  
+      this.service.login(user).subscribe(
+        (success) => {
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+            swal("Error","Please verify your email adress.","error");
+            this.router.navigate(['/home']);
+        }
+      );
+      form.reset();
   }
 
 }

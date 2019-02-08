@@ -31,8 +31,7 @@ export class AuthService {
     }
 
     getUser(){
-        return this.http.get('http://localhost:4200/api/users/getUser/');
+        return this.http.get('/api/users/getUser', {responseType: 'text'});
     }
-
 }
 

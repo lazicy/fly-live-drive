@@ -22,5 +22,13 @@ export class UserService {
         return this.http.post("/api/users/regAdmin/" + role, user);
     }
 
+    getFirstLog(username: string) {
+        return this.http.get("/api/users/getFirstLog/" + username);
+    }
+
+    changePass(user) {
+        return this.http.post("/api/users/changePass", user);
+    }
+
 	}
 

@@ -1,24 +1,24 @@
 <section class="section-parallax" data-type="background" data-speed="4">
   <div class="container">
-    <form (ngSubmit)="onSearchHotels(f)" name="searchHotels" #f="ngForm">
-      <div class="row" class="center">
-        <div class="srcbar" style="margin-left: 70px;">
+    <form (ngSubmit)="onSearchHotels()" [formGroup]="searchHotels" *ngIf="searchHotels">
+      <div class="row" class="center" style="margin-left: 45px;">
+        <div class="srcbar form-group" style="margin-left: 70px;">
             <label for="search" class="lbl">Find hotel deals</label>
-            <input type="text" id="search" name="search" placeholder="Enter location or hotel name" class="unos search" required>
+            <input type="text" class="form-control unos search" id="search" placeholder="Enter location or hotel name" formControlName="searchString" required>
         </div>
-        <div class="srcbar">
+        <div class="srcbar form-group">
             <label for="check-in" class="lbl">Check-in</label>
-            <input type="date" id="check-in" name="check-in" class="unos check-in" [ngModel]="today" required>
+            <input type="date" id="check-in" class="form-control unos check-in" formControlName="checkin" required>
         </div>
-        <div class="srcbar">
+        <div class="srcbar form-group">
             <label for="check-out" class="lbl">Check-out</label>
-            <input type="date" id="check-out" name="check-in" class="unos check-out" [ngModel]="tomorrow" required>
+            <input type="date" id="check-out" class="form-control unos check-out" formControlName="checkout" required>
         </div>
-        <div class="srcbar">
+        <div class="srcbar form-group">
             <label for="br-gostiju" class="lbl">Guests</label>
-            <select class="unos br-gostiju" id="br-gostiju" name="gosti">
+            <select class="form-control unos br-gostiju" id="br-gostiju" formControlName="guests">
               <option value="1">1</option>
-              <option value="2" selected>2</option>
+              <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
@@ -29,29 +29,82 @@
               <option value="10">10</option>
             </select>
         </div>
-        <div class="srcbar">
-            <label for="soba" class="lbl">Rooms</label>
-            <select class="unos soba" id="soba" name="soba">
-              <option value="1" selected>1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-        </div>
       </div>
     <div class="row" id="pretrazi">
-      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Search hotels</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!searchHotels.valid">Search hotels</button>
     </div>
   </form>
   </div>
 </section>
-
 <div id="main-part" class="container">
-  <div class="row" class="center">
-    <h3 style="margin-bottom: 25px;">All hotels</h3>
+  <div class="row" class="center" *ngIf="showAllHotels">
+      <h3 style="margin-bottom: 25px;">All hotels</h3>
   </div>
-  <div>
-    <app-hotel-list></app-hotel-list>
-  </div>
+      <div class="container" *ngIf="showAllHotels">
+          <div class="row" *ngFor="let hotel of hotelList">
+              <div class="tile">
+                  <div class="card-inside">
+                      <div class="left-part-card">
+                          <img class="image-card" alt="Hotel image" src="{{hotel.hotelImageURL}}" width="300px" height="253px" *ngIf="hotel.hotelImageURL != ''">
+                          <img class="image-card" alt="Hotel image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="hotel.hotelImageURL == ''">
+                      </div>
+                      <div class="right-part-card">
+                        <div>
+                            <h4 class="hotel-name">{{hotel.name}}
+                                <span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                                <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                                <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                                <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                                <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></h4> 
+                                <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{ hotel.cityDTO.name }}, {{hotel.cityDTO.countryDTO.name}}</h6>
+                        <p class="card-text">{{hotel.description}}</p>
+                        </div>
+                        <div class="rating">
+                          <span class="rate_circle"></span>
+                        </div>
+                        <div class="details-btn-card dugmeDetails">
+                            <a class="btn btn-primary" [routerLink]="['/hotel', hotel.id]" id="details">See details</a>
+                        </div> 
+                    </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+
+    <h3 *ngIf="emptyHotelList">No hotels found in the system.</h3>
+    
+    <div class="row" class="center" *ngIf="hotelSearch">
+        <h3 style="margin-bottom: 25px;">Search results</h3>
+    </div>
+    <div class="container" *ngIf="hotelSearch">
+        <div class="row" *ngFor="let hotel of hotelSearch">
+            <div class="tile">
+                <div class="card-inside">
+                    <div class="left-part-card">
+                        <img class="image-card" alt="Hotel image" src="{{hotel.hotelImageURL}}" width="300px" height="253px" *ngIf="hotel.hotelImageURL != ''">
+                        <img class="image-card" alt="Hotel image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="hotel.hotelImageURL == ''">
+                    </div>
+                    <div class="right-part-card">
+                      <div>
+                          <h4 class="hotel-name">{{hotel.name}}
+                              <span *ngIf="hotel.stars === 5"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                              <span *ngIf="hotel.stars === 4"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                              <span *ngIf="hotel.stars === 3"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                              <span *ngIf="hotel.stars === 2"><i class="fa fa-star"></i> <i class="fa fa-star"></i></span>
+                              <span *ngIf="hotel.stars === 1"><i class="fa fa-star"></i></span></h4> 
+                              <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{hotel.address}}, {{ hotel.cityDTO.name }}, {{hotel.cityDTO.countryDTO.name}}</h6>
+                      <p class="card-text">{{hotel.description}}</p>
+                      </div>
+                      <div class="rating">
+                        <span class="rate_circle"></span>
+                      </div>
+                      <div class="details-btn-card dugmeDetails">
+                          <a class="btn btn-primary" [routerLink]="['/hotel', hotel.id]" id="details">See details</a>
+                      </div> 
+                      </div>
+                  </div>
+              </div>
+        </div>
+      </div>
+      <h3 *ngIf="notFound">No hotels found by your search.</h3>
 </div>

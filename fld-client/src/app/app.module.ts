@@ -4,7 +4,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AvioComponent } from './avio/avio.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -70,11 +69,13 @@ import { AddRoomComponent } from './hotel/hotel-admin/add-room/add-room.componen
 import { EditRoomComponent } from './hotel/hotel-admin/edit-room/edit-room.component';
 import { BonusPointsService } from './services/bonus.service';
 import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
+import { HomeComponent } from './home/home.component';
+import { FirstLogComponent } from './home/first-log/first-log.component';
+import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
     AvioComponent,
     HeaderComponent,
     AviolistComponent,
@@ -125,7 +126,10 @@ import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
     EditServiceComponent,
     AddRoomComponent,
     EditRoomComponent,
-    HotelBookComponent
+    HotelBookComponent,
+    HomeComponent,
+    FirstLogComponent,
+    AddFastresComponent
   ],
   imports: [
     BrowserModule,

@@ -65,6 +65,7 @@
                           <th>Balcony</th>
                           <th>Price</th>
                           <th>Rating</th>
+                          <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -76,16 +77,13 @@
                         <td>{{room.balcony}}</td>
                         <td>{{room.price}} €</td>
                         <td>{{room.rating}}</td>
+                        <td><button class="btn btn-primary book" (click)="onBookRoom(room.id)">Book</button></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
           </div>
           <p *ngIf="emptyRoomList">This hotel has no rooms yet.</p>
-        </div>
-
-        <div class="book">
-          <button class="btn btn-primary bookBtn" [routerLink]="['/hotel/book', hotel.id]">Book a room</button>
         </div>
 
         <div class="map" id="mapa" >

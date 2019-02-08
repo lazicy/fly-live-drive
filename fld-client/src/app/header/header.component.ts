@@ -14,16 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(private service: AuthService, private router: Router,private dataService: DataService) { }
 
   ngOnInit() {
-    if(localStorage.length !== 0){
-        this.isLoggedIn = true;
-        setTimeout(function(){
-          this.service.getUser().subscribe(
-          (data) => {
-            this.name = data;
-          }
-          )    
-        },1000);
-      }
+    
   }
 
   logOut(){

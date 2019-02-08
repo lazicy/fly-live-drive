@@ -231,6 +231,52 @@
 
   <hr>
 
+  <h3 class="link inline-block" (click)="onToggleFast()">
+      <i
+        class="fa fa-arrow-right" aria-hidden="true" 
+        [ngClass] = "{'fa-arrow-right':showFast === false,  'fa-arrow-down':showFast  === true }" 
+      ></i>
+      Fast Reservations
+  </h3>
+  <button (click)="onNewFast()" *ngIf="showFast" class="btn btn-primary new-button"><i class="fa fa-plus-circle"></i> New Fast Reservation</button>
+  
+  <div class="do-animation" *ngIf="showFast">
+      <div class="table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number of beds</th>
+                <th>Capacity</th>
+                <th>Floor</th>
+                <th>Balcony</th>
+                <th>Price per night</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let room of hotel.rooms">
+                <td>{{room.name}}</td>
+                <td>{{room.beds}}</td>
+                <td>{{room.people_capacity}} persons</td>
+                <td>{{room.floor}}</td>
+                <td>{{room.balcony}}</td>
+                <td>{{room.price}} €</td>
+                <td>{{room.rating}}</td>
+                <td class="actions">
+                    <button (click)="onUpdateRoom(room.id)" class="btn btn-link"><i class="fa fa-pencil"></i> Update</button>
+                  </td>
+                  <td class="actions">
+                    <button (click)="onRemoveRoom(room.id)" class="btn btn-link"><i class="fa fa-trash"></i> Remove</button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+  
+  <hr>
+
   <h3 class="link inline-block" (click)="onToggleCharts()">
     <i
       class="fa fa-arrow-right" aria-hidden="true" 
