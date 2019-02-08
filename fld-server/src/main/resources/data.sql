@@ -1,12 +1,16 @@
 insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('dovla96', '$2a$04$nRJALierFkUMWbUfQBzvy.DhKLc6UTMSX4vI4.HfPF0THn.VjTIYm', 'Vladimir', 'Cvetanovic', 'cvetanovic9696@gmail.com', 'Novi Sad',true, false,'RENT_ADMIN', 0);
+insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('jvukasin', '$2a$10$IV7ZaFtBPWfRQ.Xk1y7Xguwoo/Cl6Ue/g7EjKGZNfa7ESkFn7R0y.', 'Vukasin', 'Jovic', 'jovic.vukasin@gmail.com', 'Novi Sad', true, false, 'HOTEL_ADMIN', 0);
+insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('perap', '$2a$10$6bXdqdf8Ob8GEDbeL4ACEexIhqruND5JwHfsHRS0SrwaDqgy2EJXq', 'Petar', 'Peric', 'perpet@yahoo.com', 'Beograd', true, false, 'User', 0);
 
 insert into authority (id,name) values (1,'RENT_ADMIN');
 insert into authority (id,name) values (2,'HOTEL_ADMIN');
 insert into authority (id,name) values (3,'AVIO_ADMIN');
 insert into authority (id,name) values (4,'SYSTEM_ADMIN');
-insert into authority (id,name) values (5,'USER');
+insert into authority (id,name) values (5,'User');
 
 insert into user_authority (user_id, authority_id) values ('dovla96',1);
+insert into user_authority (user_id, authority_id) values ('jvukasin',2);
+insert into user_authority (user_id, authority_id) values ('perap',5);
 
 
 INSERT INTO country (id, name) values
@@ -178,7 +182,6 @@ insert into hotel (id, name, address, city_id, description, hotel_imageurl, map,
 insert into hotel (id, name, address, city_id, description, hotel_imageurl, map, stars) values (3, 'The Plaza', '768 5th Ave', 76, 'The Plaza Hotel is a landmark 20-story luxury hotel and condominium apartment building in the Midtown Manhattan neighborhood in the borough of Manhattan, New York City. It opened in 1907 and is now owned by Katara Hospitality.', 'https://images.datahubus.com/5739f864b5dc6545f27c3164/the-plaza-residences/1-central-park-s_.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.888861850124!2d-73.97667638459352!3d40.76446907932614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f07d5da561%3A0x61f6aa300ba8339d!2sThe+Plaza!5e0!3m2!1ssr!2srs!4v1549150623903', 5);
 
 
-
 INSERT INTO `flight` (`id`,`available_seats`,`departure_date`,`discount_seats`,`landing_date`,`price`,`total_duration`,`avio_id`,`departure_destination_id`,`landing_destination_id`) VALUES (1,80,'2019-02-12 10:50:00',0,'2019-02-12 12:30:00',189,100,101,1,4);
 INSERT INTO `flight` (`id`,`available_seats`,`departure_date`,`discount_seats`,`landing_date`,`price`,`total_duration`,`avio_id`,`departure_destination_id`,`landing_destination_id`) VALUES (82,70,'2019-02-19 13:40:00',0,'2019-02-19 15:15:00',199,95,101,4,1);
 
@@ -334,3 +337,26 @@ INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_i
 INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_id`,`reservation_departure_id`,`reservation_return_id`) VALUES (150,false,0,'B',false,12,82,NULL,NULL);
 INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_id`,`reservation_departure_id`,`reservation_return_id`) VALUES (151,false,0,'C',false,12,82,NULL,NULL);
 INSERT INTO `seat` (`id`,`deleted`,`discount`,`place`,`reserved`,`row`,`flight_id`,`reservation_departure_id`,`reservation_return_id`) VALUES (152,false,0,'D',false,12,82,NULL,NULL);
+
+insert into vehicle_reservation (id,pick_up_location_id,drop_off_location_id,pick_up_date,drop_off_date,city_id,user_username,vozilo_id) values (1,12,12,'2019-02-25 15:30','2019-02-26 15:00', 51,'dovla96', 54);
+
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (1, 'Normal double', 'No', 2, 15, 2, 90, 0, 1);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (2, 'Royal', 'Yes', 1, 3, 2, 380, 0, 1);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (3, 'Single', 'No', 1, 25, 1, 90, 0, 2);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (4, 'Normal double', 'Yes', 2, 15, 2, 160, 0, 2);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (5, 'Regular prime', 'No', 2, 13, 3, 160, 0, 3);
+insert into room (id, name, balcony, no_of_beds, floor, people_capacity, price, rating, hotel_id) values (6, 'Royal deluxe', 'Yes', 1, 28, 2, 530, 0, 3);
+
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (1, 'WiFi', 0, 'Room', 0, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (2, 'Swimming pool', 20, 'Day', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (3, 'Room Service', 45, 'Day', 2, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (4, 'Restaurant', 30, 'Person', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (5, 'Spa', 50, 'Day', 3, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (6, 'Parking', 10, 'Room', 1, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (7, 'Garage', 30, 'Room', 1, 2);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (8, 'Breakfast', 5, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (9, 'Lunch', 8, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (10, 'Diner', 8, 'Person', 0, 1);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (11, 'Wellness', 60, 'Day', 3, 3);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (12, 'WiFi', 0, 'Room', 0, 3);
+insert into usluga (id, name, cena, naplata, discount, hotel_id) values (13, 'Gym', 40, 'Person', 2, 3);

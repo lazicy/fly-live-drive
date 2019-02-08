@@ -12,7 +12,7 @@
               <h6><i class="fa fa-map-marker"></i> {{hotel.address}}, {{hotel.cityDTO.name}}, {{hotel.cityDTO.countryDTO.name}}</h6>
         
               <div class="admin">
-                  <button type="button" class="btn btn-primary" [routerLink]="['/hotel/admin', hotel.id]">Administrate</button>
+                  <button type="button" class="btn btn-primary" [routerLink]="['/hotel/admin', hotel.id]" *ngIf="jesteAdmin">Administrate</button>
                 </div>
             </div>
         
@@ -37,7 +37,7 @@
                   <tbody>
                     <tr *ngFor="let ser of hotel.services">
                       <td>{{ser.name}}</td>
-                      <td>{{ser.price}}€</td>
+                      <td>{{ser.price}} €</td>
                       <td>per {{ser.charge}}</td>
                     </tr>
                   </tbody>
@@ -75,9 +75,9 @@
                         <td>{{room.people_capacity}} persons</td>
                         <td>{{room.floor}}</td>
                         <td>{{room.balcony}}</td>
-                        <td>{{room.price}} €</td>
+                        <td>{{room.price * broj_dana}} €</td>
                         <td>{{room.rating}}</td>
-                        <td><button class="btn btn-primary book" (click)="onBookRoom(room.id)">Book</button></td>
+                        <td><button class="btn btn-primary book" (click)="onBookRoom(room.id)" *ngIf="jesteKorisnik">Book</button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -86,7 +86,7 @@
           <p *ngIf="emptyRoomList">This hotel has no rooms yet.</p>
         </div>
 
-        <div class="map" id="mapa" >
+        <div class="map" id="mapa">
           <h5>Location</h5>
           <div *ngIf="!map">
             <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(hotel.map)" width="60%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>

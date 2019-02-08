@@ -79,7 +79,15 @@ export class EditRoomComponent implements OnInit {
           swal({title: "Success!", text: "Room updated", icon: "success", timer: 1500});
           this.ngOnDestroy();
         },
-        (error) => {swal ( "Error occured" ,  "The room was not updated." ,  "error" );}
+        (error) => {
+          if (error.status === 409) {
+            swal ( "Cannot do that" ,  "There is a reservation of that room." ,  "warning" );
+          } else {
+            console.error(error);
+            swal ( "Error occured" ,  "The room was not updated." ,  "error" );
+          }
+          
+        }
       );
     } else {
       this.showErrorMsg = true;

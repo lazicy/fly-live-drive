@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class BonusPointsController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<BonusPointsDTO> saveBonus(@RequestBody BonusPointsDTO bonusDTO) {
 		
 		BonusPoints bonus = new BonusPoints();
@@ -50,6 +52,7 @@ public class BonusPointsController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<Void> deleteBonus(@PathVariable Long id){
 		
 		BonusPoints bonus = bonusService.findOneById(id);

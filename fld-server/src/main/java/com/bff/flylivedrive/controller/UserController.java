@@ -90,8 +90,10 @@ public class UserController {
 			return "AVIO_ADMIN";
 		}else if(u instanceof SysAdmin) {
 			return "SYS_ADMIN";
+		} else if (u instanceof User) {
+			return "User";
 		}
-		return "USER";
+		return "";
 	}
 	
 	@RequestMapping(value = "/getFirstLog/{username}",method = RequestMethod.GET)

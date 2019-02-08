@@ -19,6 +19,7 @@ export class HotelAdminComponent implements OnInit {
   cityList: any = [];
   servToEdit: any = null;
   roomToEdit: any = null;
+  fastRes: any = [];
 
   //show-hides
   showEditHotel: boolean = false;
@@ -66,6 +67,7 @@ export class HotelAdminComponent implements OnInit {
           this.fetchServices();
           this.fetchRooms();
           this.initHotelForm();
+          this.fetchFastRes();
 				},
 				(error) => {
 					console.log(error);
@@ -77,6 +79,22 @@ export class HotelAdminComponent implements OnInit {
 				}
       );
     }
+    
+  }
+
+  fetchFastRes() {
+    this.hotelService.getFastRes(this.id).subscribe(
+      (data) => {
+        this.fastRes = data;
+      },
+      (error) => {
+        if (error.status === 404) {
+          this.router.navigate(['hotel']);
+        } else {
+          console.error(error);
+        }
+      }
+    );
   }
 
   initHotelForm() {
@@ -272,8 +290,15 @@ export class HotelAdminComponent implements OnInit {
               let i = this.hotel.rooms.findIndex(room => room.id === idRoom);
               this.hotel.rooms.splice(i, 1);
               swal({title: "Success!", text: "Room deleted.", icon: "success", timer: 1500});
-          }, (error) =>  {swal ( "Error occured" ,  "The room was not deleted." ,  "error" );}
-          );
+          }, (error) =>  {
+            if (error.status === 409) {
+              swal ( "Cannot do that" ,  "There is a reservation of that room." ,  "warning" );
+            } else {
+              console.error(error);
+              swal ( "Error occured" ,  "The room was not deleted." ,  "error" );
+            }
+          }
+        );
       }
     });
   }
@@ -301,10 +326,6 @@ export class HotelAdminComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  onToggleFast() {
-    this.showFast = !this.showFast;
-  }
-
   onNewFast() {
     this.showAddFastDialog = true;
   }
@@ -314,7 +335,7 @@ export class HotelAdminComponent implements OnInit {
   }
 
   fastSubmit(fastrez) {
-
+    this.showAddFastDialog = false;
   }
 
   // getters for the form validation
