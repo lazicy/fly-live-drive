@@ -44,7 +44,7 @@ public class FlightDTO {
 			interceptionsDTO.add(new InterceptionDTO(i));
 		}
 		
-		// mapping to seatsDTO hashMap
+		// mapping to seatsDTO 
 		seatsDTO = new ArrayList<>();
 		
 		for (int i = 0; i < f.getSeats().size(); i++) {
@@ -57,6 +57,8 @@ public class FlightDTO {
 		
 	}
 	
+	
+
 	
 	
 	public FlightDTO(Long id, Date departureDate, Date landingDate, int totalDuration,

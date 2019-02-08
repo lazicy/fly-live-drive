@@ -6,7 +6,7 @@ export class UserService {
 
 	constructor(private http: HttpClient) { }
 
-    saveUser(user){
+    saveUser(user) {
         return this.http.post("http://localhost:4200/api/users", user);
     }
 
@@ -16,6 +16,10 @@ export class UserService {
 
     getUsers() {
         return this.http.get('/api/users/all');
+    }
+
+    getUserInfo() {
+        return this.http.get('/api/users/info');
     }
 
     regAdmin(user, role: string) {

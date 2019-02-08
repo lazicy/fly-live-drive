@@ -59,7 +59,11 @@ public class Flight {
 	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Seat> seats = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "departureFlight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Flight> departureFlight = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "returnFlight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Flight> returnFlight = new ArrayList<>();
 
 
 	public int getTotalDuration() {

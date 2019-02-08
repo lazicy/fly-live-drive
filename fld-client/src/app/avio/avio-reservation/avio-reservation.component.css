@@ -1,0 +1,20 @@
+.close {
+    color: white;
+    font-size: 22px;
+}
+
+.pick-seats-link {
+    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 10px;
+    color: rgb(0, 40, 73);
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.pick-seats-link:hover {
+    transform: scale(1.4);
+    transition: all .5s;
+    color: rgb(0, 100, 194);
+    text-decoration: underline;
+}

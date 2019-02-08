@@ -33,5 +33,11 @@ export class AuthService {
     getUser(){
         return this.http.get('http://localhost:4200/api/users/getUser/', {responseType: 'text'});
     }
+
+    getLoggedUser() {
+
+        return localStorage.getItem('currentUser');
+    }
+ 
 }
 
