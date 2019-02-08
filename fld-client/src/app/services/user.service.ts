@@ -22,5 +22,8 @@ export class UserService {
         return this.http.post("/api/users/regAdmin/" + role, user);
     }
 
-	}
+    getUserRole(){
+        return this.http.get("/api/users/getUserRole", {responseType: 'text'});
+    }
+}
 

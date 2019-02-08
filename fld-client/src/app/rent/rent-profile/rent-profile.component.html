@@ -1,16 +1,32 @@
 <div class="container h-100">
+
+    <div class="form-modal" *ngIf="showFormDialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <button type="button" class="close" (click)="onCloseForm()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            <app-rent-form (rentSubmit)="rentSubmitted($event)"></app-rent-form>
+          </div>
+        </div>
+      </div>  
+
   <div *ngIf="rent" class="h-100">
     <div class="basic_info h-100">
       <div class="content h-100">
         <div class="naslov">
-            <h2>{{rent.name}} </h2>
+            <h2>{{rent.name}} 
+              <div *ngIf="isAdmin">
+                  <span><a class="btn" (click)="onEditRent()"> <i class="fa fa-pencil fa-lg"></i></a></span>
+              </div>
+            </h2>
             <h6><i class="fa fa-map-marker"></i> {{rent.address}}, {{rent.cityDTO.name}}, {{rent.cityDTO.countryDTO.name}}</h6>
-            <h6>Search our deals</h6>
           </div>
         <div class="description">
-          <button class="btn btn-link" [routerLink]="['/rent/rentAdmin/',rent.id]">Administration</button>
+          <div *ngIf="isAdmin">
+              <button class="btn btn-link" [routerLink]="['/rent/rentAdmin/',rent.id]">Administration</button>
+          </div>
         </div>
-
         <div class="description">
           <h5>Description</h5>
         <p>{{rent.description}}</p>
@@ -45,7 +61,9 @@
               <i class="fa fa-arrow-right" aria-hidden="true" 
               [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i> Vehicles</h5>
               <div class="table-responsive" *ngIf="showVehicles">
-                <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
+                <div *ngIf="isAdmin">
+                    <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
+                </div>
                 <table class="table" *ngIf="!emptyVehicleList">
                   <tbody>
                     <tr *ngFor="let vh of vehicles">
@@ -63,7 +81,7 @@
         <div class="map" id="mapa" >
           <h5>Location</h5>
           <div *ngIf="map">
-            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(rent.map)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(rent.addressOnMap)" width="45%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
           <div *ngIf="!map">
             Google map location was not provided

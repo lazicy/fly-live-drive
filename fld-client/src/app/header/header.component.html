@@ -29,7 +29,7 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     -->
     <div *ngIf="isLoggedIn">
-        <button type="button" class="btn btn-outline-light"> <span><i class="fa fa-user"></i> {{ name }} </span>   </button>
+        <button type="button" class="btn btn-outline-light"> <span><i class="fa fa-user"></i></span> {{ name }}   </button>
         <button type="button" class="btn btn-outline-light" (click)="logOut()"> Log out </button>  
     </div>
     <div *ngIf="!isLoggedIn">

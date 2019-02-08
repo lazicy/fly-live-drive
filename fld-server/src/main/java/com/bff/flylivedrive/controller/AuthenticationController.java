@@ -55,10 +55,15 @@ public class AuthenticationController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+		// ako je null onda nije dobra sifra ili password
+		if(user == null) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		
 		String jwt = tokenUtils.generateToken(user.getUsername(), device);
 		
-		int expiresIn = tokenUtils.getExpiredIn(device);
-		
+		//int expiresIn = tokenUtils.getExpiredIn(device);
+		int expiresIn = 60*60000; //token ce trajati 1h
 		return ResponseEntity.ok(new UserTokenState(jwt,expiresIn));
 	}
 }

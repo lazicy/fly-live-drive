@@ -70,19 +70,31 @@ public class RentController {
 	}
 	
 	@RequestMapping(value = "/getServicesFilter/{name}", method = RequestMethod.GET)
-	public ResponseEntity<List<RentDTO>> getServicesFilter(@PathVariable("name") String name){
-		List<RentACar> services = rentService.findAll();
-		RentDTO rentDTO = new RentDTO();
-		name = name.replace("-", " ");
-		for(RentACar r: services) {
-			if(r.getName().contains(name)) {
-				rentDTO = new RentDTO(r);
-				break;
+	public ResponseEntity<List<RentDTO>> getServicesFilter(@PathVariable("name") String param){
+		param = param.replace("-", " ");
+		RentACar rent = rentService.findByName(param);
+		List<RentACar> rents = rentService.findAllByCity(param);
+		List<RentDTO> rentsDTO = new ArrayList<RentDTO>(); 
+		if(rent == null) {
+			
+			if(rents != null) {
+				for(RentACar r: rents) {
+					rentsDTO.add(new RentDTO(r));
+				}
+			}else{
+				return new ResponseEntity<>(rentsDTO, HttpStatus.NOT_FOUND);
 			}
+			
+		}else if(rents.isEmpty()){
+			
+			if(rent != null) {
+				rentsDTO.add(new RentDTO(rent));
+			}else{
+				return new ResponseEntity<>(rentsDTO, HttpStatus.NOT_FOUND);
+			}
+			
 		}
-		List<RentDTO> rents = new ArrayList<RentDTO>();
-		rents.add(rentDTO);
-		return new ResponseEntity<>(rents, HttpStatus.OK);
+		return new ResponseEntity<>(rentsDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/getRent/{id}", method = RequestMethod.GET)
@@ -130,6 +142,7 @@ public class RentController {
 		
 		rentAcar.setName(rentDTO.getName());
 		rentAcar.setAddress(rentDTO.getAddress());
+		rentAcar.setAddressOnMap(rentDTO.getAddressOnMap());
 		rentAcar.setCity(c);
 		rentAcar.setDescription(rentDTO.getDescription());
 		

@@ -28,6 +28,9 @@ public class RentACar {
 	@Column(name = "address", nullable = false)
 	String address;
 	
+	@Column(name = "address_on_map", columnDefinition="TEXT", nullable = true)
+	String addressOnMap;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	City city;
 		
@@ -43,17 +46,18 @@ public class RentACar {
 		
 	}
 	
-	public RentACar(Long id, String name, String address, City city, String description) {
+	public RentACar(Long id, String name, String address, City city, String description, String addressOnMap) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
 		this.description = description;
+		this.addressOnMap = addressOnMap;
 	}
 
 	public RentACar(RentDTO rent) {
-		this(rent.getId(),rent.getName(),rent.getAddress(),new City(rent.getCityDTO()),rent.getDescription());
+		this(rent.getId(),rent.getName(),rent.getAddress(),new City(rent.getCityDTO()),rent.getDescription(),rent.getAddressOnMap());
 	}
 	
 	public City getCity() {
@@ -103,5 +107,14 @@ public class RentACar {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getAddressOnMap() {
+		return addressOnMap;
+	}
+
+	public void setAddressOnMap(String addressOnMap) {
+		this.addressOnMap = addressOnMap;
+	}
+	
 	
 }

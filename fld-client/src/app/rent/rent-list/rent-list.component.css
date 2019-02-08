@@ -1,0 +1,47 @@
+.rate_circle {
+    width: 2.8rem;
+    height: 2.7rem;
+    font-size: 1rem;
+    padding: 14px;
+    border-radius: 50%;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(36, 163, 36);
+}
+
+.left-part-card-rent {
+    float:left;
+    padding-top: 5px;
+    padding-left: 5px;
+    min-width: 300px;
+    height: 100%;
+}
+
+.right-part-card-rent {
+    height: 100%;
+    padding-top:20px;
+    width: 100%;
+}
+
+
+.main{
+    margin-top: 10px;
+    height: 120px;
+    padding-left:15px;
+}
+
+.table-div{
+    display: table;
+    height: 100%;
+}
+
+.btn-see{
+    padding-bottom: 20px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.description{
+    display: table-cell;
+    vertical-align: middle;
+}

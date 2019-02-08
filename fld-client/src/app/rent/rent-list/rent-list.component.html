@@ -1,22 +1,22 @@
 <div class="container" *ngIf="rentList">
-  <div class="row" *ngFor="let rent of rentList">
-      <div class="tile">
-          <div class="card-inside">
-            <div class="left-part-card">
-              <img class="image-card" alt="Rent image" src="{{rent.rentImageURL}}" width="300px" height="253px" *ngIf="rent.rentImageURL != ''">
-              <img class="image-card" alt="Rent image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="rent.rentImageURL == ''">
-            </div>  
-            <div class="right-part-card">
+  <div class="tile" *ngFor="let rent of rentList">
+      <div class="row main">
+            <div class="left-part-card-rent col-5">
                 <div>
-                <h4 class="hotel-name">{{rent.name}}</h4>
-                <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{rent.address}}, {{ rent.cityDTO.name }}, {{rent.cityDTO.countryDTO.name}}</h6>
-                <p class="card-text">{{rent.description}}</p>
+                    <h4 class="hotel-name">{{rent.name}}</h4>
+                    <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{rent.address}}, {{ rent.cityDTO.name }}, {{rent.cityDTO.countryDTO.name}}</h6>
                 </div>
-                <div class="details-btn-card">
-                    <a class="btn btn-primary" [routerLink]="['/rent', rent.id]" id="details">See details</a>
-                  </div> 
+            </div>  
+            <div class="col-4 table-div">
+                <div class="description">
+                  <p>{{rent.description}}</p>
+                </div>
             </div>
-          </div>
+            <div class="right-part-card-rent col-2 table-div">
+                <div class="btn-see h-100">
+                  <a class="btn btn-primary" [routerLink]="['/rent', rent.id]" id="details">See details</a>
+                </div> 
+            </div>
         </div>
   </div>
 </div>

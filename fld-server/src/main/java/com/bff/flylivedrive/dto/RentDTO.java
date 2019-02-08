@@ -4,27 +4,29 @@ import com.bff.flylivedrive.model.RentACar;
 
 public class RentDTO {
 	
-	Long id;
-	String name;
-	String address;
-	CityDTO cityDTO;
-	String description;
+	private Long id;
+	private String name;
+	private String address;
+	private CityDTO cityDTO;
+	private String description;
+	private String addressOnMap;
 	
 	public RentDTO() {
 		
 	}
 	
-	public RentDTO(Long id, String name, String adress, CityDTO cityDTO, String description) {
+	public RentDTO(Long id, String name, String adress, CityDTO cityDTO, String description, String addressOnMap) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = adress;
 		this.cityDTO = cityDTO;
 		this.description = description;
+		this.addressOnMap = addressOnMap;
 	}
 
 	public RentDTO(RentACar service) {
-		this(service.getId(), service.getName(), service.getAddress(), new CityDTO(service.getCity()), service.getDescription());
+		this(service.getId(), service.getName(), service.getAddress(), new CityDTO(service.getCity()), service.getDescription(),service.getAddressOnMap());
 	}
 
 	public Long getId() {
@@ -65,4 +67,14 @@ public class RentDTO {
 	public void setCityDTO(CityDTO cityDTO) {
 		this.cityDTO = cityDTO;
 	}
+
+	public String getAddressOnMap() {
+		return addressOnMap;
+	}
+
+	public void setAddressOnMap(String addressOnMap) {
+		this.addressOnMap = addressOnMap;
+	}
+	
+	
 }

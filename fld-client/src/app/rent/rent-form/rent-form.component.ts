@@ -4,6 +4,8 @@ import { RentService } from 'src/app/services/rentacar.service';
 import { DataService } from 'src/app/services/data.service';
 import { RentACar } from 'src/app/model/rentacar';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
+import { CountryService } from 'src/app/services/country.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-rent-form',
@@ -13,64 +15,94 @@ import { NumberValueAccessor } from '@angular/forms/src/directives';
 export class RentFormComponent implements OnInit {
 
   @Output() rentSubmit = new EventEmitter(); //???
-  ID : string;
-  constructor(private service: RentService, private dataService: DataService) { }
+
+  cityList: any = [];
+  countryList: any = [];
+  rent: any;
+
+  name: string;
+  address: string;
+  addressOnMap: string;
+  id: Number;
+  selectedCountry: Number;
+  selectedCity: Number;
+  description: string;
+
+  constructor(private route: ActivatedRoute,private service: RentService, private countryService: CountryService) { 
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.id = +params['id'];
+      }
+    ); 
+  }
 
   ngOnInit() {
-    this.dataService.edit.subscribe(data => this.ID = data); //subscribe na edit (cuva info da li se radi edit ili ne)
+    this.countryService.getCountries().subscribe(
+      (data) => {
+        this.countryList = data;
+      },
+      (error) => console.log(error)
+    )
+
+    this.service.getRent(this.id).subscribe(
+      (data) => {
+        this.rent = data;
+        this.fillForm();
+      }
+    )
+  }
+  fillForm(){
+    this.getCities(this.rent.cityDTO.countryDTO.id);
+    this.address = this.rent.address;
+    this.name = this.rent.name;
+    this.addressOnMap = this.rent.addressOnMap;
+    this.description = this.rent.description
+    this.selectedCity = this.rent.cityDTO.id;
+    this.selectedCountry = this.rent.cityDTO.countryDTO.id;
   }
 
   onSubmitRent(form: NgForm){
+    let cityIndex = this.cityList.findIndex(city => city.id == this.selectedCity);
+    const cityDTO = this.cityList[cityIndex];
     var rent = {
-      name: form.value.name,
-      address: form.value.adress,
-      city: form.value.city,
-      country: form.value.country,
-      description: form.value.description
+      id: +this.id,
+      name: this.name,
+      address: this.address,
+      addressOnMap: this.addressOnMap,
+      cityDTO: cityDTO,
+      description: this.description,
     }
 
-    //ako ima id znaci da se radi edit pa se mora proslediti i id rentacar-a
-    //kako bi na serveru uradio promenu a ne dodavanje novog rentacar-a
-    if(this.ID !== undefined && this.ID !== ""){
-        var rentTemp = {
-          id: +this.ID,
-          name: form.value.name,
-          address: form.value.adress,
-          city: form.value.city,
-          country: form.value.country,
-          description: form.value.description
-      }
+    this.service.editRent(rent).subscribe(
+      (response) => {
+        this.rentSubmit.emit(response);
+        this.ngOnDestroy();
+      },
+      (error) => alert(error)
+    )
 
-      this.service.editRent(rentTemp).subscribe(
-        (response) => {
-          //swal();
-          this.rentSubmit.emit(response);
-          this.ngOnDestroy();
-        },
-        (error) => {alert(error); return;} 
-      )
-
-    }else{
-      
-      this.service.saveRent(rent).subscribe(
-        (response) => {
-          // emituje se event koji se slusa u selektoru ove komponente (child) u okviru html-a parent komponente (ovde se salje
-          // response a tamo se prima $event). 
-          this.rentSubmit.emit(response);
-          this.ngOnDestroy();
-        },
-        (error) => {
-          swal("Error", "error");
-        }
-      )
-    }
-    
     form.reset();
   }
 
   onReset(form: NgForm){
     form.reset();
   }
+  
+  // metoda se poziva svaki put kad se promeni selekcija u html selektru za Country
+  onChangeCountry(event) {
+		const selectedCountryId = event.target.value;
+		this.getCities(selectedCountryId);
+  }
+
+  // uzima i dodeljuje vrednost listi gradova koja se trenutno prikazuje u formi
+	getCities(id) {
+		this.countryService.getCountysCities(id).subscribe(
+			(data) => {
+				this.cityList = data;
+			},
+			(error) => console.log(error)
+		);
+	}
 
   ngOnDestroy(){
     this.rentSubmit.unsubscribe();

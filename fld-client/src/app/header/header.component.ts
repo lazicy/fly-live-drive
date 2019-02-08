@@ -16,18 +16,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     if(localStorage.length !== 0){
         this.isLoggedIn = true;
-        setTimeout(function(){
           this.service.getUser().subscribe(
           (data) => {
             this.name = data;
           }
-          )    
-        },1000);
+          );    
       }
   }
 
   logOut(){
     this.service.logout();
-    
   }
 }

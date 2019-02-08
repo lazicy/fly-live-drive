@@ -1,51 +1,58 @@
 <div class="container">
-  <div class="row">
-      <form (ngSubmit)="onSubmitRent(f)" name="addRentForm" #f="ngForm">
-          <h2>Insert a new Rent-a-car service</h2>
-          <hr>
-        <div class="row">
-          <div class="col form-group">
-            <label>Name: </label>
-            <input type="text" class="form-control" name="name" id=name ngModel required>
-          </div>
-        </div>
+    <div class="row">
+        <form (ngSubmit)="onSubmitRent(f)" name="rentForm" #f="ngForm">
+            <h2>Edit rent-a-car service</h2>
+            <hr>
           <div class="row">
             <div class="col form-group">
-              <label>Adress: </label>
-              <input type="text" class="form-control" name="adress" id=adress ngModel required>
-            </div>
-
-            <div class="col form-group">
-              <label>City: </label>
-              <input type="text" class="form-control" name="city" id=city ngModel required>
-            </div>
-
-            <div class="col form-group">
-              <label>Country: </label>
-              <input type="text" class="form-control" name="country" id=country required ngModel>
-            </div>
-        </div>
-
-        <div class="row">
-          <div class="col form-group">
-            <label>Address on map: </label>
-            <input type="text" class="form-control" name="map" id=map placeholder="from google maps" ngModel>
-          </div>
-        </div>
-
-        <div class="row">
-            <div class="col form-group">
-              <label for="description">Promo description: </label>
-              <textarea type="text" id="description" name="description" placeholder="Rent-a-car description" ngModel class="form-control" rows="4"></textarea>
+              <label>Name: </label>
+              <input type="text" class="form-control" name="name" id=name [(ngModel)]="name" required>
             </div>
           </div>
-
+            <div class="row">
+              <div class="col form-group">
+                <label>Adress: </label>
+                <input type="text" class="form-control" name="adress" id=adress [(ngModel)]="address" required>
+              </div>
+              <div class="col form-group">
+                <label for="countryId">Country:</label>
+                <select class="form-control"  id="countryId"
+                        required
+                        name="countryId" [(ngModel)]="selectedCountry"
+                        (change)="onChangeCountry($event)">
+                  <option *ngFor="let c of countryList" [value]="c.id">{{c.name}}</option>
+                </select>
+             </div>
+             <div class="col form-group">
+              <label for="cityId">City:</label>
+              <select class="form-control"  id="cityId"
+                      required
+                      name="cityId" [(ngModel)]="selectedCity" >
+                <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+          </div>
+  
           <div class="row">
             <div class="col form-group">
-              <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
-              <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+              <label>Adress on map: </label>
+              <input type="text" class="form-control" name="map" id=map placeholder="from google maps" [(ngModel)]="addressOnMap">
             </div>
           </div>
-        </form>
+  
+          <div class="row">
+              <div class="col form-group">
+                <label for="description">Promo description: </label>
+                <textarea type="text" id="description" name="description" placeholder="Rent-a-car description" [(ngModel)]="description" class="form-control" rows="4"></textarea>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col form-group">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>
+                <button type="button" (click)="onReset(f)" class="btn btn-danger">Reset</button>
+              </div>
+            </div>
+          </form>
+    </div>
   </div>
-</div>

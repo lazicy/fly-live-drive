@@ -3,23 +3,14 @@
     <div class="row" class="center">
       <div class="d-flex justify-content-center">
       <div class="srcbar">
-          <label for="search" class="lbl">Find deals</label>
-          <input type="text" [(ngModel)]="rentName" #ctrl="ngModel" id="search" placeholder="Enter location or rent-a-car name" class="unos search">
-      </div>
-      <div class="srcbar">
-          <label for="check-in" class="lbl">Pick up</label>
-          <input type="date" id="check-in" name="check-in" class="unos check-in" [ngModel]="today">
-      </div>
-      <div class="srcbar">
-          <label for="check-out" class="lbl">Return</label>
-          <input type="date" id="check-out" name="check-in" class="unos check-out" [ngModel]="tomorrow">
+          <label for="search" class="lbl">Find services</label>
+          <input type="text"  (input)='rentName = $event.target.value' id="search" placeholder="Enter location or rent-a-car name" class="unos search">
       </div>
     </div>
+      <button class="btn btn-primary" style="margin-top:1%" (click)="onSearch()">Search services</button>
+      <button class="btn btn-primary" style="margin-top:1%" (click)="onRefresh()">Refresh</button>
   </div>
-    <div class="row" id="pretrazi">
-      <button class="btn btn-primary" (click)="onSearch()">Search services</button>
-      <button class="btn btn-primary" (click)="onRefresh()">Refresh</button>
-    </div>
+    
   </div>
 </section>
 
@@ -27,39 +18,36 @@
 
 <div *ngIf="filter">
 <div id="main-part" class="container">
-  <div class="row" class="center">
-    <h3 style="margin-bottom: 25px;">All services</h3>
-  </div>
   <div class="container" *ngIf="rentListFilter">
-    <div class="row" *ngFor="let rent of rentListFilter">
-        <div class="tile">
-            <div class="card-inside">
-              <div class="left-part-card">
-                <img class="image-card" alt="Rent image" src="{{rent.rentImageURL}}" width="300px" height="253px" *ngIf="rent.rentImageURL != ''">
-                <img class="image-card" alt="Rent image" src="/src/img/image_not_available.png" width="300px" height="253px" *ngIf="rent.rentImageURL == ''">
-              </div>  
-              <div class="right-part-card">
-                  <div>
-                  <h4 class="hotel-name">{{rent.name}}</h4>
-                  <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{rent.address}}, {{rent.city}}, {{rent.country}}</h6>
-                  <p class="card-text">{{rent.description}}</p>
-                  </div>
-                  <div class="details-btn-card">
-                      <a class="btn btn-primary" [routerLink]="" id="details">See details</a>
-                    </div> 
-              </div>
+    <div class="tile" *ngFor="let rent of rentListFilter">
+        <div class="row main">
+            <div class="left-part-card-rent col-5">
+                <div>
+                    <h4 class="hotel-name">{{rent.name}}</h4>
+                    <h6 class="hotel-address"><i class="fa fa-map-marker"></i> {{rent.address}}, {{ rent.cityDTO.name }}, {{rent.cityDTO.countryDTO.name}}</h6>
+                </div>
+            </div>  
+            <div class="col-4 table-div">
+                <div class="description">
+                  <p>{{rent.description}}</p>
+                </div>
             </div>
-          </div>
+            <div class="right-part-card-rent col-2 table-div">
+                <div class="btn-see h-100">
+                  <a class="btn btn-primary" [routerLink]="['/rent/vehicles/',rent.id]"><span><i class="fa fa-search"></i></span> Search vehicle</a>
+                </div> 
+            </div>
+        </div>
     </div>
   </div>
-  <h3 *ngIf="emptyRentListFilter">There are no rent-a-car services in the system.</h3>
+  <h3 *ngIf="emptyRentListFilter"> There are no results for this search.</h3>
 </div>
 </div>
 
 <div *ngIf="!filter">
   <div id="main-part" class="container">
     <div class="row" class="center">
-      <h3 style="margin-bottom: 25px;">All services.</h3>
+      <h3 style="margin-bottom: 25px; text-align: center">All services</h3>
     </div>
     <div>
       <app-rent-list></app-rent-list>

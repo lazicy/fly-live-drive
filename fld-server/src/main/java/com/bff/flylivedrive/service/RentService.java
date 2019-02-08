@@ -29,5 +29,11 @@ public class RentService {
 	public void deleteById(Long id) {
 		rentRepo.deleteById(id);
 	}
+	public RentACar findByName(String name){
+		return rentRepo.findByName(name);
+	}
 	
+	public List<RentACar> findAllByCity(String city){
+		return rentRepo.findAllByCity(city);
+	}
 }

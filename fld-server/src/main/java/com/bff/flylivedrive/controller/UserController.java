@@ -2,6 +2,7 @@ package com.bff.flylivedrive.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,24 @@ public class UserController {
 		System.out.println("Name: "+username);
 		return username;
 	}
+	
+	
+	@RequestMapping(value = "/getUserRole", method = RequestMethod.GET)
+	public String getUserRole(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		String username = tokenUtils.getUsernameFromToken(token);
+		User u = userService.findOneByUsername(username);
+		if(u instanceof HotelAdmin) {
+			return "HOTEL_ADMIN";
+		}else if(u instanceof RentAdmin) {
+			return "RENT_ADMIN";
+		}else if(u instanceof AvioAdmin) {
+			return "AVIO_ADMIN";
+		}else if(u instanceof SysAdmin) {
+			return "SYS_ADMIN";
+		}
+		return "USER";
+	}	
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")

@@ -16,5 +16,9 @@ public interface RentRepository extends JpaRepository<RentACar, Long> {
 	RentACar findOneById(Long id);
 	void deleteById(Long id);
 	
+	@Query("select rent from RentACar rent where rent.name = :name")
+	RentACar findByName(@Param("name") String name);
 	
+	@Query("select distinct rent from RentACar rent, City city where rent.city.name = :city")
+	List<RentACar> findAllByCity(@Param("city") String city);
 }
