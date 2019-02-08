@@ -1,10 +1,10 @@
 insert into user (username,password,firstname,lastname,email,city,active,first_log,type, bonus_points) values ('dovla96', '$2a$04$nRJALierFkUMWbUfQBzvy.DhKLc6UTMSX4vI4.HfPF0THn.VjTIYm', 'Vladimir', 'Cvetanovic', 'cvetanovic9696@gmail.com', 'Novi Sad',true, false,'RENT_ADMIN', 0);
 
-insert into authority (id,name) values (1,'RENT_ADMIN');
-insert into authority (id,name) values (2,'HOTEL_ADMIN');
-insert into authority (id,name) values (3,'AVIO_ADMIN');
-insert into authority (id,name) values (4,'SYSTEM_ADMIN');
-insert into authority (id,name) values (5,'USER');
+insert into authority (id,name) values (1,'ROLE_RENT_ADMIN');
+insert into authority (id,name) values (2,'ROLE_HOTEL_ADMIN');
+insert into authority (id,name) values (3,'ROLE_AVIO_ADMIN');
+insert into authority (id,name) values (4,'ROLE_SYSTEM_ADMIN');
+insert into authority (id,name) values (5,'ROLE_USER');
 
 insert into user_authority (user_id, authority_id) values ('dovla96',1);
 
@@ -174,18 +174,23 @@ INSERT INTO `interception` (`id`,`duration`,`destination_id`,`flight_id`) VALUES
 insert into rentacar (id,name,address,city_id,description) values (1,'Drive a lot','Bulevar Evrope',51,'Najbolji servis ikada');
 insert into rentacar (id,name,address,city_id,description) values (2,'Teraj bona','Bosanskog cevapa 10',54,'Bolji servis bona od ovog drugog');
 
+insert into filijala (id,name,address,city_id,description,servis_id) values (22,'Teraj bona','Banjalucka 2',54,'Bolji servis bona od ovog drugog',2);
+
 insert into filijala (id,name,address,city_id,description,servis_id) values (12,'Drive a lot','Bulevar Kralja Petra',51,'Najbolji servis ikada',1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (13, 'Drive a lot', 'Bulevar Vojvode Stepe', 52, 'Naj', 1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (14, 'Drive a lot', 'Mihajla Pupina 1', 53, 'Naj', 1);
 insert into filijala (id,name,address,city_id,description,servis_id) values (15, 'Drive a lot', 'Ksong Ksung', 12, 'Ma ja sam naj', 1);
 
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (54, 'Q7','Audi','2016',5,'SUV',10,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (68, 'X5','BMW','2016',5,'SUV',15,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (12, 'X4','BMW','2016',5,'SUV',30,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (66, 'X3','BMW','2016',5,'SUV',30,12);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (13, 'X2','Audi','2016',5,'SUV',10,13);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (22, 'Focus','Ford','2016',5,'SUV',15,13);
-insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id) values (35, 'Astra','Opel','2016',5,'SUV',30,13);
+insert into fast_res_vehicle (id, start_date, end_date, discount) values (12, '2019-02-02', '2019-02-08', 10);
+
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (54, 'Q7','Audi','2016',5,'SUV',10,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (68, 'X5','BMW','2016',5,'SUV',15,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (12, 'X4','BMW','2016',5,'SUV',30,12,12);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (66, 'X3','BMW','2016',5,'SUV',30,12,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (13, 'X2','Audi','2016',5,'SUV',10,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (22, 'Focus','Ford','2016',5,'SUV',15,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (35, 'Astra','Opel','2016',5,'SUV',30,13,null);
+insert into vozilo (id,model,brand,production_year,number_of_seats,type,price_per_day,filijala_id,fast_res_id) values (36, 'Astra','Opel','2016',5,'SUV',30,22,12);
 
 
 INSERT INTO `seat` (`id`,`place`,`reserved`,`row`,`flight_id`) VALUES (12,'A',false,1,11);
@@ -894,4 +899,8 @@ INSERT INTO `seat` (`id`,`place`,`reserved`,`row`,`flight_id`) VALUES (730,'D',f
 insert into hotel (id, name, address, city_id, description, hotel_imageurl, map, stars) values (1, 'Hotel Moscow', 'Terazije 20', 52, 'Uz duboko poštovanje prema svojoj tradiciji, vrednosti koja traja više od veka – renovirani hotel zadovoljava najsavremenije visoke hotelske standarde.', 'http://www.serbia.com/wp-content/uploads/2016/03/abroadabroadtravel111.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.4188282049304!2d20.458241815265584!3d44.813031484676664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7ab209cff051%3A0x52504f6400d4b777!2z0KXQvtGC0LXQuyDQnNC-0YHQutCy0LA!5e0!3m2!1ssr!2srs!4v1549149868770', 4);
 insert into hotel (id, name, address, city_id, description, hotel_imageurl, map, stars) values (2, 'Hyatt Regency Belgrade', 'Milentija Popovica 5', 52, 'Hyatt Regency Belgrade is a is a modern hotel located in New Belgrade, Belgrade, Serbia. It is part of international hotel group Hyatt Regency. Located across the street from Ušće Tower and Ušće Shopping Center, it is close to both the city centre and Sava Center, and fifteen minutes from Belgrade Nikola Tesla Airport.', 'http://www.ekapija.com/thumbs/hyatt_exterior_051018_tw630.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.4668467333004!2d20.430136115535667!3d44.81205307909863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a65593956f76b%3A0x4a870b8916a9f8ce!2sHyatt+Regency+Belgrade!5e0!3m2!1ssr!2srs!4v1549150263295', 5);
 insert into hotel (id, name, address, city_id, description, hotel_imageurl, map, stars) values (3, 'The Plaza', '768 5th Ave', 76, 'The Plaza Hotel is a landmark 20-story luxury hotel and condominium apartment building in the Midtown Manhattan neighborhood in the borough of Manhattan, New York City. It opened in 1907 and is now owned by Katara Hospitality.', 'https://images.datahubus.com/5739f864b5dc6545f27c3164/the-plaza-residences/1-central-park-s_.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.888861850124!2d-73.97667638459352!3d40.76446907932614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f07d5da561%3A0x61f6aa300ba8339d!2sThe+Plaza!5e0!3m2!1ssr!2srs!4v1549150623903', 5);
+
+
+
+
 

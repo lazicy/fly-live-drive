@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
 import org.assertj.core.util.DateUtil;
@@ -74,9 +75,9 @@ public class User implements UserDetails{
 	            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "username"),
 	            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
 	private List<Authority> authorities;
-	
-	 @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private Set<VehicleReservation> vehicleReservations = new HashSet<VehicleReservation>();
+	 
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	private GlobalReservation globalReservation;
 	 
 	public User() {
 		super();
@@ -215,13 +216,15 @@ public class User implements UserDetails{
 	public void setFirstLog(boolean firstLog) {
 		this.firstLog = firstLog;
 	}
+	
+	
 
-	public Set<VehicleReservation> getVehicleReservations() {
-		return vehicleReservations;
+	public GlobalReservation getGlobalReservation() {
+		return globalReservation;
 	}
 
-	public void setVehicleReservations(Set<VehicleReservation> vehicleReservations) {
-		this.vehicleReservations = vehicleReservations;
+	public void setGlobalReservation(GlobalReservation globalReservation) {
+		this.globalReservation = globalReservation;
 	}
 
 	@Override

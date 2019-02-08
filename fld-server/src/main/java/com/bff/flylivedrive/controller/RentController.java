@@ -35,6 +35,7 @@ import com.bff.flylivedrive.model.Vozilo;
 import com.bff.flylivedrive.service.FilijalaService;
 import com.bff.flylivedrive.service.CityService;
 import com.bff.flylivedrive.service.CountryService;
+import com.bff.flylivedrive.service.FastResVehicleService;
 import com.bff.flylivedrive.service.RentService;
 import com.bff.flylivedrive.service.VehicleReservationService;
 import com.bff.flylivedrive.service.VoziloService;
@@ -60,6 +61,9 @@ public class RentController {
 	
 	@Autowired
 	VehicleReservationService vResService;
+	
+	@Autowired 
+	FastResVehicleService frService; 
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	public ResponseEntity<List<RentDTO>> getAllServices(){
@@ -190,7 +194,7 @@ public class RentController {
 	
 	
 	@RequestMapping(value = "/addBranch/{id}", method = RequestMethod.POST)
-	//@PreAuthorize("hasRole('RENT_ADMIN')")
+	@PreAuthorize("hasRole('RENT_ADMIN')")
 	public ResponseEntity<FilijalaDTO> addBranch(@RequestBody FilijalaDTO filijalaDTO, @PathVariable("id") Long id){
 		Filijala f = new Filijala(filijalaDTO);
 		
@@ -257,6 +261,14 @@ public class RentController {
 	@RequestMapping(value = "/deleteVehicle/{id}", method = RequestMethod.DELETE)
 	//@PreAuthorize("hasRole('RENT_ADMIN')")
 	public  ResponseEntity<Object> deleteVehicle(@PathVariable("id") Long id){
+		Vozilo v = vService.findOneById(id);
+		Date d = new Date();
+		
+		//ako je rezervisano onda ne sme da brise
+		if((boolean) v.getVehicleReservation().getDropOffDate().before(d)) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
 		vService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -267,6 +279,12 @@ public class RentController {
 		Filijala filijala = fService.findOneById(idF);
 		vozilo = new Vozilo(voziloDTO);
 		vozilo.setFilijala(filijala);
+		
+		Date d = new Date();
+		if((boolean) vozilo.getVehicleReservation().getDropOffDate().before(d)) {
+			return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+		}
+		
 		vozilo = vService.save(vozilo);
 		return new ResponseEntity<>(new VoziloDTO(vozilo), HttpStatus.OK);
 	}
@@ -342,11 +360,28 @@ public class RentController {
 			for(Vozilo v: vAll) {
 				res.add(new VoziloDTO(v));
 			}
+			
+			List<Vozilo> fastVozila = vService.findFast(params.getPickUp(), params.getDropOff());
+			List<VoziloDTO> toRemove = new ArrayList<VoziloDTO>(); 
+			//treba videti da li su u datom periodu na brzoj rez
+			for(Vozilo v: fastVozila) {
+				for(VoziloDTO vres : res) {
+					if(vres.getId().equals(v.getId())) {
+						toRemove.add(vres);
+						break;
+					}
+				}
+			}
+			if(!toRemove.isEmpty()) {
+				res.removeAll(toRemove);
+			}
+			
 			return new ResponseEntity<>(res, HttpStatus.OK);
 		}
 		
 		//vozila koja nisu rezervisana
 		List<Vozilo> notResVehicles = new ArrayList<Vozilo>();
+		//vozila koja su rezervisana ali ne u datom periodu pretrage
 		List<Vozilo> resVehicles = new ArrayList<Vozilo>();
 		
 		
@@ -365,9 +400,26 @@ public class RentController {
 		for(Vozilo v: resVehicles) {
 			res.add(new VoziloDTO(v));
 		}
-		//vozila koja su rezervisana ali ne u datom periodu pretrage
+		List<Vozilo> fastVozila = vService.findFast(params.getPickUp(), params.getDropOff());
+		List<VoziloDTO> toRemove = new ArrayList<VoziloDTO>(); 
+		
+		//treba videti da li su u datom periodu na brzoj rez
+		for(Vozilo v: fastVozila) {
+			for(VoziloDTO vres : res) {
+				if(vres.getId().equals(v.getId())) {
+					toRemove.add(vres);
+					break;
+				}
+			}
+		}
+		
+		if(!toRemove.isEmpty()) {
+			res.removeAll(toRemove);
+		}
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	
 	
 }

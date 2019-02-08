@@ -25,7 +25,7 @@ public interface VoziloRepository extends JpaRepository<Vozilo, Long>, JpaSpecif
 	
 	
 	//pretraga sa datumom
-	@Query("select vozilo from Filijala filijala,Vozilo vozilo, VehicleReservation vres where vozilo.id = vres.vozilo.id and filijala.city.id = :city"
+	@Query("select vozilo from Filijala filijala,Vozilo vozilo, VehicleReservation vres,FastResVehicle fr where vozilo.id = vres.vozilo.id and filijala.city.id = :city"
 			+ " and :pickUpDate not between vres.pickUpDate and vres.dropOffDate and :dropOffDate not between vres.pickUpDate and vres.dropOffDate"
 			+ " and vozilo.numberOfSeats=:seats and vozilo.filijala.id = filijala.id")
 	public List<Vozilo> getResVehicles(@Param("pickUpDate") Date pickUpDate,@Param("dropOffDate") Date dropOffDate,@Param("city") Long city, @Param("seats") int seats);
@@ -37,4 +37,11 @@ public interface VoziloRepository extends JpaRepository<Vozilo, Long>, JpaSpecif
 	
 	@Query("select v from Vozilo v, Filijala f where v.filijala.id = f.id and f.city.id = :id")
 	public List<Vozilo> findAllByCityId(@Param("id") Long id);
+
+	@Query("select v from Vozilo v, FastResVehicle fr where v.filijala.servis.id = :id and v.fastRes.id = fr.id")
+	public List<Vozilo> findAllFastRes(@Param("id") Long id);
+	
+	@Query("select v from Vozilo v, FastResVehicle fr where v.fastRes.id = fr.id and :start between v.fastRes.startDate and v.fastRes.endDate"
+			+ " and :end between v.fastRes.startDate and v.fastRes.endDate")
+	public List<Vozilo> findFast(@Param("start") Date start, @Param("end") Date end);
 }

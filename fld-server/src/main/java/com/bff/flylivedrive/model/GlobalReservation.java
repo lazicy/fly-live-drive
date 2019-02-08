@@ -23,8 +23,14 @@ public class GlobalReservation {
 	
 
 	// ovde dodajte i vase rezervacije
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(nullable = false)
+	private VehicleReservation vehicleReservation;
 	
-	
+	// ovde dodajte i vase rezervacije
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(nullable = false)
+	private User usera;
 	
 
 	public Long getId() {

@@ -1,0 +1,72 @@
+<div class="container" >
+  <h2 style="margin-top:30px">Insert new discount period: </h2>
+  <form  style="margin-top: 20px" (ngSubmit)="onSubmitDiscount()" [formGroup]="discountForm">
+    <div class="row">
+      <div class="form-group col-5">
+        <label> Start date: </label>
+        <input type="date" class="form-control" formControlName="startDate">
+      </div>
+      <div class="form-group col-5">
+          <label> End date: </label>
+          <input type="date" class="form-control"  formControlName="endDate">
+        </div>
+    </div>
+    <span *ngIf="!dateValid" class="text-danger">Start date must be before end date.</span>
+    <div class="row">
+      <div class="form-group col-5">
+        <label> Discount amount: </label>
+        <select class="form-control"  formControlName="discount">
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+          <option>20</option>
+          <option>25</option>
+          <option>30</option>
+        </select>
+      </div>
+      <div class="form-group col-5" style="margin-top:40px;text-align: center">
+        <button class="btn btn-primary"> Save </button>
+      </div>
+    </div>
+  </form>
+
+
+
+    <h2>Fast reservation administration</h2>
+    <!--Modal-->
+    <div *ngIf="fastResList">
+      <div class="table-responsive">
+      <table class="table table-hover" id="lista">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Add vehicle to reservation</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let res of fastResList">
+                <th scope="row">{{ res.id }}</th>
+                <td> {{ res.startDate }} </td>
+                <td>{{ res.endDate }}</td>
+                <td>{{ res.discount }} %</td>
+                <td>
+                  <select class="form-control"  (change)="addVehicleToFast($event,res.id)">
+                    <option selected hidden></option>
+                    <option *ngFor="let v of vehicleList" [value]="v.id">  {{v.brand}} {{v.model}} </option>
+                </select>
+              </td>
+              </tr>
+            </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  

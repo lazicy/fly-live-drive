@@ -84,8 +84,15 @@ export class VehicleFormComponent implements OnInit {
             this.vehicleSubmit.emit(response);
             this.ngOnDestroy();
           },
-          (error) => alert(error)
-        )
+          (error) => {
+            if(error.status === 403){
+              swal("Error","Vehicle is reserved. You cant make any changes.","error")
+            }else{
+              alert(error)
+            }
+            
+          }
+          );
 
     }else{
       this.service.addVehicle(vehicle,this.id).subscribe(

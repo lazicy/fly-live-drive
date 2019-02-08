@@ -34,7 +34,6 @@ public class Vozilo {
 	@Column(name = "type", nullable = false)
 	String type;
 	
-	//price per day?
 	@Column(name = "price_per_day", nullable = false)
 	int pricePerDay;
 	
@@ -42,6 +41,17 @@ public class Vozilo {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Filijala filijala;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private FastResVehicle fastRes;
+	
+	public FastResVehicle getFastRes() {
+		return fastRes;
+	}
+
+	public void setFastRes(FastResVehicle fastRes) {
+		this.fastRes = fastRes;
+	}
+
 	@OneToOne(mappedBy = "vozilo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private VehicleReservation vehicleReservation;
 	

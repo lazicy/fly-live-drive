@@ -61,4 +61,12 @@ public class VoziloService {
 	public List<Vozilo> findAllByCityId(Long id){
 		return voziloRepo.findAllByCityId(id);
 	}
+	
+	public List<Vozilo> findAllFastRes(Long id){
+		return voziloRepo.findAllFastRes(id);
+	}
+	
+	public List<Vozilo> findFast(Date start, Date end){
+		return voziloRepo.findFast(start, end);
+	}
 }

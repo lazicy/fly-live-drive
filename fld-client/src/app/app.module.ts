@@ -73,6 +73,9 @@ import { FirstLogComponent } from './home/first-log/first-log.component';
 import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres.component';
 import { SeatsSelectComponent } from './avio/avio-reservation/seats-select/seats-select.component';
 import { GlobalReservationOverviewComponent } from './global-reservation/global-reservation-overview/global-reservation-overview.component';
+import { FastVehicleService } from './services/fastvehicle.service';
+import { FastResComponent } from './rent/fast-res/fast-res.component';
+import { FastResVehicleComponent } from './rent/fast-res/fast-res-vehicle/fast-res-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +132,9 @@ import { GlobalReservationOverviewComponent } from './global-reservation/global-
     FirstLogComponent,
     AddFastresComponent,
     SeatsSelectComponent,
-    GlobalReservationOverviewComponent
+    GlobalReservationOverviewComponent,
+    FastResVehicleComponent,
+    FastResComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +145,7 @@ import { GlobalReservationOverviewComponent } from './global-reservation/global-
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService, ReservationFlightService, BonusPointsService,
+  providers: [AvioService, FlightService, HotelService, UserService, RentService, AuthService, DataService, CountryService, UtilService, ReservationFlightService, BonusPointsService, FastVehicleService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
              //{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

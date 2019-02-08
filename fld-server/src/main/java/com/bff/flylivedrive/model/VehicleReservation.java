@@ -48,6 +48,9 @@ public class VehicleReservation {
 	@OneToOne
 	Vozilo vozilo;
 	
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	private GlobalReservation globalReservation;
+	
 	public VehicleReservation() {
 		
 	}
