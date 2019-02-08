@@ -30,6 +30,7 @@ export class HotelAdminComponent implements OnInit {
   showFast: boolean = false;
   showRooms: boolean = false;
   showCharts: boolean = false;
+  showAddFastDialog: boolean = false;
 
   cityValid: boolean = true;
 
@@ -302,6 +303,18 @@ export class HotelAdminComponent implements OnInit {
 
   onToggleFast() {
     this.showFast = !this.showFast;
+  }
+
+  onNewFast() {
+    this.showAddFastDialog = true;
+  }
+
+  onCloseAddFast() {
+    this.showAddFastDialog = false;
+  }
+
+  fastSubmit(fastrez) {
+
   }
 
   // getters for the form validation

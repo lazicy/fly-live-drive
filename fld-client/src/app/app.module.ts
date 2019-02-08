@@ -16,7 +16,6 @@ import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component
 import { LoadingDirective } from './directives/loading.directive';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelService } from './services/hotel.service';
-import { HotelListComponent } from './hotel/hotel-list/hotel-list.component';
 import { HotelPageComponent } from './hotel/hotel-page/hotel-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -82,9 +81,6 @@ import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres
     AvioProfileComponent,
     LoadingDirective,
     HotelComponent,
-    HotelListComponent,
-    HotelComponent,
-    HotelListComponent,
     HotelPageComponent,
     LoginComponent,
     SignUpComponent,

@@ -1,0 +1,17 @@
+.msgError {
+    color: red;
+    font-size: 13px;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+.tabela {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.uslug {
+    margin-left: 5%;
+}
