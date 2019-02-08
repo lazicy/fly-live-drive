@@ -13,6 +13,15 @@ export class ReservationFlightService {
 
   saveFlightReservation(flightReservation) {
     return this.http.post("/api/flightreservation", flightReservation);
-}
+  }
+
+  getFlightReservation(id) {
+    return this.http.get("/api/flightreservation/" + id);
+  }
+
+  getGlobalReservation(id) {
+    return this.http.get("/api/globalreservation/" + id);
+    
+  }
 
 }

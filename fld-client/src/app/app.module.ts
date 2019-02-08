@@ -72,6 +72,7 @@ import { HomeComponent } from './home/home.component';
 import { FirstLogComponent } from './home/first-log/first-log.component';
 import { AddFastresComponent } from './hotel/hotel-admin/add-fastres/add-fastres.component';
 import { SeatsSelectComponent } from './avio/avio-reservation/seats-select/seats-select.component';
+import { GlobalReservationOverviewComponent } from './global-reservation/global-reservation-overview/global-reservation-overview.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { SeatsSelectComponent } from './avio/avio-reservation/seats-select/seats
     HomeComponent,
     FirstLogComponent,
     AddFastresComponent,
-    SeatsSelectComponent
+    SeatsSelectComponent,
+    GlobalReservationOverviewComponent
   ],
   imports: [
     BrowserModule,

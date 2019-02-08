@@ -36,11 +36,13 @@ import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.compon
 import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
 import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
 import { HomeComponent } from './home/home.component';
+import { GlobalReservationOverviewComponent } from './global-reservation/global-reservation-overview/global-reservation-overview.component';
 
 
 const appRoutes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full'},
 	{ path: 'home', component: HomeComponent },
+	{ path: 'globalreservation/:id', component: GlobalReservationOverviewComponent},
 	{ path: 'avio', component: AvioComponent, children: [
 		{ path: '', component: AvioHomepageComponent},
 		{ path: 'admin', component: AvioAdminComponent, children: [

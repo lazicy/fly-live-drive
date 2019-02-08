@@ -18,3 +18,28 @@
     color: rgb(0, 100, 194);
     text-decoration: underline;
 }
+
+
+.res-final-info {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+}
+
+.price {
+    font-size: 30px;
+}
+
+.btn-res {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.selected-seats {
+    font-size: 22px;
+}
+
+.bold {
+    font-weight: 600;
+}

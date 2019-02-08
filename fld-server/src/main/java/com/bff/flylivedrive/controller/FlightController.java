@@ -87,8 +87,7 @@ public class FlightController {
 		
 		List<SeatDTO> seatsDTO = new ArrayList<>();
 		
-		System.out.println("Seats: " + flight.getSeats().size());
-		
+	
 		for (Seat s: flight.getSeats()) {
 			seatsDTO.add(new SeatDTO(s));
 		}

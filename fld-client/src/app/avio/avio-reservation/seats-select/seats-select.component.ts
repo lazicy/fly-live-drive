@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 import { FlightService } from 'src/app/services/flight.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-seats-select',
@@ -18,12 +19,14 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 	// indikator poredjenja sa check requestom, inicijalno true
 	allValid = true;
 	allTaken = false;
+	onlyNow = false;
+	exitFromReservation = false;
 
 	selected = [];
 	
 	@Output() seatsConfirm = new EventEmitter();
 
-	constructor(private flightService: FlightService) { }
+	constructor(private flightService: FlightService, private route: ActivatedRoute, private router: Router) { }
 
 	ngOnInit() {
 
@@ -35,7 +38,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 			this.flightService.getFlightSeats(this.fId).subscribe(
 				(data) => {
 					this.seats = data;
-					this.fillEmptyPlaces();
+					//this.fillEmptyPlaces();
 					console.log(this.seats);
 				}, (error) => {
 					console.log(error);
@@ -69,6 +72,10 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 	onReserveSeat(i) {
 		
 		if (!this.seats[i].selected && this.selectedSeats.length >= this.numberOfPeople) {
+			return;
+		}
+
+		if (this.seats[i].reserved) {
 			return;
 		}
 
@@ -112,7 +119,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 
 		// assign to a new seats list
 		this.seats = this.seatsCheck;
-		this.fillEmptyPlaces();
+		this.selectedSeats = [];
 
 		console.log("selected: ");
 		console.log(this.selected);
@@ -124,6 +131,7 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 			} else {
 				console.log("asign to true");
 				this.seats[index].selected = true;
+				this.selectedSeats.push(this.seats[index]);
 			}
 		}
 
@@ -144,7 +152,8 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 
 		if (this.allTaken) {
 			{swal ( "We are sorry!" ,  "During your slecting, somebody else took your seats or they've been deleted, and all the seats are reserved on this flight. 😞" );}
-			this.seatsConfirm.emit("-1");
+			
+			this.exitFromReservation = true;
 			this.ngOnDestroy();
 
 			
@@ -152,9 +161,12 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 
 		if(!this.allValid) {
 			{swal ( "Please take other seats!" ,  "During your slecting, somebody else took your seats or it's been deleted, what a bummer! Please select other seats." );}
+			return;
 		}
 
+		
 		this.seatsConfirm.emit(this.selectedSeats);
+		this.onlyNow = true;
 		this.ngOnDestroy();
 
 
@@ -173,6 +185,14 @@ export class SeatsSelectComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		
+		if(!this.onlyNow) {
+			if(this.exitFromReservation) {
+				this.seatsConfirm.emit("-1");
+			} else {
+				this.seatsConfirm.emit([]);
+			}
+		}
 		this.seatsConfirm.unsubscribe();
 	}
 

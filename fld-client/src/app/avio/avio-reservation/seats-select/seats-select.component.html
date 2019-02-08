@@ -16,8 +16,11 @@
 		<div class="s-body">
 
 			<div class="seat" *ngFor="let s of seats; let i = index" 
-			 [ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D', 's-invisible-seat': s.place === 'X',
-							'seat-free': !s.reserved, 'seat-selected': s.selected === true }" (click)="onReserveSeat(i)"
+			 [ngClass] = "{'s-margin-right': s.place === 'C',  's-margin-left': s.place === 'D',
+							'seat-free': !s.reserved, 
+							'seat-reserved': s.reserved, 
+							'seat-selected': s.selected === true }"
+			(click)="onReserveSeat(i)"
 			>
 
 				<span  class="seat-text">{{ s.row }}{{ s.place }}</span>

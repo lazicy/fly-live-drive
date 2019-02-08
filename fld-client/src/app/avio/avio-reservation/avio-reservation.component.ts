@@ -34,12 +34,21 @@ export class AvioReservationComponent implements OnInit, OnDestroy {
 	// ako je sve spremno za rezervaciju
 	allSet: boolean = false;
 
-	
+	totalPrice = 0;
 
+	typeOfTrip: string;
+
+	res = null;
 
 
 	constructor(private resFService: ReservationFlightService, private flightService: FlightService, 
 		private route: ActivatedRoute, private router: Router, private authService: AuthService, private userService: UserService) {
+
+		if (this.resFService.returnFlightId == -1) {
+			this.typeOfTrip = "one-way";
+		} else {
+			this.typeOfTrip = "round";
+		}
 		
 		this.flightService.getFlight(this.resFService.departureFlightId).subscribe(
 			(data) => {
@@ -50,17 +59,18 @@ export class AvioReservationComponent implements OnInit, OnDestroy {
 			}
 		);
 
-		console.log(this.resFService.returnFlightId);
+	
+		if (this.typeOfTrip === "round") {
 
-		
-		this.flightService.getFlight(this.resFService.returnFlightId).subscribe(
-			(data) => {
-				this.returnFlight = data;
-			}, (error) => {
-
-				console.log(error);
-			}
-		);
+			this.flightService.getFlight(this.resFService.returnFlightId).subscribe(
+				(data) => {
+					this.returnFlight = data;
+				}, (error) => {
+					
+					console.log(error);
+				}
+			);
+		}
 	}
 
 	ngOnInit() {
@@ -188,19 +198,33 @@ export class AvioReservationComponent implements OnInit, OnDestroy {
 
 		let nOp = this.flightResForm.value.numberOfPeople;
 
-		console.log("nOp = " + nOp);
-		console.log("departureSeats.length = " + this.selectedDepartureSeats.length);
-		console.log("selectedReturnSeats.length = " + this.selectedReturnSeats.length);
-		
-	
-		if (this.selectedDepartureSeats.length === 3 && this.selectedReturnSeats.length === 3) {
-			this.allSet = true;
-			console.log("allSet?" + this.allSet);
+		if (this.returnFlight == null) {
+			if (this.selectedDepartureSeats.length == nOp) {
+				
+				console.log("SelectedDepartureSeats.length = " + this.selectedDepartureSeats.length);
+				this.allSet = true;
+			}
 		} else {
+			console.log("SelectedDepartureSeats.length = " + this.selectedDepartureSeats.length);
+			console.log("SelectedReturnSeats.length = " + this.selectedReturnSeats.length);
 			
-			console.log("allSet?" + this.allSet);
+
+			if (this.selectedDepartureSeats.length == nOp && this.selectedReturnSeats.length == nOp) {
+				this.allSet = true;
+			}
+
 		}
 
+		if (this.returnFlight == null) {
+			this.totalPrice = this.departureFlight.price * this.flightResForm.value.numberOfPeople;
+		} else {
+			this.totalPrice = this.flightResForm.value.numberOfPeople*(this.departureFlight.price + this.returnFlight.price);
+		}
+
+		
+		console.log("allSet?" + this.allSet);
+
+	
 	
 
 	}
@@ -217,29 +241,50 @@ export class AvioReservationComponent implements OnInit, OnDestroy {
 	onSubmitReservation() {
 		const tod = new Date();
 		const today = tod.toISOString().split('T')[0];
-		const totalPrice =  this.flightResForm.value.numberOfPeople*(this.departureFlight.price + this.returnFlight.price);
-
-		console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		const totalPrice = 0;
+		
+		
 		let fr = {
-			tripType: "round",
+			tripType: this.typeOfTrip,
 			reservationDate: today,
 			departureFlightId: this.departureFlight.id,
-			returnFlightId: this.returnFlight.id,
+			returnFlightId: -1,
 			username: this.loggedUser.username,
-			totalPrice: totalPrice,
+			totalPrice: this.totalPrice,
 			departureSeatsDTO: this.selectedDepartureSeats,
-			returnSeatsDTO: this.selectedReturnSeats,
+			returnSeatsDTO: [],
 			passengers: this.others
 		}
 
-		this.resFService.saveFlightReservation(fr).subscribe(
-			data => {
-				swal({title: "Success!", text: "Reserved!", icon: "success", timer: 1500});
-			}, error => {
-				(error) => {swal ( "Error occured" ,  "Reservation failed." ,  "error" );}
+		
+		if (this.typeOfTrip === "round") {
+			fr.returnFlightId = this.returnFlight.id;
+			fr.returnSeatsDTO = this.selectedReturnSeats;
+		} 
+
+		if (this.allSet) {
+
+			this.resFService.saveFlightReservation(fr).subscribe(
+				data => {
+					this.res = data;
+					let bonus = this.res.bonusPointsEarned;
+
+					if (bonus > 0) {
+						swal({title: "Congrats!", text: " Your flights are booked and you have earned " + bonus + " bonus points!", icon: "success", timer: 1500});
+					} else {
+						swal({title: "Congrats!", text: " Your flights are booked!", icon: "success", timer: 1500});
+					}
+
+					
+					this.router.navigate(['globalreservation', this.res.globalReservationId] );
+
+				}, error => {
+					{swal ( "Please check other seats!" ,  "It seems that the seats you choosed, someone got before you. 😔 Please try again." );}
+				}
+				);
+				
 			}
-		);
-
+		}
+			
 	}
-
-}
+		

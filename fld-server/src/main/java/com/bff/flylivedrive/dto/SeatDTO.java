@@ -20,6 +20,7 @@ public class SeatDTO {
 	public SeatDTO(Long id, boolean reserved, int row, String place) {
 		super();
 		this.id = id;
+		this.reserved = reserved;
 		this.row = row;
 		this.place = place;
 	}

@@ -56,14 +56,14 @@ public class Flight {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Avio avio;
 	
-	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Seat> seats = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "departureFlight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Flight> departureFlight = new ArrayList<>();
+	private List<FlightReservation> departureReservations = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "returnFlight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Flight> returnFlight = new ArrayList<>();
+	private List<FlightReservation> returnReservations = new ArrayList<>();
 
 
 	public int getTotalDuration() {

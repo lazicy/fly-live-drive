@@ -76,7 +76,7 @@
 }
 
 .seat-reserved {
-    background: rgba(192, 62, 2, 0.589);
+    background: rgba(240, 58, 3, 0.589);
     cursor: default;
     transition: all .4s;
 }

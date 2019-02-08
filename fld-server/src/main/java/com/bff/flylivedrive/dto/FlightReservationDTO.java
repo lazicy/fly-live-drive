@@ -30,6 +30,10 @@ public class FlightReservationDTO {
 	private List<SeatDTO> returnSeatsDTO;
 	
 	public ArrayList<Passenger> passengers;
+	
+	private int bonusPointsEarned; 
+	
+	private Long globalReservationId;
 
 	public FlightReservationDTO() {
 		
@@ -37,18 +41,18 @@ public class FlightReservationDTO {
 	
 	public FlightReservationDTO(FlightReservation fr) {
 		this(fr.getId(), fr.getTripType(), fr.getReservationDate(), fr.getDepartureFlight().getId(), fr.getReturnFlight().getId(),
-				fr.getUsername(), fr.getTotalPrice());
+				fr.getUsername(), fr.getTotalPrice(), fr.getGlobalReservation().getId());
 		
 		
 	}
 	
 	public FlightReservationDTO(FlightReservation fr, Long id) {
 		this(fr.getId(), fr.getTripType(), fr.getReservationDate(), fr.getDepartureFlight().getId(), id,
-				fr.getUsername(), fr.getTotalPrice());
+				fr.getUsername(), fr.getTotalPrice(), fr.getGlobalReservation().getId());
 	}
 	
 	public FlightReservationDTO(Long id, String tripType, Date reservationDate, Long departureFlightId,
-			Long returnFlightId, String username, double totalPrice) {
+			Long returnFlightId, String username, double totalPrice, Long globalReservationId) {
 		super();
 		this.id = id;
 		this.tripType = tripType;
@@ -57,6 +61,7 @@ public class FlightReservationDTO {
 		this.returnFlightId = returnFlightId;
 		this.username = username;
 		this.totalPrice = totalPrice;
+		this.globalReservationId = globalReservationId;
 	}
 
 
@@ -141,6 +146,22 @@ public class FlightReservationDTO {
 
 	public void setReturnSeatsDTO(List<SeatDTO> returnSeatsDTO) {
 		this.returnSeatsDTO = returnSeatsDTO;
+	}
+
+	public int getBonusPointsEarned() {
+		return bonusPointsEarned;
+	}
+
+	public void setBonusPointsEarned(int bonusPointsEarned) {
+		this.bonusPointsEarned = bonusPointsEarned;
+	}
+
+	public Long getGlobalReservationId() {
+		return globalReservationId;
+	}
+
+	public void setGlobalReservationId(Long globalReservationId) {
+		this.globalReservationId = globalReservationId;
 	}
 	
 	

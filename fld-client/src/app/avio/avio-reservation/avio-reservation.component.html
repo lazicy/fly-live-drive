@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmitReservation()" [formGroup]="flightResForm">
-<h3>Departing flight information</h3>
+<h3 class="mt-5 bold">Departing flight information</h3>
 <hr>
 <app-flightlist-search *ngIf="departureFlight" [flight]="departureFlight"></app-flightlist-search>
 
@@ -51,38 +51,41 @@
 
 
 <!-- RETURNING FLIGHT INFO  -->
-<h3 class="mt-5">Return flight information</h3>
-<hr>
-<app-flightlist-search *ngIf="returnFlight" [flight]="returnFlight"></app-flightlist-search>
+<div *ngIf="typeOfTrip === 'round'">
 
-
-<div class="row mt-5">
-
-    <!-- PICK LINK -->
-    <div class="col-5">
-        <span   class="pick-seats-link"
-                (click)="onSelectReturnSeats()">Pick your seats for <span class="bold">returning</span> flight <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    <h3 class="mt-5 bold">Return flight information</h3>
+    <hr>
+    <app-flightlist-search *ngIf="returnFlight" [flight]="returnFlight"></app-flightlist-search>
+    
+    
+    <div class="row mt-5">
+        
+        <!-- PICK LINK -->
+        <div class="col-5">
+            <span   class="pick-seats-link"
+            (click)="onSelectReturnSeats()">Pick your seats for <span class="bold">returning</span> flight <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </span>
-
+        
     </div>
-
+    
     <div class="col-4">
         <div class="selected-seats" *ngIf="selectedReturnSeats.length == flightResForm.value.numberOfPeople ">
             Selected seats:
-            <span class="one-seat" *ngFor="let selRetSeat of selectedReturnSeats"> {{selRetSeat.row}}{{selRetSeat.place}}</span>
+            <span class="bold one-seat" *ngFor="let selRetSeat of selectedReturnSeats"> {{selRetSeat.row}}{{selRetSeat.place}}</span>
         </div>
         <div *ngIf>Please select {{flightResForm.value.numberOfPeople}} seats!</div>
     </div>
-
-
+    
+    
 </div>
 
 <br>
 <hr>
 
+</div>
 
 
-<div *ngIf="loggedUser" class="logged-user" >
+<div *ngIf="loggedUser" class="logged-user mt-5" >
     
         <h5>Your information</h5>
         
@@ -115,11 +118,11 @@
 <!-- TO BE DESIGNED -->
 <div class="res-final-info">
     
-    <!-- Total price: <span class="bold"> {{ flightResForm.value.numberOfPeople*(departureFlight.price + returnFlight.price) }}</span> -->
+    <span class="price" *ngIf="totalPrice > 0">Total price: <span class="bold">{{ totalPrice }}€</span> </span>
 
-    <br>
+    <hr>
 
-    <button type="submit" class="btn btn-success">Reserve fligh</button>
+    <button type="submit" class="btn btn-success btn-res" [disabled]="!this.flightResForm.valid">Reserve flight</button>
 
 
 
@@ -147,17 +150,17 @@
 
 <!-- SEATS RETURN COMPONENT MODAL -->
 <div class="form-modal" *ngIf="showReturnSeats">
-        <div class="modal-content seats-modal">
-            <div class="modal-body">
-                <button type="button" class="close" (click)="onCloseReturnSeats()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            <app-seats-select fId="{{ returnFlight.id }}" 
-            [numberOfPeople]="this.flightResForm.value.numberOfPeople"
-             (seatsConfirm)="onSeatsReturnConfirm($event)"></app-seats-select>
-            </div>
+    <div class="modal-content seats-modal">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="onCloseReturnSeats()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        <app-seats-select fId="{{ returnFlight.id }}" 
+        [numberOfPeople]="this.flightResForm.value.numberOfPeople"
+            (seatsConfirm)="onSeatsReturnConfirm($event)"></app-seats-select>
         </div>
-        </div>
+    </div>
+    </div>
         
 
 

@@ -15,7 +15,7 @@ public class Seat {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private boolean reserved = false;
+	private boolean reserved;
 	
 	private int row;
 	
@@ -29,7 +29,7 @@ public class Seat {
 	private FlightReservation reservationDeparture;
 	
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
 	private FlightReservation reservationReturn;
 
 	public Long getId() {
@@ -70,6 +70,22 @@ public class Seat {
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+
+	public FlightReservation getReservationDeparture() {
+		return reservationDeparture;
+	}
+
+	public void setReservationDeparture(FlightReservation reservationDeparture) {
+		this.reservationDeparture = reservationDeparture;
+	}
+
+	public FlightReservation getReservationReturn() {
+		return reservationReturn;
+	}
+
+	public void setReservationReturn(FlightReservation reservationReturn) {
+		this.reservationReturn = reservationReturn;
 	}
 
 	

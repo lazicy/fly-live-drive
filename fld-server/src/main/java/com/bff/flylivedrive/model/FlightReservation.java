@@ -11,8 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class FlightReservation {
@@ -44,6 +46,9 @@ public class FlightReservation {
 	@OneToMany(mappedBy = "reservationReturn", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Seat> returnSeats = new ArrayList<>();
 
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	private GlobalReservation globalReservation;
 	
 	public Long getId() {
 		return id;
@@ -117,6 +122,16 @@ public class FlightReservation {
 	public void setReturnSeats(List<Seat> returnSeats) {
 		this.returnSeats = returnSeats;
 	}
+
+	public GlobalReservation getGlobalReservation() {
+		return globalReservation;
+	}
+
+	public void setGlobalReservation(GlobalReservation globalReservation) {
+		this.globalReservation = globalReservation;
+	}
+	
+	
 	
 	
 	
