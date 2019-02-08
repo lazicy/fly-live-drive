@@ -46,30 +46,30 @@ export class AddFastresComponent implements OnInit {
   }
 
   onSubmitRoom(form: NgForm) {
-    let razlika = form.value.end - form.value.start;
-    if(razlika <= 2 && razlika >= 0) {
-      this.showErrorMsg = false;
-      let room = {
-        name: form.value.name,
-        beds: form.value.beds,
-        people_capacity: form.value.people,
-        price: form.value.price,
-        floor: form.value.floor,
-        balcony: form.value.balcony
-      }
+    // let razlika = form.value.end - form.value.start;
+    // if(razlika <= 2 && razlika >= 0) {
+    //   this.showErrorMsg = false;
+    //   let room = {
+    //     name: form.value.name,
+    //     beds: form.value.beds,
+    //     people_capacity: form.value.people,
+    //     price: form.value.price,
+    //     floor: form.value.floor,
+    //     balcony: form.value.balcony
+    //   }
   
-      this.hotelService.saveHotelRoom(room, this.hotelId).subscribe(
-        (response) => {
-          this.roomSubmit.emit(response);
-          swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
-          form.reset();
-          this.ngOnDestroy();
-        },
-        (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
-      );
-    } else {
-      this.showErrorMsg = true;
-    }
+    //   this.hotelService.saveHotelRoom(room, this.hotelId).subscribe(
+    //     (response) => {
+    //       this.roomSubmit.emit(response);
+    //       swal({title: "Success!", text: "Room added", icon: "success", timer: 1500});
+    //       form.reset();
+    //       this.ngOnDestroy();
+    //     },
+    //     (error) => {swal ( "Error occured" ,  "The room was not added." ,  "error" );}
+    //   );
+    // } else {
+    //   this.showErrorMsg = true;
+    // }
   }
 
   onKeydown(e) {

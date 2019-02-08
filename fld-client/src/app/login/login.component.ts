@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
     this.service.login(user).subscribe(
       (success) => {
-        this.router.navigate(['/test']);
+        this.router.navigate(['/home']);
       },
       (error) => {
         if(error.status === 500){
