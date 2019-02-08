@@ -63,6 +63,9 @@ public class User implements UserDetails{
 	@Column(name = "active", nullable = false)
 	private boolean active = false; //inicijalno je uvek false prilikom registracije, menja se nakon potvrde mejlom
 	
+	@Column(name="firstLog", nullable = false)
+	private boolean firstLog = false;
+	
 	@Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 	
@@ -203,6 +206,22 @@ public class User implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public boolean isFirstLog() {
+		return firstLog;
+	}
+
+	public void setFirstLog(boolean firstLog) {
+		this.firstLog = firstLog;
+	}
+
+	public Set<VehicleReservation> getVehicleReservations() {
+		return vehicleReservations;
+	}
+
+	public void setVehicleReservations(Set<VehicleReservation> vehicleReservations) {
+		this.vehicleReservations = vehicleReservations;
 	}
 
 	@Override

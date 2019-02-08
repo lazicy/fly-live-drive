@@ -91,4 +91,8 @@ export class HotelPageComponent implements OnInit {
       this.ShowText = "Show more"
     }
   }
+
+  onBookRoom(rid) {
+    this.router.navigate(['hotel/' + this.id + '/book/' + rid]);
+  }
 }

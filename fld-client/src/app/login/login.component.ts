@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service: AuthService, private router: Router) { }
+  constructor(private service: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
           swal("Error","Wrong username or password.","error");
         }
       }
-    )
-    form.reset();
+    );
   }
 
 }

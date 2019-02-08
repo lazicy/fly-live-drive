@@ -15,13 +15,15 @@ public class UserDTO {
 	private String city;
 	private int bonus_points;
 	private boolean active;
+	private boolean firstLog;
+
 	private List<Authority> authorities;
 	
 	public UserDTO() {
 		
 	}
 	
-	public UserDTO(String username, String password, String firstname, String lastname, String email, String city, int bonus_points, boolean active, List<Authority> auth) {
+	public UserDTO(String username, String password, String firstname, String lastname, String email, String city, int bonus_points, boolean active, boolean firstLog, List<Authority> auth) {
 		super();
 		this.username = username;
 		this.setPassword(password);
@@ -31,13 +33,14 @@ public class UserDTO {
 		this.setCity(city);
 		this.bonus_points = bonus_points;
 		this.active = active;
+		this.firstLog = firstLog;
 		this.authorities = auth;
 	}
 
 
 	// konverzija iz modela u DTO
 	public UserDTO(User user) {
-		this(user.getUsername(),user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.getBonus_points(), user.isActive(), (List<Authority>) user.getAuthorities());
+		this(user.getUsername(),user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getCity(), user.getBonus_points(), user.isActive(), user.isFirstLog(), (List<Authority>) user.getAuthorities());
 	}
 	
 	public String getUsername() {
@@ -67,6 +70,13 @@ public class UserDTO {
 
 	public String getPassword() {
 		return password;
+	}
+	public boolean isFirstLog() {
+		return firstLog;
+	}
+
+	public void setFirstLog(boolean firstLog) {
+		this.firstLog = firstLog;
 	}
 
 	public void setPassword(String password) {

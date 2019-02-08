@@ -102,6 +102,29 @@ public class UserController {
 			return "SYS_ADMIN";
 		}
 		return "USER";
+	}
+	
+	@RequestMapping(value = "/getFirstLog/{username}",method = RequestMethod.GET)
+	public int getFirstLog(@PathVariable("username") String username) {
+		User u = userService.findOneByUsername(username);
+		if(u.isFirstLog()) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	@RequestMapping(value = "/changePass",method = RequestMethod.POST, consumes="application/json")
+	public boolean changePass(@RequestBody UserDTO usr) {
+		User u = userService.findOneByUsername(usr.getUsername());
+		if(u == null) {
+			return false;
+		}
+		
+		u.setPassword(passwordEncoder.encode(usr.getPassword()));
+		u.setFirstLog(false);
+		u = userService.save(u);
+		
+		return true;
 	}	
 	
 	//prilikom sign-up se uvek kreira korisnik tipa User
@@ -116,6 +139,7 @@ public class UserController {
 		user.setEmail(userDTO.getEmail());
 		user.setCity(userDTO.getCity());
 		user.setBonus_points(0);
+		user.setFirstLog(false);
 		Authority a = new Authority();
 		a.setId((long) 5);
 		a.setName("USER");
@@ -177,6 +201,7 @@ public class UserController {
 		user.setEmail(userDTO.getEmail());
 		user.setCity(userDTO.getCity());
 		user.setBonus_points(0);
+		user.setFirstLog(true);
 		
 		List<Authority> al = new ArrayList<Authority>();
 		al.add(a);

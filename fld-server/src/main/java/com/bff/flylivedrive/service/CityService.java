@@ -29,4 +29,12 @@ public class CityService {
 	public City findOneByName(String name){
 		return cityRepo.findOneByName(name);
 	}
+	
+	public List<City> findByName(String name) {
+		return cityRepo.findByName(name);
+	}
+	
+	public List<City> findByNameContainingIgnoreCase(String name) {
+		return cityRepo.findByNameContainingIgnoreCase(name);
+	}
 }

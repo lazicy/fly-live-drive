@@ -98,10 +98,10 @@ div[class*="col-"] {
 
 /* KOD ZA SEARCHBAR */
 .srcbar > input:not(:last-child), select:not(:last-child) {
-    border-left-color: transparent;
+    border-left: none;
 }
 .srcbar > input:not(:first-child), select:not(:first-child) {
-    border-right-color: transparent;
+    border-right: none;
 }
 select {
     border-left: 0px transparent;
@@ -129,14 +129,9 @@ select {
     width: 180px;
     padding: 9px;
 }
-.soba, .br-gostiju {  /* class za select tag */
+.br-gostiju {  /* class za select tag */
     width: 100px;
-    padding-bottom: 11px;
-}
-.soba {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
+} 
     /* MODAL WINDOW */
 .form-modal {
     

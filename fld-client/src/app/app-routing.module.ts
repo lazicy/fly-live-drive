@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AvioComponent } from './avio/avio.component';
-import { TestComponent } from './test/test.component';
 import { AviolistComponent } from './avio/aviolist/aviolist.component';
 import { AvioProfileComponent } from './avio/avio-profile/avio-profile.component';
 import { HotelComponent } from './hotel/hotel.component';
@@ -37,11 +36,12 @@ import { VehicleSearchComponent } from './rent/vehicle-list/vehicle-search/vehic
 import { AvioHomepageComponent } from './avio/avio-homepage/avio-homepage.component';
 import { AvioReservationComponent } from './avio/avio-reservation/avio-reservation.component';
 import { HotelBookComponent } from './hotel/hotel-book/hotel-book.component';
+import { HomeComponent } from './home/home.component';
 
 
 const appRoutes: Routes = [
-	{ path: '', redirectTo: '/test', pathMatch: 'full'},
-	{ path: 'test', component: TestComponent },
+	{ path: '', redirectTo: '/home', pathMatch: 'full'},
+	{ path: 'home', component: HomeComponent },
 	{ path: 'avio', component: AvioComponent, children: [
 		{ path: '', component: AvioHomepageComponent},
 		{ path: 'admin', component: AvioAdminComponent, children: [
@@ -74,8 +74,8 @@ const appRoutes: Routes = [
 		{ path: '', component: HotelHomepageComponent},
 		{ path: 'list', component: HotelListComponent},
 		{ path: 'admin/:idH', component: HotelAdminComponent},
-		{ path: 'book/:idB', component: HotelBookComponent},
-		{ path: ':id', component: HotelPageComponent}
+		{ path: ':idh/book/:rid', component: HotelBookComponent},
+		{ path: ':id', component: HotelPageComponent},
 	]},
 	{path: 'login', component: LoginComponent},
 	{path:'signup', component: SignUpComponent},

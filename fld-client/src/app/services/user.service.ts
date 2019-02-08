@@ -25,5 +25,13 @@ export class UserService {
     getUserRole(){
         return this.http.get("/api/users/getUserRole", {responseType: 'text'});
     }
+    getFirstLog(username: string) {
+        return this.http.get("/api/users/getFirstLog/" + username);
+    }
+
+    changePass(user) {
+        return this.http.post("/api/users/changePass", user);
+    }
+
 }
 

@@ -1,0 +1,12 @@
+ <div class="container">
+    <div class="temp-ctrl">
+        <a routerLink="/systemadmin/">System administration</a>
+    </div>
+    <div class="form-modal" *ngIf="firstLog">
+        <div class="modal-content">
+            <div class="modal-body">
+            <app-first-log usr={{usr}} (passSubmit)="passSubmitted($event)"></app-first-log>
+            </div>
+        </div>
+    </div>
+ </div>

@@ -27,6 +27,7 @@ export class HotelAdminComponent implements OnInit {
   showUpdateServiceDialog: boolean = false;
   showNewRoomDialog: boolean = false;
   showUpdateRoomDialog: boolean = false;
+  showFast: boolean = false;
   showRooms: boolean = false;
   showCharts: boolean = false;
 
@@ -297,6 +298,10 @@ export class HotelAdminComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onToggleFast() {
+    this.showFast = !this.showFast;
   }
 
   // getters for the form validation

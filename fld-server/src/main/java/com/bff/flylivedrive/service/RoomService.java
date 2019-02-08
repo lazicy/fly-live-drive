@@ -1,5 +1,7 @@
 package com.bff.flylivedrive.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class RoomService {
 	
 	public void remove(Long id) {
 		sobaRepo.deleteById(id);
+	}
+	
+	public List<Room> findByHotel(Long id) {
+		return sobaRepo.findByHotel(id);
 	}
 
 }

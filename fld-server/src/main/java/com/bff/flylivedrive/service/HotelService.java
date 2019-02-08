@@ -30,7 +30,15 @@ public class HotelService {
 		hotelRepo.deleteById(id);
 	}
 	
-	public List<Hotel> search(String name) {
-		return hotelRepo.searchHotels(name);
+	public List<Hotel> findByName(String name) {
+		return hotelRepo.findByName(name);
+	}
+	
+	public List<Hotel> findByCity(Long id) {
+		return hotelRepo.findByCity(id);
+	}
+	
+	public List<Hotel> findByNameContainingIgnoreCase(String name) {
+		return hotelRepo.findByNameContainingIgnoreCase(name);
 	}
 }

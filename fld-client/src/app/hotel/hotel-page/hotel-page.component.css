@@ -128,12 +128,6 @@ h5 {
 }
 
 .book {
-    float: right;
-    margin-right: 10px;
-    margin-top: 3px;
-}
-
-.bookBtn {
-    font-size: 22px;
+    padding: 2px 10px;
 }
 
