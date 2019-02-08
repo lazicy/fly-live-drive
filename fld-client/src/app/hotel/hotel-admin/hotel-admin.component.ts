@@ -290,8 +290,15 @@ export class HotelAdminComponent implements OnInit {
               let i = this.hotel.rooms.findIndex(room => room.id === idRoom);
               this.hotel.rooms.splice(i, 1);
               swal({title: "Success!", text: "Room deleted.", icon: "success", timer: 1500});
-          }, (error) =>  {swal ( "Error occured" ,  "The room was not deleted." ,  "error" );}
-          );
+          }, (error) =>  {
+            if (error.status === 409) {
+              swal ( "Cannot do that" ,  "There is a reservation of that room." ,  "warning" );
+            } else {
+              console.error(error);
+              swal ( "Error occured" ,  "The room was not deleted." ,  "error" );
+            }
+          }
+        );
       }
     });
   }

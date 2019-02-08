@@ -1,6 +1,7 @@
 package com.bff.flylivedrive.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +89,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<HotelDTO> saveHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		City c = cityService.findOneById(hotelDTO.getCityDTO().getId());
@@ -109,7 +110,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<Void> deleteHotel(@PathVariable Long id){
 		
 		Hotel hotel = hotelService.findOneById(id);
@@ -123,7 +124,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<HotelDTO> updateHotel(@RequestBody HotelDTO hotelDTO) {
 		
 		//checking if hotel exists
@@ -372,7 +373,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/service/{id}", method = RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<UslugaDTO> saveUsluga(@RequestBody UslugaDTO uslugaDTO, @PathVariable("id") Long id) {
 		Hotel h = hotelService.findOneById(id);
 		
@@ -396,7 +397,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/{idHot}/service/{idSer}", method=RequestMethod.DELETE)
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<Void> deleteService(@PathVariable("idHot") Long idHot, @PathVariable("idSer") Long idSer){
 		
 		Hotel hotel = hotelService.findOneById(idHot);
@@ -428,7 +429,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/service/{idSer}", method=RequestMethod.PUT, consumes="application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<UslugaDTO> updateHotelService(@RequestBody UslugaDTO uslugaDTO, @PathVariable("idSer") Long id) {
 		
 		Hotel h = hotelService.findOneById(id);
@@ -463,7 +464,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/room/{id}", method = RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<RoomDTO> saveRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
 		Hotel h = hotelService.findOneById(id);
 		
@@ -489,7 +490,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/room/{id}", method=RequestMethod.PUT, consumes="application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable("id") Long id) {
 		
 		Hotel h = hotelService.findOneById(id);
@@ -498,33 +499,51 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		Set<Room> rooms = h.getRooms();
-		Iterator<Room> itr = rooms.iterator();
+		Room r = roomService.findOneById(roomDTO.getId());
 		
+		Date danasnjiDatum = new Date();
+		
+		Set<HotelReservation> hotelres = r.getHotel_res();
+		Iterator<HotelReservation> itr = hotelres.iterator();
+		boolean rezUBuducnosti = false;
 		while (itr.hasNext())
 		{
-		    Room ro = itr.next();
-		    if (ro.getId().equals(roomDTO.getId())) {
-		    	ro.setName(roomDTO.getName());
-				ro.setBeds(roomDTO.getBeds());
-				ro.setFloor(roomDTO.getFloor());
-				ro.setPeople_capacity(roomDTO.getPeople_capacity());
-				ro.setPrice(roomDTO.getPrice());
-				ro.setBalcony(roomDTO.getBalcony());
-		        break;
-		    }
+			HotelReservation hr = itr.next();
+			if(hr.getDeparture_date().after(danasnjiDatum)) {
+				rezUBuducnosti = true;
+				break;
+			}
 		}
-		Room r = roomService.findOneById(roomDTO.getId());
-		r.setName(roomDTO.getName());
-		r.setBeds(roomDTO.getBeds());
-		r.setFloor(roomDTO.getFloor());
-		r.setPeople_capacity(roomDTO.getPeople_capacity());
-		r.setPrice(roomDTO.getPrice());
-		r.setBalcony(roomDTO.getBalcony());
-		
-		r = roomService.save(r);
-		
-		return new ResponseEntity<RoomDTO>(new RoomDTO(r),HttpStatus.CREATED);
+		if(rezUBuducnosti) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		} else {
+			Set<Room> rooms = h.getRooms();
+			Iterator<Room> itrr = rooms.iterator();
+			
+			while (itrr.hasNext())
+			{
+			    Room ro = itrr.next();
+			    if (ro.getId().equals(roomDTO.getId())) {
+			    	ro.setName(roomDTO.getName());
+					ro.setBeds(roomDTO.getBeds());
+					ro.setFloor(roomDTO.getFloor());
+					ro.setPeople_capacity(roomDTO.getPeople_capacity());
+					ro.setPrice(roomDTO.getPrice());
+					ro.setBalcony(roomDTO.getBalcony());
+			        break;
+			    }
+			}
+			r.setName(roomDTO.getName());
+			r.setBeds(roomDTO.getBeds());
+			r.setFloor(roomDTO.getFloor());
+			r.setPeople_capacity(roomDTO.getPeople_capacity());
+			r.setPrice(roomDTO.getPrice());
+			r.setBalcony(roomDTO.getBalcony());
+			
+			r = roomService.save(r);
+			
+			return new ResponseEntity<RoomDTO>(new RoomDTO(r),HttpStatus.CREATED);
+		}
 	}
 	
 	//ALL hotel rooms
@@ -561,7 +580,7 @@ public class HotelController {
 	}
 		
 	@RequestMapping(value="/{idH}/room/{idR}", method=RequestMethod.DELETE)
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<Void> deleteRoom(@PathVariable("idH") Long idH, @PathVariable("idR") Long idR) {
 		
 		Hotel hotel = hotelService.findOneById(idH);
@@ -576,24 +595,43 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		roomService.remove(idR);
+		//proveri da li je rez;
 		
-		Set<Room> rooms = hotel.getRooms();
-		Iterator<Room> itr = rooms.iterator();
+		Date danasnjiDatum = new Date();
+		
+		Set<HotelReservation> hotelres = r.getHotel_res();
+		Iterator<HotelReservation> itr = hotelres.iterator();
+		boolean rezUBuducnosti = false;
 		while (itr.hasNext())
 		{
-		    Room ro = itr.next();
-		    if (ro.getId().equals(idR)) {
-		        itr.remove();
-		        break;
-		    }
+			HotelReservation hr = itr.next();
+			if(hr.getDeparture_date().after(danasnjiDatum)) {
+				rezUBuducnosti = true;
+				break;
+			}
 		}
-		
-		return new ResponseEntity<>(HttpStatus.OK);
+		if(rezUBuducnosti) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		} else {
+			roomService.remove(idR);
+			
+			Set<Room> rooms = hotel.getRooms();
+			Iterator<Room> itrr = rooms.iterator();
+			while (itrr.hasNext())
+			{
+			    Room ro = itrr.next();
+			    if (ro.getId().equals(idR)) {
+			        itrr.remove();
+			        break;
+			    }
+			}
+			
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 	}
 	
 	@RequestMapping(value="/addFastRes/{id}", method=RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<FastRoomDTO> addFastRes(@PathVariable("id") Long id, @RequestBody FastRoomDTO frDTO) {
 		Room r = roomService.findOneById(id);
 		if (r == null) {
@@ -632,7 +670,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/addFastResServices/{id}", method=RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('HOTEL_ADMIN')")
+	//@PreAuthorize("hasRole('HOTEL_ADMIN')")
 	public ResponseEntity<Void> addFastResServices(@PathVariable("id") Long id, @RequestBody List<UslugaDTO> usDTO) {
 		FastRoom fr = fastService.findOneById(id);
 		if(fr == null) {
@@ -711,7 +749,7 @@ public class HotelController {
 	
 	
 	@RequestMapping(value="/saveReservation/{id}/{username}", method=RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('User')")
+	//@PreAuthorize("hasRole('User')")
 	public ResponseEntity<HotelReservationDTO> saveHotelReservation(@PathVariable("id") Long id, @PathVariable("username") String username, @RequestBody HotelReservationDTO hDTO) {
 		
 		Room r = roomService.findOneById(id);
@@ -741,7 +779,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/addReservationServices/{id}", method=RequestMethod.POST, consumes = "application/json")
-	@PreAuthorize("hasRole('User')")
+	//@PreAuthorize("hasRole('User')")
 	public ResponseEntity<Void> addReservationServices(@PathVariable("id") Long id, @RequestBody List<UslugaDTO> usDTO) {
 		HotelReservation hr = hotelRezService.findOneById(id);
 		if(hr == null) {
