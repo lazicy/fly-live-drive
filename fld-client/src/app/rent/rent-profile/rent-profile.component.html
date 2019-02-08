@@ -62,7 +62,9 @@
               <i class="fa fa-arrow-right" aria-hidden="true" 
               [ngClass] = "{'fa-arrow-right':showVehicles === false,  'fa-arrow-down':showVehicles  === true }"></i> Vehicles</h5>
               <div class="table-responsive" *ngIf="showVehicles">
-                <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
+                <div *ngIf="!isAdmin">
+                    <button class="btn btn-outline-secondary" [routerLink]="['/rent/vehicles/',rent.id]" style="margin-top: 5px"><i class="fa fa-search"></i> Search deals</button>
+                </div>
                 <table class="table" *ngIf="!emptyVehicleList">
                   <tbody>
                     <tr *ngFor="let vh of vehicles">
@@ -92,14 +94,15 @@
                           <td> {{ v.frDTO.discount }} % </td>
                           <td>{{ v.frDTO.startDate }}</td>
                           <td> {{ v.frDTO.endDate }} </td>
-                          <td> <button class="btn btn-primary"> Reserve </button> </td>
-                      </tr>
+                          <div *ngIf="!isAdmin">
+                              <td><button class="btn btn-primary"> Reserve </button> </td>
+                          </div>
+                        </tr>
                     </tbody>
                   </table>
-                  <p *ngIf="emptyVehicleFastList">This Rent A Car service has no branches.</p>
+                  <p *ngIf="emptyVehicleFastList">This Rent A Car service has no vehicles on discount.</p>
                 </div>
             </div>
-<!-- 
         <div class="map" id="mapa" >
           <h5>Location</h5>
           <div *ngIf="map">
@@ -108,7 +111,7 @@
           <div *ngIf="!map">
             Google map location was not provided
           </div>
-      </div> -->
+      </div> 
     </div>
   </div>
 </div>

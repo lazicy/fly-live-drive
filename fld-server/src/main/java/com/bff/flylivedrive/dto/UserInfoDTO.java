@@ -10,6 +10,7 @@ public class UserInfoDTO {
 	private String city;
 	private String email;
 	private boolean active;
+	private GlobalReservationDTO globalDTO;
 	
 	public UserInfoDTO() {
 		
@@ -22,7 +23,7 @@ public class UserInfoDTO {
 	}
 	
 
-
+	
 	public UserInfoDTO(String username, String firstName, String lastName, String city, String email, boolean active) {
 		super();
 		this.username = username;
@@ -72,6 +73,14 @@ public class UserInfoDTO {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public GlobalReservationDTO getGlobalDTO() {
+		return globalDTO;
+	}
+
+	public void setGlobalDTO(GlobalReservationDTO globalDTO) {
+		this.globalDTO = globalDTO;
 	}
 	
 	

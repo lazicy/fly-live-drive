@@ -15,6 +15,7 @@ export class RentHomepageComponent implements OnInit {
   constructor(private service: RentService) { }
 
   ngOnInit() {
+
   }
 
   onSearch(){

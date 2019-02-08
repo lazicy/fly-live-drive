@@ -161,7 +161,7 @@ INSERT INTO `destination` (`id`,`avio_id`,`city_id`) VALUES (598,102,52);
 
 
 insert into rentacar (id,name,address,city_id,description) values (1,'Drive a lot','Bulevar Evrope',51,'Najbolji servis ikada');
-insert into rentacar (id,name,address,city_id,description) values (2,'Teraj bona','Bosanskog cevapa 10',54,'Bolji servis bona od ovog drugog');
+insert into rentacar (id,name,address,city_id,description) values (2,'Best rents','Spasoja Stejica 9',54,'Bolji servis bona od ovog drugog');
 
 insert into filijala (id,name,address,city_id,description,servis_id) values (22,'Teraj bona','Banjalucka 2',54,'Bolji servis bona od ovog drugog',2);
 

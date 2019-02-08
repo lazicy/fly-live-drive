@@ -193,7 +193,6 @@ public class FlightReservationController {
 
 		fr = flightResService.save(fr);
 		
-		
 		FlightReservationDTO frDTOret;
 		
 		if (tripType.equals("round")) {

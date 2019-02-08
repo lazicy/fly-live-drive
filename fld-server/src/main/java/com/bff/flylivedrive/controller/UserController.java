@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bff.flylivedrive.dto.GlobalReservationDTO;
 import com.bff.flylivedrive.dto.UserDTO;
 import com.bff.flylivedrive.dto.UserInfoDTO;
 import com.bff.flylivedrive.model.Authority;
@@ -75,6 +76,19 @@ public class UserController {
 		String username = tokenUtils.getUsernameFromToken(token);
 		System.out.println("Name: "+username);
 		return username;
+	}
+	
+	@RequestMapping(value = "/getUserDTO", method = RequestMethod.GET)
+	public ResponseEntity<UserInfoDTO> getUserDTO(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		String username = tokenUtils.getUsernameFromToken(token);
+		User u = userService.findOneByUsername(username);
+		if(u == null) {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}
+		UserInfoDTO userDTO = new UserInfoDTO(u);
+		userDTO.setGlobalDTO(new GlobalReservationDTO(u.getGlobalReservation()));
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getUserRole", method = RequestMethod.GET)

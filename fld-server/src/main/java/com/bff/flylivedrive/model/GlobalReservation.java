@@ -35,6 +35,9 @@ public class GlobalReservation {
 	@OneToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(nullable = true)
 	private User usera;
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(nullable = false)
+	private User user;
 	
 
 	public Long getId() {

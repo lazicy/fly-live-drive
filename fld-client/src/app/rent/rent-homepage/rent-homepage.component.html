@@ -7,7 +7,7 @@
           <input type="text"  (input)='rentName = $event.target.value' id="search" placeholder="Enter location or rent-a-car name" class="unos search">
       </div>
     </div>
-      <button class="btn btn-primary" style="margin-top:1%" (click)="onSearch()">Search services</button>
+      <button class="btn btn-primary" style="margin-top:1%" (click)="onSearch()" [disabled]="!rentName">Search services</button>
       <button class="btn btn-primary" style="margin-top:1%" (click)="onRefresh()">Refresh</button>
   </div>
     

@@ -5,6 +5,8 @@ import { CountryService } from 'src/app/services/country.service';
 import { formGroupNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { FlightService } from 'src/app/services/flight.service';
 
 
 @Component({
@@ -31,8 +33,11 @@ export class VehicleSearchComponent implements OnInit {
 
   v_temp: any;
   username: string;
+  userDTO: any;
+  flightDTO: any;
 
-  constructor(private countryService: CountryService, private rentService: RentService, private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private userService: UserService,private countryService: CountryService, private rentService: RentService, private route: ActivatedRoute,
+               private authService: AuthService,private flightService: FlightService) {
     this.route.params.subscribe(
       (params: Params)=>{
         this.id = +params['id'];
@@ -49,21 +54,28 @@ export class VehicleSearchComponent implements OnInit {
       },
       (error) => {alert("nije uzeo username")}
     )
+
+    this.userService.getUserInfoDTO().subscribe(
+      (data) => {
+        this.userDTO = data;
+      }
+    )
+
     this.initForm()
    }
 
   initForm(){
-    this.searchForm = new FormGroup({
-      "country": new FormControl(""),
-      "city": new FormControl(""),
-      "pickUpDate": new FormControl(""),
-      "dropOffDate": new FormControl(""),
-      "pickUpTime": new FormControl(""),
-      "dropOffTime": new FormControl(""),
-      "type": new FormControl(""),
-      "numberOfSeats": new FormControl(""),
-      "dropOff": new FormControl(""),
-    })
+      this.searchForm = new FormGroup({
+        "country": new FormControl(""),
+        "city": new FormControl(""),
+        "pickUpDate": new FormControl(""),
+        "dropOffDate": new FormControl(""),
+        "pickUpTime": new FormControl(""),
+        "dropOffTime": new FormControl(""),
+        "type": new FormControl(""),
+        "numberOfSeats": new FormControl(""),
+        "dropOff": new FormControl(""),
+      })
   }
 
   ngOnInit() {
@@ -136,9 +148,8 @@ export class VehicleSearchComponent implements OnInit {
             pickUpDate: new Date(this.searchForm.value.pickUpDate + " " + this.searchForm.value.pickUpTime),
             dropOffDate: new Date(this.searchForm.value.dropOffDate + " " + this.searchForm.value.dropOffTime),
             price: price,
-            city: filijala.cityDTO,
             username: this.username,
-            vozilo: this.v_temp,
+            voziloDTO: this.v_temp,
           }
   
         }else{
@@ -148,9 +159,8 @@ export class VehicleSearchComponent implements OnInit {
             pickUpDate: new Date(this.searchForm.value.pickUpDate + " " + this.searchForm.value.pickUpTime),
             dropOffDate: new Date(this.searchForm.value.dropOffDate + " " + this.searchForm.value.dropOffTime),
             price: price,
-            city: filijala.cityDTO,
             username: this.username,
-            vozilo: this.v_temp,
+            voziloDTO: this.v_temp,
           };
         }
       },

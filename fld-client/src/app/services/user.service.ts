@@ -37,5 +37,8 @@ export class UserService {
         return this.http.post("/api/users/changePass", user);
     }
 
+    getUserInfoDTO(){
+        return this.http.get('/api/users/getUserDTO');
+    }
 }
 
